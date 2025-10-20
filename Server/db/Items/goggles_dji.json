@@ -1,0 +1,54 @@
+{
+	"68f51bfb3e92385d1908db68": {
+		"itemTplToClone": "5b432be65acfc433000ed01f",
+		"parentId": "5448e5724bdc2ddf718b4568",
+		"handbookParentId": "5b47574386f77428ca22b331",
+		"overrideProperties": {
+			"ExaminedByDefault": true,
+			"Prefab": {
+				"path": "assets/content/items/goggles/dji_goggles.bundle",
+				"rcid": ""
+			},
+			"Height": 1,
+			"Width": 2,
+			"Weight": 0.542
+		},
+		"locales": {
+			"en": {
+				"name": "FPV Goggles",
+				"shortName": "Goggles",
+				"description": "A first-person view headset designed for remote piloting of drones. Provides a direct video feed from the onboard camera, giving the operator situational awareness and precise control. Common among hobbyists and field operators alike."
+			}
+		},
+		"clearClonedProps": false,
+		"addtoInventorySlots": [],
+		"addtoModSlots": false,
+		"modSlot": [],
+		"ModdableItemWhitelist": [],
+		"ModdableItemBlacklist": [],
+		"fleaPriceRoubles": 86984,
+		"handbookPriceRoubles": 29355,
+		"addtoTraders": true,
+		"traderId": "SKIER",
+		"traderItems": [
+			{
+				"unlimitedCount": false,
+				"stackObjectsCount": 1
+			}
+		],
+		"barterScheme": [
+			{
+				"count": 50493,
+				"_tpl": "ROUBLES"
+			}
+		],
+		"loyallevelitems": 3,
+		"addtoBots": false,
+		"addtostaticlootcontainer": false,
+		"StaticLootContainers": [],
+		"masteries": false,
+		"masterySections": [],
+		"addweaponpreset": false,
+		"weaponpresets": []
+	}
+}
