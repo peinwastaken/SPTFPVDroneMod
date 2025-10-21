@@ -43,6 +43,8 @@ namespace FPVDroneMod.Helpers
                 {
                     AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
                     clip.name = fileName;
+                    
+                    Plugin.Logger.LogInfo($"Loaded audio clip: {clip.name}");
 
                     return clip;
                 }
@@ -54,6 +56,8 @@ namespace FPVDroneMod.Helpers
         public static async void LoadSounds()
         {
             DroneAudioClip = await LoadAudioClip(SoundDirPath, "drone_sound_loop.wav");
+            
+            Plugin.Logger.LogInfo("Loaded sounds!");
         }
         
         public static void LoadAssets()
@@ -79,6 +83,8 @@ namespace FPVDroneMod.Helpers
             InstanceHelper.DroneHudCanvas = canvas;
             
             droneHud.SetActive(false);
+            
+            Plugin.Logger.LogInfo("Loaded assets!");
         }
     }
 }
