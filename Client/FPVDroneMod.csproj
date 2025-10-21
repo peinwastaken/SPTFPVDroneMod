@@ -30,25 +30,25 @@
 
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
-        <HintPath>..\dependencies\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+        <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
         <Private>False</Private>
       </Reference>
       <Reference Include="Comfort">
-        <HintPath>..\dependencies\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
+        <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
         <Private>False</Private>
       </Reference>
       <Reference Include="DissonanceVoip">
-        <HintPath>..\dependencies\EscapeFromTarkov_Data\Managed\DissonanceVoip.dll</HintPath>
+        <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\DissonanceVoip.dll</HintPath>
       </Reference>
       <Reference Include="spt-reflection">
-        <HintPath>..\dependencies\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
+        <HintPath>..\..\dependencies\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
         <Private>False</Private>
       </Reference>
       <Reference Include="Unity.TextMeshPro">
-        <HintPath>..\dependencies\EscapeFromTarkov_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UI">
-        <HintPath>..\dependencies\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
+        <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>
