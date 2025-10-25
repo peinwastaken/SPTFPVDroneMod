@@ -1,3 +1,4 @@
+using FPVDroneMod.Models;
 using UnityEngine;
 
 #if !UNITY_EDITOR
