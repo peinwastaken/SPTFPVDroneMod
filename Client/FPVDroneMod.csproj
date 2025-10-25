@@ -39,6 +39,7 @@
       </Reference>
       <Reference Include="DissonanceVoip">
         <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\DissonanceVoip.dll</HintPath>
+        <Private>False</Private>
       </Reference>
       <Reference Include="spt-reflection">
         <HintPath>..\..\dependencies\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
@@ -46,9 +47,11 @@
       </Reference>
       <Reference Include="Unity.TextMeshPro">
         <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        <Private>False</Private>
       </Reference>
       <Reference Include="UnityEngine.UI">
         <HintPath>..\..\dependencies\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
+        <Private>False</Private>
       </Reference>
     </ItemGroup>
 </Project>

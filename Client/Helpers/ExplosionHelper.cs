@@ -22,8 +22,11 @@ namespace FPVDroneMod.Helpers
 
     public class PlayerExplosionInfo
     {
+        public List<EBodyPart> ProcessedLimbs = [];
         public Dictionary<BodyPartCollider, float> BodyPartColliders = [];
-
+        
+        private List<EBodyPart> _fracturableLimbs = [EBodyPart.LeftArm, EBodyPart.RightArm, EBodyPart.LeftLeg, EBodyPart.RightLeg];
+        
         public EBodyPart GetClosestBodyPart()
         {
             EBodyPart bodyPart = EBodyPart.Chest;
@@ -32,6 +35,23 @@ namespace FPVDroneMod.Helpers
             foreach (KeyValuePair<BodyPartCollider, float> kvp in BodyPartColliders)
             {
                 if (kvp.Value < distance)
+                {
+                    bodyPart = kvp.Key.BodyPartType;
+                    distance = kvp.Value;
+                }
+            }
+
+            return bodyPart;
+        }
+        
+        public EBodyPart GetClosestFracturableBodyPart()
+        {
+            EBodyPart bodyPart = EBodyPart.Chest;
+            float distance = float.MaxValue;
+
+            foreach (KeyValuePair<BodyPartCollider, float> kvp in BodyPartColliders)
+            {
+                if (kvp.Value < distance && _fracturableLimbs.Contains(kvp.Key.BodyPartType))
                 {
                     bodyPart = kvp.Key.BodyPartType;
                     distance = kvp.Value;
@@ -50,7 +70,7 @@ namespace FPVDroneMod.Helpers
             
             Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
             
-            Collider[] overlapColliders = Physics.OverlapSphere(explosion.Position, explosion.MaxDistance, LayerMaskClass.PlayerMask);
+            Collider[] overlapColliders = Physics.OverlapSphere(explosion.Position, explosion.MaxDistance);
 
             // grab all colliders and players
             foreach (Collider collider in overlapColliders)
@@ -77,6 +97,8 @@ namespace FPVDroneMod.Helpers
                 }
             }
             
+            Plugin.Logger.LogInfo($"players in range: {affectedPlayers.Count}");
+            
             // apply screen effects to affected players
             foreach (KeyValuePair<Player, PlayerExplosionInfo> kvp in affectedPlayers)
             {
@@ -98,7 +120,7 @@ namespace FPVDroneMod.Helpers
 
                 if (Random.Range(0f, 1f) < explosion.FractureDelta * playerDistanceMultiplier)
                 {
-                    EBodyPart closestBodyPart = affectedPlayers[player].GetClosestBodyPart();
+                    EBodyPart closestBodyPart = affectedPlayers[player].GetClosestFracturableBodyPart();
 
                     player.ActiveHealthController.DoFracture(closestBodyPart);
                 }
@@ -109,7 +131,7 @@ namespace FPVDroneMod.Helpers
                     EBodyPartColliderType colliderType = collider.BodyPartColliderType;
 
                     float colliderDistance = Vector3.Distance(collider.transform.position, explosion.Position);
-                    float colliderDistanceMultiplier = Mathf.Clamp01(colliderDistance / explosion.MaxDistance);
+                    float colliderDistanceMultiplier = 1f - Mathf.Clamp01(colliderDistance / explosion.MaxDistance);
                     Vector3 directionFromExplosion = Vector3.Normalize(collider.transform.position - explosion.Position);
                     float finalDamage = explosion.Damage * colliderDistanceMultiplier;
                 
@@ -130,6 +152,8 @@ namespace FPVDroneMod.Helpers
                     };
 
                     player.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
+                    
+                    Plugin.Logger.LogInfo($"applied damage to: {player.name} | damage:{damageInfo.Damage}");
                 }
             }
         }
