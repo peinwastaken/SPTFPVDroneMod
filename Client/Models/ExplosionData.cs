@@ -6,7 +6,7 @@ namespace FPVDroneMod.Models
     {
         public Vector3 Position = Vector3.zero;
         public float MaxDistance = 5f;
-        public float Damage = 200f;
+        public float Damage = 140f;
         public string EffectName = "Grenade_new";
         public float FractureDelta = 0.6f;
         public float HeavyBleedDelta = 0.4f;

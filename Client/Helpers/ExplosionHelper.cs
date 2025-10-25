@@ -31,14 +31,17 @@ namespace FPVDroneMod.Helpers
                     affectedPlayers.Add(player, new PlayerExplosionData());
                 }
 
-                if (!affectedPlayers[player].BodyPartColliders.ContainsKey(bodyPartCollider))
+                PlayerExplosionData data = affectedPlayers[player];
+
+                if (!data.ProcessedLimbs.Contains(bodyPartCollider.BodyPartType) &&
+                    !data.BodyPartColliders.ContainsKey(bodyPartCollider))
                 {
                     affectedPlayers[player].BodyPartColliders.Add(
                         bodyPartCollider,
                         Vector3.Distance(bodyPartCollider.transform.position, explosion.Position)
                     );
                     
-                    Plugin.Logger.LogInfo($"collider count for player {player.name}: {affectedPlayers[player].BodyPartColliders.Count}");
+                    affectedPlayers[player].ProcessedLimbs.Add(bodyPartCollider.BodyPartType);
                 }
             }
             
@@ -75,10 +78,13 @@ namespace FPVDroneMod.Helpers
                     EBodyPart bodyPart = collider.BodyPartType;
                     EBodyPartColliderType colliderType = collider.BodyPartColliderType;
 
+                    bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+                    if (!isVisible) continue;
+
                     float colliderDistance = Vector3.Distance(collider.transform.position, explosion.Position);
                     float colliderDistanceMultiplier = 1f - Mathf.Clamp01(colliderDistance / explosion.MaxDistance);
                     Vector3 directionFromExplosion = Vector3.Normalize(collider.transform.position - explosion.Position);
-                    float finalDamage = explosion.Damage * colliderDistanceMultiplier;
+                    float finalDamage = explosion.Damage * Mathf.Pow(colliderDistanceMultiplier, 3f);
                 
                     DamageInfoStruct damageInfo = new DamageInfoStruct
                     {
