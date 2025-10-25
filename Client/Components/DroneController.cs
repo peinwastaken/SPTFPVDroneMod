@@ -1,18 +1,9 @@
-using EFT.GameTriggers;
-using EFT.Interactive;
-using System;
 using UnityEngine;
-using UnityEngine.TextCore.LowLevel;
 
 #if !UNITY_EDITOR
 using FPVDroneMod.Helpers;
-using Comfort.Common;
 using EFT;
-using EFT.InventoryLogic;
 using FPVDroneMod.Patches;
-using Systems.Effects;
-using Unity.Audio;
-using UnityEngine.UIElements;
 #endif
 
 namespace FPVDroneMod.Components
@@ -100,26 +91,6 @@ namespace FPVDroneMod.Components
             gameObject.transform.localRotation = Quaternion.identity;
         }
 
-        private void CreateGrenadeExplosion()
-        {
-            string profileId = InstanceHelper.LocalPlayer.ProfileId;
-            
-            ThrowWeapItemClass grenadeItem = Singleton<ItemFactoryClass>.Instance.CreateItem("5710c24ad2720bc3458b45a3", "543be6564bdc2df4348b4568", null) as ThrowWeapItemClass;
-            Grenade grenade = Singleton<GameWorld>.Instance.GrenadeFactory.Create(
-                gameObject.GetComponent<GrenadeSettings>(),
-                RigidBody.position,
-                Quaternion.identity,
-                Vector3.zero,
-                grenadeItem,
-                profileId,
-                0.1f,
-                false,
-                false
-            );
-            grenade.gameObject.transform.position = RigidBody.position;
-            grenade.InvokeBlowUpEvent();
-        }
-
         public void Detonate()
         {
             #if !UNITY_EDITOR
@@ -130,10 +101,16 @@ namespace FPVDroneMod.Components
                 DroneHelper.CurrentController = null;
             }
 
-            CreateGrenadeExplosion();
+            ExplosionData explosion = new ExplosionData
+            {
+                Position = RigidBody.position
+            };
+            
+            ExplosionHelper.CreateExplosion(explosion);
+            
             #endif
             
-            Destroy(gameObject.transform.parent);
+            Destroy(gameObject.transform.parent.gameObject);
         }
 
         private void FixedUpdate()
