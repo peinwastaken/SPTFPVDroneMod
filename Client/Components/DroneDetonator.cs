@@ -9,6 +9,7 @@ namespace FPVDroneMod.Components
     
         DroneController _droneController;
     
+        #if !UNITY_EDITOR
         private void Start()
         {
             _droneController = GetComponentInParent<DroneController>();
@@ -39,5 +40,6 @@ namespace FPVDroneMod.Components
                 _droneController.Detonate();
             }
         }
+        #endif
     }
 }

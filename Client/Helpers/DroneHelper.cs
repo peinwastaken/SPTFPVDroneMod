@@ -8,10 +8,9 @@ using EFT.UI;
 using FPVDroneMod.Components;
 using FPVDroneMod.Enum;
 using FPVDroneMod.Globals;
-using FPVDroneMod.Helpers;
 using UnityEngine;
 
-namespace FPVDroneMod.Patches
+namespace FPVDroneMod.Helpers
 {
     public static class DroneHelper
     {
@@ -31,7 +30,7 @@ namespace FPVDroneMod.Patches
                     NotificationManagerClass.DisplayMessageNotification(
                         GetFailReasonString(failReason),
                         ENotificationDurationType.Default,
-                        ENotificationIconType.Default
+                        ENotificationIconType.Alert
                     );
                 }
                 
@@ -39,13 +38,18 @@ namespace FPVDroneMod.Patches
             }
             
             IsControllingDrone = newState;
-            CurrentController.enabled = newState;
-            CurrentController.CameraGameObject.gameObject.SetActive(!newState);
+
+            if (CurrentController)
+            {
+                CurrentController.OnControl(newState);
+            }
+            
             InstanceHelper.StaticEffect.enabled = newState;
             InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
             InstanceHelper.DroneHudController.gameObject.SetActive(newState);
             InstanceHelper.DroneHudCanvas.worldCamera = InstanceHelper.Camera;
             Singleton<CommonUI>.Instance.EftBattleUIScreen.CanvasGroup.gameObject.SetActive(!newState);
+            EFTPhysicsClass.GClass722.UpdateMode = newState ? EFTPhysicsClass.GClass722.UpdateModeType.FixedUpdate : EFTPhysicsClass.GClass722.UpdateModeType.SmoothSimulate;
         }
 
         public static bool CanPilotDrone(out EDronePilotFailReason failReason)

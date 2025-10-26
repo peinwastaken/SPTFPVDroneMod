@@ -22,11 +22,15 @@ namespace FPVDroneMod.Patches
             
             if (controller && __instance.RigidBody)
             {
-                Object.Destroy(__instance.GetComponent<Rigidbody>());
-                Object.Destroy(__instance.GetComponent<BoxCollider>());
+                Rigidbody rb = __instance.GetComponent<Rigidbody>();
+                rb.isKinematic = true;
+                rb.detectCollisions = false;
+
+                BoxCollider bc = __instance.GetComponent<BoxCollider>();
+                bc.enabled = false;
                 
                 EFTPhysicsClass.GClass723.SupportRigidbody(controller.gameObject.GetComponent<Rigidbody>(), 1f);
-                
+
                 return false;
             }
 

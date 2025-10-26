@@ -31,6 +31,7 @@ namespace FPVDroneMod
             new CreateRotatorPatch().Enable();
             new LootItemPhysicsPatch().Enable();
             new GameStartedPatch().Enable();
+            //new EFTPhysicsUpdatePatch().Enable();
 
             CameraNearClip = Config.Bind("General", "Drone Camera Near Clip", 0.051f, "Changes camera near clip plane distance while piloting drone.");
         }

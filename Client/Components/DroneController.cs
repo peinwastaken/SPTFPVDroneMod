@@ -1,17 +1,16 @@
-using FPVDroneMod.Models;
+using System;
 using UnityEngine;
 
 #if !UNITY_EDITOR
 using FPVDroneMod.Helpers;
 using EFT;
-using FPVDroneMod.Patches;
+using FPVDroneMod.Models;
 #endif
 
 namespace FPVDroneMod.Components
 {
     public class DroneController : MonoBehaviour
     {
-        [Header("Drone Handling")]
         public float ThrustForce = 20f;
         public float MaxVelocity = 100f;
         public float PitchSpeed = 100f;
@@ -24,8 +23,7 @@ namespace FPVDroneMod.Components
         public float BatteryDecayRateIdle = 0.001f;
         public float BatteryDecayRateAccel = 0.01f;
         public float Thrust = 0f;
-
-        [Header("GameObjects")]
+        
         public Transform PropellerFR;
         public Transform PropellerFL;
         public Transform PropellerRR;
@@ -36,23 +34,42 @@ namespace FPVDroneMod.Components
         
         public Rigidbody RigidBody;
         public DroneDetonator DroneDetonator;
+        public DroneSoundController DroneSoundController;
         public float PropellerSpeed;
         public float BatteryRemaining;
         
-        private void Start()
+        #if !UNITY_EDITOR
+        private void Awake()
         {
             RigidBody = GetComponent<Rigidbody>();
             DroneDetonator = DetonatorGameObject.GetComponent<DroneDetonator>();
-            
+            DroneSoundController = gameObject.GetComponent<DroneSoundController>();
+        }
+
+        private void Start()
+        {
             BatteryRemaining = MaxBattery;
             PropellerSpeed = MinPropellerSpeed;
             
-            #if !UNITY_EDITOR
             InstanceHelper.DroneHudController.SetArmedTextVisible(DroneDetonator.Armed);
+            
+            RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
+        }
 
-            DroneSoundController sndController = gameObject.AddComponent<DroneSoundController>();
-            sndController.enabled = true;
-            #endif
+        public void OnControl(bool state)
+        {
+            enabled = state;
+            CameraGameObject.gameObject.SetActive(!state);
+
+            if (state)
+            {
+                DroneSoundController.AudioSource.Play();
+            }
+            else
+            {
+                DroneSoundController.AudioSource.Stop();
+            }
         }
 
         private void ApplyPitch(float amount)
@@ -81,9 +98,7 @@ namespace FPVDroneMod.Components
         public void ToggleArmed()
         {
             DroneDetonator.SetArmed(!DroneDetonator.Armed);
-            #if !UNITY_EDITOR
             InstanceHelper.DroneHudController.SetArmedTextVisible(DroneDetonator.Armed);
-            #endif
         }
 
         public void ResetTransform()
@@ -94,7 +109,6 @@ namespace FPVDroneMod.Components
 
         public void Detonate()
         {
-            #if !UNITY_EDITOR
             DroneHelper.ControlDrone(false);
 
             if (DroneHelper.CurrentController == this)
@@ -109,14 +123,13 @@ namespace FPVDroneMod.Components
             
             ExplosionHelper.CreateExplosion(explosion);
             
-            #endif
-            
             Destroy(gameObject.transform.parent.gameObject);
         }
 
         private void FixedUpdate()
         {
-            Plugin.Logger.LogInfo(RigidBody.position);
+            Thrust = Mathf.Lerp(Thrust, Input.GetKey(KeyCode.W) ? 1f : 0f, PropellerAccelerationSpeed * Time.fixedDeltaTime);
+            
             float thrustForce = ThrustForce * Thrust;
 
             Vector3 velocity = RigidBody.velocity;
@@ -129,9 +142,8 @@ namespace FPVDroneMod.Components
                 counterForce = -excess * RigidBody.mass / Time.fixedDeltaTime;
             }
 
-            RigidBody.AddForce(upForce + counterForce, ForceMode.Force);
+            RigidBody.AddForce(upForce + counterForce, ForceMode.Acceleration);
             
-            #if !UNITY_EDITOR
             DroneHudController hud = InstanceHelper.DroneHudController;
 
             if (hud)
@@ -150,14 +162,12 @@ namespace FPVDroneMod.Components
                 
                 hud.UpdateSpeed(RigidBody.velocity.magnitude * 3.6f);
             }
-            #endif
         }
 
         private void Update()
         {
             float dt = Time.deltaTime;
 
-            #if !UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 DroneHelper.ControlDrone(false);
@@ -167,19 +177,9 @@ namespace FPVDroneMod.Components
             {
                 ToggleArmed();
             }
-            #endif
 
             if (BatteryRemaining > 0)
             {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    Thrust = Mathf.Lerp(Thrust, 1f, PropellerAccelerationSpeed * dt);
-                }
-                else
-                {
-                    Thrust = Mathf.Lerp(Thrust, 0f, PropellerAccelerationSpeed * dt);
-                }
-
                 float rollInput = (Input.GetKey(KeyCode.RightArrow) ? -1f : 0f) + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
                 float pitchInput = (Input.GetKey(KeyCode.UpArrow) ? 1f : 0f) + (Input.GetKey(KeyCode.DownArrow) ? -1f : 0f);
                 float yawInput = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f);
@@ -193,8 +193,6 @@ namespace FPVDroneMod.Components
 
                 BatteryRemaining -= (Thrust > 0 ? BatteryDecayRateAccel : BatteryDecayRateIdle) * dt;
                 BatteryRemaining = Mathf.Clamp(BatteryRemaining, 0, MaxBattery);
-
-                Debug.Log(BatteryRemaining);
             }
             else
             {
@@ -207,5 +205,6 @@ namespace FPVDroneMod.Components
                 RotatePropellers(PropellerSpeed);
             }
         }
+        #endif
     }
 }

@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using System.Collections.Generic;
 
 namespace FPVDroneMod.Models
@@ -6,6 +7,9 @@ namespace FPVDroneMod.Models
     {
         public List<EBodyPart> ProcessedLimbs = [];
         public Dictionary<BodyPartCollider, float> BodyPartColliders = [];
+        public bool AlreadyAppliedHeavyBleed = false;
+        public bool AlreadyAppliedLightBleed = false;
+        public bool AlreadyAppliedFracture = false;
         
         private List<EBodyPart> _fracturableLimbs = [EBodyPart.LeftArm, EBodyPart.RightArm, EBodyPart.LeftLeg, EBodyPart.RightLeg];
         
@@ -44,3 +48,4 @@ namespace FPVDroneMod.Models
         }
     }
 }
+#endif

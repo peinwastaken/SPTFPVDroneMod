@@ -3,6 +3,7 @@ using EFT;
 using EFT.Interactive;
 using FPVDroneMod.Components;
 using FPVDroneMod.Globals;
+using FPVDroneMod.Helpers;
 using FPVDroneMod.Patches;
 using HarmonyLib;
 using SPT.Reflection.Patching;
@@ -33,13 +34,15 @@ namespace FPVDroneMod.Patches
             __result.Actions.Add(newAction);
         }
 
-        private static void OnPickupAction(LootItem lootItem)
+        private static void OnPickupAction(LootItem lootItem, DroneController droneController)
         {
-            EFTPhysicsClass.GClass723.UnsupportRigidbody(DroneHelper.CurrentController.RigidBody);
-            DroneHelper.ControlDrone(false);
-            DroneHelper.CurrentController.ResetTransform();
+            EFTPhysicsClass.GClass723.UnsupportRigidbody(droneController.RigidBody);
+            droneController.ResetTransform();
             
-            if (lootItem.GetComponentInChildren<DroneController>() == DroneHelper.CurrentController)
+            Plugin.Logger.LogInfo(droneController);
+            Plugin.Logger.LogInfo(lootItem);
+            
+            if (droneController == DroneHelper.CurrentController)
             {
                 DroneHelper.CurrentController = null;
             }
@@ -54,10 +57,14 @@ namespace FPVDroneMod.Patches
 
             if (itemId == ItemIds.DroneTemplateId)
             {
+                DroneController controller = lootItem.GetComponentInChildren<DroneController>();
+                Plugin.Logger.LogInfo(controller);
+                Plugin.Logger.LogInfo(lootItem);
+                
                 Plugin.Logger.LogInfo("Interacting with drone - create actions");
                 
                 // Pick up
-                __result.Actions[0].Action += () => OnPickupAction(lootItem); 
+                __result.Actions[0].Action += () => OnPickupAction(lootItem, controller); 
                 
                 CreateAction(__result, "Use", () => DroneHelper.UseDrone(lootItem));
                 CreateAction(__result, "Flip", () => DroneHelper.FlipDrone(lootItem));

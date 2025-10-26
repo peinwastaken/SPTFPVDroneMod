@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT;
 using FPVDroneMod.Helpers;
 using HarmonyLib;
@@ -20,3 +21,4 @@ namespace FPVDroneMod.Patches
         }
     }
 }
+#endif

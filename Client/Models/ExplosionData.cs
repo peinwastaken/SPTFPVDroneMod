@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using UnityEngine;
 
 namespace FPVDroneMod.Models
@@ -6,7 +7,7 @@ namespace FPVDroneMod.Models
     {
         public Vector3 Position = Vector3.zero;
         public float MaxDistance = 5f;
-        public float Damage = 140f;
+        public float Damage = 200f;
         public string EffectName = "Grenade_new";
         public float FractureDelta = 0.6f;
         public float HeavyBleedDelta = 0.4f;
@@ -16,3 +17,4 @@ namespace FPVDroneMod.Models
         public Vector3 EffectDirection = Vector3.up;
     }
 }
+#endif

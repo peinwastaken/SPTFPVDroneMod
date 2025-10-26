@@ -1,6 +1,8 @@
+using UnityEngine;
+
 #if !UNITY_EDITOR
 using FPVDroneMod.Helpers;
-using UnityEngine;
+#endif
 
 namespace FPVDroneMod.Components
 {
@@ -14,7 +16,8 @@ namespace FPVDroneMod.Components
         public AudioClip DroneSound;
         public AudioSource AudioSource;
         public DroneController DroneController;
-
+        
+        #if !UNITY_EDITOR
         public void SetBlend(float pos)
         {
             DroneController = GetComponent<DroneController>();
@@ -29,24 +32,22 @@ namespace FPVDroneMod.Components
             AudioSource.clip = DroneSound;
             AudioSource.loop = true;
             AudioSource.volume = 0.2f;
-            AudioSource.enabled = true;
-            AudioSource.minDistance = 5f;
+            AudioSource.minDistance = 1f;
             AudioSource.spatialBlend = 0f;
-            AudioSource.Play();
+            AudioSource.playOnAwake = false;
+            AudioSource.Stop();
         }
 
         private void Update()
         {
             if (AudioSource)
             {
-                Plugin.Logger.LogInfo(DroneController.Thrust);
-
                 float volume = Mathf.Lerp(VolumeMin, VolumeMax, DroneController.Thrust);
                 float pitch = Mathf.Lerp(PitchMin, PitchMax, DroneController.Thrust);
                 AudioSource.volume = volume;
                 AudioSource.pitch = pitch;
             }
         }
+        #endif
     }
 }
-#endif

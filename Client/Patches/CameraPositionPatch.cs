@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT.CameraControl;
+using FPVDroneMod.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
