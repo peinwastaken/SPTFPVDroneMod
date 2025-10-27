@@ -30,6 +30,7 @@ namespace FPVDroneMod
             new SetCameraPatch().Enable();
             new CreateRotatorPatch().Enable();
             new LootItemPhysicsPatch().Enable();
+            new OnRigidBodyStartedPatch().Enable();
             new GameStartedPatch().Enable();
             //new EFTPhysicsUpdatePatch().Enable();
 
