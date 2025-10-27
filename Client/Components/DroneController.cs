@@ -4,6 +4,7 @@ using UnityEngine;
 #if !UNITY_EDITOR
 using FPVDroneMod.Helpers;
 using EFT;
+using FPVDroneMod.Config;
 using FPVDroneMod.Models;
 #endif
 
@@ -57,6 +58,26 @@ namespace FPVDroneMod.Components
             RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
+        public void UpdateFromConfig()
+        {
+            RigidBody.mass = DroneConfig.DroneMass.Value;
+            ThrustForce = DroneConfig.DroneThrustForce.Value;
+            MaxVelocity = DroneConfig.DroneMaxVelocity.Value;
+            
+            PitchSpeed = DroneConfig.DronePitchSpeed.Value;
+            YawSpeed = DroneConfig.DroneYawSpeed.Value;
+            RollSpeed = DroneConfig.DroneRollSpeed.Value;
+            
+            PropellerAccelerationSpeed = DroneConfig.DronePropellerAccelerationSpeed.Value;
+            MinPropellerSpeed = DroneConfig.DroneMinPropellerSpeed.Value;
+            MaxPropellerSpeed = DroneConfig.DroneMaxPropellerSpeed.Value;
+            
+            MaxBattery = DroneConfig.DroneMaxBattery.Value;
+            BatteryDecayRateIdle = DroneConfig.DroneBatteryDecayIdle.Value;
+            BatteryDecayRateAccel = DroneConfig.DroneBatteryDecayAccel.Value;
+        }
+
+
         public void OnControl(bool state)
         {
             enabled = state;
@@ -70,6 +91,8 @@ namespace FPVDroneMod.Components
             {
                 DroneSoundController.AudioSource.Stop();
             }
+            
+            UpdateFromConfig();
         }
 
         private void ApplyPitch(float amount)
@@ -128,7 +151,7 @@ namespace FPVDroneMod.Components
 
         private void FixedUpdate()
         {
-            Thrust = Mathf.Lerp(Thrust, Input.GetKey(KeyCode.W) ? 1f : 0f, PropellerAccelerationSpeed * Time.fixedDeltaTime);
+            Thrust = Mathf.Lerp(Thrust, Input.GetKey(BindsConfig.Thrust.Value) ? 1f : 0f, PropellerAccelerationSpeed * Time.fixedDeltaTime);
             
             float thrustForce = ThrustForce * Thrust;
 
@@ -168,21 +191,21 @@ namespace FPVDroneMod.Components
         {
             float dt = Time.deltaTime;
 
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
             {
                 DroneHelper.ControlDrone(false);
             }
             
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value))
             {
                 ToggleArmed();
             }
 
             if (BatteryRemaining > 0)
             {
-                float rollInput = (Input.GetKey(KeyCode.RightArrow) ? -1f : 0f) + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
-                float pitchInput = (Input.GetKey(KeyCode.UpArrow) ? 1f : 0f) + (Input.GetKey(KeyCode.DownArrow) ? -1f : 0f);
-                float yawInput = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f);
+                float rollInput = (Input.GetKey(BindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(BindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
+                float pitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
+                float yawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
 
                 if (rollInput != 0f) ApplyRoll(rollInput * RollSpeed * dt);
                 if (pitchInput != 0f) ApplyPitch(pitchInput * PitchSpeed * dt);

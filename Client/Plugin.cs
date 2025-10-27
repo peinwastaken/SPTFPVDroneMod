@@ -2,13 +2,15 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using FPVDroneMod.Config;
+using FPVDroneMod.Globals;
 using FPVDroneMod.Helpers;
 using FPVDroneMod.Patches;
 using UnityEngine;
 
 namespace FPVDroneMod
 {
-    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "1.0.0")]
+    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.1.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static new ManualLogSource Logger;
@@ -22,6 +24,9 @@ namespace FPVDroneMod
             AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
             
+            DroneConfig.Bind(1, Category.Drone, Config);
+            BindsConfig.Bind(2, Category.Binds, Config);
+            
             new InteractionPatch().Enable();
             new KeyboardInputPatch().Enable();
             new WeaponInputPatch().Enable();
@@ -29,8 +34,8 @@ namespace FPVDroneMod
             new CameraPositionPatch().Enable();
             new SetCameraPatch().Enable();
             new CreateRotatorPatch().Enable();
-            new LootItemPhysicsPatch().Enable();
             new OnRigidBodyStartedPatch().Enable();
+            new OnRigidBodyStoppedPatch().Enable();
             new GameStartedPatch().Enable();
             //new EFTPhysicsUpdatePatch().Enable();
 
