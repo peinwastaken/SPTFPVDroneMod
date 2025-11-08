@@ -1,6 +1,5 @@
 ﻿using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
-using SPTarkov.Server.Core.Services.Mod;
 using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using WTTServerCommonLib.Services;
