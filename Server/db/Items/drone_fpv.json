@@ -22,29 +22,29 @@
 				"description": "Improvised first-person-view attack drone equipped with a makeshift explosive payload. Commonly assembled from scavenged military and civilian components."
 			}
 		},
-		"clearClonedProps": false,
-		"addtoInventorySlots": [],
-		"addtoModSlots": true,
-		"modSlot": [],
+		"clearClonedProps": true,
 		"ModdableItemWhitelist": [],
 		"ModdableItemBlacklist": [],
 		"fleaPriceRoubles": 702034,
 		"handbookPriceRoubles": 120694,
 		"addtoTraders": true,
-		"traderId": "SKIER",
-		"traderItems": [
-			{
-				"unlimitedCount": false,
-				"stackObjectsCount": 1
-			}
-		],
-		"barterScheme": [
-			{
-				"count": 243485,
-				"_tpl": "ROUBLES"
-			}
-		],
-		"loyallevelitems": 3,
+		"traders": {
+          "SKIER": {
+            "690e8fb4710b7d7961d30875": {
+              "barterSettings": {
+                "loyalLevel": 3,
+                "unlimitedCount": false,
+                "stackObjectsCount": 1
+              },
+              "barters": [
+                {
+                  "count": 243485,
+                  "_tpl": "MONEY_ROUBLES"
+                }
+              ]
+            }
+          }
+        },
 		"addtoBots": false,
 		"addtostaticlootcontainer": false,
 		"StaticLootContainers": [

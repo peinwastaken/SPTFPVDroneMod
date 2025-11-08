@@ -1,54 +1,56 @@
 {
-	"68f5333abc75f09d96d97500": {
-		"itemTplToClone": "624c0b3340357b5f566e8766",
-		"parentId": "5447b5cf4bdc2d65278b4567",
-		"handbookParentId": "5b47574386f77428ca22b345",
-		"overrideProperties": {
-			"ExaminedByDefault": true,
-			"Prefab": {
-				"path": "assets/content/items/controller/item_dronecontroller.bundle",
-				"rcid": ""
-			},
-			"Height": 2,
-			"Width": 2,
-			"Weight": 0.717
-		},
-		"locales": {
-			"en": {
-				"name": "FPV Controller",
-				"shortName": "Controller",
-				"description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations."
-			}
-		},
-		"clearClonedProps": false,
-		"addtoInventorySlots": [],
-		"addtoModSlots": false,
-		"modSlot": [],
-		"ModdableItemWhitelist": [],
-		"ModdableItemBlacklist": [],
-		"fleaPriceRoubles": 105221,
-		"handbookPriceRoubles": 49332,
-		"addtoTraders": true,
-		"traderId": "SKIER",
-		"traderItems": [
-			{
-				"unlimitedCount": false,
-				"stackObjectsCount": 1
-			}
-		],
-		"barterScheme": [
-			{
-				"count": 74531,
-				"_tpl": "ROUBLES"
-			}
-		],
-		"loyallevelitems": 3,
-		"addtoBots": false,
-		"addtostaticlootcontainer": false,
-		"StaticLootContainers": [],
-		"masteries": false,
-		"masterySections": [],
-		"addweaponpreset": false,
-		"weaponpresets": []
-	}
+  "68f5333abc75f09d96d97500": {
+    "itemTplToClone": "624c0b3340357b5f566e8766",
+    "parentId": "5447b5cf4bdc2d65278b4567",
+    "handbookParentId": "5b47574386f77428ca22b345",
+    "overrideProperties": {
+      "ExaminedByDefault": true,
+      "Prefab": {
+        "path": "assets/content/items/controller/item_dronecontroller.bundle",
+        "rcid": ""
+      },
+      "Height": 2,
+      "Width": 2,
+      "Weight": 0.717,
+      "SightingRange": 0,
+      "Slots": []
+    },
+    "locales": {
+      "en": {
+        "name": "FPV Controller",
+        "shortName": "Controller",
+        "description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations."
+      }
+    },
+    "clearClonedProps": true,
+    "ModdableItemWhitelist": [],
+    "ModdableItemBlacklist": [],
+    "fleaPriceRoubles": 105221,
+    "handbookPriceRoubles": 49332,
+    "addtoTraders": true,
+    "traders": {
+      "SKIER": {
+        "690e8fb4710b7d7961d30875": {
+          "barterSettings": {
+            "loyalLevel": 3,
+            "unlimitedCount": false,
+            "stackObjectsCount": 1
+          },
+          "barters": [
+            {
+              "count": 74531,
+              "_tpl": "MONEY_ROUBLES"
+            }
+          ]
+        }
+      }
+    },
+    "addtoBots": false,
+    "addtostaticlootcontainer": false,
+    "StaticLootContainers": [],
+    "masteries": false,
+    "masterySections": [],
+    "addweaponpreset": false,
+    "weaponpresets": []
+  }
 }
