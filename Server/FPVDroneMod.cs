@@ -4,7 +4,7 @@ using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using WTTServerCommonLib.Services;
 
-namespace SPTFPVDroneServerMod
+namespace FPVDroneServerMod
 {
     [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader)]
     public class FPVDroneMod(SptLogger<FPVDroneMod> logger, WTTCustomItemServiceExtended itemService) : IOnLoad

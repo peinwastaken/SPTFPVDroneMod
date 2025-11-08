@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTFPVDroneServerMod", "SPTFPVDroneServerMod.csproj", "{8D0149C9-57F5-4F36-A218-C94E0A707D3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPVDroneServerMod", "FPVDroneServerMod.csproj", "{8D0149C9-57F5-4F36-A218-C94E0A707D3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
