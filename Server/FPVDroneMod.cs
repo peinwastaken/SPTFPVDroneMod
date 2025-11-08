@@ -14,6 +14,8 @@ namespace SPTFPVDroneServerMod
         {
             itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             
+            logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
+            
             return Task.CompletedTask;
         }
     }
