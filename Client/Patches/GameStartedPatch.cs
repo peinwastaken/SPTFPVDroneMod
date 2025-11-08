@@ -21,7 +21,7 @@ namespace FPVDroneMod.Patches
             AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
             
-            Plugin.Logger.LogWarning("gameworld started!!");
+            DebugLogger.LogWarning("gameworld started!!");
         }
     }
 }

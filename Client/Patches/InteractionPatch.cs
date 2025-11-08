@@ -33,8 +33,10 @@ namespace FPVDroneMod.Patches
 
         private static void OnPickupAction(LootItem lootItem, DroneController droneController)
         {
-            Plugin.Logger.LogInfo(droneController);
-            Plugin.Logger.LogInfo(lootItem);
+            if (droneController.DroneDetonator.Armed)
+            {
+                droneController.Detonate();
+            }
             
             if (droneController == DroneHelper.CurrentController)
             {
@@ -47,15 +49,13 @@ namespace FPVDroneMod.Patches
         {
             string itemId = lootItem.TemplateId;
             
-            Plugin.Logger.LogInfo($"Interacting with item: {itemId}");
+            DebugLogger.LogInfo($"Interacting with item: {itemId}");
 
             if (itemId == ItemIds.DroneTemplateId)
             {
                 DroneController controller = lootItem.GetComponentInChildren<DroneController>();
-                Plugin.Logger.LogInfo(controller);
-                Plugin.Logger.LogInfo(lootItem);
                 
-                Plugin.Logger.LogInfo("Interacting with drone - create actions");
+                DebugLogger.LogInfo("Interacting with drone - create actions");
                 
                 // Pick up
                 __result.Actions[0].Action += () => OnPickupAction(lootItem, controller); 

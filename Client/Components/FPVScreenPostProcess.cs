@@ -28,8 +28,8 @@ namespace FPVDroneMod.Components
 
         private void OnRenderImage(RenderTexture src, RenderTexture dest)
         {
-            int w = src.width;
-            int h = src.height;
+            int w = Screen.width;
+            int h = Screen.height;
             if (_rt1 == null || _rt1.width != w || _rt1.height != h)
             {
                 ReleaseRenderTextures();

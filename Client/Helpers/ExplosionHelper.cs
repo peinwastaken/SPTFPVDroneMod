@@ -46,7 +46,7 @@ namespace FPVDroneMod.Helpers
                 }
             }
             
-            Plugin.Logger.LogInfo($"players in range: {affectedPlayers.Count}");
+            DebugLogger.LogInfo($"players in range: {affectedPlayers.Count}");
             
             // apply screen effects to affected players
             foreach (KeyValuePair<Player, PlayerExplosionData> kvp in affectedPlayers)
@@ -105,7 +105,7 @@ namespace FPVDroneMod.Helpers
 
                     player.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
                     
-                    Plugin.Logger.LogInfo($"applied damage to: {player.name} | damage:{damageInfo.Damage}");
+                    DebugLogger.LogInfo($"applied damage to: {player.name} | damage:{damageInfo.Damage}");
                 }
             }
         }

@@ -84,12 +84,12 @@ namespace FPVDroneMod.Config
                 null,
                 new ConfigurationManagerAttributes() { Order = 910 }));
 
-            DroneBatteryDecayIdle = cfg.Bind(formatted, "Drone Battery Decay (Idle)", 0.001f, new ConfigDescription(
+            DroneBatteryDecayIdle = cfg.Bind(formatted, "Drone Battery Decay (Idle)", 0.01f, new ConfigDescription(
                 "battery decay rate when idle",
                 null,
                 new ConfigurationManagerAttributes() { Order = 900 }));
 
-            DroneBatteryDecayAccel = cfg.Bind(formatted, "Drone Battery Decay (Accel)", 0.01f, new ConfigDescription(
+            DroneBatteryDecayAccel = cfg.Bind(formatted, "Drone Battery Decay (Accel)", 0.5f, new ConfigDescription(
                 "battery decay rate when accelerating",
                 null,
                 new ConfigurationManagerAttributes() { Order = 890 }));

@@ -2,6 +2,7 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using Dissonance;
 using FPVDroneMod.Config;
 using FPVDroneMod.Globals;
 using FPVDroneMod.Helpers;
@@ -20,19 +21,20 @@ namespace FPVDroneMod
         private void Awake()
         {
             Logger = base.Logger;
+            DebugLogger.Logger = Logger;
+            
+            GeneralConfig.Bind(0, Category.General, Config);
+            DroneConfig.Bind(1, Category.Drone, Config);
+            BindsConfig.Bind(2, Category.Binds, Config);
+            PostProcessConfig.Bind(3, Category.PP, Config);
             
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
             
-            DroneConfig.Bind(1, Category.Drone, Config);
-            BindsConfig.Bind(2, Category.Binds, Config);
-            PostProcessConfig.Bind(3, Category.PP, Config);
-            
             new InteractionPatch().Enable();
             new CameraPositionPatch().Enable();
             new SetCameraPatch().Enable();
-            //new CreateRotatorPatch().Enable();
             new GameStartedPatch().Enable();
             new WeaponInputPatch().Enable();
             new LootItemPhysicsPatch().Enable();

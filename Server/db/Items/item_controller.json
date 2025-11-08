@@ -23,6 +23,7 @@
       }
     },
     "clearClonedProps": true,
+    "addToSpecialSlots": true,
     "ModdableItemWhitelist": [],
     "ModdableItemBlacklist": [],
     "fleaPriceRoubles": 105221,
@@ -33,8 +34,9 @@
         "690e9274705270fc67bc078b": {
           "barterSettings": {
             "loyalLevel": 3,
-            "unlimitedCount": false,
-            "stackObjectsCount": 1
+            "unlimitedCount": true,
+            "stackObjectsCount": 1,
+            "buyRestrictionMax": 1
           },
           "barters": [
             {

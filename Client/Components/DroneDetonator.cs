@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace FPVDroneMod.Components
 {
-    public class DroneDetonator : MonoBehaviour
+    public class DroneDetonator : MonoBehaviour, IPhysicsTrigger
     {
+        public string Description { get; }
         public bool Armed = false;
     
         DroneController _droneController;
@@ -29,17 +30,27 @@ namespace FPVDroneMod.Components
 
         public void SetArmed(bool armed)
         {
-            Debug.Log($"Drone Armed Status: {armed}");
             Armed = armed;
         }
-
-        private void OnTriggerEnter(Collider other)
+        #endif
+        
+        public void OnTriggerEnter(Collider other)
         {
-            if (Armed)
+            #if !UNITY_EDITOR
+            int layerMask = 1 << other.gameObject.layer;
+            bool hitSomethingOrWater = ((layerMask & LayerMaskClass.TripwireCheckLayerMask) != 0) 
+                                       || ((layerMask & LayerMaskClass.WaterLayer) != 0);
+
+            if (Armed && hitSomethingOrWater)
             {
                 _droneController.Detonate();
             }
+            #endif
         }
-        #endif
+
+        public void OnTriggerExit(Collider collider)
+        {
+            
+        }
     }
 }

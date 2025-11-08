@@ -21,7 +21,7 @@ namespace FPVDroneMod.Helpers
         {
             if (!CanPilotDrone(out EDronePilotFailReason failReason) && newState)
             {
-                Plugin.Logger.LogWarning($"Can't pilot drone due to: ${failReason}");
+                DebugLogger.LogWarning($"Can't pilot drone due to: ${failReason}");
                 
                 string failReasonString = GetFailReasonString(failReason);
 

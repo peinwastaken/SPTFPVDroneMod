@@ -20,7 +20,7 @@ namespace FPVDroneMod.Helpers
             var pp = StaticEffect;
             if (pp == null)
             {
-                Plugin.Logger.LogError("NO POSTPROCESS COMPONENT FOUND");
+                DebugLogger.LogError("NO POSTPROCESS COMPONENT FOUND");
                 return;
             }
             

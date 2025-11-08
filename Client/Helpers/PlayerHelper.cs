@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT;
+using EFT.Communications;
 using EFT.InventoryLogic;
 using FPVDroneMod.Globals;
 using FPVDroneMod.Patches;
@@ -64,6 +65,15 @@ namespace FPVDroneMod.Helpers
         public static Weapon GetEquippedWeapon()
         {
             return InstanceHelper.LocalPlayer.GetComponent<Player.FirearmController>()?.Weapon;
+        }
+
+        public static void ShowNotification(string message, ENotificationDurationType durationType = ENotificationDurationType.Default, ENotificationIconType iconType = ENotificationIconType.Default)
+        {
+            NotificationManagerClass.DisplayMessageNotification(
+                "Successfully selected drone",
+                durationType,
+                iconType
+            );
         }
     }
 }

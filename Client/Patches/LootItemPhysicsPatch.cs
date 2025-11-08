@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT.Interactive;
 using FPVDroneMod.Components;
 using FPVDroneMod.Globals;
@@ -31,3 +32,4 @@ namespace FPVDroneMod.Patches
         }
     }
 }
+#endif

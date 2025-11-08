@@ -40,14 +40,14 @@ namespace FPVDroneMod.Helpers
 
                 if (www.isHttpError || www.isNetworkError)
                 {
-                    Plugin.Logger.LogError($"Error loading audio clip from {fileName}: {www.error}");
+                    DebugLogger.LogError($"Error loading audio clip from {fileName}: {www.error}");
                 }
                 else
                 {
                     AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
                     clip.name = fileName;
                     
-                    Plugin.Logger.LogInfo($"Loaded audio clip: {clip.name}");
+                    DebugLogger.LogInfo($"Loaded audio clip: {clip.name}");
 
                     return clip;
                 }
@@ -69,7 +69,7 @@ namespace FPVDroneMod.Helpers
         {
             DroneAudioClip = await LoadAudioClip(SoundDirPath, "drone_sound_loop.wav");
             
-            Plugin.Logger.LogInfo("Loaded sounds!");
+            DebugLogger.LogInfo("Loaded sounds!");
         }
         
         public static void LoadAssets()
@@ -90,7 +90,7 @@ namespace FPVDroneMod.Helpers
             
             droneHud.SetActive(false);
             
-            Plugin.Logger.LogInfo("Loaded assets!");
+            DebugLogger.LogInfo("Loaded assets!");
         }
     }
 }

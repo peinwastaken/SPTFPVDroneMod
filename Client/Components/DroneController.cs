@@ -102,6 +102,7 @@ namespace FPVDroneMod.Components
             }
             
             CameraGameObject.gameObject.SetActive(!state);
+            DetonatorGameObject.gameObject.layer = LayerMask.NameToLayer("Default");
             enabled = state;
             
             UpdateFromConfig();
@@ -158,7 +159,7 @@ namespace FPVDroneMod.Components
             
             ExplosionHelper.CreateExplosion(explosion);
             
-            Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
         }
 
         private void FixedUpdate()
