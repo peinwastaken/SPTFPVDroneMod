@@ -1,6 +1,6 @@
-#if !UNITY_EDITOR
 using EFT.Interactive;
 using FPVDroneMod.Components;
+using FPVDroneMod.Globals;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
@@ -8,51 +8,26 @@ using UnityEngine;
 
 namespace FPVDroneMod.Patches
 {
-    public class OnRigidBodyStartedPatch : ModulePatch
+    public class LootItemPhysicsPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(LootItem), nameof(LootItem.OnRigidbodyStarted));
+            return AccessTools.Method(typeof(LootItem), nameof(LootItem.method_3));
         }
 
-        [PatchPostfix]
-        private static void PatchPostfix(LootItem __instance)
+        [PatchPrefix]
+        private static bool PatchPrefix(LootItem __instance)
         {
-            DroneController controller = __instance.GetComponentInChildren<DroneController>();
-            
-            if (controller && __instance.RigidBody)
+            string templateId = __instance.TemplateId;
+
+            if (templateId == ItemIds.DroneTemplateId)
             {
-                Plugin.Logger.LogInfo("support");
-                Rigidbody rb = __instance.GetComponent<Rigidbody>();
-                rb.isKinematic = true;
-                rb.detectCollisions = false;
-
-                BoxCollider bc = __instance.GetComponent<BoxCollider>();
-                bc.enabled = false;
-                
-                EFTPhysicsClass.GClass723.SupportRigidbody(controller.RigidBody, 1f);
+                Rigidbody rb = __instance.RigidBody;
+                EFTPhysicsClass.GClass745.SupportRigidbody(rb);
+                return false;
             }
-        }
-    }
-    
-    public class OnRigidBodyStoppedPatch : ModulePatch
-    {
-        protected override MethodBase GetTargetMethod()
-        {
-            return AccessTools.Method(typeof(LootItem), nameof(LootItem.OnRigidbodyStopped));
-        }
 
-        [PatchPostfix]
-        private static void PatchPostfix(LootItem __instance)
-        {
-            DroneController controller = __instance.GetComponentInChildren<DroneController>();
-            
-            if (controller && __instance.RigidBody)
-            {
-                Plugin.Logger.LogInfo("unsupport");
-                EFTPhysicsClass.GClass723.UnsupportRigidbody(controller.RigidBody);
-            }
+            return true;
         }
     }
 }
-#endif

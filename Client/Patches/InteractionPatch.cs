@@ -14,11 +14,8 @@ namespace FPVDroneMod.Patches
 {
     public class InteractionPatch : ModulePatch
     {
-        private static Type _actionType;
-        
         protected override MethodBase GetTargetMethod()
         {
-            _actionType = typeof(ActionsTypesClass);
             return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.smethod_8));
         }
 
@@ -36,9 +33,6 @@ namespace FPVDroneMod.Patches
 
         private static void OnPickupAction(LootItem lootItem, DroneController droneController)
         {
-            EFTPhysicsClass.GClass723.UnsupportRigidbody(droneController.RigidBody);
-            droneController.ResetTransform();
-            
             Plugin.Logger.LogInfo(droneController);
             Plugin.Logger.LogInfo(lootItem);
             

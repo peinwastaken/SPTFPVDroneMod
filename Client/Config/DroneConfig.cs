@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using BepInEx.Configuration;
 using FPVDroneMod.Globals;
 
@@ -35,7 +36,7 @@ namespace FPVDroneMod.Config
                 new AcceptableValueRange<float>(0f, 100f),
                 new ConfigurationManagerAttributes() { Order = 1000 }));
 
-            DroneThrustForce = cfg.Bind(formatted, "Drone Thrust Force", 50f, new ConfigDescription(
+            DroneThrustForce = cfg.Bind(formatted, "Drone Thrust Force", 25f, new ConfigDescription(
                 "changes the thrust force of the drone",
                 null,
                 new ConfigurationManagerAttributes() { Order = 990 }));
@@ -95,3 +96,4 @@ namespace FPVDroneMod.Config
         }
     }
 }
+#endif

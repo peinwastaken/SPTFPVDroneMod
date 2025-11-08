@@ -17,7 +17,11 @@ namespace FPVDroneMod.Patches
         [PatchPostfix]
         private static void PatchPostfix()
         {
+            // ???
+            AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
+            
+            Plugin.Logger.LogWarning("gameworld started!!");
         }
     }
 }

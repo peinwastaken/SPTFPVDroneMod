@@ -26,6 +26,9 @@ namespace FPVDroneMod.Helpers
         public static string ShadersBundlePath => Path.Combine(BundleDirPath, "drone_shaders_new.bundle");
         public static string UIBundlePath => Path.Combine(BundleDirPath, "drone_hud.bundle");
         
+        public static AssetBundle ShadersBundle;
+        public static AssetBundle UIBundle;
+        
         public static async Task<AudioClip> LoadAudioClip(string path, string fileName)
         {
             string finalPath = Path.Combine(path, fileName);
@@ -53,6 +56,15 @@ namespace FPVDroneMod.Helpers
             return null;
         }
 
+        public static void LoadBundles()
+        {
+            AssetBundle shaderBundle = AssetBundle.LoadFromFile(ShadersBundlePath);
+            ShadersBundle = shaderBundle;
+            
+            AssetBundle uiBundle = AssetBundle.LoadFromFile(UIBundlePath);
+            UIBundle = uiBundle;
+        }
+
         public static async void LoadSounds()
         {
             DroneAudioClip = await LoadAudioClip(SoundDirPath, "drone_sound_loop.wav");
@@ -62,19 +74,13 @@ namespace FPVDroneMod.Helpers
         
         public static void LoadAssets()
         {
-            AssetBundle bundle = AssetBundle.LoadFromFile(ShadersBundlePath);
-
-            BlurMaterial = bundle.LoadAsset<Material>("assets/drone/shaders/BlurMaterial.mat");
-            NoiseMaterial = bundle.LoadAsset<Material>("assets/drone/shaders/NoiseMaterial.mat");
-            AnalogMaterial = bundle.LoadAsset<Material>("assets/drone/shaders/AnalogMaterial.mat");
-            ScanMaterial = bundle.LoadAsset<Material>("assets/drone/shaders/ScanlinesMaterial.mat");
+            BlurMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/BlurMaterial.mat");
+            NoiseMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/NoiseMaterial.mat");
+            AnalogMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/AnalogMaterial.mat");
+            ScanMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/ScanlinesMaterial.mat");
+            HUDPrefab = UIBundle.LoadAsset<GameObject>("assets/drone/ui/DroneHud.prefab");
             
-            AssetBundle uiBundle = AssetBundle.LoadFromFile(UIBundlePath);
-            
-            HUDPrefab = uiBundle.LoadAsset<GameObject>("assets/drone/ui/DroneHud.prefab");
-            
-            GameObject droneHud = GameObject.Instantiate(HUDPrefab);
-            GameObject.DontDestroyOnLoad(droneHud);
+            GameObject droneHud = Object.Instantiate(HUDPrefab);
             InstanceHelper.DroneHudController = droneHud.GetComponent<DroneHudController>();
             
             Canvas canvas = droneHud.GetComponent<Canvas>();

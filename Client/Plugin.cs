@@ -21,23 +21,21 @@ namespace FPVDroneMod
         {
             Logger = base.Logger;
             
+            AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
             
             DroneConfig.Bind(1, Category.Drone, Config);
             BindsConfig.Bind(2, Category.Binds, Config);
+            PostProcessConfig.Bind(3, Category.PP, Config);
             
             new InteractionPatch().Enable();
-            new KeyboardInputPatch().Enable();
-            new WeaponInputPatch().Enable();
-            new MouseInputPatch().Enable();
             new CameraPositionPatch().Enable();
             new SetCameraPatch().Enable();
-            new CreateRotatorPatch().Enable();
-            //new OnRigidBodyStartedPatch().Enable();
-            //new OnRigidBodyStoppedPatch().Enable();
+            //new CreateRotatorPatch().Enable();
             new GameStartedPatch().Enable();
-            //new EFTPhysicsUpdatePatch().Enable();
+            new WeaponInputPatch().Enable();
+            new LootItemPhysicsPatch().Enable();
 
             CameraNearClip = Config.Bind("General", "Drone Camera Near Clip", 0.051f, "Changes camera near clip plane distance while piloting drone.");
         }

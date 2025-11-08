@@ -24,6 +24,7 @@ namespace FPVDroneMod.Patches
             fpvPostProcess.analogMat = AssetHelper.AnalogMaterial;
             fpvPostProcess.noiseMat = AssetHelper.NoiseMaterial;
             fpvPostProcess.scanMat = AssetHelper.ScanMaterial;
+            InstanceHelper.UpdatePostProcessFromConfig();
         }
     }
 }

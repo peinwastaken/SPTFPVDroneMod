@@ -42,9 +42,14 @@ namespace FPVDroneMod.Components
         #if !UNITY_EDITOR
         private void Awake()
         {
-            RigidBody = GetComponent<Rigidbody>();
-            DroneDetonator = DetonatorGameObject.GetComponent<DroneDetonator>();
-            DroneSoundController = gameObject.GetComponent<DroneSoundController>();
+            
+        }
+        
+        private void GetReferences()
+        {
+            RigidBody = GetComponentInChildren<Rigidbody>();
+            DroneDetonator = GetComponentInChildren<DroneDetonator>();
+            DroneSoundController = GetComponentInChildren<DroneSoundController>();
         }
 
         private void Start()
@@ -61,6 +66,8 @@ namespace FPVDroneMod.Components
         public void UpdateFromConfig()
         {
             RigidBody.mass = DroneConfig.DroneMass.Value;
+            RigidBody.angularDrag = 15f;
+            
             ThrustForce = DroneConfig.DroneThrustForce.Value;
             MaxVelocity = DroneConfig.DroneMaxVelocity.Value;
             
@@ -80,8 +87,10 @@ namespace FPVDroneMod.Components
 
         public void OnControl(bool state)
         {
-            enabled = state;
-            CameraGameObject.gameObject.SetActive(!state);
+            if (!RigidBody || !DroneDetonator || !DroneSoundController)
+            {
+                GetReferences();
+            }
 
             if (state)
             {
@@ -91,6 +100,9 @@ namespace FPVDroneMod.Components
             {
                 DroneSoundController.AudioSource.Stop();
             }
+            
+            CameraGameObject.gameObject.SetActive(!state);
+            enabled = state;
             
             UpdateFromConfig();
         }

@@ -38,18 +38,21 @@ namespace FPVDroneMod.Helpers
             }
             
             IsControllingDrone = newState;
-
-            if (CurrentController)
-            {
-                CurrentController.OnControl(newState);
-            }
             
             InstanceHelper.StaticEffect.enabled = newState;
             InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
             InstanceHelper.DroneHudController.gameObject.SetActive(newState);
             InstanceHelper.DroneHudCanvas.worldCamera = InstanceHelper.Camera;
             Singleton<CommonUI>.Instance.EftBattleUIScreen.CanvasGroup.gameObject.SetActive(!newState);
-            EFTPhysicsClass.GClass722.UpdateMode = newState ? EFTPhysicsClass.GClass722.UpdateModeType.FixedUpdate : EFTPhysicsClass.GClass722.UpdateModeType.SmoothSimulate;
+            EFTPhysicsClass.SyncTransformsClass.UpdateMode = newState ? EFTPhysicsClass.SyncTransformsClass.UpdateModeType.FixedUpdate : EFTPhysicsClass.SyncTransformsClass.UpdateModeType.SmoothSimulate;
+
+            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+            playerOwner.enabled = !newState;
+            
+            if (CurrentController)
+            {
+                CurrentController.OnControl(newState);
+            }
         }
 
         public static bool CanPilotDrone(out EDronePilotFailReason failReason)
@@ -86,6 +89,7 @@ namespace FPVDroneMod.Helpers
             {
                 EDronePilotFailReason.NoDrone => "No drone selected",
                 EDronePilotFailReason.NoHelmet => "No headset equipped",
+                EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby",
                 EDronePilotFailReason.NoController => null, // shouldn't happen
                 _ => null, // shouldn't happen
             };

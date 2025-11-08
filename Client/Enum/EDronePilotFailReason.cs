@@ -5,6 +5,7 @@ namespace FPVDroneMod.Enum
         None,
         NoHelmet,
         NoController,
-        NoDrone
+        NoDrone,
+        NoDroneNearby
     }
 }
