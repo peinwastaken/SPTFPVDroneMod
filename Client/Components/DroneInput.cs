@@ -63,10 +63,18 @@ namespace FPVDroneMod.Components
         private void GetController()
         {
             if (Controller == null)
+            {
                 Controller = new Controller(UserIndex.One);
-
-            if (!ControllerConnected)
+            }
+            
+            if (Controller != null)
+            {
                 ControllerConnected = Controller.IsConnected;
+            }
+            else
+            {
+                ControllerConnected = false;
+            }
         }
 
         private void GetControllerInput()
