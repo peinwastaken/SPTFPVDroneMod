@@ -21,6 +21,8 @@
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
+        <PackageReference Include="DXNET" Version="5.0.0" />
+        <PackageReference Include="DXNET.XInput" Version="5.0.0" />
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.39" IncludeAssets="compile"/>
     </ItemGroup>
 
@@ -57,5 +59,9 @@
         <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
         <Private>False</Private>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ReferencePathWithRefAssemblies Update="C:\Users\pein\.nuget\packages\dxnet.xinput\5.0.0\lib\netstandard2.1\DXNET.XInput.dll" />
     </ItemGroup>
 </Project>

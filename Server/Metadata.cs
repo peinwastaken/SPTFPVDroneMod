@@ -9,7 +9,7 @@ namespace FPVDroneServerMod
         public override string ModGuid { get; init; } = "com.pein.fpvdronemod";
         public override string Name { get; init; } = "FPV Drone Mod";
         public override string Author { get; init; } = "pein";
-        public override Version Version { get; init; } = new Version("0.1.0");
+        public override Version Version { get; init; } = new Version("0.2.0");
         public override Range SptVersion { get; init; } = new Range("~4.0.0");
         public override string? Url { get; init; } = "https://github.com/peinwastaken";
         public override bool? IsBundleMod { get; init; } = true;

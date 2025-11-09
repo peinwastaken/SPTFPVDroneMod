@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace FPVDroneMod
 {
-    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.1.0")]
+    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.2.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static new ManualLogSource Logger;

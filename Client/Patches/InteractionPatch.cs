@@ -33,7 +33,7 @@ namespace FPVDroneMod.Patches
 
         private static void OnPickupAction(LootItem lootItem, DroneController droneController)
         {
-            if (droneController.DroneDetonator.Armed)
+            if (droneController && droneController.DroneDetonator.Armed)
             {
                 droneController.Detonate();
             }

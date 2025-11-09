@@ -96,8 +96,8 @@ namespace FPVDroneMod.Helpers
                         Direction = directionFromExplosion,
                         HitNormal = -directionFromExplosion,
                         HitPoint = collider.transform.position,
-                        Player = null,
-                        Weapon = null,
+                        Player = explosion.PlayerOwner,
+                        Weapon = explosion.Weapon,
                         HeavyBleedingDelta = explosion.HeavyBleedDelta,
                         LightBleedingDelta = explosion.LightBleedDelta,
                         StaminaBurnRate = explosion.StaminaBurnRate

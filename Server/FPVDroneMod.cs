@@ -6,16 +6,14 @@ using WTTServerCommonLib.Services;
 
 namespace FPVDroneServerMod
 {
-    [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader)]
+    [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader + 2)]
     public class FPVDroneMod(SptLogger<FPVDroneMod> logger, WTTCustomItemServiceExtended itemService) : IOnLoad
     {
-        public Task OnLoad()
+        public async Task OnLoad()
         {
-            itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
+            await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             
             logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
-            
-            return Task.CompletedTask;
         }
     }
 }

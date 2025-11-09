@@ -2,9 +2,12 @@ using System;
 using UnityEngine;
 
 #if !UNITY_EDITOR
+using Comfort.Common;
 using FPVDroneMod.Helpers;
 using EFT;
+using EFT.Interactive;
 using FPVDroneMod.Config;
+using FPVDroneMod.Globals;
 using FPVDroneMod.Models;
 #endif
 
@@ -36,20 +39,23 @@ namespace FPVDroneMod.Components
         public Rigidbody RigidBody;
         public DroneDetonator DroneDetonator;
         public DroneSoundController DroneSoundController;
+        public DroneInput DroneInput;
         public float PropellerSpeed;
         public float BatteryRemaining;
         
         #if !UNITY_EDITOR
         private void Awake()
         {
-            
+            DroneInput = gameObject.AddComponent<DroneInput>();
+            DroneInput.enabled = false;
         }
         
         private void GetReferences()
         {
-            RigidBody = GetComponentInChildren<Rigidbody>();
-            DroneDetonator = GetComponentInChildren<DroneDetonator>();
-            DroneSoundController = GetComponentInChildren<DroneSoundController>();
+            RigidBody = GetComponentInChildren<Rigidbody>(true);
+            DroneDetonator = GetComponentInChildren<DroneDetonator>(true);
+            DroneSoundController = GetComponentInChildren<DroneSoundController>(true);
+            DroneInput = GetComponentInChildren<DroneInput>(true);
         }
 
         private void Start()
@@ -87,7 +93,7 @@ namespace FPVDroneMod.Components
 
         public void OnControl(bool state)
         {
-            if (!RigidBody || !DroneDetonator || !DroneSoundController)
+            if (!RigidBody || !DroneDetonator || !DroneSoundController || !DroneInput)
             {
                 GetReferences();
             }
@@ -103,6 +109,7 @@ namespace FPVDroneMod.Components
             
             CameraGameObject.gameObject.SetActive(!state);
             DetonatorGameObject.gameObject.layer = LayerMask.NameToLayer("Default");
+            DroneInput.enabled = state;
             enabled = state;
             
             UpdateFromConfig();
@@ -154,7 +161,9 @@ namespace FPVDroneMod.Components
 
             ExplosionData explosion = new ExplosionData
             {
-                Position = RigidBody.position
+                Position = RigidBody.position,
+                PlayerOwner = null, // TODO: fix ts
+                Weapon = null // TODO: fix ts
             };
             
             ExplosionHelper.CreateExplosion(explosion);
@@ -164,7 +173,7 @@ namespace FPVDroneMod.Components
 
         private void FixedUpdate()
         {
-            Thrust = Mathf.Lerp(Thrust, Input.GetKey(BindsConfig.Thrust.Value) ? 1f : 0f, PropellerAccelerationSpeed * Time.fixedDeltaTime);
+            Thrust = Mathf.Lerp(Thrust, DroneInput.ThrottleInput, PropellerAccelerationSpeed * Time.fixedDeltaTime);
             
             float thrustForce = ThrustForce * Thrust;
 
@@ -203,26 +212,16 @@ namespace FPVDroneMod.Components
         private void Update()
         {
             float dt = Time.deltaTime;
-
-            if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
+            if (!DroneInput)
             {
-                DroneHelper.ControlDrone(false);
-            }
-            
-            if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value))
-            {
-                ToggleArmed();
+                DebugLogger.LogError("DRONEINPUT IS NULL");
             }
 
-            if (BatteryRemaining > 0)
+            if (BatteryRemaining > 0f)
             {
-                float rollInput = (Input.GetKey(BindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(BindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
-                float pitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
-                float yawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
-
-                if (rollInput != 0f) ApplyRoll(rollInput * RollSpeed * dt);
-                if (pitchInput != 0f) ApplyPitch(pitchInput * PitchSpeed * dt);
-                if (yawInput != 0f) ApplyYaw(yawInput * YawSpeed * dt);
+                if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * RollSpeed * dt);
+                if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);
+                if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
 
                 float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
                 PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);
@@ -232,11 +231,11 @@ namespace FPVDroneMod.Components
             }
             else
             {
-                Thrust = 0;
+                Thrust = 0f;
                 PropellerSpeed = Mathf.Lerp(PropellerSpeed, 0, PropellerAccelerationSpeed * dt);
             }
 
-            if (PropellerSpeed > 0)
+            if (PropellerSpeed > 0f)
             {
                 RotatePropellers(PropellerSpeed);
             }
