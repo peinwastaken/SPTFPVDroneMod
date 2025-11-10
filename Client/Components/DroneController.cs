@@ -48,6 +48,8 @@ namespace FPVDroneMod.Components
         {
             DroneInput = gameObject.AddComponent<DroneInput>();
             DroneInput.enabled = false;
+            
+            BotDroneListener.AddDrone(this);
         }
         
         private void GetReferences()
@@ -168,6 +170,7 @@ namespace FPVDroneMod.Components
             
             ExplosionHelper.CreateExplosion(explosion);
             
+            BotDroneListener.RemoveDrone(this);
             Destroy(gameObject);
         }
 
