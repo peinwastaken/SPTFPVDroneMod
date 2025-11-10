@@ -1,4 +1,7 @@
 #if !UNITY_EDITOR
+using DrakiaXYZ.BigBrain.Brains;
+using FPVDroneMod.Bots.Logic;
+using FPVDroneMod.Enum;
 using FPVDroneMod.Helpers;
 using FPVDroneMod.Models;
 using System;
@@ -17,6 +20,7 @@ namespace FPVDroneMod.Components
         public ClosestDroneData ClosestDroneData;
         public Vector3 ClosestDroneMoveDirection = Vector3.zero;
         public float ScaredFactor = 0f;
+        public bool JustEvaded;
         
         public static void AddDrone(DroneController controller)
         {

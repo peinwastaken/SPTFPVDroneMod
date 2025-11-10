@@ -3,6 +3,7 @@ using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Components;
 using FPVDroneMod.Models;
+using System.Text;
 using UnityEngine;
 
 namespace FPVDroneMod.Bots.Logic
@@ -11,7 +12,8 @@ namespace FPVDroneMod.Bots.Logic
     {
         private BotDroneListener _droneListener;
         private float TimeSinceLastShot = 0f;
-        private float TimeBetweenShots = 2f;
+        private float TimeToNextShot = 2f;
+        private int ShotCount = 0;
         
         public AttackDroneAction(BotOwner botOwner) : base(botOwner)
         {
@@ -36,6 +38,11 @@ namespace FPVDroneMod.Bots.Logic
             BotOwner.WeaponManager.ShootController.SetAim(false);
             base.Stop();
         }
+        
+        public override void BuildDebugText(StringBuilder stringBuilder)
+        {
+            stringBuilder.AppendLine($"ShotCount: {ShotCount}");
+        }
 
         public override void Update(CustomLayer.ActionData data)
         {
@@ -47,10 +54,19 @@ namespace FPVDroneMod.Bots.Logic
                 BotOwner.AimingManager.CurrentAiming.SetTarget(closestDrone.Controller.RigidBody.position);
                 BotOwner.Steering.LookToPoint(closestDrone.Controller.RigidBody.position);
 
-                if (TimeSinceLastShot > 2f)
+                if (TimeSinceLastShot > TimeToNextShot)
                 {
                     BotOwner.ShootData.Shoot();
                     TimeSinceLastShot = 0f;
+                    TimeToNextShot = Random.Range(0.5f, 2.5f);
+                    ShotCount++;
+                }
+
+                if (ShotCount >= 5)
+                {
+                    _droneListener.JustEvaded = false;
+                    ShotCount = 0;
+                    Stop();
                 }
             }
         }

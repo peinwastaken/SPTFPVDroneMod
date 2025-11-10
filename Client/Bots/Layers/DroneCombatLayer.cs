@@ -3,6 +3,7 @@ using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Bots.Logic;
 using FPVDroneMod.Components;
+using System.Text;
 
 namespace FPVDroneMod.Bots.Layers
 {
@@ -20,6 +21,11 @@ namespace FPVDroneMod.Bots.Layers
             return "DroneCombatLayer";
         }
 
+        public override void BuildDebugText(StringBuilder stringBuilder)
+        {
+            
+        }
+
         public override bool IsActive()
         {
             return _droneListener.IsAnyDroneInThreatRange();
@@ -27,7 +33,11 @@ namespace FPVDroneMod.Bots.Layers
 
         public override Action GetNextAction()
         {
-            //return new Action(typeof(AttackDroneAction), "DroneInThreatRange");
+            if (_droneListener.JustEvaded)
+            {
+                return new Action(typeof(AttackDroneAction), "DroneInThreatRangeAndJustEvaded");
+            }
+            
             return new Action(typeof(EvadeDroneAction), "DroneDangerouslyClose");
         }
 

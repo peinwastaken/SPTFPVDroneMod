@@ -3,6 +3,7 @@ using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Components;
 using FPVDroneMod.Helpers;
+using System.Text;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -62,18 +63,24 @@ namespace FPVDroneMod.Bots.Logic
             BotOwner.Sprint(false);
             base.Stop();
         }
+        
+        public override void BuildDebugText(StringBuilder stringBuilder)
+        {
+            
+        }
 
         public override void Update(CustomLayer.ActionData data)
         {
             _timeSinceLastEvade += Time.deltaTime;
 
-            if (_timeSinceLastEvade > 1f)
+            if (!_canEvade && !_isEvading && _timeSinceLastEvade > 1f)
             {
                 _canEvade = true;
             }
 
             if (_canEvade && !_isEvading)
             {
+                DebugLogger.LogInfo("pick new position");
                 _isEvading = true;
                 GetEvadePosition(out Vector3 position);
                 BotOwner.Sprint(true);
@@ -87,6 +94,9 @@ namespace FPVDroneMod.Bots.Logic
             if (_isEvading && Vector3.Distance(BotOwner.Position, _lastEvadePos) < 1f)
             {
                 _isEvading = false;
+                _droneListener.JustEvaded = true;
+                Stop();
+                DebugLogger.LogInfo("stopped evading");
             }
         }
     }
