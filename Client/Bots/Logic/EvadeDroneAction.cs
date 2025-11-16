@@ -2,6 +2,7 @@
 using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Components;
+using FPVDroneMod.Enum;
 using FPVDroneMod.Helpers;
 using System.Text;
 using UnityEngine;
@@ -12,9 +13,10 @@ namespace FPVDroneMod.Bots.Logic
     public class EvadeDroneAction : CustomLogic
     {
         private BotDroneListener _droneListener;
-        private bool _canEvade = false;
+        private bool _canStartEvade = true;
+        private float _timeSpentEvading = 0f;
+        private float _maxEvadeTime = 3f;
         private bool _isEvading = false;
-        private float _timeSinceLastEvade = 0f;
         private Vector3 _lastEvadePos;
         
         public EvadeDroneAction(BotOwner botOwner) : base(botOwner)
@@ -51,16 +53,22 @@ namespace FPVDroneMod.Bots.Logic
         
         public override void Start()
         {
+            DebugLogger.LogInfo("start evade action");
             BotOwner.SetPose(1f);
             BotOwner.BotLay.GetUp(true);
             BotOwner.SetTargetMoveSpeed(1f);
             BotOwner.Sprint(true);
-            base.Stop();
+            base.Start();
         }
 
         public override void Stop()
         {
+            DebugLogger.LogInfo("start evade action");
             BotOwner.Sprint(false);
+            _canStartEvade = true;
+            _isEvading = false;
+            _timeSpentEvading = 0f;
+            _lastEvadePos = Vector3.up * 999f;
             base.Stop();
         }
         
@@ -71,32 +79,27 @@ namespace FPVDroneMod.Bots.Logic
 
         public override void Update(CustomLayer.ActionData data)
         {
-            _timeSinceLastEvade += Time.deltaTime;
-
-            if (!_canEvade && !_isEvading && _timeSinceLastEvade > 1f)
-            {
-                _canEvade = true;
-            }
-
-            if (_canEvade && !_isEvading)
+            if (_canStartEvade)
             {
                 DebugLogger.LogInfo("pick new position");
-                _isEvading = true;
                 GetEvadePosition(out Vector3 position);
                 BotOwner.Sprint(true);
                 BotOwner.GoToPoint(position, false);
-                _lastEvadePos = position;
                 
-                _canEvade = false;
-                _timeSinceLastEvade = 0f;
+                _canStartEvade = false;
+                _lastEvadePos = position;
+                _isEvading = true;
             }
 
-            if (_isEvading && Vector3.Distance(BotOwner.Position, _lastEvadePos) < 1f)
+            if (_isEvading)
             {
-                _isEvading = false;
-                _droneListener.JustEvaded = true;
-                Stop();
+                _timeSpentEvading += Time.deltaTime;
+            }
+
+            if (Vector3.Distance(BotOwner.Position, _lastEvadePos) < 2f || _timeSpentEvading > _maxEvadeTime)
+            {
                 DebugLogger.LogInfo("stopped evading");
+                _droneListener.SetAction(EDroneCombatAction.AttackDrone);
             }
         }
     }

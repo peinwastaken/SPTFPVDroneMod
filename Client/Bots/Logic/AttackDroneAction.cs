@@ -2,6 +2,8 @@
 using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Components;
+using FPVDroneMod.Enum;
+using FPVDroneMod.Helpers;
 using FPVDroneMod.Models;
 using System.Text;
 using UnityEngine;
@@ -22,20 +24,23 @@ namespace FPVDroneMod.Bots.Logic
 
         public override void Start()
         {
+            DebugLogger.LogInfo("start attack action");
             BotOwner.SetPose(1f);
             BotOwner.BotLay.GetUp(true);
             BotOwner.SetTargetMoveSpeed(1f);
             BotOwner.Sprint(false);
             BotOwner.PatrollingData.Pause();
             BotOwner.WeaponManager.ShootController.SetAim(true);
-            base.Stop();
+            base.Start();
         }
 
         public override void Stop()
         {
+            DebugLogger.LogInfo("stop attack action");
             BotOwner.Sprint(false);
             BotOwner.PatrollingData.Unpause();
             BotOwner.WeaponManager.ShootController.SetAim(false);
+            ShotCount = 0;
             base.Stop();
         }
         
@@ -49,25 +54,24 @@ namespace FPVDroneMod.Bots.Logic
             ClosestDroneData closestDrone = _droneListener.ClosestDroneData;
             TimeSinceLastShot += Time.deltaTime;
 
-            if (closestDrone.Controller != null)
+            if (closestDrone.Controller == null) return;
+
+            BotOwner.AimingManager.CurrentAiming.SetTarget(closestDrone.Controller.RigidBody.position);
+            BotOwner.Steering.LookToPoint(closestDrone.Controller.RigidBody.position);
+
+            if (TimeSinceLastShot > TimeToNextShot && _droneListener.IsClosestDroneVisible())
             {
-                BotOwner.AimingManager.CurrentAiming.SetTarget(closestDrone.Controller.RigidBody.position);
-                BotOwner.Steering.LookToPoint(closestDrone.Controller.RigidBody.position);
+                BotOwner.ShootData.Shoot();
+                TimeSinceLastShot = 0f;
+                TimeToNextShot = Random.Range(0.5f, 2.5f);
+                ShotCount++;
+                DebugLogger.LogWarning($"SHOT!!!!!! count: {ShotCount}");
+            }
 
-                if (TimeSinceLastShot > TimeToNextShot)
-                {
-                    BotOwner.ShootData.Shoot();
-                    TimeSinceLastShot = 0f;
-                    TimeToNextShot = Random.Range(0.5f, 2.5f);
-                    ShotCount++;
-                }
-
-                if (ShotCount >= 5)
-                {
-                    _droneListener.JustEvaded = false;
-                    ShotCount = 0;
-                    Stop();
-                }
+            if (ShotCount >= 5 || TimeSinceLastShot >= 10f)
+            {
+                DebugLogger.LogInfo("5 shots should stop now thx. or waited too long");
+                _droneListener.SetAction(EDroneCombatAction.EvadeDrone);
             }
         }
     }

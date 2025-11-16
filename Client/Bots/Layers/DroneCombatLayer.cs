@@ -3,6 +3,7 @@ using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneMod.Bots.Logic;
 using FPVDroneMod.Components;
+using FPVDroneMod.Enum;
 using System.Text;
 
 namespace FPVDroneMod.Bots.Layers
@@ -21,11 +22,6 @@ namespace FPVDroneMod.Bots.Layers
             return "DroneCombatLayer";
         }
 
-        public override void BuildDebugText(StringBuilder stringBuilder)
-        {
-            
-        }
-
         public override bool IsActive()
         {
             return _droneListener.IsAnyDroneInThreatRange();
@@ -33,16 +29,28 @@ namespace FPVDroneMod.Bots.Layers
 
         public override Action GetNextAction()
         {
-            if (_droneListener.JustEvaded)
+            if (_droneListener.CurrentAction == EDroneCombatAction.AttackDrone)
             {
-                return new Action(typeof(AttackDroneAction), "DroneInThreatRangeAndJustEvaded");
+                return new Action(typeof(AttackDroneAction), "DroneIsCloseAndJustEvaded");
             }
-            
-            return new Action(typeof(EvadeDroneAction), "DroneDangerouslyClose");
+
+            return new Action(typeof(EvadeDroneAction), "DroneIsClose");
+        }
+
+        public override void BuildDebugText(StringBuilder stringBuilder)
+        {
+            stringBuilder.AppendLine($"CurrentAction: {_droneListener.CurrentAction}");
+            base.BuildDebugText(stringBuilder);
         }
 
         public override bool IsCurrentActionEnding()
         {
+            if (_droneListener.HasActionChanged)
+            {
+                _droneListener.HasActionChanged = false;
+                return true;
+            }
+
             return false;
         }
     }
