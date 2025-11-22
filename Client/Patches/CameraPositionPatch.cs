@@ -1,9 +1,11 @@
 #if !UNITY_EDITOR
 using EFT.CameraControl;
+using FPVDroneMod.Config;
 using FPVDroneMod.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
+using UnityEngine;
 
 namespace FPVDroneMod.Patches
 {
@@ -19,8 +21,15 @@ namespace FPVDroneMod.Patches
         {
             if (DroneHelper.CurrentController != null && DroneHelper.IsControllingDrone)
             {
-                __instance.Camera.transform.position = DroneHelper.CurrentController.CameraPos.transform.position;
-                __instance.Camera.transform.rotation = DroneHelper.CurrentController.CameraPos.transform.rotation;
+                Vector3 dronePos = DroneHelper.CurrentController.CameraPos.transform.position;
+                Quaternion droneAng = DroneHelper.CurrentController.CameraPos.transform.rotation;
+                float configAngleOffset = DroneConfig.DroneCameraAngleOffset.Value;
+
+                Quaternion offset = Quaternion.AngleAxis(configAngleOffset, Vector3.right);
+                droneAng = offset * droneAng;
+
+                __instance.Camera.transform.position = dronePos;
+                __instance.Camera.transform.rotation = droneAng;
                 __instance.Camera.nearClipPlane = Plugin.CameraNearClip.Value;
             }
             else
