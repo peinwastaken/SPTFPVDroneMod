@@ -21,11 +21,12 @@ namespace FPVDroneMod.Patches
         {
             if (DroneHelper.CurrentController != null && DroneHelper.IsControllingDrone)
             {
-                Vector3 dronePos = DroneHelper.CurrentController.CameraPos.transform.position;
-                Quaternion droneAng = DroneHelper.CurrentController.CameraPos.transform.rotation;
+                Transform cameraTransform = DroneHelper.CurrentController.CameraPos.transform;
+                Vector3 dronePos = cameraTransform.position;
+                Quaternion droneAng = cameraTransform.rotation;
                 float configAngleOffset = DroneConfig.DroneCameraAngleOffset.Value;
 
-                Quaternion offset = Quaternion.AngleAxis(configAngleOffset, Vector3.right);
+                Quaternion offset = Quaternion.AngleAxis(configAngleOffset, cameraTransform.right);
                 droneAng = offset * droneAng;
 
                 __instance.Camera.transform.position = dronePos;
