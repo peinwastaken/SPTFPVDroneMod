@@ -6,7 +6,11 @@ namespace FPVDroneMod.Globals
         public static string Drone = "Drone";
         public static string Binds = "Keybinds";
         public static string PP = "Post Processing";
+        public static string Explosion = "Explosions";
 
-        public static string Format(int order, string category) => $"{order}. {category}";
+        public static string Format(int order, string category)
+        {
+            return $"{order}. {category}";
+        }
     }
 }

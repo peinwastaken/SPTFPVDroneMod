@@ -2,16 +2,12 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
-using Dissonance;
 using DrakiaXYZ.BigBrain.Brains;
-using EFT.InventoryLogic;
 using FPVDroneMod.Bots.Layers;
 using FPVDroneMod.Config;
 using FPVDroneMod.Globals;
 using FPVDroneMod.Helpers;
 using FPVDroneMod.Patches;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace FPVDroneMod
 {
@@ -32,6 +28,7 @@ namespace FPVDroneMod
             DroneConfig.Bind(1, Category.Drone, Config);
             BindsConfig.Bind(2, Category.Binds, Config);
             PostProcessConfig.Bind(3, Category.PP, Config);
+            ExplosionConfig.Bind(4, Category.Explosion, Config);
 
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();

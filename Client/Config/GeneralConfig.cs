@@ -6,7 +6,7 @@ namespace FPVDroneMod.Config
 {
     public static class GeneralConfig
     {
-        public static ConfigEntry<bool> EnableDebug { get; set; }
+        public static ConfigEntry<bool> EnableDebug;
         
         public static void Bind(int order, string category, ConfigFile cfg)
         {

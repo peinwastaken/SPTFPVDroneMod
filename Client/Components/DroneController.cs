@@ -1,14 +1,9 @@
 using EFT.Ballistics;
-using System;
 using UnityEngine;
-
 #if !UNITY_EDITOR
-using Comfort.Common;
 using FPVDroneMod.Helpers;
 using EFT;
-using EFT.Interactive;
 using FPVDroneMod.Config;
-using FPVDroneMod.Globals;
 using FPVDroneMod.Models;
 #endif
 
@@ -22,13 +17,13 @@ namespace FPVDroneMod.Components
         public float YawSpeed = 100f;
         public float RollSpeed = 100f;
         public float PropellerAccelerationSpeed = 4f;
-        public float MinPropellerSpeed = 0f;
+        public float MinPropellerSpeed;
         public float MaxPropellerSpeed = 10000f;
         public float MaxBattery = 150f;
         public float BatteryDecayRateIdle = 0.001f;
         public float BatteryDecayRateAccel = 0.01f;
-        public float Thrust = 0f;
-        
+        public float Thrust;
+
         public Transform PropellerFR;
         public Transform PropellerFL;
         public Transform PropellerRR;
@@ -36,7 +31,7 @@ namespace FPVDroneMod.Components
         public Transform DetonatorGameObject;
         public Transform CameraGameObject;
         public Transform CameraPos;
-        
+
         public Rigidbody RigidBody;
         public DroneDetonator DroneDetonator;
         public DroneSoundController DroneSoundController;
@@ -44,25 +39,25 @@ namespace FPVDroneMod.Components
         public BallisticCollider BallisticCollider;
         public float PropellerSpeed;
         public float BatteryRemaining;
-        
+
         #if !UNITY_EDITOR
         private void Awake()
         {
             GetReferences();
-            
+
             DroneInput = gameObject.AddComponent<DroneInput>();
             DroneInput.enabled = false;
-            
+
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             BallisticCollider.OnHitAction += OnHit;
-            
+
             BotDroneListener.AddDrone(this);
         }
-        
+
         private void GetReferences()
         {
             DebugLogger.LogInfo("something was missing, getreferences");
-            
+
             RigidBody = GetComponentInChildren<Rigidbody>(true);
             DroneDetonator = GetComponentInChildren<DroneDetonator>(true);
             DroneSoundController = GetComponentInChildren<DroneSoundController>(true);
@@ -74,9 +69,9 @@ namespace FPVDroneMod.Components
         {
             BatteryRemaining = MaxBattery;
             PropellerSpeed = MinPropellerSpeed;
-            
+
             InstanceHelper.DroneHudController.SetArmedTextVisible(DroneDetonator.Armed);
-            
+
             RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
         }
@@ -85,23 +80,23 @@ namespace FPVDroneMod.Components
         {
             RigidBody.mass = DroneConfig.DroneMass.Value;
             RigidBody.angularDrag = 15f;
-            
+
             ThrustForce = DroneConfig.DroneThrustForce.Value;
             MaxVelocity = DroneConfig.DroneMaxVelocity.Value;
-            
+
             PitchSpeed = DroneConfig.DronePitchSpeed.Value;
             YawSpeed = DroneConfig.DroneYawSpeed.Value;
             RollSpeed = DroneConfig.DroneRollSpeed.Value;
-            
+
             PropellerAccelerationSpeed = DroneConfig.DronePropellerAccelerationSpeed.Value;
             MinPropellerSpeed = DroneConfig.DroneMinPropellerSpeed.Value;
             MaxPropellerSpeed = DroneConfig.DroneMaxPropellerSpeed.Value;
-            
+
             MaxBattery = DroneConfig.DroneMaxBattery.Value;
             BatteryDecayRateIdle = DroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = DroneConfig.DroneBatteryDecayAccel.Value;
         }
-        
+
         public void OnControl(bool state)
         {
             if (!RigidBody || !DroneDetonator || !DroneSoundController || !DroneInput || !BallisticCollider)
@@ -117,12 +112,12 @@ namespace FPVDroneMod.Components
             {
                 DroneSoundController.AudioSource.Stop();
             }
-            
+
             CameraGameObject.gameObject.SetActive(!state);
             DetonatorGameObject.gameObject.layer = LayerMask.NameToLayer("Default");
             DroneInput.enabled = state;
             enabled = state;
-            
+
             UpdateFromConfig();
         }
 
@@ -179,12 +174,18 @@ namespace FPVDroneMod.Components
             ExplosionData explosion = new ExplosionData
             {
                 Position = RigidBody.position,
+                Damage = ExplosionConfig.ExplosionDamage.Value,
+                MaxDistance = ExplosionConfig.ExplosionMaxDistance.Value,
+                HeavyBleedDelta = ExplosionConfig.ExplosionHeavyBleedDelta.Value,
+                LightBleedDelta = ExplosionConfig.ExplosionLightBleedDelta.Value,
+                FractureDelta = ExplosionConfig.ExplosionFractureDelta.Value,
+                StaminaBurnRate = ExplosionConfig.ExplosionStaminaBurnRate.Value,
                 PlayerOwner = null, // TODO: fix ts
                 Weapon = null // TODO: fix ts
             };
-            
+
             ExplosionHelper.CreateExplosion(explosion);
-            
+
             BotDroneListener.RemoveDrone(this);
             Destroy(gameObject);
         }
@@ -192,7 +193,7 @@ namespace FPVDroneMod.Components
         private void FixedUpdate()
         {
             Thrust = Mathf.Lerp(Thrust, DroneInput.ThrottleInput, PropellerAccelerationSpeed * Time.fixedDeltaTime);
-            
+
             float thrustForce = ThrustForce * Thrust;
 
             Vector3 velocity = RigidBody.velocity;
@@ -206,7 +207,7 @@ namespace FPVDroneMod.Components
             }
 
             RigidBody.AddForce(upForce + counterForce, ForceMode.Acceleration);
-            
+
             DroneHudController hud = InstanceHelper.DroneHudController;
 
             if (hud)
@@ -214,15 +215,15 @@ namespace FPVDroneMod.Components
                 hud.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
 
                 Player player = InstanceHelper.LocalPlayer;
-                float distanceFromPlayer = (player.Position - transform.position).magnitude; 
+                float distanceFromPlayer = (player.Position - transform.position).magnitude;
                 hud.UpdateSignalStrength(1f - Mathf.Clamp01(distanceFromPlayer / 1000f));
 
                 RaycastHit hit;
                 hud.UpdateAltitude(
-                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ? 
+                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ?
                     hit.distance : 999f
                 );
-                
+
                 hud.UpdateSpeed(RigidBody.velocity.magnitude * 3.6f);
             }
         }
