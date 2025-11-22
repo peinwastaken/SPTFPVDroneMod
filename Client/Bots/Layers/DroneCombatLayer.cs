@@ -24,7 +24,7 @@ namespace FPVDroneMod.Bots.Layers
 
         public override bool IsActive()
         {
-            return _droneListener.IsAnyDroneInThreatRange();
+            return _droneListener.IsDroneThreatActive();
         }
 
         public override Action GetNextAction()

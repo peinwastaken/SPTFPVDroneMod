@@ -1,3 +1,4 @@
+using EFT.Ballistics;
 using System;
 using UnityEngine;
 
@@ -40,24 +41,32 @@ namespace FPVDroneMod.Components
         public DroneDetonator DroneDetonator;
         public DroneSoundController DroneSoundController;
         public DroneInput DroneInput;
+        public BallisticCollider BallisticCollider;
         public float PropellerSpeed;
         public float BatteryRemaining;
         
         #if !UNITY_EDITOR
         private void Awake()
         {
+            GetReferences();
+            
             DroneInput = gameObject.AddComponent<DroneInput>();
             DroneInput.enabled = false;
+
+            BallisticCollider.OnHitAction += OnHit;
             
             BotDroneListener.AddDrone(this);
         }
         
         private void GetReferences()
         {
+            DebugLogger.LogInfo("something was missing, getreferences");
+            
             RigidBody = GetComponentInChildren<Rigidbody>(true);
             DroneDetonator = GetComponentInChildren<DroneDetonator>(true);
             DroneSoundController = GetComponentInChildren<DroneSoundController>(true);
             DroneInput = GetComponentInChildren<DroneInput>(true);
+            BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
         }
 
         private void Start()
@@ -91,11 +100,10 @@ namespace FPVDroneMod.Components
             BatteryDecayRateIdle = DroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = DroneConfig.DroneBatteryDecayAccel.Value;
         }
-
-
+        
         public void OnControl(bool state)
         {
-            if (!RigidBody || !DroneDetonator || !DroneSoundController || !DroneInput)
+            if (!RigidBody || !DroneDetonator || !DroneSoundController || !DroneInput || !BallisticCollider)
             {
                 GetReferences();
             }
@@ -115,6 +123,12 @@ namespace FPVDroneMod.Components
             enabled = state;
             
             UpdateFromConfig();
+        }
+
+        public void OnHit(DamageInfoStruct damageInfo)
+        {
+            DebugLogger.LogInfo("drone was hit");
+            Detonate();
         }
 
         private void ApplyPitch(float amount)

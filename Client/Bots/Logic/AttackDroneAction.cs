@@ -59,7 +59,7 @@ namespace FPVDroneMod.Bots.Logic
             BotOwner.AimingManager.CurrentAiming.SetTarget(closestDrone.Controller.RigidBody.position);
             BotOwner.Steering.LookToPoint(closestDrone.Controller.RigidBody.position);
 
-            if (TimeSinceLastShot > TimeToNextShot && _droneListener.IsClosestDroneVisible())
+            if (TimeSinceLastShot > TimeToNextShot)
             {
                 BotOwner.ShootData.Shoot();
                 TimeSinceLastShot = 0f;
@@ -68,7 +68,7 @@ namespace FPVDroneMod.Bots.Logic
                 DebugLogger.LogWarning($"SHOT!!!!!! count: {ShotCount}");
             }
 
-            if (ShotCount >= 5 || TimeSinceLastShot >= 10f)
+            if (ShotCount >= 5 || TimeSinceLastShot >= 5f)
             {
                 DebugLogger.LogInfo("5 shots should stop now thx. or waited too long");
                 _droneListener.SetAction(EDroneCombatAction.EvadeDrone);

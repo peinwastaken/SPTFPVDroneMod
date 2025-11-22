@@ -15,7 +15,7 @@ namespace FPVDroneMod.Bots.Logic
         private BotDroneListener _droneListener;
         private bool _canStartEvade = true;
         private float _timeSpentEvading = 0f;
-        private float _maxEvadeTime = 3f;
+        private float _maxEvadeTime = 5f;
         private bool _isEvading = false;
         private Vector3 _lastEvadePos;
         
@@ -63,7 +63,7 @@ namespace FPVDroneMod.Bots.Logic
 
         public override void Stop()
         {
-            DebugLogger.LogInfo("start evade action");
+            DebugLogger.LogInfo("stop evade action");
             BotOwner.Sprint(false);
             _canStartEvade = true;
             _isEvading = false;
@@ -83,7 +83,6 @@ namespace FPVDroneMod.Bots.Logic
             {
                 DebugLogger.LogInfo("pick new position");
                 GetEvadePosition(out Vector3 position);
-                BotOwner.Sprint(true);
                 BotOwner.GoToPoint(position, false);
                 
                 _canStartEvade = false;

@@ -105,9 +105,14 @@ namespace FPVDroneMod.Components
             return false;
         }
         
-        public bool IsAnyDroneInThreatRange()
+        public bool IsDroneThreatActive()
         {
-            return ClosestDroneData.Controller && ClosestDroneData.Distance < DroneThreatDistance;
+            if (!ClosestDroneData.Controller) return false;
+            
+            bool isInRange = ClosestDroneData.Distance < DroneThreatDistance;
+            bool isAirborne = IsClosestDroneAirborne();
+            
+            return isInRange && isAirborne;
         }
 
         public Vector3 GetClosestDroneDirection()
@@ -126,10 +131,13 @@ namespace FPVDroneMod.Components
             
             bool isInRange = ClosestDroneData.Distance < DroneThreatDistance;
             bool isVisible = VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.TerrainLowPoly);
-            
+
+            float playerFov = 110f;
             Rigidbody rb = ClosestDroneData.Controller.RigidBody;
             Vector3 velocity = rb.velocity;
             Vector3 lookDir = rb.transform.forward;
+            
+            //TODO: finish ts, apply modifiers based on visiblity, distance, drone travel direction and more
         }
 
         public void SetAction(EDroneCombatAction action)
@@ -140,7 +148,15 @@ namespace FPVDroneMod.Components
 
         public bool IsClosestDroneVisible()
         {
-            return ClosestDroneData.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.TerrainLowPoly);
+            return ClosestDroneData.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+        }
+
+        public bool IsClosestDroneAirborne()
+        {
+            if (!ClosestDroneData.Controller) return false;
+
+            bool isVisible = VectorHelper.VisCheck(ClosestDroneData.Controller.RigidBody.position, Vector3.down * 999f, LayerMaskClass.HighPolyWithTerrainNoGrassMask, out RaycastHit hit);
+            return hit.distance > 1f;
         }
 
         public void Update()
