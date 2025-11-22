@@ -40,7 +40,6 @@ namespace FPVDroneMod
             new GameStartedPatch().Enable();
             new WeaponInputPatch().Enable();
             new LootItemPhysicsPatch().Enable();
-            //+new BotActivatePatch().Enable();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 [
