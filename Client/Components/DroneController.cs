@@ -52,7 +52,8 @@ namespace FPVDroneMod.Components
             
             DroneInput = gameObject.AddComponent<DroneInput>();
             DroneInput.enabled = false;
-
+            
+            BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             BallisticCollider.OnHitAction += OnHit;
             
             BotDroneListener.AddDrone(this);
