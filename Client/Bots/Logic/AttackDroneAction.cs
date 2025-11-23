@@ -5,18 +5,17 @@ using FPVDroneMod.Components;
 using FPVDroneMod.Enum;
 using FPVDroneMod.Helpers;
 using FPVDroneMod.Models;
-using System.Text;
 using UnityEngine;
 
 namespace FPVDroneMod.Bots.Logic
 {
     public class AttackDroneAction : CustomLogic
     {
-        private BotDroneListener _droneListener;
-        private float TimeSinceLastShot = 0f;
+        private readonly BotDroneListener _droneListener;
+        private int ShotCount;
+        private float TimeSinceLastShot;
         private float TimeToNextShot = 2f;
-        private int ShotCount = 0;
-        
+
         public AttackDroneAction(BotOwner botOwner) : base(botOwner)
         {
             _droneListener = botOwner.GetComponent<BotDroneListener>();
@@ -43,11 +42,6 @@ namespace FPVDroneMod.Bots.Logic
             ShotCount = 0;
             base.Stop();
         }
-        
-        public override void BuildDebugText(StringBuilder stringBuilder)
-        {
-            stringBuilder.AppendLine($"ShotCount: {ShotCount}");
-        }
 
         public override void Update(CustomLayer.ActionData data)
         {
@@ -59,7 +53,7 @@ namespace FPVDroneMod.Bots.Logic
             BotOwner.AimingManager.CurrentAiming.SetTarget(closestDrone.Controller.RigidBody.position);
             BotOwner.Steering.LookToPoint(closestDrone.Controller.RigidBody.position);
 
-            if (TimeSinceLastShot > TimeToNextShot)
+            if (TimeSinceLastShot > TimeToNextShot && _droneListener.IsClosestDroneVisible())
             {
                 BotOwner.ShootData.Shoot();
                 TimeSinceLastShot = 0f;

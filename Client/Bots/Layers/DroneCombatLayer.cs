@@ -10,8 +10,8 @@ namespace FPVDroneMod.Bots.Layers
 {
     public class DroneCombatLayer : CustomLayer
     {
-        private BotDroneListener _droneListener;
-        
+        private readonly BotDroneListener _droneListener;
+
         public DroneCombatLayer(BotOwner botOwner, int priority) : base(botOwner, priority)
         {
             _droneListener = botOwner.GetPlayer.gameObject.AddComponent<BotDroneListener>();
@@ -24,7 +24,7 @@ namespace FPVDroneMod.Bots.Layers
 
         public override bool IsActive()
         {
-            return _droneListener.IsDroneThreatActive();
+            return !BotOwner.Memory.IsUnderFire && _droneListener.IsDroneThreatActive();
         }
 
         public override Action GetNextAction()

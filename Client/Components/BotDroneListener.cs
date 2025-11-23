@@ -1,11 +1,9 @@
 #if !UNITY_EDITOR
-using DrakiaXYZ.BigBrain.Brains;
 using EFT;
-using FPVDroneMod.Bots.Logic;
 using FPVDroneMod.Enum;
+using FPVDroneMod.Globals;
 using FPVDroneMod.Helpers;
 using FPVDroneMod.Models;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,16 +13,31 @@ namespace FPVDroneMod.Components
     {
         public static List<DroneController> ActiveDrones = [];
 
-        public float TimeSinceLastDroneCheck = 0f;
         public float TimeBetweenChecks = 1f;
-        public float DroneThreatDistance = 40f;
-        public ClosestDroneData ClosestDroneData;
-        public Vector3 ClosestDroneMoveDirection = Vector3.zero;
-        public float ScaredFactor = 0f;
-        public Player Player;
+        public float TimeSinceLastDroneCheck;
         public EDroneCombatAction CurrentAction = EDroneCombatAction.EvadeDrone;
-        public bool HasActionChanged = false;
-        
+        public bool HasActionChanged;
+
+        public Player Player;
+        public ClosestDroneData ClosestDroneData;
+
+        public void Awake()
+        {
+            Player = GetComponentInParent<Player>();
+        }
+
+        public void Update()
+        {
+            TimeSinceLastDroneCheck += Time.deltaTime;
+
+            if (TimeSinceLastDroneCheck >= TimeBetweenChecks)
+            {
+                GetClosestDroneInThreatRange(out ClosestDroneData closestDrone);
+                ClosestDroneData = closestDrone;
+                TimeSinceLastDroneCheck = 0f;
+            }
+        }
+
         public static void AddDrone(DroneController controller)
         {
             if (ActiveDrones.Count <= 0)
@@ -40,18 +53,13 @@ namespace FPVDroneMod.Components
                     return;
                 }
             }
-            
+
             ActiveDrones.Add(controller);
         }
 
         public static void RemoveDrone(DroneController controller)
         {
             ActiveDrones.Remove(controller);
-        }
-
-        public void Awake()
-        {
-            Player = GetComponentInParent<Player>();
         }
 
         public Dictionary<DroneController, float> GetDroneDistances()
@@ -86,7 +94,7 @@ namespace FPVDroneMod.Components
                 }
             }
 
-            return new ClosestDroneData()
+            return new ClosestDroneData
             {
                 Controller = closestDrone,
                 Distance = closestDistance
@@ -97,47 +105,25 @@ namespace FPVDroneMod.Components
         {
             closestDrone = GetClosestDrone();
 
-            if (closestDrone.Controller && closestDrone.Distance < DroneThreatDistance)
+            if (closestDrone.Controller && closestDrone.Distance < BotGlobals.DroneHearRange)
             {
                 return true;
             }
 
             return false;
         }
-        
+
         public bool IsDroneThreatActive()
         {
             if (!ClosestDroneData.Controller) return false;
-            
-            bool isInRange = ClosestDroneData.Distance < DroneThreatDistance;
-            bool isAirborne = IsClosestDroneAirborne();
-            
-            return isInRange && isAirborne;
-        }
 
-        public Vector3 GetClosestDroneDirection()
-        {
-            if (ClosestDroneData.Controller != null)
-            {
-                ClosestDroneMoveDirection = ClosestDroneData.Controller.RigidBody.velocity.normalized;
-            }
+            bool isInRange = ClosestDroneData.Distance < BotGlobals.DroneHearRange;
+            bool isVisible = IsClosestDroneVisible();
 
-            return ClosestDroneMoveDirection;
-        }
+            DebugLogger.LogInfo(isInRange.ToString());
+            DebugLogger.LogInfo(isVisible.ToString());
 
-        public void DoScaredFactor()
-        {
-            if (ClosestDroneData.Controller == null) return;
-            
-            bool isInRange = ClosestDroneData.Distance < DroneThreatDistance;
-            bool isVisible = VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.TerrainLowPoly);
-
-            float playerFov = 110f;
-            Rigidbody rb = ClosestDroneData.Controller.RigidBody;
-            Vector3 velocity = rb.velocity;
-            Vector3 lookDir = rb.transform.forward;
-            
-            //TODO: finish ts, apply modifiers based on visiblity, distance, drone travel direction and more
+            return isInRange && isVisible;
         }
 
         public void SetAction(EDroneCombatAction action)
@@ -148,27 +134,12 @@ namespace FPVDroneMod.Components
 
         public bool IsClosestDroneVisible()
         {
-            return ClosestDroneData.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+            return ClosestDroneData.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyCollider);
         }
 
         public bool IsClosestDroneAirborne()
         {
-            if (!ClosestDroneData.Controller) return false;
-
-            bool isVisible = VectorHelper.VisCheck(ClosestDroneData.Controller.RigidBody.position, Vector3.down * 999f, LayerMaskClass.HighPolyWithTerrainNoGrassMask, out RaycastHit hit);
-            return hit.distance > 1f;
-        }
-
-        public void Update()
-        {
-            TimeSinceLastDroneCheck += Time.deltaTime;
-
-            if (TimeSinceLastDroneCheck >= TimeBetweenChecks)
-            {
-                GetClosestDroneInThreatRange(out ClosestDroneData closestDrone);
-                ClosestDroneData = closestDrone;
-                TimeSinceLastDroneCheck = 0f;
-            }
+            return ClosestDroneData.Controller && ClosestDroneData.Controller.RigidBody.velocity.sqrMagnitude > 0.01f;
         }
     }
 }

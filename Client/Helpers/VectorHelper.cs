@@ -7,7 +7,7 @@ namespace FPVDroneMod.Helpers
     {
         public static bool VisCheck(Vector3 vector1, Vector3 vector2, LayerMask mask, out RaycastHit hitResult)
         {
-            bool hitSomething = Physics.Raycast(vector1, vector2 - vector1, out RaycastHit hit, mask);
+            bool hitSomething = Physics.Raycast(vector1, vector2 - vector1, out RaycastHit hit, (vector1 - vector2).magnitude, mask);
             hitResult = hit;
             return !hitSomething;
         }

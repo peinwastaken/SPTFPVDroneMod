@@ -164,6 +164,11 @@ namespace FPVDroneMod.Components
 
         public void Detonate()
         {
+            if (!RigidBody)
+            {
+                GetReferences();
+            }
+
             DroneHelper.ControlDrone(false);
 
             if (DroneHelper.CurrentController == this)

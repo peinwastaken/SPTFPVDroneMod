@@ -71,11 +71,6 @@ namespace FPVDroneMod.Bots.Logic
             _lastEvadePos = Vector3.up * 999f;
             base.Stop();
         }
-        
-        public override void BuildDebugText(StringBuilder stringBuilder)
-        {
-            
-        }
 
         public override void Update(CustomLayer.ActionData data)
         {

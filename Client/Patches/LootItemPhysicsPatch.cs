@@ -1,5 +1,4 @@
 #if !UNITY_EDITOR
-using EFT.Ballistics;
 using EFT.Interactive;
 using FPVDroneMod.Components;
 using FPVDroneMod.Globals;
@@ -26,11 +25,11 @@ namespace FPVDroneMod.Patches
             {
                 DroneController controller = __instance.GetComponentInChildren<DroneController>();
                 GameObject droneBody = controller.BallisticCollider.gameObject;
-                
-                droneBody.layer = LayerMask.NameToLayer("HighPolyCollider");
+
+                droneBody.layer = LayerMask.NameToLayer("Deadbody");
                 Rigidbody rb = __instance.RigidBody;
                 EFTPhysicsClass.GClass745.SupportRigidbody(rb);
-                
+
                 return false;
             }
 
