@@ -44,7 +44,10 @@ namespace FPVDroneMod
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 [
                     "Assault",
-                    "PMC"
+                    "PMC",
+                    "PmcBear",
+                    "PmcUsec",
+                    "Marksman"
                 ],
                 9999
             );
