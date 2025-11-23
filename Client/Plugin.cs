@@ -40,15 +40,10 @@ namespace FPVDroneMod
             new GameStartedPatch().Enable();
             new WeaponInputPatch().Enable();
             new LootItemPhysicsPatch().Enable();
+            new LocalPlayerDiedPatch().Enable();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
-                [
-                    "Assault",
-                    "PMC",
-                    "PmcBear",
-                    "PmcUsec",
-                    "Marksman"
-                ],
+                BotGlobals.AllBrainNames,
                 9999
             );
 

@@ -1,40 +1,39 @@
-using DXNET;
+using DXNET.XInput;
 using FPVDroneMod.Config;
 using FPVDroneMod.Helpers;
-using DXNET.XInput;
 using UnityEngine;
 
 namespace FPVDroneMod.Components
 {
     public class DroneInput : MonoBehaviour
     {
-        public Controller Controller;
-        public Gamepad GamepadState;
-        public bool ControllerConnected = false;
+        public bool ControllerConnected;
         public DroneController DroneController;
 
-        public float LeftStickX = 0f;
-        public float LeftStickY = 0f;
-        public float RightStickX = 0f;
-        public float RightStickY = 0f;
-        public float LeftTrigger = 0f;
-        public float RightTrigger = 0f;
+        public float LeftStickX;
+        public float LeftStickY;
+        public float RightStickX;
+        public float RightStickY;
+        public float LeftTrigger;
+        public float RightTrigger;
 
-        public bool ButtonA = false;
-        public bool ButtonX = false;
-        public bool ButtonB = false;
-        public bool ButtonY = false;
-        
-        private bool _prevA = false;
-        private bool _prevB = false;
-        private bool _prevX = false;
-        private bool _prevY = false;
+        public bool ButtonA;
+        public bool ButtonX;
+        public bool ButtonB;
+        public bool ButtonY;
 
-        public float ThrottleInput = 0f;
-        public float PitchInput = 0f;
-        public float YawInput = 0f;
-        public float RollInput = 0f;
-        
+        public float ThrottleInput;
+        public float PitchInput;
+        public float YawInput;
+        public float RollInput;
+
+        private bool _prevA;
+        private bool _prevB;
+        private bool _prevX;
+        private bool _prevY;
+        public Controller Controller;
+        public Gamepad GamepadState;
+
         private void Start()
         {
             DroneController = GetComponent<DroneController>();
@@ -44,7 +43,43 @@ namespace FPVDroneMod.Components
                 DebugLogger.LogWarning("Controller detected!");
             }
         }
-        
+
+        private void Update()
+        {
+            GetControllerInput();
+            ApplyInput();
+        }
+
+        private void OnGUI()
+        {
+            if (!GeneralConfig.EnableDebug.Value) return;
+
+            GUIStyle style = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 16,
+                normal = { textColor = Color.white }
+            };
+
+            GUILayout.BeginArea(new Rect(10, 10, 300, 400));
+            GUILayout.Label($"Left Stick X: {LeftStickX:F2}", style);
+            GUILayout.Label($"Left Stick Y: {LeftStickY:F2}", style);
+            GUILayout.Label($"Right Stick X: {RightStickX:F2}", style);
+            GUILayout.Label($"Right Stick Y: {RightStickY:F2}", style);
+            GUILayout.Label($"Left Trigger: {LeftTrigger:F2}", style);
+            GUILayout.Label($"Right Trigger: {RightTrigger:F2}", style);
+            GUILayout.Space(10);
+            GUILayout.Label($"Button A: {ButtonA}", style);
+            GUILayout.Label($"Button B: {ButtonB}", style);
+            GUILayout.Label($"Button X: {ButtonX}", style);
+            GUILayout.Label($"Button Y: {ButtonY}", style);
+            GUILayout.Space(10);
+            GUILayout.Label($"Throttle: {ThrottleInput:F2}", style);
+            GUILayout.Label($"Pitch: {PitchInput:F2}", style);
+            GUILayout.Label($"Yaw: {YawInput:F2}", style);
+            GUILayout.Label($"Roll: {RollInput:F2}", style);
+            GUILayout.EndArea();
+        }
+
         private float NormalizeInput(short value, short deadzone)
         {
             if (value > deadzone)
@@ -66,7 +101,7 @@ namespace FPVDroneMod.Components
             {
                 Controller = new Controller(UserIndex.One);
             }
-            
+
             if (Controller != null)
             {
                 ControllerConnected = Controller.IsConnected;
@@ -80,15 +115,15 @@ namespace FPVDroneMod.Components
         private void GetControllerInput()
         {
             GetController();
-            
+
             if (ControllerConnected)
             {
                 bool ok = Controller.GetState(out State state);
-                
+
                 if (ok)
                 {
                     GamepadState = state.Gamepad;
-            
+
                     LeftStickX = NormalizeInput(GamepadState.LeftThumbX, 7849);
                     LeftStickY = NormalizeInput(GamepadState.LeftThumbY, 7849);
                     RightStickX = NormalizeInput(GamepadState.RightThumbX, 8689);
@@ -131,57 +166,32 @@ namespace FPVDroneMod.Components
             }
             else
             {
+                float mouseX = Input.GetAxis("Mouse X");
+                float mouseY = Input.GetAxis("Mouse Y");
+
                 ThrottleInput = Input.GetKey(BindsConfig.Thrust.Value) ? 1f : 0f;
                 RollInput = (Input.GetKey(BindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(BindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
                 PitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
                 YawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
-                
+
+                RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
+                PitchInput += mouseY * BindsConfig.MouseSensitivityY.Value;
+
+                RollInput = Mathf.Clamp(RollInput, -1f, 1f);
+                PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+                YawInput = Mathf.Clamp(YawInput, -1f, 1f);
+                ThrottleInput = Mathf.Clamp(ThrottleInput, 0f, 1f);
+
                 if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
                 {
                     DroneHelper.ControlDrone(false);
                 }
-            
+
                 if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value))
                 {
                     DroneController.ToggleArmed();
                 }
             }
-        }
-
-        private void Update()
-        {
-            GetControllerInput();
-            ApplyInput();
-        }
-
-        private void OnGUI()
-        {
-            if (!GeneralConfig.EnableDebug.Value) return;
-
-            GUIStyle style = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 16,
-                normal = { textColor = Color.white }
-            };
-
-            GUILayout.BeginArea(new Rect(10, 10, 300, 400));
-            GUILayout.Label($"Left Stick X: {LeftStickX:F2}", style);
-            GUILayout.Label($"Left Stick Y: {LeftStickY:F2}", style);
-            GUILayout.Label($"Right Stick X: {RightStickX:F2}", style);
-            GUILayout.Label($"Right Stick Y: {RightStickY:F2}", style);
-            GUILayout.Label($"Left Trigger: {LeftTrigger:F2}", style);
-            GUILayout.Label($"Right Trigger: {RightTrigger:F2}", style);
-            GUILayout.Space(10);
-            GUILayout.Label($"Button A: {ButtonA}", style);
-            GUILayout.Label($"Button B: {ButtonB}", style);
-            GUILayout.Label($"Button X: {ButtonX}", style);
-            GUILayout.Label($"Button Y: {ButtonY}", style);
-            GUILayout.Space(10);
-            GUILayout.Label($"Throttle: {ThrottleInput:F2}", style);
-            GUILayout.Label($"Pitch: {PitchInput:F2}", style);
-            GUILayout.Label($"Yaw: {YawInput:F2}", style);
-            GUILayout.Label($"Roll: {RollInput:F2}", style);
-            GUILayout.EndArea();
         }
     }
 }
