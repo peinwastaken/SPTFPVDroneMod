@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT;
+using FPVDroneMod.Components;
 using FPVDroneMod.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
@@ -15,12 +16,14 @@ namespace FPVDroneMod.Patches
         }
 
         [PatchPostfix]
-        private static void PatchPostfix()
+        private static void PatchPostfix(GameWorld __instance)
         {
             // ???
             AssetHelper.LoadAssets();
             AssetHelper.LoadSounds();
-            
+
+            __instance.gameObject.AddComponent<DroneCullingManager>();
+
             DebugLogger.LogWarning("gameworld started!!");
         }
     }

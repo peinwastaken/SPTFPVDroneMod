@@ -120,9 +120,6 @@ namespace FPVDroneMod.Components
             bool isInRange = ClosestDroneData.Distance < BotGlobals.DroneHearRange;
             bool isVisible = IsClosestDroneVisible();
 
-            DebugLogger.LogInfo(isInRange.ToString());
-            DebugLogger.LogInfo(isVisible.ToString());
-
             return isInRange && isVisible;
         }
 

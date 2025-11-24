@@ -6,6 +6,7 @@ using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
 using FPVDroneMod.Components;
+using FPVDroneMod.Config;
 using FPVDroneMod.Enum;
 using FPVDroneMod.Globals;
 using UnityEngine;
@@ -14,15 +15,15 @@ namespace FPVDroneMod.Helpers
 {
     public static class DroneHelper
     {
-        public static DroneController CurrentController = null;
-        public static bool IsControllingDrone = false;
+        public static DroneController CurrentController;
+        public static bool IsControllingDrone;
 
         public static void ControlDrone(bool newState)
         {
             if (!CanPilotDrone(out EDronePilotFailReason failReason) && newState)
             {
                 DebugLogger.LogWarning($"Can't pilot drone due to: ${failReason}");
-                
+
                 string failReasonString = GetFailReasonString(failReason);
 
                 if (failReasonString != null)
@@ -33,12 +34,12 @@ namespace FPVDroneMod.Helpers
                         ENotificationIconType.Alert
                     );
                 }
-                
+
                 return;
             }
-            
+
             IsControllingDrone = newState;
-            
+
             InstanceHelper.StaticEffect.enabled = newState;
             InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
             InstanceHelper.DroneHudController.gameObject.SetActive(newState);
@@ -48,17 +49,22 @@ namespace FPVDroneMod.Helpers
 
             EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
             playerOwner.enabled = !newState;
-            
+
             if (CurrentController)
             {
                 CurrentController.OnControl(newState);
+            }
+
+            if (GeneralConfig.DisableCulling.Value && DroneCullingManager.Instance)
+            {
+                DroneCullingManager.Instance.SetCullingState(!newState);
             }
         }
 
         public static bool CanPilotDrone(out EDronePilotFailReason failReason)
         {
             failReason = EDronePilotFailReason.None;
-            
+
             Item currentHelmet = PlayerHelper.GetEquipmentItemOfId(ItemIds.HeadsetTemplateId)?.ContainedItem;
             Weapon currentWeapon = PlayerHelper.GetEquippedWeapon();
 
@@ -73,7 +79,7 @@ namespace FPVDroneMod.Helpers
                 failReason = EDronePilotFailReason.NoHelmet;
                 return false;
             }
-            
+
             if (!CurrentController)
             {
                 failReason = EDronePilotFailReason.NoDrone;
@@ -85,16 +91,16 @@ namespace FPVDroneMod.Helpers
 
         public static string GetFailReasonString(EDronePilotFailReason failReason)
         {
-            return (failReason) switch
+            return failReason switch
             {
                 EDronePilotFailReason.NoDrone => "No drone selected",
                 EDronePilotFailReason.NoHelmet => "No headset equipped",
                 EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby",
                 EDronePilotFailReason.NoController => null, // shouldn't happen
-                _ => null, // shouldn't happen
+                _ => null // shouldn't happen
             };
         }
-        
+
         public static void UseDrone(LootItem lootItem)
         {
             DroneController controller = lootItem.GetComponentInChildren<DroneController>(true);
@@ -102,11 +108,9 @@ namespace FPVDroneMod.Helpers
             if (controller != null)
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "Successfully selected drone",
-                    ENotificationDurationType.Default,
-                    ENotificationIconType.Default
+                    "Successfully selected drone"
                 );
-                
+
                 CurrentController = controller;
             }
         }
@@ -118,11 +122,9 @@ namespace FPVDroneMod.Helpers
             if (controller != null)
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "Flipped drone",
-                    ENotificationDurationType.Default,
-                    ENotificationIconType.Default
+                    "Flipped drone"
                 );
-                
+
                 Vector3 current = controller.gameObject.transform.eulerAngles;
                 current.z = 0;
                 controller.gameObject.transform.eulerAngles = current;

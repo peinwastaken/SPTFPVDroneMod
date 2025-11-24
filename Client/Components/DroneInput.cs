@@ -31,6 +31,7 @@ namespace FPVDroneMod.Components
         private bool _prevB;
         private bool _prevX;
         private bool _prevY;
+
         public Controller Controller;
         public Gamepad GamepadState;
 
@@ -177,11 +178,6 @@ namespace FPVDroneMod.Components
                 RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
                 PitchInput += mouseY * BindsConfig.MouseSensitivityY.Value;
 
-                RollInput = Mathf.Clamp(RollInput, -1f, 1f);
-                PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-                YawInput = Mathf.Clamp(YawInput, -1f, 1f);
-                ThrottleInput = Mathf.Clamp(ThrottleInput, 0f, 1f);
-
                 if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
                 {
                     DroneHelper.ControlDrone(false);
@@ -192,6 +188,11 @@ namespace FPVDroneMod.Components
                     DroneController.ToggleArmed();
                 }
             }
+
+            PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            YawInput = Mathf.Clamp(YawInput, -1f, 1f);
+            RollInput = Mathf.Clamp(RollInput, -1f, 1f);
+            ThrottleInput = Mathf.Clamp(ThrottleInput, 0f, 1f);
         }
     }
 }
