@@ -16,6 +16,7 @@ namespace FPVDroneMod.Config
         public static ConfigEntry<KeyCode> RollCounterClockwise;
         public static ConfigEntry<KeyCode> ToggleArmed;
         public static ConfigEntry<KeyCode> ExitDrone;
+        public static ConfigEntry<bool> MouseEnabled;
         public static ConfigEntry<float> MouseSensitivityX;
         public static ConfigEntry<float> MouseSensitivityY;
 
@@ -67,6 +68,11 @@ namespace FPVDroneMod.Config
                 "Exit drone view",
                 null,
                 new ConfigurationManagerAttributes { Order = 920 }));
+
+            MouseEnabled = cfg.Bind(formatted, "Enable Mouse Controls", true, new ConfigDescription(
+                "Enables mouse controls",
+                null,
+                new ConfigurationManagerAttributes { Order = 915 }));
 
             MouseSensitivityX = cfg.Bind(formatted, "Mouse Sensitivity X", -2f, new ConfigDescription(
                 "Mouse sensitivity X",

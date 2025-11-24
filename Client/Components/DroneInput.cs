@@ -175,8 +175,11 @@ namespace FPVDroneMod.Components
                 PitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
                 YawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
 
-                RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
-                PitchInput += mouseY * BindsConfig.MouseSensitivityY.Value;
+                if (BindsConfig.MouseEnabled.Value)
+                {
+                    RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
+                    PitchInput += mouseY * BindsConfig.MouseSensitivityY.Value;
+                }
 
                 if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
                 {
