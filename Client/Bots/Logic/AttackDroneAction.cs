@@ -12,6 +12,7 @@ namespace FPVDroneMod.Bots.Logic
     public class AttackDroneAction : CustomLogic
     {
         private readonly BotDroneListener _droneListener;
+        private int MaxShots = 5;
         private int ShotCount;
         private float TimeSinceLastShot;
         private float TimeToNextShot = 2f;
@@ -30,6 +31,7 @@ namespace FPVDroneMod.Bots.Logic
             BotOwner.Sprint(false);
             BotOwner.PatrollingData.Pause();
             BotOwner.WeaponManager.ShootController.SetAim(true);
+            MaxShots = Random.Range(2, 6);
             base.Start();
         }
 
@@ -62,7 +64,7 @@ namespace FPVDroneMod.Bots.Logic
                 DebugLogger.LogWarning($"SHOT!!!!!! count: {ShotCount}");
             }
 
-            if (ShotCount >= 5 || TimeSinceLastShot >= 5f)
+            if (ShotCount >= MaxShots || TimeSinceLastShot >= 5f)
             {
                 DebugLogger.LogInfo("5 shots should stop now thx. or waited too long");
                 _droneListener.SetAction(EDroneCombatAction.EvadeDrone);
