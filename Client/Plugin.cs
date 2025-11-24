@@ -11,7 +11,7 @@ using FPVDroneMod.Patches;
 
 namespace FPVDroneMod
 {
-    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.2.0")]
+    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.3.0")]
     [BepInDependency("xyz.drakia.bigbrain")]
     public class Plugin : BaseUnityPlugin
     {
