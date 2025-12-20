@@ -115,7 +115,7 @@ namespace FPVDroneMod.Components
 
         public bool IsDroneThreatActive()
         {
-            if (!ClosestDroneData.Controller) return false;
+            if (!ClosestDroneData?.Controller) return false;
 
             bool isInRange = ClosestDroneData.Distance < BotGlobals.DroneHearRange;
             bool isVisible = IsClosestDroneVisible();
@@ -131,12 +131,20 @@ namespace FPVDroneMod.Components
 
         public bool IsClosestDroneVisible()
         {
-            return ClosestDroneData.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyCollider);
+            DroneController controller = ClosestDroneData?.Controller;
+
+            if (controller == null || controller.RigidBody == null) return false;
+
+            return ClosestDroneData?.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyCollider);
         }
 
         public bool IsClosestDroneAirborne()
         {
-            return ClosestDroneData.Controller && ClosestDroneData.Controller.RigidBody.velocity.sqrMagnitude > 0.01f;
+            DroneController controller = ClosestDroneData?.Controller;
+
+            if (controller == null || controller.RigidBody == null) return false;
+
+            return ClosestDroneData?.Controller && ClosestDroneData.Controller.RigidBody.velocity.sqrMagnitude > 0.01f;
         }
     }
 }

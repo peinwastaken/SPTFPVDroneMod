@@ -13,7 +13,9 @@
       "Width": 2,
       "Weight": 0.717,
       "SightingRange": 0,
-      "Slots": []
+      "Slots": [],
+      "InsuranceDisabled": false,
+      "AlwaysAvailableForInsurance": true
     },
     "locales": {
       "en": {
