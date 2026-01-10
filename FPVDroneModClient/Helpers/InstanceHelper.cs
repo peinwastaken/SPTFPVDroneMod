@@ -1,0 +1,47 @@
+#if !UNITY_EDITOR
+using Comfort.Common;
+using EFT;
+using FPVDroneModClient.Components;
+using FPVDroneModClient.Config;
+using UnityEngine;
+
+namespace FPVDroneModClient.Helpers
+{
+    public static class InstanceHelper
+    {
+        public static Player LocalPlayer => Singleton<GameWorld>.Instance.MainPlayer;
+        public static Camera Camera => CameraClass.Instance.Camera;
+        public static FPVScreenPostProcess StaticEffect => Camera.GetComponent<FPVScreenPostProcess>();
+
+        public static void UpdatePostProcessFromConfig()
+        {
+            var pp = StaticEffect;
+            if (pp == null)
+            {
+                DebugLogger.LogError("NO POSTPROCESS COMPONENT FOUND");
+                return;
+            }
+            
+            if (pp.noiseMat != null)
+            {
+                pp.noiseMat.SetFloat("_Intensity", PostProcessConfig.NoiseIntensity.Value);
+                pp.noiseMat.SetFloat("_ResX", PostProcessConfig.NoiseResX.Value);
+                pp.noiseMat.SetFloat("_ResY", PostProcessConfig.NoiseResY.Value);
+            }
+            
+            if (pp.blurMat != null)
+            {
+                pp.blurMat.SetFloat("_BlurSize", PostProcessConfig.BlurSize.Value);
+            }
+            
+            if (pp.analogMat != null)
+            {
+                pp.analogMat.SetFloat("_Chromatic", PostProcessConfig.AnalogChromatic.Value);
+                pp.analogMat.SetFloat("_Desaturation", PostProcessConfig.AnalogDesaturation.Value);
+                pp.analogMat.SetFloat("_PosterizeLevels", PostProcessConfig.AnalogPosterizeLevels.Value);
+                pp.analogMat.SetFloat("_SepiaStrength", PostProcessConfig.AnalogSepiaStrength.Value);
+            }
+        }
+    }
+}
+#endif
