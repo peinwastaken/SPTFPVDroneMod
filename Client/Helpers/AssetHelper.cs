@@ -15,7 +15,6 @@ namespace FPVDroneMod.Helpers
         public static Material NoiseMaterial;
         public static Material AnalogMaterial;
         public static Material ScanMaterial;
-        public static GameObject HUDPrefab;
         public static AudioClip DroneAudioClip;
 
         public static string AssemblyDir => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -24,10 +23,8 @@ namespace FPVDroneMod.Helpers
         public static string SoundDirPath => Path.Combine(AssetDirPath, "sounds");
         
         public static string ShadersBundlePath => Path.Combine(BundleDirPath, "drone_shaders_new.bundle");
-        public static string UIBundlePath => Path.Combine(BundleDirPath, "drone_hud.bundle");
         
         public static AssetBundle ShadersBundle;
-        public static AssetBundle UIBundle;
         
         public static async Task<AudioClip> LoadAudioClip(string path, string fileName)
         {
@@ -60,9 +57,6 @@ namespace FPVDroneMod.Helpers
         {
             AssetBundle shaderBundle = AssetBundle.LoadFromFile(ShadersBundlePath);
             ShadersBundle = shaderBundle;
-            
-            AssetBundle uiBundle = AssetBundle.LoadFromFile(UIBundlePath);
-            UIBundle = uiBundle;
         }
 
         public static async void LoadSounds()
@@ -78,17 +72,6 @@ namespace FPVDroneMod.Helpers
             NoiseMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/NoiseMaterial.mat");
             AnalogMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/AnalogMaterial.mat");
             ScanMaterial = ShadersBundle.LoadAsset<Material>("assets/drone/shaders/ScanlinesMaterial.mat");
-            HUDPrefab = UIBundle.LoadAsset<GameObject>("assets/drone/ui/DroneHud.prefab");
-            
-            GameObject droneHud = Object.Instantiate(HUDPrefab);
-            InstanceHelper.DroneHudController = droneHud.GetComponent<DroneHudController>();
-            
-            Canvas canvas = droneHud.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.planeDistance = 0.055f;
-            InstanceHelper.DroneHudCanvas = canvas;
-            
-            droneHud.SetActive(false);
             
             DebugLogger.LogInfo("Loaded assets!");
         }

@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT.CameraControl;
+using FPVDroneMod.Components;
 using FPVDroneMod.Config;
 using FPVDroneMod.Helpers;
 using HarmonyLib;
@@ -27,6 +28,13 @@ namespace FPVDroneMod.Patches
                 float configAngleOffset = DroneConfig.DroneCameraAngleOffset.Value;
 
                 Quaternion offset = Quaternion.AngleAxis(configAngleOffset, cameraTransform.right);
+
+                if (DroneHelper.CurrentController is ReconDroneController controller)
+                {
+                    offset = Quaternion.AngleAxis(controller.CameraPitch, cameraTransform.right);
+                    __instance.Camera.fieldOfView = Mathf.Lerp(90f, 10f, controller.CameraZoom);
+                }
+                
                 droneAng = offset * droneAng;
 
                 __instance.Camera.transform.position = dronePos;

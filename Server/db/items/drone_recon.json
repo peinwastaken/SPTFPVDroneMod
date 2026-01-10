@@ -1,39 +1,36 @@
 {
-  "68f5333abc75f09d96d97500": {
-    "itemTplToClone": "624c0b3340357b5f566e8766",
-    "parentId": "5447b5cf4bdc2d65278b4567",
+  "695f8753d24480b7b1921023": {
+    "itemTplToClone": "5991b51486f77447b112d44f",
+    "parentId": "5447e0e74bdc2d3c308b4567",
     "handbookParentId": "5b47574386f77428ca22b345",
     "overrideProperties": {
       "ExaminedByDefault": true,
       "Prefab": {
-        "path": "assets/content/items/controller/item_dronecontroller.bundle",
+        "path": "assets/content/items/drones/drone_recon.bundle",
         "rcid": ""
       },
       "Height": 2,
-      "Width": 2,
-      "Weight": 0.717,
+      "Width": 3,
+      "Weight": 0.67,
       "SightingRange": 0,
-      "Slots": [],
-      "InsuranceDisabled": false,
-      "AlwaysAvailableForInsurance": true
+      "Slots": []
     },
     "locales": {
       "en": {
-        "name": "FPV Controller",
-        "shortName": "Controller",
-        "description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations."
+        "name": "Recon Drone",
+        "shortName": "Recon",
+        "description": "Commercial quadcopter designed for aerial imaging and video capture. Features stabilized flight control systems and a high-resolution camera for professional use."
       }
     },
     "clearClonedProps": true,
-    "addToSpecialSlots": true,
     "ModdableItemWhitelist": [],
     "ModdableItemBlacklist": [],
-    "fleaPriceRoubles": 105221,
-    "handbookPriceRoubles": 49332,
+    "fleaPriceRoubles": 359532,
+    "handbookPriceRoubles": 55339,
     "addtoTraders": true,
     "traders": {
       "SKIER": {
-        "690e9274705270fc67bc078b": {
+        "690e8fb4710b7d7961d30875": {
           "barterSettings": {
             "loyalLevel": 2,
             "unlimitedCount": true,
@@ -42,7 +39,7 @@
           },
           "barters": [
             {
-              "count": 74531,
+              "count": 129532,
               "_tpl": "MONEY_ROUBLES"
             }
           ]
@@ -51,7 +48,16 @@
     },
     "addtoBots": false,
     "addtostaticlootcontainer": false,
-    "StaticLootContainers": [],
+    "StaticLootContainers": [
+      {
+        "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+        "Probability": 3000
+      },
+      {
+        "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+        "Probability": 20
+      }
+    ],
     "masteries": false,
     "masterySections": [],
     "addweaponpreset": false,

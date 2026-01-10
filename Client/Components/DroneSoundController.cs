@@ -1,5 +1,4 @@
 using UnityEngine;
-
 #if !UNITY_EDITOR
 using FPVDroneMod.Helpers;
 #endif
@@ -15,19 +14,19 @@ namespace FPVDroneMod.Components
 
         public AudioClip DroneSound;
         public AudioSource AudioSource;
-        public DroneController DroneController;
-        
+        public BaseDroneController DroneController;
+
         #if !UNITY_EDITOR
         public void SetBlend(float pos)
         {
-            DroneController = GetComponent<DroneController>();
+            DroneController = GetComponent<BaseDroneController>();
         }
 
         private void Start()
         {
             DroneSound = AssetHelper.DroneAudioClip;
-            DroneController = GetComponent<DroneController>();
-            
+            DroneController = GetComponent<BaseDroneController>();
+
             AudioSource = gameObject.AddComponent<AudioSource>();
             AudioSource.clip = DroneSound;
             AudioSource.loop = true;

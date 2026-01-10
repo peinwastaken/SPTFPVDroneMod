@@ -11,7 +11,7 @@ namespace FPVDroneMod.Components
 {
     public class BotDroneListener : MonoBehaviour
     {
-        public static List<DroneController> ActiveDrones = [];
+        public static List<BaseDroneController> ActiveDrones = [];
 
         public float TimeBetweenChecks = 1f;
         public float TimeSinceLastDroneCheck;
@@ -38,14 +38,14 @@ namespace FPVDroneMod.Components
             }
         }
 
-        public static void AddDrone(DroneController controller)
+        public static void AddDrone(BaseDroneController controller)
         {
             if (ActiveDrones.Count <= 0)
             {
                 ActiveDrones.Add(controller);
             }
 
-            foreach (DroneController addedController in ActiveDrones)
+            foreach (BaseDroneController addedController in ActiveDrones)
             {
                 if (addedController == controller)
                 {
@@ -57,17 +57,17 @@ namespace FPVDroneMod.Components
             ActiveDrones.Add(controller);
         }
 
-        public static void RemoveDrone(DroneController controller)
+        public static void RemoveDrone(BaseDroneController controller)
         {
             ActiveDrones.Remove(controller);
         }
 
-        public Dictionary<DroneController, float> GetDroneDistances()
+        public Dictionary<BaseDroneController, float> GetDroneDistances()
         {
-            Dictionary<DroneController, float> distances = [];
+            Dictionary<BaseDroneController, float> distances = [];
             Vector3 position = gameObject.transform.position;
 
-            foreach (DroneController controller in ActiveDrones)
+            foreach (BaseDroneController controller in ActiveDrones)
             {
                 if (controller)
                 {
@@ -80,12 +80,12 @@ namespace FPVDroneMod.Components
 
         public ClosestDroneData GetClosestDrone()
         {
-            Dictionary<DroneController, float> droneDistances = GetDroneDistances();
+            Dictionary<BaseDroneController, float> droneDistances = GetDroneDistances();
 
-            DroneController closestDrone = null;
+            BaseDroneController closestDrone = null;
             float closestDistance = float.MaxValue;
 
-            foreach (KeyValuePair<DroneController, float> kvp in droneDistances)
+            foreach (KeyValuePair<BaseDroneController, float> kvp in droneDistances)
             {
                 if (kvp.Value < closestDistance)
                 {
@@ -131,20 +131,11 @@ namespace FPVDroneMod.Components
 
         public bool IsClosestDroneVisible()
         {
-            DroneController controller = ClosestDroneData?.Controller;
+            BaseDroneController controller = ClosestDroneData?.Controller;
 
             if (controller == null || controller.RigidBody == null) return false;
 
             return ClosestDroneData?.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyCollider);
-        }
-
-        public bool IsClosestDroneAirborne()
-        {
-            DroneController controller = ClosestDroneData?.Controller;
-
-            if (controller == null || controller.RigidBody == null) return false;
-
-            return ClosestDroneData?.Controller && ClosestDroneData.Controller.RigidBody.velocity.sqrMagnitude > 0.01f;
         }
     }
 }

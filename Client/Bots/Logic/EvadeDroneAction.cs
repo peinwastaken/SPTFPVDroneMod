@@ -11,11 +11,11 @@ namespace FPVDroneMod.Bots.Logic
 {
     public class EvadeDroneAction : CustomLogic
     {
-        private bool _canStartEvade = true;
         private readonly BotDroneListener _droneListener;
+        private readonly float _maxEvadeTime = 5f;
+        private bool _canStartEvade = true;
         private bool _isEvading;
         private Vector3 _lastEvadePos;
-        private readonly float _maxEvadeTime = 5f;
         private float _timeSpentEvading;
 
         public EvadeDroneAction(BotOwner botOwner) : base(botOwner)
@@ -32,7 +32,7 @@ namespace FPVDroneMod.Bots.Logic
                 DebugLogger.LogWarning("no controller");
             }
 
-            DroneController controller = _droneListener.ClosestDroneData.Controller;
+            BaseDroneController controller = _droneListener.ClosestDroneData.Controller;
             Vector3 botPos = BotOwner.GetPlayer.Transform.position;
 
             Vector3 dirToBot = (botPos - controller.transform.position).normalized;

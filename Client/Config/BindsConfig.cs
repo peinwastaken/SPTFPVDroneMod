@@ -16,6 +16,10 @@ namespace FPVDroneMod.Config
         public static ConfigEntry<KeyCode> RollCounterClockwise;
         public static ConfigEntry<KeyCode> ToggleArmed;
         public static ConfigEntry<KeyCode> ExitDrone;
+        public static ConfigEntry<KeyCode> AltitudeUp;
+        public static ConfigEntry<KeyCode> AltitudeDown;
+        public static ConfigEntry<KeyCode> CameraZoomIn;
+        public static ConfigEntry<KeyCode> CameraZoomOut;
         public static ConfigEntry<bool> MouseEnabled;
         public static ConfigEntry<float> MouseSensitivityX;
         public static ConfigEntry<float> MouseSensitivityY;
@@ -24,6 +28,7 @@ namespace FPVDroneMod.Config
         {
             string formatted = Category.Format(order, category);
 
+            // FPV DRONE CONTROLS
             Thrust = cfg.Bind(formatted, "Thrust", KeyCode.W, new ConfigDescription(
                 "Apply thrust",
                 null,
@@ -68,21 +73,43 @@ namespace FPVDroneMod.Config
                 "Exit drone view",
                 null,
                 new ConfigurationManagerAttributes { Order = 920 }));
+            
+            // RECON DRONE CONTROLS
+            AltitudeUp = cfg.Bind(formatted, "Altitude Up", KeyCode.Space, new ConfigDescription(
+                "Increase drone altitude",
+                null,
+                new ConfigurationManagerAttributes { Order = 910 }));
 
+            AltitudeDown = cfg.Bind(formatted, "Altitude Down", KeyCode.LeftShift, new ConfigDescription(
+                "Decrease drone altitude",
+                null,
+                new ConfigurationManagerAttributes { Order = 900 }));
+
+            CameraZoomIn = cfg.Bind(formatted, "Camera Zoom In", KeyCode.Plus, new ConfigDescription(
+                "Zoom camera in",
+                null,
+                new ConfigurationManagerAttributes { Order = 870 }));
+
+            CameraZoomOut = cfg.Bind(formatted, "Camera Zoom Out", KeyCode.Minus, new ConfigDescription(
+                "Zoom camera out",
+                null,
+                new ConfigurationManagerAttributes { Order = 860 }));
+
+            // MOUSE CONTROLS
             MouseEnabled = cfg.Bind(formatted, "Enable Mouse Controls", true, new ConfigDescription(
                 "Enables mouse controls",
                 null,
-                new ConfigurationManagerAttributes { Order = 915 }));
+                new ConfigurationManagerAttributes { Order = 850 }));
 
             MouseSensitivityX = cfg.Bind(formatted, "Mouse Sensitivity X", -2f, new ConfigDescription(
                 "Mouse sensitivity X",
                 new AcceptableValueRange<float>(-5f, 5f),
-                new ConfigurationManagerAttributes { Order = 910 }));
+                new ConfigurationManagerAttributes { Order = 840 }));
 
             MouseSensitivityY = cfg.Bind(formatted, "Mouse Sensitivity Y", 2f, new ConfigDescription(
                 "Mouse sensitivity Y",
                 new AcceptableValueRange<float>(-5f, 5f),
-                new ConfigurationManagerAttributes { Order = 900 }));
+                new ConfigurationManagerAttributes { Order = 830 }));
         }
     }
 }

@@ -2,6 +2,7 @@
 using EFT.Interactive;
 using FPVDroneMod.Components;
 using FPVDroneMod.Globals;
+using FPVDroneMod.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
@@ -19,17 +20,17 @@ namespace FPVDroneMod.Patches
         [PatchPrefix]
         private static bool PatchPrefix(LootItem __instance)
         {
-            string templateId = __instance.TemplateId;
+            BaseDroneController controller = __instance.GetComponent<BaseDroneController>();
 
-            if (templateId == ItemIds.DroneTemplateId)
+            if (controller)
             {
-                DroneController controller = __instance.GetComponentInChildren<DroneController>();
                 GameObject droneBody = controller.BallisticCollider.gameObject;
 
                 droneBody.layer = LayerMask.NameToLayer("Deadbody");
                 Rigidbody rb = __instance.RigidBody;
                 EFTPhysicsClass.GClass745.SupportRigidbody(rb);
 
+                DebugLogger.LogInfo("found rb and did stuff w/ it");
                 return false;
             }
 

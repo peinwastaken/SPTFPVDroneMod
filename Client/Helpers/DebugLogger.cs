@@ -1,4 +1,5 @@
-﻿using BepInEx.Logging;
+﻿#if !UNITY_EDITOR
+using BepInEx.Logging;
 using FPVDroneMod.Config;
 
 namespace FPVDroneMod.Helpers
@@ -31,3 +32,4 @@ namespace FPVDroneMod.Helpers
         }
     }
 }
+#endif

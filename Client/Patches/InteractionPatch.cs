@@ -4,7 +4,6 @@ using EFT.Interactive;
 using FPVDroneMod.Components;
 using FPVDroneMod.Globals;
 using FPVDroneMod.Helpers;
-using FPVDroneMod.Patches;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System;
@@ -21,23 +20,26 @@ namespace FPVDroneMod.Patches
 
         private static void CreateAction(ActionsReturnClass __result, string name, Action action)
         {
-            ActionsTypesClass newAction = new ActionsTypesClass()
+            ActionsTypesClass newAction = new ActionsTypesClass
             {
                 Name = name,
                 Disabled = false,
-                Action = action,
+                Action = action
             };
 
             __result.Actions.Add(newAction);
         }
 
-        private static void OnPickupAction(LootItem lootItem, DroneController droneController)
+        private static void OnPickupAction(LootItem lootItem, BaseDroneController droneController)
         {
-            if (droneController && droneController.DroneDetonator.Armed)
+            if (droneController is FPVDroneController controller)
             {
-                droneController.Detonate();
+                if (controller.DroneDetonator.Armed)
+                {
+                    controller.Detonate();
+                }
             }
-            
+
             if (droneController == DroneHelper.CurrentController)
             {
                 DroneHelper.CurrentController = null;
@@ -47,19 +49,17 @@ namespace FPVDroneMod.Patches
         [PatchPostfix]
         public static void Postfix(ref ActionsReturnClass __result, GamePlayerOwner owner, LootItem lootItem)
         {
-            string itemId = lootItem.TemplateId;
-            
-            DebugLogger.LogInfo($"Interacting with item: {itemId}");
+            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>();
 
-            if (itemId == ItemIds.DroneTemplateId)
+            DebugLogger.LogInfo($"Interacting with item: {lootItem.TemplateId}");
+
+            if (controller)
             {
-                DroneController controller = lootItem.GetComponentInChildren<DroneController>();
-                
                 DebugLogger.LogInfo("Interacting with drone - create actions");
-                
+
                 // Pick up
-                __result.Actions[0].Action += () => OnPickupAction(lootItem, controller); 
-                
+                __result.Actions[0].Action += () => OnPickupAction(lootItem, controller);
+
                 CreateAction(__result, "Use", () => DroneHelper.UseDrone(lootItem));
                 CreateAction(__result, "Flip", () => DroneHelper.FlipDrone(lootItem));
             }

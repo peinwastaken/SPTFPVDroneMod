@@ -4,7 +4,7 @@ namespace FPVDroneMod.Models
 {
     public class ClosestDroneData
     {
-        public DroneController Controller;
+        public BaseDroneController Controller;
         public float Distance;
     }
 }

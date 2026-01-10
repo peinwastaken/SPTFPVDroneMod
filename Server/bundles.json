@@ -9,6 +9,14 @@
             ]
         },
         {
+            "key": "assets/content/items/drones/drone_recon.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
+            ]
+        },
+        {
             "key": "assets/content/items/goggles/dji_goggles.bundle",
             "dependencyKeys": [
                 "shaders",

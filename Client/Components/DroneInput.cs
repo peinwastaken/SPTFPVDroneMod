@@ -1,14 +1,18 @@
+using FPVDroneMod.Interface;
+using UnityEngine;
+#if !UNITY_EDITOR
 using DXNET.XInput;
 using FPVDroneMod.Config;
 using FPVDroneMod.Helpers;
-using UnityEngine;
+#endif
 
 namespace FPVDroneMod.Components
 {
+    // TODO: needs a rewrite
     public class DroneInput : MonoBehaviour
     {
         public bool ControllerConnected;
-        public DroneController DroneController;
+        public IPilotable Pilotable;
 
         public float LeftStickX;
         public float LeftStickY;
@@ -22,22 +26,31 @@ namespace FPVDroneMod.Components
         public bool ButtonB;
         public bool ButtonY;
 
+        public bool ButtonRB;
+        public bool ButtonLB;
+
         public float ThrottleInput;
         public float PitchInput;
         public float YawInput;
         public float RollInput;
+        public float AltitudeInput;
+        public float CameraPitchInput;
+        public float CameraZoomInput;
 
         private bool _prevA;
         private bool _prevB;
         private bool _prevX;
         private bool _prevY;
+        private bool _prevRb;
+        private bool _prevLb;
 
+        #if !UNITY_EDITOR
         public Controller Controller;
         public Gamepad GamepadState;
 
         private void Start()
         {
-            DroneController = GetComponent<DroneController>();
+            Pilotable = GetComponent<BaseDroneController>();
 
             if (ControllerConnected)
             {
@@ -61,7 +74,7 @@ namespace FPVDroneMod.Components
                 normal = { textColor = Color.white }
             };
 
-            GUILayout.BeginArea(new Rect(10, 10, 300, 400));
+            GUILayout.BeginArea(new Rect(20, 20, 300, 500));
             GUILayout.Label($"Left Stick X: {LeftStickX:F2}", style);
             GUILayout.Label($"Left Stick Y: {LeftStickY:F2}", style);
             GUILayout.Label($"Right Stick X: {RightStickX:F2}", style);
@@ -78,6 +91,7 @@ namespace FPVDroneMod.Components
             GUILayout.Label($"Pitch: {PitchInput:F2}", style);
             GUILayout.Label($"Yaw: {YawInput:F2}", style);
             GUILayout.Label($"Roll: {RollInput:F2}", style);
+            GUILayout.Label($"Altitude: {AltitudeInput:F2}", style);
             GUILayout.EndArea();
         }
 
@@ -137,22 +151,37 @@ namespace FPVDroneMod.Components
                     ButtonX = (GamepadState.Buttons & GamepadButtonFlags.X) != 0;
                     ButtonB = (GamepadState.Buttons & GamepadButtonFlags.B) != 0;
                     ButtonY = (GamepadState.Buttons & GamepadButtonFlags.Y) != 0;
+                    ButtonRB = (GamepadState.Buttons & GamepadButtonFlags.RightShoulder) != 0;
+                    ButtonLB = (GamepadState.Buttons & GamepadButtonFlags.LeftShoulder) != 0;
                 }
             }
         }
 
         private void ApplyInput()
         {
+            if (Pilotable is FPVDroneController)
+            {
+                ApplyFpvInput();
+            }
+            else if (Pilotable is ReconDroneController)
+            {
+                ApplyReconInput();
+            }
+        }
+
+        private void ApplyFpvInput()
+        {
             if (ControllerConnected)
             {
                 ThrottleInput = LeftStickY;
+                AltitudeInput = LeftStickY;
                 PitchInput = RightStickY;
                 YawInput = LeftStickX;
                 RollInput = -RightStickX;
 
-                if (ButtonY && !_prevY)
+                if (ButtonY && !_prevY && Pilotable is IArmable armable)
                 {
-                    DroneController.ToggleArmed();
+                    armable.ToggleArmed();
                 }
 
                 if (ButtonB && !_prevB)
@@ -164,6 +193,8 @@ namespace FPVDroneMod.Components
                 _prevB = ButtonB;
                 _prevX = ButtonX;
                 _prevY = ButtonY;
+                _prevRb = ButtonRB;
+                _prevLb = ButtonLB;
             }
             else
             {
@@ -174,7 +205,7 @@ namespace FPVDroneMod.Components
                 RollInput = (Input.GetKey(BindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(BindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
                 PitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
                 YawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
-
+                
                 if (BindsConfig.MouseEnabled.Value)
                 {
                     RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
@@ -186,16 +217,73 @@ namespace FPVDroneMod.Components
                     DroneHelper.ControlDrone(false);
                 }
 
-                if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value))
+                if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
                 {
-                    DroneController.ToggleArmed();
+                    armable.ToggleArmed();
                 }
             }
 
             PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
             YawInput = Mathf.Clamp(YawInput, -1f, 1f);
             RollInput = Mathf.Clamp(RollInput, -1f, 1f);
-            ThrottleInput = Mathf.Clamp(ThrottleInput, 0f, 1f);
+            ThrottleInput = Mathf.Clamp(ThrottleInput, -1f, 1f);
         }
+
+        private void ApplyReconInput()
+        {
+            if (ControllerConnected)
+            {
+                AltitudeInput = LeftStickY;
+                PitchInput = RightStickY;
+                YawInput = LeftStickX;
+                RollInput = -RightStickX;
+
+                if (ButtonY && !_prevY && Pilotable is IArmable armable)
+                {
+                    armable.ToggleArmed();
+                }
+
+                if (ButtonB && !_prevB)
+                {
+                    DroneHelper.ControlDrone(false);
+                }
+
+                _prevA = ButtonA;
+                _prevB = ButtonB;
+                _prevX = ButtonX;
+                _prevY = ButtonY;
+                _prevRb = ButtonRB;
+                _prevLb = ButtonLB;
+            }
+            else
+            {
+                float mouseX = Input.GetAxis("Mouse X");
+                float mouseY = Input.GetAxis("Mouse Y");
+                float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+                
+                AltitudeInput = (Input.GetKey(KeyCode.Space) ? 1f : 0f) + (Input.GetKey(KeyCode.LeftShift) ? -1f : 0f);
+                PitchInput = (Input.GetKey(KeyCode.W) ? 1f : 0f) + (Input.GetKey(KeyCode.S) ? -1f : 0f);
+                RollInput = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f);
+                YawInput = mouseX * 2f;
+                CameraPitchInput = mouseY * 2f;
+                CameraZoomInput = mouseScroll * 0.2f;
+
+                if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
+                {
+                    DroneHelper.ControlDrone(false);
+                }
+
+                if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
+                {
+                    armable.ToggleArmed();
+                }
+            }
+
+            PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            YawInput = Mathf.Clamp(YawInput, -1f, 1f);
+            RollInput = Mathf.Clamp(RollInput, -1f, 1f);
+            ThrottleInput = Mathf.Clamp(ThrottleInput, -1f, 1f);
+        }
+        #endif
     }
 }

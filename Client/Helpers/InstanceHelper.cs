@@ -12,8 +12,6 @@ namespace FPVDroneMod.Helpers
         public static Player LocalPlayer => Singleton<GameWorld>.Instance.MainPlayer;
         public static Camera Camera => CameraClass.Instance.Camera;
         public static FPVScreenPostProcess StaticEffect => Camera.GetComponent<FPVScreenPostProcess>();
-        public static DroneHudController DroneHudController { get; set; }
-        public static Canvas DroneHudCanvas { get; set; }
 
         public static void UpdatePostProcessFromConfig()
         {

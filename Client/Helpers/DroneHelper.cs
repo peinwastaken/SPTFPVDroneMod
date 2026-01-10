@@ -15,7 +15,7 @@ namespace FPVDroneMod.Helpers
 {
     public static class DroneHelper
     {
-        public static DroneController CurrentController;
+        public static BaseDroneController CurrentController;
         public static bool IsControllingDrone;
 
         public static void ControlDrone(bool newState)
@@ -42,8 +42,6 @@ namespace FPVDroneMod.Helpers
 
             InstanceHelper.StaticEffect.enabled = newState;
             InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
-            InstanceHelper.DroneHudController.gameObject.SetActive(newState);
-            InstanceHelper.DroneHudCanvas.worldCamera = InstanceHelper.Camera;
             Singleton<CommonUI>.Instance.EftBattleUIScreen.CanvasGroup.gameObject.SetActive(!newState);
             EFTPhysicsClass.SyncTransformsClass.UpdateMode = newState ? EFTPhysicsClass.SyncTransformsClass.UpdateModeType.FixedUpdate : EFTPhysicsClass.SyncTransformsClass.UpdateModeType.SmoothSimulate;
 
@@ -52,7 +50,14 @@ namespace FPVDroneMod.Helpers
 
             if (CurrentController)
             {
-                CurrentController.OnControl(newState);
+                if (newState)
+                {
+                    CurrentController.OnPilotEnter();
+                }
+                else
+                {
+                    CurrentController.OnPilotExit();
+                }
             }
 
             if (GeneralConfig.DisableCulling.Value && DroneCullingManager.Instance)
@@ -95,7 +100,7 @@ namespace FPVDroneMod.Helpers
             {
                 EDronePilotFailReason.NoDrone => "No drone selected",
                 EDronePilotFailReason.NoHelmet => "No headset equipped",
-                EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby",
+                EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby", // TODO: add this
                 EDronePilotFailReason.NoController => null, // shouldn't happen
                 _ => null // shouldn't happen
             };
@@ -103,7 +108,7 @@ namespace FPVDroneMod.Helpers
 
         public static void UseDrone(LootItem lootItem)
         {
-            DroneController controller = lootItem.GetComponentInChildren<DroneController>(true);
+            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>(true);
 
             if (controller != null)
             {
@@ -117,7 +122,7 @@ namespace FPVDroneMod.Helpers
 
         public static void FlipDrone(LootItem lootItem)
         {
-            DroneController controller = lootItem.GetComponentInChildren<DroneController>(true);
+            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>(true);
 
             if (controller != null)
             {
