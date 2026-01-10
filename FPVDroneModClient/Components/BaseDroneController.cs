@@ -3,8 +3,10 @@ using FPVDroneModClient.Interface;
 using System;
 using UnityEngine;
 #if !UNITY_EDITOR
+using EFT;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+using UnityEngine.EventSystems;
 #endif
 
 namespace FPVDroneModClient.Components
@@ -51,11 +53,24 @@ namespace FPVDroneModClient.Components
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             BallisticCollider.OnHitAction += OnHit;
 
+            enabled = false;
+
             BotDroneListener.AddDrone(this);
         }
 
         protected virtual void Start()
         {
+            GetReferences();
+            
+            BatteryRemaining = MaxBattery;
+            PropellerSpeed = MinPropellerSpeed;
+
+            if (RigidBody)
+            {
+                RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
+            }
+            
             Canvas hudCanvas = HudController.gameObject.GetComponent<Canvas>();
             hudCanvas.worldCamera = CameraClass.Instance.Camera;
             hudCanvas.planeDistance = 0.055f;
@@ -148,6 +163,51 @@ namespace FPVDroneModClient.Components
         protected virtual void FixedUpdate()
         {
             Grounded = IsGrounded();
+            
+            if (HudController)
+            {
+                HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
+
+                Player player = InstanceHelper.LocalPlayer;
+                float distanceFromPlayer = (player.Position - transform.position).magnitude;
+                HudController.UpdateSignalStrength(1f - Mathf.Clamp01(distanceFromPlayer / 1000f));
+
+                RaycastHit hit;
+                HudController.UpdateAltitude(
+                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ?
+                    hit.distance : 999f
+                );
+
+                HudController.UpdateSpeed(RigidBody.velocity.magnitude * 3.6f);
+            }
+        }
+
+        protected virtual void Update()
+        {
+            float dt = Time.deltaTime;
+            if (!DroneInput)
+            {
+                DebugLogger.LogError("DRONEINPUT IS NULL");
+            }
+
+            if (BatteryRemaining > 0f)
+            {
+                float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
+                PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);
+
+                BatteryRemaining -= (Thrust > 0 ? BatteryDecayRateAccel : BatteryDecayRateIdle) * dt;
+                BatteryRemaining = Mathf.Clamp(BatteryRemaining, 0, MaxBattery);
+            }
+            else
+            {
+                Thrust = 0f;
+                PropellerSpeed = Mathf.Lerp(PropellerSpeed, 0, PropellerAccelerationSpeed * dt);
+            }
+
+            if (PropellerSpeed > 0f)
+            {
+                RotatePropellers(PropellerSpeed);
+            }
         }
 
         protected void ApplyStableThrust()
@@ -171,9 +231,9 @@ namespace FPVDroneModClient.Components
         {
             if (!RigidBody) return false;
             
-            bool hit = VectorHelper.HitCheck(RigidBody.position, Vector3.down * 0.1f, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+            bool hit = VectorHelper.HitCheck(RigidBody.position, RigidBody.position + Vector3.down * 1000f, LayerMaskClass.HighPolyWithTerrainNoGrassMask,  out RaycastHit result);
 
-            return hit && RigidBody.velocity.sqrMagnitude <= 0.2f;
+            return hit && result.distance < 0.2f;
         }
         #endif
         

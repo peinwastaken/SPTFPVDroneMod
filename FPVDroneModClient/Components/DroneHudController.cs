@@ -24,9 +24,10 @@ namespace FPVDroneModClient.Components
             _signalStateController = SignalImage.GetComponent<UIElementStateController>();
             _batteryStateController = BatteryImage.GetComponent<UIElementStateController>();
 
-            SetArmedTextVisible(false);
-            
-            DontDestroyOnLoad(gameObject);
+            if (ArmedText)
+            {
+                SetArmedTextVisible(false);
+            }
         }
 
         public void UpdateSpeed(float speed)

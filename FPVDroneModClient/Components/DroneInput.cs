@@ -264,8 +264,8 @@ namespace FPVDroneModClient.Components
                 AltitudeInput = (Input.GetKey(KeyCode.Space) ? 1f : 0f) + (Input.GetKey(KeyCode.LeftShift) ? -1f : 0f);
                 PitchInput = (Input.GetKey(KeyCode.W) ? 1f : 0f) + (Input.GetKey(KeyCode.S) ? -1f : 0f);
                 RollInput = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f);
-                YawInput = mouseX * 2f;
-                CameraPitchInput = mouseY * 2f;
+                YawInput = mouseX * 0.05f;
+                CameraPitchInput = mouseY * -0.6f;
                 CameraZoomInput = mouseScroll * 0.2f;
 
                 if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))

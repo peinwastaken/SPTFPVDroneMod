@@ -38,13 +38,7 @@ namespace FPVDroneModClient.Components
         {
             base.Start();
             
-            BatteryRemaining = MaxBattery;
-            PropellerSpeed = MinPropellerSpeed;
-
             HudController.SetArmedTextVisible(DroneDetonator.Armed);
-
-            RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
         public override void OnHit(DamageInfoStruct damageInfo)
@@ -131,27 +125,12 @@ namespace FPVDroneModClient.Components
             
             Thrust = Mathf.Lerp(Thrust, DroneInput.ThrottleInput, PropellerAccelerationSpeed * Time.fixedDeltaTime);
             ApplyThrust(Thrust);
-
-            if (HudController)
-            {
-                HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
-
-                Player player = InstanceHelper.LocalPlayer;
-                float distanceFromPlayer = (player.Position - transform.position).magnitude;
-                HudController.UpdateSignalStrength(1f - Mathf.Clamp01(distanceFromPlayer / 1000f));
-
-                RaycastHit hit;
-                HudController.UpdateAltitude(
-                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ?
-                    hit.distance : 999f
-                );
-
-                HudController.UpdateSpeed(RigidBody.velocity.magnitude * 3.6f);
-            }
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+            
             float dt = Time.deltaTime;
             if (!DroneInput)
             {
@@ -163,22 +142,6 @@ namespace FPVDroneModClient.Components
                 if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * RollSpeed * dt);
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);
                 if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
-
-                float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
-                PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);
-
-                BatteryRemaining -= (Thrust > 0 ? BatteryDecayRateAccel : BatteryDecayRateIdle) * dt;
-                BatteryRemaining = Mathf.Clamp(BatteryRemaining, 0, MaxBattery);
-            }
-            else
-            {
-                Thrust = 0f;
-                PropellerSpeed = Mathf.Lerp(PropellerSpeed, 0, PropellerAccelerationSpeed * dt);
-            }
-
-            if (PropellerSpeed > 0f)
-            {
-                RotatePropellers(PropellerSpeed);
             }
         }
         #endif

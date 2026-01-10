@@ -14,15 +14,19 @@ namespace FPVDroneModClient.Components
         public override void OnPilotEnter()
         {
             base.OnPilotEnter();
+
+            RigidBody.drag = 0.75f;
+            RigidBody.isKinematic = false;
         }
 
         public override void OnPilotExit()
         {
             base.OnPilotExit();
 
-            if (!Grounded)
+            if (!Grounded && DroneHelper.CurrentController == this)
             {
                 enabled = true;
+                RigidBody.isKinematic = true;
             }
         }
 
@@ -41,16 +45,19 @@ namespace FPVDroneModClient.Components
         
         public override void ApplyPitch(float amount)
         {
+            if (Grounded) return;
             RigidBody.AddForce(RigidBody.transform.forward * (ThrustForce * amount), ForceMode.Acceleration);
         }
 
         public override void ApplyYaw(float amount)
         {
+            if (Grounded) return;
             RigidBody.rotation *= Quaternion.AngleAxis(YawSpeed * amount, Vector3.up);
         }
 
         public override void ApplyRoll(float amount)
         {
+            if (Grounded) return;
             RigidBody.AddForce(RigidBody.transform.right * (ThrustForce * amount), ForceMode.Acceleration);
         }
 
@@ -75,6 +82,8 @@ namespace FPVDroneModClient.Components
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (!RigidBody) return;
             
             if (!Grounded && Mathf.Approximately(DroneInput.AltitudeInput, 0f))
             {
@@ -96,19 +105,24 @@ namespace FPVDroneModClient.Components
             }
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+            
             float dt = Time.deltaTime;
 
-            if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * 20f * dt);
-            if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * 20f * dt);
-            if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * 20f * dt);
+            if (BatteryRemaining > 0f)
+            {
+                if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * 20f * dt);
+                if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * 20f * dt);
+                if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * 20f * dt);
 
-            CameraPitch += DroneInput.CameraPitchInput * 15f * dt;
-            CameraPitch = Mathf.Clamp(CameraPitch, 0f, 90f);
+                CameraPitch += DroneInput.CameraPitchInput * 100f * dt;
+                CameraPitch = Mathf.Clamp(CameraPitch, 0f, 90f);
 
-            CameraZoom += DroneInput.CameraZoomInput;
-            CameraZoom = Mathf.Clamp(CameraZoom, 0f, 1f);
+                CameraZoom += DroneInput.CameraZoomInput;
+                CameraZoom = Mathf.Clamp(CameraZoom, 0f, 1f);
+            }
         }
         #endif
     }

@@ -74,6 +74,8 @@ namespace FPVDroneModClient.Helpers
                 LastNearClip = camera.nearClipPlane;
                 
                 camera.nearClipPlane = Plugin.CameraNearClip.Value;
+                
+                playerOwner.ClearInteractionState();
             }
             else
             {
