@@ -17,6 +17,8 @@ namespace FPVDroneModClient.Helpers
     {
         public static BaseDroneController CurrentController;
         public static bool IsControllingDrone;
+        public static float LastFov = 0f;
+        public static float LastNearClip = 0f;
 
         public static void ControlDrone(bool newState)
         {
@@ -63,6 +65,20 @@ namespace FPVDroneModClient.Helpers
             if (GeneralConfig.DisableCulling.Value && DroneCullingManager.Instance)
             {
                 DroneCullingManager.Instance.SetCullingState(!newState);
+            }
+
+            Camera camera = CameraClass.Instance.Camera;
+            if (newState)
+            {
+                LastFov = camera.fieldOfView;
+                LastNearClip = camera.nearClipPlane;
+                
+                camera.nearClipPlane = Plugin.CameraNearClip.Value;
+            }
+            else
+            {
+                camera.fieldOfView = LastFov;
+                camera.nearClipPlane = LastNearClip;
             }
         }
 

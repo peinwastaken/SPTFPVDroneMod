@@ -1,4 +1,6 @@
+#if !UNITY_EDITOR
 using FPVDroneModClient.Helpers;
+#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components

@@ -39,11 +39,6 @@ namespace FPVDroneModClient.Patches
 
                 __instance.Camera.transform.position = dronePos;
                 __instance.Camera.transform.rotation = droneAng;
-                __instance.Camera.nearClipPlane = Plugin.CameraNearClip.Value;
-            }
-            else
-            {
-                __instance.Camera.nearClipPlane = 0.03f;
             }
         }
     }

@@ -1,4 +1,6 @@
+#if !UNITY_EDITOR
 using FPVDroneModClient.Helpers;
+#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components
@@ -74,8 +76,6 @@ namespace FPVDroneModClient.Components
         {
             base.FixedUpdate();
             
-            Thrust = DroneInput.AltitudeInput;
-            
             if (!Grounded && Mathf.Approximately(DroneInput.AltitudeInput, 0f))
             {
                 ApplyStableThrust();
@@ -85,7 +85,14 @@ namespace FPVDroneModClient.Components
             }
             else
             {
+                Thrust = Mathf.Lerp(Thrust, DroneInput.AltitudeInput, PropellerAccelerationSpeed * Time.fixedDeltaTime);
                 ApplyThrust(Thrust);
+            }
+
+            Canvas canvas = HudController.GetComponent<Canvas>();
+            if (canvas)
+            {
+                canvas.planeDistance = Mathf.Lerp(0.055f, 1f, CameraZoom);
             }
         }
 

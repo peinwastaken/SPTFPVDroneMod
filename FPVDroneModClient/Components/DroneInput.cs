@@ -1,6 +1,8 @@
+#if !UNITY_EDITOR
 using DXNET.XInput;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+#endif
 using FPVDroneModClient.Interface;
 using UnityEngine;
 

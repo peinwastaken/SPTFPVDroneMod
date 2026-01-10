@@ -1,8 +1,11 @@
 using EFT.Ballistics;
+using FPVDroneModClient.Interface;
+using System;
+using UnityEngine;
+#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-using FPVDroneModClient.Interface;
-using UnityEngine;
+#endif
 
 namespace FPVDroneModClient.Components
 {
@@ -47,14 +50,17 @@ namespace FPVDroneModClient.Components
 
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             BallisticCollider.OnHitAction += OnHit;
-            
-            Canvas hudCanvas = HudController.gameObject.GetComponent<Canvas>();
-            hudCanvas.worldCamera = CameraClass.Instance.Camera;
-            hudCanvas.planeDistance = 0.55f;
 
             BotDroneListener.AddDrone(this);
         }
-        
+
+        protected virtual void Start()
+        {
+            Canvas hudCanvas = HudController.gameObject.GetComponent<Canvas>();
+            hudCanvas.worldCamera = CameraClass.Instance.Camera;
+            hudCanvas.planeDistance = 0.055f;
+        }
+
         protected virtual void GetReferences()
         {
             DebugLogger.LogInfo("something was missing, get references");
@@ -146,10 +152,13 @@ namespace FPVDroneModClient.Components
 
         protected void ApplyStableThrust()
         {
+            if (!RigidBody) return;
+            
             float gravityComp = -Physics.gravity.y;
             float verticalDamp = -RigidBody.velocity.y * 4f;
 
             RigidBody.AddForce(Vector3.up * (gravityComp + verticalDamp), ForceMode.Acceleration);
+            Thrust = Mathf.Lerp(Thrust, gravityComp / ThrustForce, PropellerAccelerationSpeed * Time.fixedDeltaTime);
         }
 
         public void ResetTransform()
@@ -162,9 +171,9 @@ namespace FPVDroneModClient.Components
         {
             if (!RigidBody) return false;
             
-            bool hit = VectorHelper.HitCheck(RigidBody.position, Vector3.down * 1f, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+            bool hit = VectorHelper.HitCheck(RigidBody.position, Vector3.down * 0.1f, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
 
-            return !hit && RigidBody.velocity.sqrMagnitude >= 0.2f;
+            return hit && RigidBody.velocity.sqrMagnitude <= 0.2f;
         }
         #endif
         

@@ -1,9 +1,11 @@
 using EFT;
-using FPVDroneModClient.Config;
-using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Interface;
 using FPVDroneModClient.Models;
 using UnityEngine;
+#if !UNITY_EDITOR
+using FPVDroneModClient.Config;
+using FPVDroneModClient.Helpers;
+#endif
 
 namespace FPVDroneModClient.Components
 {
@@ -32,8 +34,10 @@ namespace FPVDroneModClient.Components
             DroneDetonator = DetonatorGameObject.GetComponent<DroneDetonator>();
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+            
             BatteryRemaining = MaxBattery;
             PropellerSpeed = MinPropellerSpeed;
 
