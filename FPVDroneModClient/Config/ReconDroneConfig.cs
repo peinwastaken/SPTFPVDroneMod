@@ -27,9 +27,6 @@ namespace FPVDroneModClient.Config
         public static ConfigEntry<float> DroneBatteryDecayIdle;
         public static ConfigEntry<float> DroneBatteryDecayAccel;
 
-        // drone camera settings
-        public static ConfigEntry<float> DroneCameraAngleOffset;
-
         public static void Bind(int order, string category, ConfigFile cfg)
         {
             string formatted = Category.Format(order, category);
@@ -56,7 +53,7 @@ namespace FPVDroneModClient.Config
                 null,
                 new ConfigurationManagerAttributes { Order = 970 }));
 
-            DroneYawSpeed = cfg.Bind(formatted, "Drone Yaw Speed", 100f, new ConfigDescription(
+            DroneYawSpeed = cfg.Bind(formatted, "Drone Yaw Speed", 20f, new ConfigDescription(
                 "yaw rotation speed of the drone",
                 null,
                 new ConfigurationManagerAttributes { Order = 960 }));
