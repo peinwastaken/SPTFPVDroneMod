@@ -201,23 +201,23 @@ namespace FPVDroneModClient.Components
                 float mouseX = Input.GetAxis("Mouse X");
                 float mouseY = Input.GetAxis("Mouse Y");
 
-                ThrottleInput = Input.GetKey(BindsConfig.Thrust.Value) ? 1f : 0f;
-                RollInput = (Input.GetKey(BindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(BindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
-                PitchInput = (Input.GetKey(BindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.PitchUp.Value) ? -1f : 0f);
-                YawInput = (Input.GetKey(BindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(BindsConfig.YawLeft.Value) ? -1f : 0f);
+                ThrottleInput = Input.GetKey(FPVBindsConfig.Thrust.Value) ? 1f : 0f;
+                RollInput = (Input.GetKey(FPVBindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(FPVBindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
+                PitchInput = (Input.GetKey(FPVBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.PitchUp.Value) ? -1f : 0f);
+                YawInput = (Input.GetKey(FPVBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.YawLeft.Value) ? -1f : 0f);
                 
-                if (BindsConfig.MouseEnabled.Value)
+                if (FPVBindsConfig.MouseEnabled.Value)
                 {
-                    RollInput += mouseX * BindsConfig.MouseSensitivityX.Value;
-                    PitchInput += mouseY * BindsConfig.MouseSensitivityY.Value;
+                    RollInput += mouseX * FPVBindsConfig.MouseSensitivityX.Value;
+                    PitchInput += mouseY * FPVBindsConfig.MouseSensitivityY.Value;
                 }
 
-                if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
+                if (Input.GetKeyDown(FPVBindsConfig.ExitDrone.Value))
                 {
                     DroneHelper.ControlDrone(false);
                 }
 
-                if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
+                if (Input.GetKeyDown(FPVBindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
                 {
                     armable.ToggleArmed();
                 }
@@ -261,21 +261,23 @@ namespace FPVDroneModClient.Components
                 float mouseY = Input.GetAxis("Mouse Y");
                 float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
                 
-                AltitudeInput = (Input.GetKey(KeyCode.Space) ? 1f : 0f) + (Input.GetKey(KeyCode.LeftShift) ? -1f : 0f);
-                PitchInput = (Input.GetKey(KeyCode.W) ? 1f : 0f) + (Input.GetKey(KeyCode.S) ? -1f : 0f);
-                RollInput = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f);
-                YawInput = mouseX * 0.05f;
-                CameraPitchInput = mouseY * -0.6f;
-                CameraZoomInput = mouseScroll * 0.2f;
-
-                if (Input.GetKeyDown(BindsConfig.ExitDrone.Value))
+                AltitudeInput = (Input.GetKey(ReconBindsConfig.ThrustUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.ThrustDown.Value) ? -1f : 0f);
+                PitchInput = (Input.GetKey(ReconBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.PitchUp.Value) ? -1f : 0f);
+                RollInput = (Input.GetKey(ReconBindsConfig.RollClockwise.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.RollCounterClockwise.Value) ? -1f : 0f);
+                YawInput = (Input.GetKey(ReconBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.YawLeft.Value) ? -1f : 0f);
+                CameraPitchInput = (Input.GetKey(ReconBindsConfig.CameraPitchUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraPitchDown.Value) ? -1f : 0f);
+                CameraZoomInput = (Input.GetKey(ReconBindsConfig.CameraZoomIn.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraZoomOut.Value) ? -1f : 0f);
+                
+                if (ReconBindsConfig.MouseEnabled.Value)
                 {
-                    DroneHelper.ControlDrone(false);
+                    YawInput += mouseX * ReconBindsConfig.MouseSensitivityX.Value;
+                    CameraPitchInput += mouseY * ReconBindsConfig.MouseSensitivityY.Value;
+                    CameraZoomInput += mouseScroll * ReconBindsConfig.MouseScrollSensitivity.Value;
                 }
 
-                if (Input.GetKeyDown(BindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
+                if (Input.GetKeyDown(ReconBindsConfig.ExitDrone.Value))
                 {
-                    armable.ToggleArmed();
+                    DroneHelper.ControlDrone(false);
                 }
             }
 

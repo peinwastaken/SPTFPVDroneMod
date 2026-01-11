@@ -144,6 +144,27 @@ namespace FPVDroneModClient.Components
                 if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
             }
         }
+
+        protected override void UpdateFromConfig()
+        {
+            RigidBody.mass = FPVDroneConfig.DroneMass.Value;
+            RigidBody.angularDrag = 15f;
+
+            ThrustForce = FPVDroneConfig.DroneThrustForce.Value;
+            MaxVelocity = FPVDroneConfig.DroneMaxVelocity.Value;
+
+            PitchSpeed = FPVDroneConfig.DronePitchSpeed.Value;
+            YawSpeed = FPVDroneConfig.DroneYawSpeed.Value;
+            RollSpeed = FPVDroneConfig.DroneRollSpeed.Value;
+
+            PropellerAccelerationSpeed = FPVDroneConfig.DronePropellerAccelerationSpeed.Value;
+            MinPropellerSpeed = FPVDroneConfig.DroneMinPropellerSpeed.Value;
+            MaxPropellerSpeed = FPVDroneConfig.DroneMaxPropellerSpeed.Value;
+
+            MaxBattery = FPVDroneConfig.DroneMaxBattery.Value;
+            BatteryDecayRateIdle = FPVDroneConfig.DroneBatteryDecayIdle.Value;
+            BatteryDecayRateAccel = FPVDroneConfig.DroneBatteryDecayAccel.Value;
+        }
         #endif
         
         #if UNITY_EDITOR

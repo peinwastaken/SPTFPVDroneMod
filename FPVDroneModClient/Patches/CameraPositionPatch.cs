@@ -25,7 +25,7 @@ namespace FPVDroneModClient.Patches
                 Transform cameraTransform = DroneHelper.CurrentController.CameraPos.transform;
                 Vector3 dronePos = cameraTransform.position;
                 Quaternion droneAng = cameraTransform.rotation;
-                float configAngleOffset = DroneConfig.DroneCameraAngleOffset.Value;
+                float configAngleOffset = FPVDroneConfig.DroneCameraAngleOffset.Value;
 
                 Quaternion offset = Quaternion.AngleAxis(configAngleOffset, cameraTransform.right);
 

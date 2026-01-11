@@ -5,7 +5,7 @@ using FPVDroneModClient.Helpers;
 
 namespace FPVDroneModClient.Config
 {
-    public static class DroneConfig
+    public static class ReconDroneConfig
     {
         // drone physics settings
         public static ConfigEntry<float> DroneMass;
@@ -83,7 +83,7 @@ namespace FPVDroneModClient.Config
                 new ConfigurationManagerAttributes { Order = 920 }));
 
             // drone battery settings
-            DroneMaxBattery = cfg.Bind(formatted, "Drone Max Battery", 150f, new ConfigDescription(
+            DroneMaxBattery = cfg.Bind(formatted, "Drone Max Battery", 250f, new ConfigDescription(
                 "maximum battery capacity",
                 null,
                 new ConfigurationManagerAttributes { Order = 910 }));
@@ -97,12 +97,6 @@ namespace FPVDroneModClient.Config
                 "battery decay rate when accelerating",
                 null,
                 new ConfigurationManagerAttributes { Order = 890 }));
-
-            // drone camera settings
-            DroneCameraAngleOffset = cfg.Bind(formatted, "Drone Camera Angle Offset", 0f, new ConfigDescription(
-                "vertical camera angle offset",
-                new AcceptableValueRange<float>(-30f, 30f),
-                new ConfigurationManagerAttributes { Order = 880 }));
         }
     }
 }

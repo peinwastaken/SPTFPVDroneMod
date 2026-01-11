@@ -1,4 +1,5 @@
 #if !UNITY_EDITOR
+using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 #endif
 using UnityEngine;
@@ -14,8 +15,7 @@ namespace FPVDroneModClient.Components
         public override void OnPilotEnter()
         {
             base.OnPilotEnter();
-
-            RigidBody.drag = 0.75f;
+            
             RigidBody.isKinematic = false;
         }
 
@@ -28,6 +28,28 @@ namespace FPVDroneModClient.Components
                 enabled = true;
                 RigidBody.isKinematic = true;
             }
+        }
+
+        protected override void UpdateFromConfig()
+        {
+            RigidBody.mass = ReconDroneConfig.DroneMass.Value;
+            RigidBody.angularDrag = 15f;
+            RigidBody.drag = 0.75f;
+
+            ThrustForce = ReconDroneConfig.DroneThrustForce.Value;
+            MaxVelocity = ReconDroneConfig.DroneMaxVelocity.Value;
+
+            PitchSpeed = ReconDroneConfig.DronePitchSpeed.Value;
+            YawSpeed = ReconDroneConfig.DroneYawSpeed.Value;
+            RollSpeed = ReconDroneConfig.DroneRollSpeed.Value;
+
+            PropellerAccelerationSpeed = ReconDroneConfig.DronePropellerAccelerationSpeed.Value;
+            MinPropellerSpeed = ReconDroneConfig.DroneMinPropellerSpeed.Value;
+            MaxPropellerSpeed = ReconDroneConfig.DroneMaxPropellerSpeed.Value;
+
+            MaxBattery = ReconDroneConfig.DroneMaxBattery.Value;
+            BatteryDecayRateIdle = ReconDroneConfig.DroneBatteryDecayIdle.Value;
+            BatteryDecayRateAccel = ReconDroneConfig.DroneBatteryDecayAccel.Value;
         }
 
         public override void OnHit(DamageInfoStruct damageInfo)
@@ -83,7 +105,7 @@ namespace FPVDroneModClient.Components
         {
             base.FixedUpdate();
 
-            if (!RigidBody) return;
+            if (!RigidBody || BatteryRemaining <= 0f) return;
             
             if (!Grounded && Mathf.Approximately(DroneInput.AltitudeInput, 0f))
             {

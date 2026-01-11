@@ -25,10 +25,12 @@ namespace FPVDroneModClient
             DebugLogger.Logger = Logger;
 
             GeneralConfig.Bind(0, Category.General, Config);
-            DroneConfig.Bind(1, Category.Drone, Config);
-            BindsConfig.Bind(2, Category.Binds, Config);
-            PostProcessConfig.Bind(3, Category.PP, Config);
-            ExplosionConfig.Bind(4, Category.Explosion, Config);
+            FPVDroneConfig.Bind(1, Category.Drone, Config);
+            FPVBindsConfig.Bind(2, Category.Binds, Config);
+            ReconDroneConfig.Bind(3, Category.ReconDrone, Config);
+            ReconBindsConfig.Bind(4, Category.ReconBinds, Config);
+            PostProcessConfig.Bind(5, Category.PP, Config);
+            ExplosionConfig.Bind(6, Category.Explosion, Config);
 
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();

@@ -38,9 +38,10 @@ namespace FPVDroneModClient.Components
         public DroneHudController HudController;
         public Rigidbody RigidBody;
 
-        public float PropellerSpeed;
-        public float BatteryRemaining;
-        public bool Grounded;
+        public float PropellerSpeed = 0f;
+        public float BatteryRemaining = 100f;
+        public float SignalStrength = 1f;
+        public bool Grounded = false;
 
         #if !UNITY_EDITOR
         protected void Awake()
@@ -87,27 +88,8 @@ namespace FPVDroneModClient.Components
             Propellers = GetComponentsInChildren<DronePropeller>(true);
             HudController = GetComponentInChildren<DroneHudController>(true);
         }
-        
-        protected void UpdateFromConfig()
-        {
-            RigidBody.mass = DroneConfig.DroneMass.Value;
-            RigidBody.angularDrag = 15f;
 
-            ThrustForce = DroneConfig.DroneThrustForce.Value;
-            MaxVelocity = DroneConfig.DroneMaxVelocity.Value;
-
-            PitchSpeed = DroneConfig.DronePitchSpeed.Value;
-            YawSpeed = DroneConfig.DroneYawSpeed.Value;
-            RollSpeed = DroneConfig.DroneRollSpeed.Value;
-
-            PropellerAccelerationSpeed = DroneConfig.DronePropellerAccelerationSpeed.Value;
-            MinPropellerSpeed = DroneConfig.DroneMinPropellerSpeed.Value;
-            MaxPropellerSpeed = DroneConfig.DroneMaxPropellerSpeed.Value;
-
-            MaxBattery = DroneConfig.DroneMaxBattery.Value;
-            BatteryDecayRateIdle = DroneConfig.DroneBatteryDecayIdle.Value;
-            BatteryDecayRateAccel = DroneConfig.DroneBatteryDecayAccel.Value;
-        }
+        protected abstract void UpdateFromConfig();
 
         public virtual void OnPilotEnter()
         {
@@ -170,7 +152,9 @@ namespace FPVDroneModClient.Components
 
                 Player player = InstanceHelper.LocalPlayer;
                 float distanceFromPlayer = (player.Position - transform.position).magnitude;
-                HudController.UpdateSignalStrength(1f - Mathf.Clamp01(distanceFromPlayer / 1000f));
+                float strength = Mathf.Clamp01(distanceFromPlayer / 1000f);
+                HudController.UpdateSignalStrength(1f - strength);
+                SignalStrength = strength; //TODO: give this functionality
 
                 RaycastHit hit;
                 HudController.UpdateAltitude(
