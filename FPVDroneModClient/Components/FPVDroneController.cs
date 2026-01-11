@@ -13,6 +13,10 @@ namespace FPVDroneModClient.Components
     {
         public Transform DetonatorGameObject;
         public DroneDetonator DroneDetonator;
+        
+        private float _detonateHeldTime = 0f;
+        private bool _holdingDetonate = false;
+        private bool _prevHoldingDetonate = false;
 
         #if !UNITY_EDITOR
         public override void OnPilotEnter()
@@ -143,6 +147,52 @@ namespace FPVDroneModClient.Components
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);
                 if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
             }
+
+            _holdingDetonate = Input.GetKey(FPVBindsConfig.ToggleArmed.Value);
+
+            if (_holdingDetonate)
+            {
+                _detonateHeldTime += dt;
+
+                if (_detonateHeldTime > 1f)
+                {
+                    OnDetonateHeld();
+                }
+            }
+            else if (_prevHoldingDetonate)
+            {
+                OnDetonateRelease();
+            }
+
+            _prevHoldingDetonate = _holdingDetonate;
+        }
+
+        private void OnDetonateHeld()
+        {
+            if (_detonateHeldTime > 1f)
+            {
+                int seconds = (int)(_detonateHeldTime - 1f);
+                string periods = "";
+                for (int i = 0; i < seconds; i++)
+                {
+                    periods += ".";
+                }
+
+                HudController.SetArmedText(seconds < 4 ? $"[ BOOM{periods} ]" : "[ BOOM! ]");
+
+                if (seconds >= 5)
+                {
+                    Detonate();
+                }
+            }
+        }
+
+        private void OnDetonateRelease()
+        {
+            _detonateHeldTime = 0f;
+            
+            HudController.SetArmedText("[ ARMED ]");
+            HudController.SetArmedTextVisible(false);
         }
 
         protected override void UpdateFromConfig()

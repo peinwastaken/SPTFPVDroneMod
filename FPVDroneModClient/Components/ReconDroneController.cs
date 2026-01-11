@@ -27,6 +27,7 @@ namespace FPVDroneModClient.Components
             {
                 enabled = true;
                 RigidBody.isKinematic = true;
+                DroneSoundController.enabled = true;
             }
         }
 

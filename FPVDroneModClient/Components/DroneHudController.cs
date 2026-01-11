@@ -16,6 +16,7 @@ namespace FPVDroneModClient.Components
         private UIElementStateController _batteryStateController;
 
         public TextMeshProUGUI ArmedText;
+        public TextMeshProUGUI CustomizedText;
         public TextMeshProUGUI SpeedText;
         public TextMeshProUGUI AltitudeText;
 
@@ -59,6 +60,22 @@ namespace FPVDroneModClient.Components
         public void SetArmedTextVisible(bool visible)
         {
             ArmedText.gameObject.SetActive(visible);
+        }
+
+        public void SetArmedText(string text)
+        {
+            if (ArmedText)
+            {
+                ArmedText.text = text;
+            }
+        }
+
+        public void SetCustomizedText(string text)
+        {
+            if (CustomizedText)
+            {
+                CustomizedText.text = text;
+            }
         }
 
         private IEnumerator ToggleArmedText(float duration)
