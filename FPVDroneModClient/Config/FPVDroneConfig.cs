@@ -29,6 +29,11 @@ namespace FPVDroneModClient.Config
 
         // drone camera settings
         public static ConfigEntry<float> DroneCameraAngleOffset;
+        
+        // customized text
+        public static ConfigEntry<bool> EnableCustomizedText;
+        public static ConfigEntry<bool> CustomizedTextWrapping;
+        public static ConfigEntry<string> CustomizedText;
 
         public static void Bind(int order, string category, ConfigFile cfg)
         {
@@ -103,6 +108,22 @@ namespace FPVDroneModClient.Config
                 "vertical camera angle offset",
                 new AcceptableValueRange<float>(-30f, 30f),
                 new ConfigurationManagerAttributes { Order = 880 }));
+            
+            // text
+            EnableCustomizedText = cfg.Bind(formatted, "Enable Customized Text", false, new ConfigDescription(
+                "enables customized text for fpv drones. be nice.",
+                null,
+                new ConfigurationManagerAttributes { Order = 870 }));
+            
+            CustomizedTextWrapping = cfg.Bind(formatted, "Customized Text Wrapping", false, new ConfigDescription(
+                "enables customized text wrapping",
+                null,
+                new ConfigurationManagerAttributes { Order = 865 }));
+            
+            CustomizedText = cfg.Bind(formatted, "Customized Text", "", new ConfigDescription(
+                "customized text. be nice.",
+                null,
+                new ConfigurationManagerAttributes { Order = 860 }));
         }
     }
 }

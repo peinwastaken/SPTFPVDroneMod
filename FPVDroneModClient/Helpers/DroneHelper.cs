@@ -9,12 +9,14 @@ using FPVDroneModClient.Components;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Globals;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FPVDroneModClient.Helpers
 {
     public static class DroneHelper
     {
+        public static List<BaseDroneController> SelectedControllers = [];
         public static BaseDroneController CurrentController;
         public static bool IsControllingDrone;
         public static float LastFov = 0f;

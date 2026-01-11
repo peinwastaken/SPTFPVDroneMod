@@ -14,9 +14,11 @@ namespace FPVDroneModClient.Components
         public Transform DetonatorGameObject;
         public DroneDetonator DroneDetonator;
         
+        /*
         private float _detonateHeldTime = 0f;
         private bool _holdingDetonate = false;
         private bool _prevHoldingDetonate = false;
+        */
 
         #if !UNITY_EDITOR
         public override void OnPilotEnter()
@@ -24,6 +26,10 @@ namespace FPVDroneModClient.Components
             base.OnPilotEnter();
             
             DetonatorGameObject.gameObject.layer = LayerMask.NameToLayer("Default");
+            
+            HudController.CustomizedText.enabled = FPVDroneConfig.EnableCustomizedText.Value;
+            HudController.CustomizedText.enableWordWrapping = FPVDroneConfig.CustomizedTextWrapping.Value;
+            HudController.SetCustomizedText(FPVDroneConfig.CustomizedText.Value);
         }
         
         public override void OnPilotExit()
@@ -148,6 +154,8 @@ namespace FPVDroneModClient.Components
                 if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
             }
 
+            /*
+             // TODO: fix it
             _holdingDetonate = Input.GetKey(FPVBindsConfig.ToggleArmed.Value);
 
             if (_holdingDetonate)
@@ -165,8 +173,10 @@ namespace FPVDroneModClient.Components
             }
 
             _prevHoldingDetonate = _holdingDetonate;
+            */
         }
 
+        /*
         private void OnDetonateHeld()
         {
             if (_detonateHeldTime > 1f)
@@ -192,8 +202,9 @@ namespace FPVDroneModClient.Components
             _detonateHeldTime = 0f;
             
             HudController.SetArmedText("[ ARMED ]");
-            HudController.SetArmedTextVisible(false);
+            HudController.SetArmedTextVisible(DroneDetonator.Armed);
         }
+        */
 
         protected override void UpdateFromConfig()
         {
@@ -220,12 +231,12 @@ namespace FPVDroneModClient.Components
         #if UNITY_EDITOR
         public void Detonate()
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         public void ToggleArmed()
         {
-            throw new System.NotImplementedException();
+            return;
         }
         #endif
     }

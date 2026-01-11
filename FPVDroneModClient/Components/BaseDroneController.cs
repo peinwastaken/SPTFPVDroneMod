@@ -224,12 +224,12 @@ namespace FPVDroneModClient.Components
         #if UNITY_EDITOR
         public void OnPilotEnter()
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         public void OnPilotExit()
         {
-            throw new System.NotImplementedException();
+            return;
         }
         #endif
     }
