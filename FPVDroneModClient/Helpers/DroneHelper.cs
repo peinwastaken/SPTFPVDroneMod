@@ -1,4 +1,5 @@
 #if !UNITY_EDITOR
+using BSG.CameraEffects;
 using Comfort.Common;
 using EFT;
 using EFT.Communications;
@@ -22,6 +23,8 @@ namespace FPVDroneModClient.Helpers
         public static bool IsControllingDrone;
         public static float LastFov = 0f;
         public static float LastNearClip = 0f;
+
+        private static int _maskId = Shader.PropertyToID("_Mask");
 
         public static void ControlDrone(bool newState)
         {
@@ -58,18 +61,23 @@ namespace FPVDroneModClient.Helpers
                 LootItem lootItem = CurrentController.GetComponent<LootItem>();
                 DroneItem item = (DroneItem)lootItem.Item;
                 
+                NightVision nightVision = CameraClass.Instance.NightVision;
+                ThermalVision thermalVision = CameraClass.Instance.ThermalVision;
+                
                 if (newState)
                 {
                     CurrentController.OnPilotEnter();
                     
                     if (item.HasThermalModule())
                     {
-                        CameraClass.Instance.ThermalVision.On = true;
+                        thermalVision.On = true;
                     }
                     
-                    if (item.HasThermalModule())
+                    if (item.HasNightVisionModule())
                     {
-                        CameraClass.Instance.ThermalVision.On = true;
+                        nightVision.On = true;
+                        nightVision.Mask = AssetHelper.DroneNightVisionMask;
+                        nightVision.Material_0.SetTexture(_maskId, AssetHelper.DroneNightVisionLens);
                     }
                 }
                 else

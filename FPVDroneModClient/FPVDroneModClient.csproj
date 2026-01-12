@@ -82,6 +82,7 @@
 
     <ItemGroup>
         <Folder Include="Resources\" />
+        <Folder Include="Resources\assets\textures\" />
     </ItemGroup>
 
     <Target Name="CopyToSPT" AfterTargets="AfterBuild" Condition="'$(SPTPath)' != ''">

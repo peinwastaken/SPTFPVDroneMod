@@ -27,7 +27,8 @@
             "filters": [
               {
                 "Filter": [
-                  "5d0377ce86f774186372f689"
+                  "5d0377ce86f774186372f689",
+                  "696504ca8ce4c9b2404e1b32"
                 ],
                 "Shift": 0
               }
@@ -55,7 +56,7 @@
           "barterSettings": {
             "loyalLevel": 3,
             "unlimitedCount": true,
-            "stackObjectsCount": 9999,
+            "stackObjectsCount": 9999999,
             "buyRestrictionMax": 1
           },
           "barters": [
