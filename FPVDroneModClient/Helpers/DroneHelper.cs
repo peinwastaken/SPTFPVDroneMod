@@ -71,13 +71,22 @@ namespace FPVDroneModClient.Helpers
                     if (item.HasThermalModule())
                     {
                         thermalVision.On = true;
+                        thermalVision.IsFpsStuck = true;
+                        thermalVision.StuckFpsUtilities.MinFramerate = 60;
+                        thermalVision.StuckFpsUtilities.MaxFramerate = 60;
+                        thermalVision.IsPixelated = false;
+                        thermalVision.IsNoisy = false;
+                        thermalVision.IsGlitch = false;
                     }
                     
                     if (item.HasNightVisionModule())
                     {
                         nightVision.On = true;
                         nightVision.Mask = AssetHelper.DroneNightVisionMask;
-                        nightVision.Material_0.SetTexture(_maskId, AssetHelper.DroneNightVisionLens);
+                        nightVision.Material_0.SetTexture(_maskId, AssetHelper.DroneNightVisionLens); // but for why
+                        nightVision.Color = new Color(60, 235, 100) / 255f;
+                        nightVision.NoiseIntensity = 0.25f;
+                        nightVision.NoiseScale = 0.15f;
                     }
                 }
                 else
