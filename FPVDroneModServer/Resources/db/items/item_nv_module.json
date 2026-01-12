@@ -19,7 +19,7 @@
     },
     "locales": {
       "en": {
-        "name": "Sova night vision module",
+        "name": "\"Sova\" night vision module",
         "shortName": "Sova",
         "description": "A lightweight night vision module built for general-purpose low-light observation. Provides enhanced visibility in darkness without emitting detectable light."
       }

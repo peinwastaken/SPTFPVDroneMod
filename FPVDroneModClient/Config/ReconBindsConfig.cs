@@ -102,12 +102,12 @@ namespace FPVDroneModClient.Config
                 null,
                 new ConfigurationManagerAttributes { Order = 850 }));
 
-            MouseSensitivityX = cfg.Bind(formatted, "Mouse Sensitivity X", 0.05f, new ConfigDescription(
+            MouseSensitivityX = cfg.Bind(formatted, "Mouse Sensitivity X", 1f, new ConfigDescription(
                 "Mouse sensitivity X",
                 new AcceptableValueRange<float>(-5f, 5f),
                 new ConfigurationManagerAttributes { Order = 840 }));
 
-            MouseSensitivityY = cfg.Bind(formatted, "Mouse Sensitivity Y", -0.6f, new ConfigDescription(
+            MouseSensitivityY = cfg.Bind(formatted, "Mouse Sensitivity Y", -3f, new ConfigDescription(
                 "Mouse sensitivity Y",
                 new AcceptableValueRange<float>(-5f, 5f),
                 new ConfigurationManagerAttributes { Order = 830 }));
