@@ -54,7 +54,7 @@ namespace FPVDroneModClient.Components
             Graphics.Blit(_rt3, _rt1, analogMat);
             
             // flip and display
-            Graphics.Blit(_rt1, dest, new Vector2(1, -1), new Vector2(0, 1));
+            Graphics.Blit(_rt1, dest);
         }
 
         private void OnDestroy()

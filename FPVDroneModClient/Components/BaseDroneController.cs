@@ -73,9 +73,9 @@ namespace FPVDroneModClient.Components
                 RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
             }
             
-            Canvas hudCanvas = HudController.gameObject.GetComponent<Canvas>();
-            hudCanvas.worldCamera = CameraClass.Instance.Camera;
-            hudCanvas.planeDistance = 0.055f;
+            Canvas hudCanvas = HudController.GetComponent<Canvas>();
+            hudCanvas.worldCamera = InstanceHelper.HudCamera;
+            hudCanvas.planeDistance = 1f;
         }
 
         protected virtual void GetReferences()
@@ -99,6 +99,8 @@ namespace FPVDroneModClient.Components
                 GetReferences();
             }
             
+            Canvas hudCanvas = HudController.GetComponent<Canvas>();
+            
             CameraBody.gameObject.SetActive(false);
             HudController.gameObject.SetActive(true);
             DroneInput.enabled = true;
@@ -106,6 +108,7 @@ namespace FPVDroneModClient.Components
             
             DroneSoundController.AudioSource.Play();
             HudController.gameObject.SetActive(true);
+            hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
             
             UpdateFromConfig();
         }

@@ -48,6 +48,8 @@ namespace FPVDroneModClient.Helpers
 
             IsControllingDrone = newState;
 
+            InstanceHelper.HudCamera.enabled = newState;
+            InstanceHelper.PostProcessCamera.enabled = newState;
             InstanceHelper.StaticEffect.enabled = newState;
             InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
             Singleton<CommonUI>.Instance.EftBattleUIScreen.CanvasGroup.gameObject.SetActive(!newState);

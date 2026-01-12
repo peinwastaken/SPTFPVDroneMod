@@ -25,6 +25,9 @@ namespace FPVDroneModClient.Patches
             __instance.gameObject.AddComponent<DroneCullingManager>();
 
             DroneHelper.SelectedControllers = [];
+            
+            InstanceHelper.CreateHudCamera();
+            InstanceHelper.CreatePostProcessCamera();
 
             DebugLogger.LogWarning("gameworld started!!");
         }

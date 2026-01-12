@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using DrakiaXYZ.BigBrain.Brains;
+using EFT.CameraControl;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Bots.Layers;
 using FPVDroneModClient.Config;

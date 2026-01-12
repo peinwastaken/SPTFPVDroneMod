@@ -17,13 +17,7 @@ namespace FPVDroneModClient.Patches
         [PatchPostfix]
         private static void PatchPostfix(CameraClass __instance)
         {
-            FPVScreenPostProcess fpvPostProcess = __instance.Camera.gameObject.AddComponent<FPVScreenPostProcess>();
-            fpvPostProcess.enabled = false;
-            fpvPostProcess.blurMat = AssetHelper.BlurMaterial;
-            fpvPostProcess.analogMat = AssetHelper.AnalogMaterial;
-            fpvPostProcess.noiseMat = AssetHelper.NoiseMaterial;
-            fpvPostProcess.scanMat = AssetHelper.ScanMaterial;
-            InstanceHelper.UpdatePostProcessFromConfig();
+            
         }
     }
 }

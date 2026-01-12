@@ -236,8 +236,11 @@ namespace FPVDroneModClient.Components
                 AltitudeInput = LeftStickY;
                 PitchInput = RightStickY;
                 YawInput = LeftStickX;
-                RollInput = -RightStickX;
-
+                RollInput = RightStickX;
+                CameraPitchInput += LeftTrigger;
+                CameraPitchInput -= RightTrigger;
+                CameraZoomInput = (ButtonRB ? 1f : 0f) + (ButtonLB ? -1f : 0f);
+                
                 if (ButtonY && !_prevY && Pilotable is IArmable armable)
                 {
                     armable.ToggleArmed();
