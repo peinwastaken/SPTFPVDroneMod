@@ -3,11 +3,15 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using DrakiaXYZ.BigBrain.Brains;
+using EFT.InventoryLogic;
 using FPVDroneModClient.Bots.Layers;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Items;
 using FPVDroneModClient.Patches;
+using System.Collections.Generic;
+using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
 {
@@ -43,11 +47,23 @@ namespace FPVDroneModClient
             new WeaponInputPatch().Enable();
             new LootItemPhysicsPatch().Enable();
             new LocalPlayerDiedPatch().Enable();
+            new ItemFactoryGetItemTypePatch().Enable();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 BotGlobals.AllBrainNames,
                 9999
             );
+            
+            List<TemplateIdToObjectType> mappings = [
+                new TemplateIdToObjectType(
+                    "6964ea3a5e4c1218314e1b2f",
+                    typeof(DroneItem),
+                    typeof(CompoundItemTemplateClass),
+                    (string id, object tpl) => new DroneItem(id, (CompoundItemTemplateClass)tpl)
+                )
+            ];
+
+            CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);
 
             CameraNearClip = Config.Bind("General", "Drone Camera Near Clip", 0.051f, "Changes camera near clip plane distance while piloting drone.");
         }

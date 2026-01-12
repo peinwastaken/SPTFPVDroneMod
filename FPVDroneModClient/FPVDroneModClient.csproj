@@ -63,6 +63,9 @@
             <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="WTT-ClientCommonLib">
+          <HintPath>..\..\..\BepInEx\plugins\WTT-ClientCommonLib\WTT-ClientCommonLib.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>
