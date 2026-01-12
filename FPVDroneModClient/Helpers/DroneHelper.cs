@@ -9,6 +9,7 @@ using FPVDroneModClient.Components;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Globals;
+using FPVDroneModClient.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,13 +55,29 @@ namespace FPVDroneModClient.Helpers
 
             if (CurrentController)
             {
+                LootItem lootItem = CurrentController.GetComponent<LootItem>();
+                DroneItem item = (DroneItem)lootItem.Item;
+                
                 if (newState)
                 {
                     CurrentController.OnPilotEnter();
+                    
+                    if (item.HasThermalModule())
+                    {
+                        CameraClass.Instance.ThermalVision.On = true;
+                    }
+                    
+                    if (item.HasThermalModule())
+                    {
+                        CameraClass.Instance.ThermalVision.On = true;
+                    }
                 }
                 else
                 {
                     CurrentController.OnPilotExit();
+                    
+                    CameraClass.Instance.ThermalVision.On = false;
+                    CameraClass.Instance.NightVision.On = false;
                 }
             }
 

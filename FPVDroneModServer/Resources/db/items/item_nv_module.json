@@ -1,0 +1,67 @@
+{
+  "696504ca8ce4c9b2404e1b32": {
+    "itemTplToClone": "5d0377ce86f774186372f689",
+    "parentId": "57864a66245977548f04a81f",
+    "handbookParentId": "5b47574386f77428ca22b2ef",
+    "overrideProperties": {
+      "ExaminedByDefault": false,
+      "Prefab": {
+        "path": "assets/content/items/barter/item_barter_electr_thermalmodule/item_barter_electr_thermalmodule.bundle",
+        "rcid": ""
+      },
+      "Height": 1,
+      "Width": 1,
+      "Weight": 0.156,
+      "SightingRange": 0,
+      "ShortName": "NV",
+      "BackgroundColor": "blue",
+      "Slots": []
+    },
+    "locales": {
+      "en": {
+        "name": "Sova night vision module",
+        "shortName": "Sova",
+        "description": "A lightweight night vision module built for general-purpose low-light observation. Provides enhanced visibility in darkness without emitting detectable light."
+      }
+    },
+    "ModdableItemWhitelist": [],
+    "ModdableItemBlacklist": [],
+    "fleaPriceRoubles": 102935,
+    "handbookPriceRoubles": 15230,
+    "addtoTraders": true,
+    "traders": {
+      "MECHANIC": {
+        "696507f926152318e44e1b33": {
+          "barterSettings": {
+            "loyalLevel": 2,
+            "unlimitedCount": true,
+            "stackObjectsCount": 9999,
+            "buyRestrictionMax": 9999
+          },
+          "barters": [
+            {
+              "count": 49503,
+              "_tpl": "MONEY_ROUBLES"
+            }
+          ]
+        }
+      }
+    },
+    "addtoBots": false,
+    "addtostaticlootcontainer": false,
+    "StaticLootContainers": [
+      {
+        "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+        "Probability": 3000
+      },
+      {
+        "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+        "Probability": 20
+      }
+    ],
+    "masteries": false,
+    "masterySections": [],
+    "addweaponpreset": false,
+    "weaponpresets": []
+  }
+}

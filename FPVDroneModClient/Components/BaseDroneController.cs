@@ -6,6 +6,7 @@ using UnityEngine;
 using EFT;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Items;
 using UnityEngine.EventSystems;
 #endif
 
@@ -105,7 +106,7 @@ namespace FPVDroneModClient.Components
             
             DroneSoundController.AudioSource.Play();
             HudController.gameObject.SetActive(true);
-
+            
             UpdateFromConfig();
         }
 

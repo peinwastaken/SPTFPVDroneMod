@@ -36,7 +36,7 @@
           "barterSettings": {
             "loyalLevel": 2,
             "unlimitedCount": true,
-            "stackObjectsCount": 1,
+            "stackObjectsCount": 9999,
             "buyRestrictionMax": 1
           },
           "barters": [

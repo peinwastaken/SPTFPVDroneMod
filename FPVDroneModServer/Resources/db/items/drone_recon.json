@@ -14,6 +14,7 @@
       "Weight": 0.67,
       "SightingRange": 0,
       "ShortName": "Recon",
+      "BackgroundColor": "orange",
       "Slots": [
         {
           "_id": "6964da5c21c575ae8d4e1b28",
@@ -37,7 +38,7 @@
     },
     "locales": {
       "en": {
-        "name": "Recon Drone",
+        "name": "Reconnaissance Drone",
         "shortName": "Recon",
         "description": "Commercial quadcopter designed for aerial imaging and video capture. Features stabilized flight control systems and a high-resolution camera for professional and recon use."
       }
@@ -54,7 +55,7 @@
           "barterSettings": {
             "loyalLevel": 2,
             "unlimitedCount": true,
-            "stackObjectsCount": 1,
+            "stackObjectsCount": 9999,
             "buyRestrictionMax": 1
           },
           "barters": [

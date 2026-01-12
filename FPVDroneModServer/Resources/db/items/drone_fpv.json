@@ -14,6 +14,7 @@
       "Weight": 1.265,
       "SightingRange": 0,
       "ShortName": "FPV",
+      "BackgroundColor": "orange",
       "Slots": [
         {
           "_id": "6964da5c21c575ae8d4e1b28",
@@ -54,7 +55,7 @@
           "barterSettings": {
             "loyalLevel": 3,
             "unlimitedCount": true,
-            "stackObjectsCount": 1,
+            "stackObjectsCount": 9999,
             "buyRestrictionMax": 1
           },
           "barters": [

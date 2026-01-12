@@ -1,3 +1,4 @@
+using EFT.InventoryLogic;
 using EFT.UI.DragAndDrop;
 using FPVDroneModClient.Items;
 using HarmonyLib;
@@ -11,15 +12,15 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(ItemViewFactory), nameof(ItemViewFactory.GetItemType));
+            return AccessTools.Method(typeof(ItemViewFactory), nameof(ItemViewFactory.GetSpecialIcon));
         }
 
         [PatchPrefix]
-        private static bool PatchPrefix(ref EItemType __result, Type itemType)
+        private static bool PatchPrefix(ref string __result, Item item)
         {
-            if (itemType == typeof(DroneItem))
+            if (item is DroneItem)
             {
-                __result = EItemType.Special;
+                __result = "special_item";
                 return false;
             }
 
