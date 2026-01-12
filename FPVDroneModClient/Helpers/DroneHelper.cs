@@ -137,6 +137,7 @@ namespace FPVDroneModClient.Helpers
                 );
 
                 CurrentController = controller;
+                SelectedControllers.Add(controller);
             }
         }
 
@@ -154,6 +155,48 @@ namespace FPVDroneModClient.Helpers
                 current.z = 0;
                 controller.gameObject.transform.eulerAngles = current;
             }
+        }
+
+        public static void ShowSelectedDrones()
+        {
+            if (SelectedControllers.Count <= 0)
+            {
+                PlayerHelper.ShowNotification("No selected drones", ENotificationDurationType.Default, ENotificationIconType.Alert);
+                return;
+            }
+            
+            ActionsReturnClass actions = new ActionsReturnClass();
+
+            foreach (BaseDroneController controller in SelectedControllers)
+            {
+                if (controller == null || !controller.gameObject.activeInHierarchy)
+                {
+                    continue;
+                }
+                
+                LootItem lootItem = controller.GetComponent<LootItem>();
+
+                if (lootItem)
+                {
+                    actions.CreateAction(lootItem.Item.ShortName, () => OnDroneSelectedAction(controller));
+                }
+            }
+            
+            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+            playerOwner.AvailableInteractionState.Value = actions;
+            playerOwner.AvailableInteractionState.Value.SelectAction(actions.Actions[0]);
+        }
+
+        private static void OnDroneSelectedAction(BaseDroneController controller)
+        {
+            CurrentController = controller;
+            
+            NotificationManagerClass.DisplayMessageNotification(
+                "Successfully selected drone"
+            );
+            
+            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+            playerOwner.ClearInteractionState();
         }
     }
 }

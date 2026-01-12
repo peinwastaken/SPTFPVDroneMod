@@ -99,8 +99,8 @@ namespace FPVDroneModClient.Components
             }
             
             CameraBody.gameObject.SetActive(false);
-            DroneInput.enabled = true;
             HudController.gameObject.SetActive(true);
+            DroneInput.enabled = true;
             enabled = true;
             
             DroneSoundController.AudioSource.Play();
@@ -117,8 +117,8 @@ namespace FPVDroneModClient.Components
             }
             
             CameraBody.gameObject.SetActive(true);
-            DroneInput.enabled = false;
             HudController.gameObject.SetActive(false);
+            DroneInput.enabled = false;
             enabled = false;
             
             DroneSoundController.AudioSource.Stop();

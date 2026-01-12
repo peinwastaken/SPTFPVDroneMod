@@ -24,6 +24,8 @@ namespace FPVDroneModClient.Patches
 
             __instance.gameObject.AddComponent<DroneCullingManager>();
 
+            DroneHelper.SelectedControllers = [];
+
             DebugLogger.LogWarning("gameworld started!!");
         }
     }

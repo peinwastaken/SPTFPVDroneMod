@@ -68,7 +68,7 @@ namespace FPVDroneModClient.Helpers
         public static void ShowNotification(string message, ENotificationDurationType durationType = ENotificationDurationType.Default, ENotificationIconType iconType = ENotificationIconType.Default)
         {
             NotificationManagerClass.DisplayMessageNotification(
-                "Successfully selected drone",
+                message,
                 durationType,
                 iconType
             );

@@ -17,18 +17,6 @@ namespace FPVDroneModClient.Patches
             return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.smethod_8));
         }
 
-        private static void CreateAction(ActionsReturnClass __result, string name, Action action)
-        {
-            ActionsTypesClass newAction = new ActionsTypesClass
-            {
-                Name = name,
-                Disabled = false,
-                Action = action
-            };
-
-            __result.Actions.Add(newAction);
-        }
-
         private static void OnPickupAction(LootItem lootItem, BaseDroneController droneController)
         {
             if (droneController is FPVDroneController controller)
@@ -59,8 +47,8 @@ namespace FPVDroneModClient.Patches
                 // Pick up
                 __result.Actions[0].Action += () => OnPickupAction(lootItem, controller);
 
-                CreateAction(__result, "Use", () => DroneHelper.UseDrone(lootItem));
-                CreateAction(__result, "Flip", () => DroneHelper.FlipDrone(lootItem));
+                __result.CreateAction("Use", () => DroneHelper.UseDrone(lootItem));
+                __result.CreateAction("Flip", () => DroneHelper.FlipDrone(lootItem));
             }
         }
     }

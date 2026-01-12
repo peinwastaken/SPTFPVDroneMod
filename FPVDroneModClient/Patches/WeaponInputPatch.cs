@@ -21,10 +21,19 @@ namespace FPVDroneModClient.Patches
         private static bool PatchPrefix(ECommand command)
         {
             Weapon equippedWeapon = PlayerHelper.GetEquippedWeapon();
-            
-            if (command == ECommand.ToggleShooting && equippedWeapon?.StringTemplateId == ItemIds.ControllerTemplateId)
+
+            if (equippedWeapon?.StringTemplateId == ItemIds.ControllerTemplateId)
             {
-                DroneHelper.ControlDrone(true);
+                if (command == ECommand.ToggleShooting)
+                {
+                    DroneHelper.ControlDrone(true);
+                }
+
+                if (command == ECommand.ToggleAlternativeShooting)
+                {
+                    DroneHelper.ShowSelectedDrones();
+                }
+                
                 return false;
             }
             
