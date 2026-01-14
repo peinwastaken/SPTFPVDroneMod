@@ -5,6 +5,7 @@ using FPVDroneModClient.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
+using FPVDroneModClient.Components.Base;
 using UnityEngine;
 
 namespace FPVDroneModClient.Patches

@@ -12,6 +12,7 @@ using FPVDroneModClient.Enum;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Items;
 using System.Collections.Generic;
+using FPVDroneModClient.Components.Base;
 using UnityEngine;
 
 namespace FPVDroneModClient.Helpers

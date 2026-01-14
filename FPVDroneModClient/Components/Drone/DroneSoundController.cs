@@ -1,9 +1,9 @@
-#if !UNITY_EDITOR
+
+using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Helpers;
-#endif
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
     public class DroneSoundController : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-#if !UNITY_EDITOR
+
+using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
     public class ReconDroneController : BaseDroneController
     {

@@ -5,13 +5,18 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
+using FPVDroneModServer.Services;
 using WTTServerCommonLib.Services;
+using Path = System.IO.Path;
 
 namespace FPVDroneModServer
 {
     [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader + 2)]
-    public class FPVDroneModServer(SptLogger<FPVDroneModServer> logger, WTTCustomItemServiceExtended itemService, DatabaseService dbService) : IOnLoad
+    public class FPVDroneModServer(SptLogger<FPVDroneModServer> logger, WTTCustomItemServiceExtended itemService, DatabaseService dbService, TankDeathService tankDeathService) : IOnLoad
     {
+        public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public string ConfigPath => Path.Combine(AssemblyLocation, "config");
+        
         public async Task OnLoad()
         {
             Dictionary<MongoId, TemplateItem> itemsDb = dbService.GetTables().Templates.Items;
@@ -33,6 +38,8 @@ namespace FPVDroneModServer
                 Type = "Node",
                 Properties = new TemplateItemProperties()
             };
+
+            tankDeathService.LoadTankStateConfig(ConfigPath, "tankdeathstate.json");
             
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             

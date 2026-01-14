@@ -1,16 +1,11 @@
-using EFT.Ballistics;
-using FPVDroneModClient.Interface;
-using System;
-using UnityEngine;
-#if !UNITY_EDITOR
 using EFT;
-using FPVDroneModClient.Config;
+using EFT.Ballistics;
+using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Helpers;
-using FPVDroneModClient.Items;
-using UnityEngine.EventSystems;
-#endif
+using FPVDroneModClient.Interface;
+using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Base
 {
     public abstract class BaseDroneController : MonoBehaviour, IPilotable
     {
@@ -38,7 +33,9 @@ namespace FPVDroneModClient.Components
         public BallisticCollider BallisticCollider;
         public DroneHudController HudController;
         public Rigidbody RigidBody;
-
+        public IArmable Armable;
+        public IDetonatable Detonatable;
+        
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
         public float SignalStrength = 1f;
@@ -88,6 +85,8 @@ namespace FPVDroneModClient.Components
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             Propellers = GetComponentsInChildren<DronePropeller>(true);
             HudController = GetComponentInChildren<DroneHudController>(true);
+            Armable = GetComponentInChildren<IArmable>(true);
+            Detonatable = GetComponentInChildren<IDetonatable>(true);
         }
 
         protected abstract void UpdateFromConfig();

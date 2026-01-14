@@ -5,6 +5,7 @@ using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
 using System.Collections.Generic;
+using FPVDroneModClient.Components.Base;
 using UnityEngine;
 
 namespace FPVDroneModClient.Components

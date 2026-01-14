@@ -1,4 +1,5 @@
 using FPVDroneModClient.Components;
+using FPVDroneModClient.Components.Base;
 
 namespace FPVDroneModClient.Models
 {

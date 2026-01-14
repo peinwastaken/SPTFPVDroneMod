@@ -16,6 +16,11 @@
       "BackgroundColor": "black",
       "Damage": 100,
       "MaxDistance": 80,
+      "FractureDelta": 0.5,
+      "HeavyBleedDelta": 0.7,
+      "LightBleedDelta": 0.2,
+      "StaminaBurnRate": 50,
+      "InstantKillDistance": -1,
       "Slots": []
     },
     "locales": {
@@ -34,7 +39,7 @@
     "addtoTraders": true,
     "traders": {
       "MECHANIC": {
-        "696507f926152318e44e1b33": {
+        "6967698a305e688a36c06bba": {
           "barterSettings": {
             "loyalLevel": 2,
             "unlimitedCount": true,

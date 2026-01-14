@@ -2,7 +2,8 @@
 using BepInEx.Logging;
 using FPVDroneModClient.Config;
 
-namespace FPVDroneModClient.Helpers;
+namespace FPVDroneModClient.Helpers
+{
     public class DebugLogger
     {
         public static ManualLogSource Logger { get; set; }
@@ -30,4 +31,5 @@ namespace FPVDroneModClient.Helpers;
             Log(message, LogLevel.Error);
         }
     }
+}
 #endif

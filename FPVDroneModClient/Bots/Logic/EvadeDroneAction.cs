@@ -2,6 +2,7 @@
 using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneModClient.Components;
+using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Helpers;
 using UnityEngine;

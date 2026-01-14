@@ -1,8 +1,8 @@
-using FPVDroneModClient.Interface;
 using System.Collections;
+using FPVDroneModClient.Interface;
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
     public class DroneDetonator : MonoBehaviour, IPhysicsTrigger
     {
@@ -20,7 +20,7 @@ namespace FPVDroneModClient.Components
 
             if (Armed && hitSomethingOrWater)
             {
-                _detonatable?.Detonate();
+                
             }
             #endif
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
     public class DronePropeller : MonoBehaviour
     {

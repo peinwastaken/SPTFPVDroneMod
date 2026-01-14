@@ -2,6 +2,7 @@ using EFT.InventoryLogic;
 using System;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Models;
 
 namespace FPVDroneModClient.Items
 {

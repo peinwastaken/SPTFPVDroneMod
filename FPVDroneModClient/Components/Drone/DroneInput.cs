@@ -1,18 +1,19 @@
-#if !UNITY_EDITOR
+
 using DXNET.XInput;
+using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
 using FPVDroneModClient.Interface;
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
     // TODO: needs a rewrite
     public class DroneInput : MonoBehaviour
     {
         public bool ControllerConnected;
         public IPilotable Pilotable;
+        public IArmable Armable;
 
         public float LeftStickX;
         public float LeftStickY;
@@ -50,7 +51,8 @@ namespace FPVDroneModClient.Components
 
         private void Start()
         {
-            Pilotable = GetComponent<BaseDroneController>();
+            Pilotable = GetComponent<IPilotable>();
+            Armable = GetComponent<IArmable>();
 
             if (ControllerConnected)
             {
@@ -173,15 +175,14 @@ namespace FPVDroneModClient.Components
         {
             if (ControllerConnected)
             {
-                ThrottleInput = LeftStickY;
-                AltitudeInput = LeftStickY;
-                PitchInput = RightStickY;
-                YawInput = LeftStickX;
-                RollInput = -RightStickX;
+                ThrottleInput += LeftStickY;
+                PitchInput += RightStickY;
+                YawInput += LeftStickX;
+                RollInput += RightStickX * -1f;;
 
-                if (ButtonY && !_prevY && Pilotable is IArmable armable)
+                if (ButtonY && !_prevY)
                 {
-                    armable.ToggleArmed();
+                    Armable?.ToggleArmed();
                 }
 
                 if (ButtonB && !_prevB)
@@ -196,31 +197,29 @@ namespace FPVDroneModClient.Components
                 _prevRb = ButtonRB;
                 _prevLb = ButtonLB;
             }
-            else
-            {
-                float mouseX = Input.GetAxis("Mouse X");
-                float mouseY = Input.GetAxis("Mouse Y");
+            
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-                ThrottleInput = Input.GetKey(FPVBindsConfig.Thrust.Value) ? 1f : 0f;
-                RollInput = (Input.GetKey(FPVBindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(FPVBindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
-                PitchInput = (Input.GetKey(FPVBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.PitchUp.Value) ? -1f : 0f);
-                YawInput = (Input.GetKey(FPVBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.YawLeft.Value) ? -1f : 0f);
+            ThrottleInput += Input.GetKey(FPVBindsConfig.Thrust.Value) ? 1f : 0f;
+            RollInput += (Input.GetKey(FPVBindsConfig.RollClockwise.Value) ? -1f : 0f) + (Input.GetKey(FPVBindsConfig.RollCounterClockwise.Value) ? 1f : 0f);
+            PitchInput += (Input.GetKey(FPVBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.PitchUp.Value) ? -1f : 0f);
+            YawInput += (Input.GetKey(FPVBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(FPVBindsConfig.YawLeft.Value) ? -1f : 0f);
                 
-                if (FPVBindsConfig.MouseEnabled.Value)
-                {
-                    RollInput += mouseX * FPVBindsConfig.MouseSensitivityX.Value;
-                    PitchInput += mouseY * FPVBindsConfig.MouseSensitivityY.Value;
-                }
+            if (FPVBindsConfig.MouseEnabled.Value)
+            {
+                RollInput += mouseX * FPVBindsConfig.MouseSensitivityX.Value;
+                PitchInput += mouseY * FPVBindsConfig.MouseSensitivityY.Value;
+            }
 
-                if (Input.GetKeyDown(FPVBindsConfig.ExitDrone.Value))
-                {
-                    DroneHelper.ControlDrone(false);
-                }
+            if (Input.GetKeyDown(FPVBindsConfig.ExitDrone.Value))
+            {
+                DroneHelper.ControlDrone(false);
+            }
 
-                if (Input.GetKeyDown(FPVBindsConfig.ToggleArmed.Value) && Pilotable is IArmable armable)
-                {
-                    armable.ToggleArmed();
-                }
+            if (Input.GetKeyDown(FPVBindsConfig.ToggleArmed.Value))
+            {
+                Armable?.ToggleArmed();
             }
 
             PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
@@ -233,17 +232,17 @@ namespace FPVDroneModClient.Components
         {
             if (ControllerConnected)
             {
-                AltitudeInput = LeftStickY;
-                PitchInput = RightStickY;
-                YawInput = LeftStickX;
-                RollInput = RightStickX;
+                AltitudeInput += LeftStickY;
+                PitchInput += RightStickY;
+                YawInput += LeftStickX;
+                RollInput += RightStickX;
                 CameraPitchInput += LeftTrigger;
-                CameraPitchInput -= RightTrigger;
-                CameraZoomInput = (ButtonRB ? 1f : 0f) + (ButtonLB ? -1f : 0f);
+                CameraPitchInput += RightTrigger * -1f;
+                CameraZoomInput += (ButtonRB ? 1f : 0f) + (ButtonLB ? -1f : 0f);
                 
-                if (ButtonY && !_prevY && Pilotable is IArmable armable)
+                if (ButtonY && !_prevY)
                 {
-                    armable.ToggleArmed();
+                    Armable?.ToggleArmed();
                 }
 
                 if (ButtonB && !_prevB)
@@ -258,36 +257,38 @@ namespace FPVDroneModClient.Components
                 _prevRb = ButtonRB;
                 _prevLb = ButtonLB;
             }
-            else
+            
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+            float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+                
+            AltitudeInput += (Input.GetKey(ReconBindsConfig.ThrustUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.ThrustDown.Value) ? -1f : 0f);
+            PitchInput += (Input.GetKey(ReconBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.PitchUp.Value) ? -1f : 0f);
+            RollInput += (Input.GetKey(ReconBindsConfig.RollClockwise.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.RollCounterClockwise.Value) ? -1f : 0f);
+            YawInput += (Input.GetKey(ReconBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.YawLeft.Value) ? -1f : 0f);
+            CameraPitchInput += (Input.GetKey(ReconBindsConfig.CameraPitchUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraPitchDown.Value) ? -1f : 0f);
+            CameraZoomInput += (Input.GetKey(ReconBindsConfig.CameraZoomIn.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraZoomOut.Value) ? -1f : 0f);
+                
+            if (ReconBindsConfig.MouseEnabled.Value)
             {
-                float mouseX = Input.GetAxis("Mouse X");
-                float mouseY = Input.GetAxis("Mouse Y");
-                float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-                
-                AltitudeInput = (Input.GetKey(ReconBindsConfig.ThrustUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.ThrustDown.Value) ? -1f : 0f);
-                PitchInput = (Input.GetKey(ReconBindsConfig.PitchDown.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.PitchUp.Value) ? -1f : 0f);
-                RollInput = (Input.GetKey(ReconBindsConfig.RollClockwise.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.RollCounterClockwise.Value) ? -1f : 0f);
-                YawInput = (Input.GetKey(ReconBindsConfig.YawRight.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.YawLeft.Value) ? -1f : 0f);
-                CameraPitchInput = (Input.GetKey(ReconBindsConfig.CameraPitchUp.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraPitchDown.Value) ? -1f : 0f);
-                CameraZoomInput = (Input.GetKey(ReconBindsConfig.CameraZoomIn.Value) ? 1f : 0f) + (Input.GetKey(ReconBindsConfig.CameraZoomOut.Value) ? -1f : 0f);
-                
-                if (ReconBindsConfig.MouseEnabled.Value)
-                {
-                    YawInput += mouseX * ReconBindsConfig.MouseSensitivityX.Value;
-                    CameraPitchInput += mouseY * ReconBindsConfig.MouseSensitivityY.Value;
-                    CameraZoomInput += mouseScroll * ReconBindsConfig.MouseScrollSensitivity.Value;
-                }
+                YawInput += mouseX * ReconBindsConfig.MouseSensitivityX.Value;
+                CameraPitchInput += mouseY * ReconBindsConfig.MouseSensitivityY.Value;
+                CameraZoomInput += mouseScroll * ReconBindsConfig.MouseScrollSensitivity.Value;
+            }
 
-                if (Input.GetKeyDown(ReconBindsConfig.ExitDrone.Value))
-                {
-                    DroneHelper.ControlDrone(false);
-                }
+            if (Input.GetKeyDown(ReconBindsConfig.ExitDrone.Value))
+            {
+                DroneHelper.ControlDrone(false);
             }
 
             PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            YawInput = Mathf.Clamp(YawInput, -1f, 1f);
-            RollInput = Mathf.Clamp(RollInput, -1f, 1f);
-            ThrottleInput = Mathf.Clamp(ThrottleInput, -1f, 1f);
+            AltitudeInput = Mathf.Clamp(PitchInput, -1f, 1f); 
+            PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            YawInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            RollInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            CameraPitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            CameraPitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            CameraZoomInput = Mathf.Clamp(PitchInput, -1f, 1f);
         }
         #endif
     }

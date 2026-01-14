@@ -1,24 +1,14 @@
-using EFT;
-using FPVDroneModClient.Interface;
-using FPVDroneModClient.Models;
-using UnityEngine;
-#if !UNITY_EDITOR
+using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
+using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Drone
 {
-    public class FPVDroneController : BaseDroneController, IDetonatable, IArmable
+    public class FPVDroneController : BaseDroneController
     {
         public Transform DetonatorGameObject;
         public DroneDetonator DroneDetonator;
-        
-        /*
-        private float _detonateHeldTime = 0f;
-        private bool _holdingDetonate = false;
-        private bool _prevHoldingDetonate = false;
-        */
 
         #if !UNITY_EDITOR
         public override void OnPilotEnter()
@@ -76,21 +66,6 @@ namespace FPVDroneModClient.Components
             {
                 DroneHelper.CurrentController = null;
             }
-
-            ExplosionData explosion = new ExplosionData
-            {
-                Position = RigidBody.position,
-                Damage = ExplosionConfig.ExplosionDamage.Value,
-                MaxDistance = ExplosionConfig.ExplosionMaxDistance.Value,
-                HeavyBleedDelta = ExplosionConfig.ExplosionHeavyBleedDelta.Value,
-                LightBleedDelta = ExplosionConfig.ExplosionLightBleedDelta.Value,
-                FractureDelta = ExplosionConfig.ExplosionFractureDelta.Value,
-                StaminaBurnRate = ExplosionConfig.ExplosionStaminaBurnRate.Value,
-                PlayerOwner = null, // TODO: fix ts
-                Weapon = null // TODO: fix ts
-            };
-
-            ExplosionHelper.CreateExplosion(explosion);
 
             BotDroneListener.RemoveDrone(this);
             Destroy(gameObject);
@@ -153,58 +128,7 @@ namespace FPVDroneModClient.Components
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);
                 if (DroneInput.YawInput != 0f) ApplyYaw(DroneInput.YawInput * YawSpeed * dt);
             }
-
-            /*
-             // TODO: fix it
-            _holdingDetonate = Input.GetKey(FPVBindsConfig.ToggleArmed.Value);
-
-            if (_holdingDetonate)
-            {
-                _detonateHeldTime += dt;
-
-                if (_detonateHeldTime > 1f)
-                {
-                    OnDetonateHeld();
-                }
-            }
-            else if (_prevHoldingDetonate)
-            {
-                OnDetonateRelease();
-            }
-
-            _prevHoldingDetonate = _holdingDetonate;
-            */
         }
-
-        /*
-        private void OnDetonateHeld()
-        {
-            if (_detonateHeldTime > 1f)
-            {
-                int seconds = (int)(_detonateHeldTime - 1f);
-                string periods = "";
-                for (int i = 0; i < seconds; i++)
-                {
-                    periods += ".";
-                }
-
-                HudController.SetArmedText(seconds < 4 ? $"[ BOOM{periods} ]" : "[ BOOM! ]");
-
-                if (seconds >= 5)
-                {
-                    Detonate();
-                }
-            }
-        }
-
-        private void OnDetonateRelease()
-        {
-            _detonateHeldTime = 0f;
-            
-            HudController.SetArmedText("[ ARMED ]");
-            HudController.SetArmedTextVisible(DroneDetonator.Armed);
-        }
-        */
 
         protected override void UpdateFromConfig()
         {

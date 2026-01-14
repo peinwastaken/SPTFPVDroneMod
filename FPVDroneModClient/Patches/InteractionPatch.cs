@@ -7,6 +7,8 @@ using HarmonyLib;
 using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
+using FPVDroneModClient.Components.Base;
+using FPVDroneModClient.Components.Drone;
 
 namespace FPVDroneModClient.Patches
 {

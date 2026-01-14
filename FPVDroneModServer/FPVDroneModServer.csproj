@@ -22,10 +22,6 @@
         <Content Include="FPVDroneModServer.csproj.user" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Resources\" />
-    </ItemGroup>
-
     <Target Name="CopyToSPT" AfterTargets="AfterBuild" Condition="'$(SPTPath)' != ''">
         <PropertyGroup>
             <ModsDirectoryPath>$(SPTPath)\SPT\user\mods\$(MSBuildProjectName)</ModsDirectoryPath>

@@ -1,0 +1,14 @@
+﻿{
+  "isDead": false,
+  "deathMap": null,
+  "deathPosition": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "deathAngle": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  }
+}

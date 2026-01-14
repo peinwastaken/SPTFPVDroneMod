@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Interface;
@@ -39,25 +40,56 @@ namespace FPVDroneModClient.Items
         {
             Damage = template.Damage;
             MaxDistance = template.MaxDistance;
+            FractureDelta = template.FractureDelta;
+            HeavyBleedDelta = template.HeavyBleedDelta;
+            LightBleedDelta = template.LightBleedDelta;
+            StaminaBurnRate = template.StaminaBurnRate;
+            InstantKillDistance = template.InstantKillDistance;
             
             List<ItemAttributeClass> attributes = [
                 new(EPayloadAttribute.Damage)
                 {
-                    Name = "Damage",
+                    Name = "Explosion Damage",
                     Base = () => Damage,
                     StringValue = Damage.ToString,
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EPayloadAttribute.Range)
                 {
-                    Name = "Range",
+                    Name = "Explosion Radius",
                     Base = () => MaxDistance,
                     StringValue = MaxDistance.ToString,
+                    DisplayType = () => EItemAttributeDisplayType.Compact
+                },
+                new(EPayloadAttribute.LightBleedChance)
+                {
+                    Name = "Inflicts Light Bleed",
+                    Base = () => LightBleedDelta,
+                    StringValue = () => DeltaToPercent(LightBleedDelta),
+                    DisplayType = () => EItemAttributeDisplayType.Compact
+                },
+                new(EPayloadAttribute.HeavyBleedChance)
+                {
+                    Name = "Inflicts Heavy Bleed",
+                    Base = () => HeavyBleedDelta,
+                    StringValue = () => DeltaToPercent(HeavyBleedDelta),
+                    DisplayType = () => EItemAttributeDisplayType.Compact
+                },
+                new(EPayloadAttribute.FractureChance)
+                {
+                    Name = "Inflicts Fracture",
+                    Base = () => FractureDelta,
+                    StringValue = () => DeltaToPercent(FractureDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 }
             ];
                 
             Attributes = attributes;
+        }
+
+        private string DeltaToPercent(float delta)
+        {
+            return $"{delta * 100f}%";
         }
     
         public void ToggleArmed()

@@ -1,5 +1,5 @@
 ﻿{
-  "69670b8085bfdbf31ec06bb8": {
+  "696768aebacad93c03c06bb9": {
     "itemTplToClone": "5d0377ce86f774186372f689",
     "parentId": "69669ea64847b58fd5393f71",
     "handbookParentId": "5b47574386f77428ca22b345",
@@ -11,7 +11,7 @@
       },
       "Height": 1,
       "Width": 2,
-      "Weight": 2.153,
+      "Weight": 0.473,
       "ShortName": "Payload",
       "BackgroundColor": "black",
       "Damage": 100,
@@ -20,14 +20,14 @@
       "HeavyBleedDelta": 0.7,
       "LightBleedDelta": 0.2,
       "StaminaBurnRate": 50,
-      "InstantKillDistance": -1,
+      "InstantKillDistance": -1, 
       "Slots": []
     },
     "locales": {
       "en": {
-        "name": "Explosive payload (HEAT)",
+        "name": "Explosive payload (airburst)",
         "shortName": "Payload",
-        "description": "An improvised payload using an RPG-7 high-explosive anti-tank (HEAT) warhead, which is triggered upon contact with a surface. Fairly ineffective against infantry unless directly impacted. Must be manually armed in flight."
+        "description": "A makeshift drone-delivered explosive payload, which must be triggered manually by the operator."
       }
     },
     "ModdableItemWhitelist": [],
@@ -39,7 +39,7 @@
     "addtoTraders": true,
     "traders": {
       "MECHANIC": {
-        "6967698f59859fb60dc06bbb": {
+        "69676995a6d23e4937c06bbc": {
           "barterSettings": {
             "loyalLevel": 2,
             "unlimitedCount": true,
