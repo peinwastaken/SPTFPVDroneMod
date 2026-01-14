@@ -24,6 +24,15 @@ namespace FPVDroneModServer
                 Type = "Node",
                 Properties = new TemplateItemProperties()
             };
+
+            itemsDb["69669ea64847b58fd5393f71"] = new TemplateItem()
+            {
+                Id = "69669ea64847b58fd5393f71",
+                Name = "PayloadItem",
+                Parent = "54009119af1c881c07000029",
+                Type = "Node",
+                Properties = new TemplateItemProperties()
+            };
             
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             

@@ -61,7 +61,12 @@ namespace FPVDroneModClient
                     typeof(DroneItem),
                     typeof(CompoundItemTemplateClass),
                     (string id, object tpl) => new DroneItem(id, (CompoundItemTemplateClass)tpl)
-                )
+                ),
+                new TemplateIdToObjectType(
+                    "69669ea64847b58fd5393f71",
+                    typeof(PayloadItem),
+                    typeof(PayloadItemTemplate),
+                    (string id, object tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl))
             ];
 
             CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);

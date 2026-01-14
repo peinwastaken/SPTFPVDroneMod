@@ -1,5 +1,7 @@
 using EFT.InventoryLogic;
 using System;
+using FPVDroneModClient.Globals;
+using FPVDroneModClient.Helpers;
 
 namespace FPVDroneModClient.Items
 {
@@ -12,12 +14,37 @@ namespace FPVDroneModClient.Items
 
         public bool HasThermalModule()
         {
-            return Slots[0]?.ContainedItem?.StringTemplateId == "5d0377ce86f774186372f689";
+            return this.GetSlotById(SlotIds.GearSlot)?.ContainedItem?.StringTemplateId == ItemIds.Iridium;
         }
         
         public bool HasNightVisionModule()
         {
-            return Slots[0]?.ContainedItem?.StringTemplateId == "696504ca8ce4c9b2404e1b32";
+            return this.GetSlotById(SlotIds.GearSlot)?.ContainedItem?.StringTemplateId == ItemIds.SovaDevice;
+        }
+
+        public bool HasPayload()
+        {
+            return this.GetSlotById(SlotIds.PayloadSlot)?.ContainedItem != null;
+        }
+
+        public Slot GetPayloadSlot()
+        {
+            foreach (Slot slot in Slots)
+            {
+                if (slot.ID == "mod_payload")
+                {
+                    return slot;
+                }
+            }
+
+            return null;
+        }
+
+        public PayloadItem GetPayload()
+        {
+            Slot payloadSlot = GetPayloadSlot();
+
+            return (PayloadItem)payloadSlot?.ContainedItem;
         }
     }
 }
