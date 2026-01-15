@@ -24,6 +24,8 @@ namespace FPVDroneModClient.Helpers
         public static bool IsControllingDrone;
         public static float LastFov = 0f;
         public static float LastNearClip = 0f;
+        public static Texture LastNvgMask;
+        public static Texture LastNvgLens;
 
         private static int _maskId = Shader.PropertyToID("_Mask");
 
@@ -70,6 +72,9 @@ namespace FPVDroneModClient.Helpers
                 if (newState)
                 {
                     CurrentController.OnPilotEnter();
+
+                    LastNvgLens = nightVision.Material_0.GetTexture(_maskId);
+                    LastNvgMask = nightVision.Mask;
                     
                     if (item.HasThermalModule())
                     {
@@ -98,6 +103,8 @@ namespace FPVDroneModClient.Helpers
                     
                     CameraClass.Instance.ThermalVision.On = false;
                     CameraClass.Instance.NightVision.On = false;
+                    nightVision.Mask = LastNvgMask;
+                    nightVision.Material_0.SetTexture(_maskId, LastNvgLens);
                 }
             }
 

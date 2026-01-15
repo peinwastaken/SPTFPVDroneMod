@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using FPVDroneModClient.Config;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 
@@ -14,7 +15,7 @@ public class SpawnBtrPatch : ModulePatch
     [PatchPrefix]
     private static bool PatchPrefix(BTRControllerClass __instance)
     {
-        if (Plugin.TankDeathState.IsDead)
+        if (Plugin.TankDeathState.IsDead && GeneralConfig.EnableTankPermaDeath.Value)
         {
             return false;
         }
