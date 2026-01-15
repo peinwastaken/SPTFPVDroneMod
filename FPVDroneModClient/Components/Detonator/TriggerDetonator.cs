@@ -1,6 +1,6 @@
 ﻿using FPVDroneModClient.Components.Base;
 
-namespace FPVDroneModClient.Components.Drone.Detonator
+namespace FPVDroneModClient.Components.Detonator
 {
     public class TriggerDetonator : BasePayloadController
     {
