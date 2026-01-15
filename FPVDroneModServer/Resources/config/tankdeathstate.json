@@ -1,6 +1,6 @@
 ﻿{
   "isDead": false,
-  "deathMap": null,
+  "deathMap": "",
   "deathPosition": {
     "x": 0,
     "y": 0,

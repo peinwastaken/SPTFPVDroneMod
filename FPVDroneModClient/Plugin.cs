@@ -12,6 +12,7 @@ using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
 using FPVDroneModClient.Patches;
 using System.Collections.Generic;
+using FPVDroneModClient.Models;
 using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
@@ -22,8 +23,9 @@ namespace FPVDroneModClient
     {
         internal static new ManualLogSource Logger;
 
+        public static TankDeathState TankDeathState;
         public static ConfigEntry<float> CameraNearClip;
-
+        
         private void Awake()
         {
             Logger = base.Logger;
@@ -54,8 +56,9 @@ namespace FPVDroneModClient
                 BotGlobals.AllBrainNames,
                 9999
             );
-            
-            List<TemplateIdToObjectType> mappings = [
+
+            List<TemplateIdToObjectType> mappings =
+            [
                 new TemplateIdToObjectType(
                     "6964ea3a5e4c1218314e1b2f",
                     typeof(DroneItem),
@@ -70,6 +73,8 @@ namespace FPVDroneModClient
             ];
 
             CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);
+
+            TankDeathState = RouteHelper.FetchTankDeathState();
 
             CameraNearClip = Config.Bind("General", "Drone Camera Near Clip", 0.051f, "Changes camera near clip plane distance while piloting drone.");
         }

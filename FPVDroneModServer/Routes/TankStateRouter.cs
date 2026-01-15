@@ -25,18 +25,18 @@ namespace FPVDroneModServer.Routes
     {}
 
     [Injectable]
-    public class TankStateRouterCallback(ISptLogger<TankStateRouterCallback> logger, TankDeathService tankDeathService, HttpResponseUtil responseUtil)
+    public class TankStateRouterCallback(ISptLogger<TankStateRouterCallback> logger, JsonUtil jsonUtil, TankDeathService tankDeathService, HttpResponseUtil responseUtil)
     {
         public ValueTask<string> GetTankState()
         {
             TankDeathState state = tankDeathService.GetTankDeathState();
-            return new ValueTask<string>(responseUtil.GetBody(state));
+            return new ValueTask<string>(jsonUtil.Serialize(state) ?? "{}");
         }
 
         public ValueTask<string> UpdateTankState(TankStateRequestData info)
         {
             TankDeathState newState = tankDeathService.SetTankState(info.isDead, info.deathMap, info.deathPosition, info.deathAngle);
-            return new ValueTask<string>(responseUtil.GetBody(newState));
+            return new ValueTask<string>(jsonUtil.Serialize(newState) ?? "{}");
         }
     }
 
