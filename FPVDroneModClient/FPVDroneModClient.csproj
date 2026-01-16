@@ -57,6 +57,9 @@
         <Reference Include="spt-common">
           <HintPath>..\..\..\BepInEx\plugins\spt\spt-common.dll</HintPath>
         </Reference>
+        <Reference Include="spt-custom">
+          <HintPath>..\..\..\BepInEx\plugins\spt\spt-custom.dll</HintPath>
+        </Reference>
         <Reference Include="spt-reflection">
             <HintPath>..\..\..\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
             <Private>False</Private>

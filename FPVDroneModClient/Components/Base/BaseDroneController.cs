@@ -1,7 +1,9 @@
+#if !UNITY_EDITOR
 using EFT;
+using FPVDroneModClient.Helpers;
+#endif
 using EFT.Ballistics;
 using FPVDroneModClient.Components.Drone;
-using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Interface;
 using UnityEngine;
 
@@ -33,8 +35,7 @@ namespace FPVDroneModClient.Components.Base
         public BallisticCollider BallisticCollider;
         public DroneHudController HudController;
         public Rigidbody RigidBody;
-        public IArmable Armable;
-        public IDetonatable Detonatable;
+        public BasePayloadController PayloadController;
         
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
@@ -85,8 +86,7 @@ namespace FPVDroneModClient.Components.Base
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             Propellers = GetComponentsInChildren<DronePropeller>(true);
             HudController = GetComponentInChildren<DroneHudController>(true);
-            Armable = GetComponentInChildren<IArmable>(true);
-            Detonatable = GetComponentInChildren<IDetonatable>(true);
+            PayloadController = GetComponentInChildren<BasePayloadController>(true);
         }
 
         protected abstract void UpdateFromConfig();
@@ -125,6 +125,19 @@ namespace FPVDroneModClient.Components.Base
             enabled = false;
             
             DroneSoundController.AudioSource.Stop();
+        }
+
+        public void Destroy()
+        {
+            DroneHelper.ControlDrone(false);
+
+            if (DroneHelper.CurrentController == this)
+            {
+                DroneHelper.CurrentController = null;
+            }
+
+            BotDroneListener.RemoveDrone(this);
+            Destroy(gameObject);
         }
 
         public abstract void OnHit(DamageInfoStruct damageInfo);

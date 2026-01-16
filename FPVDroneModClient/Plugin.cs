@@ -13,6 +13,9 @@ using FPVDroneModClient.Items;
 using FPVDroneModClient.Patches;
 using System.Collections.Generic;
 using FPVDroneModClient.Models;
+using SPT.Custom.Models;
+using SPT.Custom.Utils;
+using UnityEngine;
 using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
@@ -51,6 +54,7 @@ namespace FPVDroneModClient
             new LootItemPhysicsPatch().Enable();
             new LocalPlayerDiedPatch().Enable();
             new ItemFactoryGetItemTypePatch().Enable();
+            new SpawnBtrPatch().Enable();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 BotGlobals.AllBrainNames,
@@ -74,8 +78,12 @@ namespace FPVDroneModClient
 
             CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);
 
-            TankDeathState = RouteHelper.FetchTankDeathState();
+            int itemIndex = GClass3381.IndexOf(typeof(Item));
+            GClass3381.List_0.Insert(itemIndex, typeof(DroneItem));
+            GClass3381.List_0.Insert(itemIndex, typeof(PayloadItem));
 
+            TankDeathState = RouteHelper.FetchTankDeathState();
+            
             CameraNearClip = Config.Bind("General", "Drone Camera Near Clip", 0.051f, "Changes camera near clip plane distance while piloting drone.");
         }
     }

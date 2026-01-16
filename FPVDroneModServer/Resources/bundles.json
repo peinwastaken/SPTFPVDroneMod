@@ -26,7 +26,7 @@
         },
         {
             "key": "assets/content/items/controller/item_dronecontroller.bundle",
-            "dependencyKeys":  [
+            "dependencyKeys": [
                 "shaders",
                 "cubemaps",
                 "assets/commonassets/physics/physicsmaterials.bundle",
@@ -37,6 +37,38 @@
                 "assets/content/audio/weapons/generic",
                 "assets/content/audio/blendoptions/assets.bundle",
                 "assets/content/weapons/additional_hands/client_assets.bundle"
+            ]
+        },
+        {
+            "key": "assets/content/items/payloads/payload_heat.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
+            ]
+        },
+        {
+            "key": "assets/content/items/payloads/payload_bomb.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
+            ]
+        },
+        {
+            "key": "assets/content/items/payloads/payload_airburst.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
+            ]
+        },
+        {
+            "key": "assets/content/btr/btr_destroyed_recent.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
             ]
         }
     ]

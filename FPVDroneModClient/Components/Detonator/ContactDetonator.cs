@@ -3,13 +3,16 @@ using Comfort.Common;
 using EFT;
 using EFT.Vehicle;
 using FPVDroneModClient.Components.Base;
-using FPVDroneModClient.Helpers;
 using UnityEngine;
+#if !UNITY_EDITOR
+using FPVDroneModClient.Helpers;
+#endif
 
 namespace FPVDroneModClient.Components.Detonator
 {
     public class ContactDetonator : BasePayloadController
     {
+        #if !UNITY_EDITOR
         public override void OnTriggerEnter(Collider collider)
         {
             int layerMask = 1 << collider.gameObject.layer;
@@ -22,13 +25,16 @@ namespace FPVDroneModClient.Components.Detonator
                 if (btr)
                 {
                     string mapId = Singleton<GameWorld>.Instance.LocationId;
-                    IReadOnlyList<BTRPassenger> passengers = btr.Passengers;
+                    
+                    btr.gameObject.SetActive(false);
+                    InstanceHelper.CreateTankCorpse(btr.transform.position, btr.transform.eulerAngles, true);
 
                     RouteHelper.UpdateTankDeathState(true, mapId, btr.transform.position, btr.transform.eulerAngles);
                 }
                 
-                Detonate(gameObject.transform.position, null, null);
+                Detonate();
             }
         }
+        #endif
     }
 }

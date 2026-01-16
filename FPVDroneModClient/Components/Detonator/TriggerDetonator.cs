@@ -6,7 +6,7 @@ namespace FPVDroneModClient.Components.Detonator
     {
         public override void ToggleArmed()
         {
-            Detonate(gameObject.transform.position, null, null);
+            Detonate();
         }
     }
 }

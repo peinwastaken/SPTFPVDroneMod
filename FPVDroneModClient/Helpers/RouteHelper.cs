@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !UNITY_EDITOR
+using System;
 using FPVDroneModClient.Models;
 using Newtonsoft.Json;
 using SPT.Common.Http;
@@ -51,3 +52,4 @@ public static class RouteHelper
         }
     }
 }
+#endif

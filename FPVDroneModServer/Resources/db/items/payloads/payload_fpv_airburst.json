@@ -1,75 +1,79 @@
 ﻿{
-  "696768aebacad93c03c06bb9": {
-    "itemTplToClone": "5d0377ce86f774186372f689",
-    "parentId": "69669ea64847b58fd5393f71",
-    "handbookParentId": "5b47574386f77428ca22b345",
-    "overrideProperties": {
-      "ExaminedByDefault": false,
-      "Prefab": {
-        "path": "assets/content/items/barter/item_barter_electr_thermalmodule/item_barter_electr_thermalmodule.bundle",
-        "rcid": ""
-      },
-      "Height": 1,
-      "Width": 2,
-      "Weight": 0.473,
-      "ShortName": "Payload",
-      "BackgroundColor": "black",
-      "Damage": 100,
-      "MaxDistance": 80,
-      "FractureDelta": 0.5,
-      "HeavyBleedDelta": 0.7,
-      "LightBleedDelta": 0.2,
-      "StaminaBurnRate": 50,
-      "InstantKillDistance": -1, 
-      "Slots": []
-    },
-    "locales": {
-      "en": {
-        "name": "Explosive payload (airburst)",
-        "shortName": "Payload",
-        "description": "A makeshift drone-delivered explosive payload, which must be triggered manually by the operator."
-      }
-    },
-    "ModdableItemWhitelist": [],
-    "ModdableItemBlacklist": [],
-    "fleaPriceRoubles": 102935,
-    "handbookPriceRoubles": 15230,
-    "addtoModSlots": true,
-    "modSlot": ["mod_payload"],
-    "addtoTraders": true,
-    "traders": {
-      "MECHANIC": {
-        "69676995a6d23e4937c06bbc": {
-          "barterSettings": {
-            "loyalLevel": 2,
-            "unlimitedCount": true,
-            "stackObjectsCount": 9999999,
-            "buyRestrictionMax": 2
-          },
-          "barters": [
-            {
-              "count": 49503,
-              "_tpl": "MONEY_ROUBLES"
+    "696768aebacad93c03c06bb9": {
+        "itemTplToClone": "5d0377ce86f774186372f689",
+        "parentId": "69669ea64847b58fd5393f71",
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "overrideProperties": {
+            "ExaminedByDefault": false,
+            "Prefab": {
+                "path": "assets/content/items/payloads/payload_airburst.bundle",
+                "rcid": ""
+            },
+            "Height": 1,
+            "Width": 2,
+            "Weight": 0.473,
+            "ExtraSizeDown": 1,
+            "ExtraSizeForceAdd": true,
+            "ShortName": "Airburst",
+            "BackgroundColor": "black",
+            "Damage": 100,
+            "MaxDistance": 80,
+            "FractureDelta": 0.5,
+            "HeavyBleedDelta": 0.7,
+            "LightBleedDelta": 0.2,
+            "StaminaBurnRate": 50,
+            "InstantKillDistance": -1,
+            "Slots": []
+        },
+        "locales": {
+            "en": {
+                "name": "Explosive payload (airburst)",
+                "shortName": "Payload",
+                "description": "A makeshift drone-delivered explosive payload, which must be triggered manually by the operator."
             }
-          ]
-        }
-      }
-    },
-    "addtoBots": false,
-    "addtostaticlootcontainer": false,
-    "StaticLootContainers": [
-      {
-        "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
-        "Probability": 3000
-      },
-      {
-        "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
-        "Probability": 20
-      }
-    ],
-    "masteries": false,
-    "masterySections": [],
-    "addweaponpreset": false,
-    "weaponpresets": []
-  }
+        },
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "fleaPriceRoubles": 102935,
+        "handbookPriceRoubles": 15230,
+        "addtoModSlots": true,
+        "modSlot": [
+            "mod_payload"
+        ],
+        "addtoTraders": true,
+        "traders": {
+            "MECHANIC": {
+                "69676995a6d23e4937c06bbc": {
+                    "barterSettings": {
+                        "loyalLevel": 2,
+                        "unlimitedCount": true,
+                        "stackObjectsCount": 9999999,
+                        "buyRestrictionMax": 2
+                    },
+                    "barters": [
+                        {
+                            "count": 49503,
+                            "_tpl": "MONEY_ROUBLES"
+                        }
+                    ]
+                }
+            }
+        },
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [
+            {
+                "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+                "Probability": 3000
+            },
+            {
+                "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+                "Probability": 20
+            }
+        ],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
 }

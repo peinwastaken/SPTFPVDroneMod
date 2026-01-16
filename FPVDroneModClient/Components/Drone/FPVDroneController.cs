@@ -1,22 +1,27 @@
 using FPVDroneModClient.Components.Base;
+using FPVDroneModClient.Interface;
+#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components.Drone
 {
-    public class FPVDroneController : BaseDroneController
+    public class FPVDroneController : BaseDroneController, IArmable
     {
-        public Transform DetonatorGameObject;
-        public DroneDetonator DroneDetonator;
-
+        public bool IsArmed { get; set; }
+        
         #if !UNITY_EDITOR
         public override void OnPilotEnter()
         {
             base.OnPilotEnter();
-            
-            DetonatorGameObject.gameObject.layer = LayerMask.NameToLayer("Default");
-            
+
+            if (PayloadController)
+            {
+                PayloadController.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+
             HudController.CustomizedText.enabled = FPVDroneConfig.EnableCustomizedText.Value;
             HudController.CustomizedText.enableWordWrapping = FPVDroneConfig.CustomizedTextWrapping.Value;
             HudController.SetCustomizedText(FPVDroneConfig.CustomizedText.Value);
@@ -30,15 +35,13 @@ namespace FPVDroneModClient.Components.Drone
         protected override void GetReferences()
         {
             base.GetReferences();
-            
-            DroneDetonator = DetonatorGameObject.GetComponent<DroneDetonator>();
         }
 
         protected override void Start()
         {
             base.Start();
             
-            HudController.SetArmedTextVisible(DroneDetonator.Armed);
+            HudController.SetArmedTextVisible(PayloadController.IsArmed);
         }
 
         public override void OnHit(DamageInfoStruct damageInfo)
@@ -49,8 +52,8 @@ namespace FPVDroneModClient.Components.Drone
 
         public void ToggleArmed()
         {
-            DroneDetonator.SetArmed(!DroneDetonator.Armed);
-            HudController.SetArmedTextVisible(DroneDetonator.Armed);
+            PayloadController.ToggleArmed();
+            HudController.SetArmedTextVisible(PayloadController.IsArmed);
         }
 
         public void Detonate()
@@ -59,16 +62,6 @@ namespace FPVDroneModClient.Components.Drone
             {
                 GetReferences();
             }
-
-            DroneHelper.ControlDrone(false);
-
-            if (DroneHelper.CurrentController == this)
-            {
-                DroneHelper.CurrentController = null;
-            }
-
-            BotDroneListener.RemoveDrone(this);
-            Destroy(gameObject);
         }
         
         public override void ApplyPitch(float amount)

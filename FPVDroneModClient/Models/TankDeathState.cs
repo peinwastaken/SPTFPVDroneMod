@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !UNITY_EDITOR
+using System;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -19,3 +20,4 @@ namespace FPVDroneModClient.Models
         public Vector3 DeathAngle { get; set; }
     }
 }
+#endif

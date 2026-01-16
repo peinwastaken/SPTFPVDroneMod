@@ -1,88 +1,88 @@
 {
-  "695f8753d24480b7b1921023": {
-    "itemTplToClone": "5991b51486f77447b112d44f",
-    "parentId": "6964ea3a5e4c1218314e1b2f",
-    "handbookParentId": "5b47574386f77428ca22b345",
-    "overrideProperties": {
-      "ExaminedByDefault": true,
-      "Prefab": {
-        "path": "assets/content/items/drones/drone_recon.bundle",
-        "rcid": ""
-      },
-      "Height": 2,
-      "Width": 3,
-      "Weight": 0.67,
-      "SightingRange": 0,
-      "ShortName": "Recon",
-      "BackgroundColor": "orange",
-      "Slots": [
-        {
-          "_id": "6964da5c21c575ae8d4e1b28",
-          "_mergeSlotWithChildren": false,
-          "_name": "mod_equipment",
-          "_parent": "690e9265772bfce1d043966d",
-          "_proto": "55d30c4c4bdc2db4468b457e",
-          "_required": false,
-          "_props": {
-            "filters": [
-              {
-                "Filter": [
-                  "5d0377ce86f774186372f689",
-                  "696504ca8ce4c9b2404e1b32"
-                ],
-                "Shift": 0
-              }
+    "695f8753d24480b7b1921023": {
+        "itemTplToClone": "5991b51486f77447b112d44f",
+        "parentId": "6964ea3a5e4c1218314e1b2f",
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "overrideProperties": {
+            "ExaminedByDefault": true,
+            "Prefab": {
+                "path": "assets/content/items/drones/drone_recon.bundle",
+                "rcid": ""
+            },
+            "Height": 2,
+            "Width": 3,
+            "Weight": 0.67,
+            "SightingRange": 0,
+            "ShortName": "Recon",
+            "BackgroundColor": "orange",
+            "Slots": [
+                {
+                    "_id": "6964da5c21c575ae8d4e1b28",
+                    "_mergeSlotWithChildren": false,
+                    "_name": "mod_equipment",
+                    "_parent": "690e9265772bfce1d043966d",
+                    "_proto": "55d30c4c4bdc2db4468b457e",
+                    "_required": false,
+                    "_props": {
+                        "filters": [
+                            {
+                                "Filter": [
+                                    "5d0377ce86f774186372f689",
+                                    "696504ca8ce4c9b2404e1b32"
+                                ],
+                                "Shift": 0
+                            }
+                        ]
+                    }
+                }
             ]
-          }
-        }
-      ]
-    },
-    "locales": {
-      "en": {
-        "name": "Reconnaissance Drone",
-        "shortName": "Recon",
-        "description": "Commercial quadcopter designed for aerial imaging and video capture. Features stabilized flight control systems and a high-resolution camera for professional and recon use."
-      }
-    },
-    "clearClonedProps": true,
-    "ModdableItemWhitelist": [],
-    "ModdableItemBlacklist": [],
-    "fleaPriceRoubles": 359532,
-    "handbookPriceRoubles": 55339,
-    "addtoTraders": true,
-    "traders": {
-      "SKIER": {
-        "69651e534b99a7555d4e1b35": {
-          "barterSettings": {
-            "loyalLevel": 2,
-            "unlimitedCount": true,
-            "stackObjectsCount": 9999999,
-            "buyRestrictionMax": 1
-          },
-          "barters": [
-            {
-              "count": 129532,
-              "_tpl": "MONEY_ROUBLES"
+        },
+        "locales": {
+            "en": {
+                "name": "Reconnaissance Drone",
+                "shortName": "Recon",
+                "description": "Commercial quadcopter designed for aerial imaging and video capture. Features stabilized flight control systems and a high-resolution camera for professional and recon use."
             }
-          ]
-        }
-      }
-    },
-    "addtoBots": false,
-    "addtostaticlootcontainer": false,
-    "StaticLootContainers": [
-      {
-        "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
-        "Probability": 3000
-      },
-      {
-        "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
-        "Probability": 20
-      }
-    ],
-    "masteries": false,
-    "masterySections": [],
-    "addweaponpreset": false,
-    "weaponpresets": []
-  }
+        },
+        "clearClonedProps": true,
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "fleaPriceRoubles": 359532,
+        "handbookPriceRoubles": 55339,
+        "addtoTraders": true,
+        "traders": {
+            "SKIER": {
+                "69651e534b99a7555d4e1b35": {
+                    "barterSettings": {
+                        "loyalLevel": 2,
+                        "unlimitedCount": true,
+                        "stackObjectsCount": 9999999,
+                        "buyRestrictionMax": 1
+                    },
+                    "barters": [
+                        {
+                            "count": 129532,
+                            "_tpl": "MONEY_ROUBLES"
+                        }
+                    ]
+                }
+            }
+        },
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [
+            {
+                "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+                "Probability": 3000
+            },
+            {
+                "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+                "Probability": 20
+            }
+        ],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
 }

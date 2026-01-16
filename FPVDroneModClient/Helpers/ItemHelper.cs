@@ -1,4 +1,5 @@
-﻿using EFT.InventoryLogic;
+﻿#if !UNITY_EDITOR
+using EFT.InventoryLogic;
 
 namespace FPVDroneModClient.Helpers
 {
@@ -18,3 +19,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
+#endif

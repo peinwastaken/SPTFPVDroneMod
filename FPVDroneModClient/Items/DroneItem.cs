@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using System;
 using FPVDroneModClient.Globals;
@@ -49,3 +50,4 @@ namespace FPVDroneModClient.Items
         }
     }
 }
+#endif

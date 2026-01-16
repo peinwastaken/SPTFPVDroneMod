@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Enum;
@@ -25,7 +26,7 @@ namespace FPVDroneModClient.Items
         public readonly float InstantKillDistance = instantKillDistance;
     }
 
-    public class PayloadItem : Item, IArmable, IExplosive
+    public class PayloadItem : Item, IExplosive
     {
         public bool IsArmed { get; set; } = false;
         public float Damage { get; set; }
@@ -91,10 +92,6 @@ namespace FPVDroneModClient.Items
         {
             return $"{delta * 100f}%";
         }
-    
-        public void ToggleArmed()
-        {
-            IsArmed = !IsArmed;
-        }
     }
 }
+#endif

@@ -1,88 +1,104 @@
 {
-  "690e9265772bfce1d043966d": {
-    "itemTplToClone": "5991b51486f77447b112d44f",
-    "parentId": "6964ea3a5e4c1218314e1b2f",
-    "handbookParentId": "5b47574386f77428ca22b345",
-    "overrideProperties": {
-      "ExaminedByDefault": true,
-      "Prefab": {
-        "path": "assets/content/items/drones/drone_fpv.bundle",
-        "rcid": ""
-      },
-      "Height": 3,
-      "Width": 3,
-      "Weight": 1.265,
-      "SightingRange": 0,
-      "ShortName": "FPV",
-      "BackgroundColor": "orange",
-      "Slots": [
-        {
-          "_id": "6964da5c21c575ae8d4e1b28",
-          "_mergeSlotWithChildren": false,
-          "_name": "mod_equipment",
-          "_parent": "690e9265772bfce1d043966d",
-          "_proto": "55d30c4c4bdc2db4468b457e",
-          "_required": false,
-          "_props": {
-            "filters": [
-              {
-                "Filter": [
-                  "5d0377ce86f774186372f689",
-                  "696504ca8ce4c9b2404e1b32"
-                ],
-                "Shift": 0
-              }
+    "690e9265772bfce1d043966d": {
+        "itemTplToClone": "5991b51486f77447b112d44f",
+        "parentId": "6964ea3a5e4c1218314e1b2f",
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "overrideProperties": {
+            "ExaminedByDefault": true,
+            "Prefab": {
+                "path": "assets/content/items/drones/drone_fpv.bundle",
+                "rcid": ""
+            },
+            "Height": 2,
+            "Width": 3,
+            "Weight": 0.58,
+            "SightingRange": 0,
+            "ShortName": "FPV",
+            "BackgroundColor": "orange",
+            "Slots": [
+                {
+                    "_id": "6964da5c21c575ae8d4e1b28",
+                    "_mergeSlotWithChildren": false,
+                    "_name": "mod_equipment",
+                    "_parent": "690e9265772bfce1d043966d",
+                    "_proto": "55d30c4c4bdc2db4468b457e",
+                    "_required": false,
+                    "_props": {
+                        "filters": [
+                            {
+                                "Filter": [
+                                    "5d0377ce86f774186372f689",
+                                    "696504ca8ce4c9b2404e1b32"
+                                ],
+                                "Shift": 0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "_id": "696a174b427699b9b42a339d",
+                    "_mergeSlotWithChildren": false,
+                    "_name": "mod_payload",
+                    "_parent": "690e9265772bfce1d043966d",
+                    "_proto": "55d30c4c4bdc2db4468b457e",
+                    "_required": false,
+                    "_props": {
+                        "filters": [
+                            {
+                                "Filter": [],
+                                "Shift": 0
+                            }
+                        ]
+                    }
+                }
             ]
-          }
-        }
-      ]
-    },
-    "locales": {
-      "en": {
-        "name": "FPV Kamikaze Drone",
-        "shortName": "FPV",
-        "description": "Improvised first-person-view attack drone equipped with a makeshift explosive payload. Commonly assembled from scavenged military and civilian components."
-      }
-    },
-    "clearClonedProps": true,
-    "ModdableItemWhitelist": [],
-    "ModdableItemBlacklist": [],
-    "fleaPriceRoubles": 702034,
-    "handbookPriceRoubles": 120694,
-    "addtoTraders": true,
-    "traders": {
-      "SKIER": {
-        "690e8fb4710b7d7961d30875": {
-          "barterSettings": {
-            "loyalLevel": 3,
-            "unlimitedCount": true,
-            "stackObjectsCount": 9999999,
-            "buyRestrictionMax": 1
-          },
-          "barters": [
-            {
-              "count": 243485,
-              "_tpl": "MONEY_ROUBLES"
+        },
+        "locales": {
+            "en": {
+                "name": "FPV Kamikaze Drone",
+                "shortName": "FPV",
+                "description": "Improvised first-person-view (FPV) attack drone, which can be equipped with various payloads. Commonly assembled from scavenged military and civilian components."
             }
-          ]
-        }
-      }
-    },
-    "addtoBots": false,
-    "addtostaticlootcontainer": false,
-    "StaticLootContainers": [
-      {
-        "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
-        "Probability": 3000
-      },
-      {
-        "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
-        "Probability": 20
-      }
-    ],
-    "masteries": false,
-    "masterySections": [],
-    "addweaponpreset": false,
-    "weaponpresets": []
-  }
+        },
+        "clearClonedProps": true,
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "fleaPriceRoubles": 702034,
+        "handbookPriceRoubles": 120694,
+        "addtoTraders": true,
+        "traders": {
+            "SKIER": {
+                "690e8fb4710b7d7961d30875": {
+                    "barterSettings": {
+                        "loyalLevel": 3,
+                        "unlimitedCount": true,
+                        "stackObjectsCount": 9999999,
+                        "buyRestrictionMax": 1
+                    },
+                    "barters": [
+                        {
+                            "count": 243485,
+                            "_tpl": "MONEY_ROUBLES"
+                        }
+                    ]
+                }
+            }
+        },
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [
+            {
+                "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+                "Probability": 3000
+            },
+            {
+                "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+                "Probability": 20
+            }
+        ],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
 }

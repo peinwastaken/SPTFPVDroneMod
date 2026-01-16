@@ -6,13 +6,20 @@ using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using FPVDroneModServer.Services;
+using SPT.Custom.Models;
 using WTTServerCommonLib.Services;
 using Path = System.IO.Path;
 
 namespace FPVDroneModServer
 {
     [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader + 2)]
-    public class FPVDroneModServer(SptLogger<FPVDroneModServer> logger, WTTCustomItemServiceExtended itemService, DatabaseService dbService, TankDeathService tankDeathService) : IOnLoad
+    public class FPVDroneModServer(
+        SptLogger<FPVDroneModServer> logger,
+        WTTCustomItemServiceExtended itemService,
+        WTTCustomSlotImageService imageService,
+        WTTCustomLocaleService localeService,
+        DatabaseService dbService,
+        TankDeathService tankDeathService) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
@@ -40,7 +47,8 @@ namespace FPVDroneModServer
             };
 
             tankDeathService.LoadTankStateConfig(ConfigPath, "tankdeathstate.json");
-            
+            imageService.CreateSlotImages(Assembly.GetExecutingAssembly(), "slots");
+            await localeService.CreateCustomLocales(Assembly.GetExecutingAssembly(), "db/locales");
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             
             logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");

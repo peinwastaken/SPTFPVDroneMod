@@ -22,6 +22,12 @@
         <Content Include="FPVDroneModServer.csproj.user" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="spt-custom">
+        <HintPath>..\..\..\BepInEx\plugins\spt\spt-custom.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
     <Target Name="CopyToSPT" AfterTargets="AfterBuild" Condition="'$(SPTPath)' != ''">
         <PropertyGroup>
             <ModsDirectoryPath>$(SPTPath)\SPT\user\mods\$(MSBuildProjectName)</ModsDirectoryPath>

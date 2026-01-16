@@ -1,7 +1,9 @@
 
 using FPVDroneModClient.Components.Base;
+#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components.Drone

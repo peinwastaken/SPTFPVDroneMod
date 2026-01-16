@@ -14,6 +14,8 @@ namespace FPVDroneModClient.Helpers
         public static FPVScreenPostProcess StaticEffect => PostProcessCamera?.GetComponent<FPVScreenPostProcess>();
         public static Camera HudCamera { get; set; }
         public static Camera PostProcessCamera { get; set; }
+        public static GameObject BtrRecent { get; set; }
+        public static GameObject BtrOld { get; set; }
 
         public static void CreateHudCamera()
         {
@@ -89,6 +91,28 @@ namespace FPVDroneModClient.Helpers
                 pp.analogMat.SetFloat("_PosterizeLevels", PostProcessConfig.AnalogPosterizeLevels.Value);
                 pp.analogMat.SetFloat("_SepiaStrength", PostProcessConfig.AnalogSepiaStrength.Value);
             }
+        }
+
+        public static void LoadTankAssets()
+        {
+            if (!BtrRecent)
+            {
+                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+            }
+
+            if (!BtrOld)
+            {
+                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+            }
+        }
+
+        public static void CreateTankCorpse(Vector3 pos, Vector3 euler, bool wasJustDestroyed)
+        {
+            GameObject tank = wasJustDestroyed ? BtrRecent : BtrOld;
+            GameObject go = GameObject.Instantiate(tank);
+            go.transform.position = pos;
+            go.transform.eulerAngles = euler;
+            go.SetActive(true);
         }
     }
 }
