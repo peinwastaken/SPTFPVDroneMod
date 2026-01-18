@@ -52,8 +52,8 @@ namespace FPVDroneModClient.Components.Drone
 
         private void Start()
         {
-            Pilotable = GetComponent<IPilotable>();
-            Armable = GetComponent<IArmable>();
+            Pilotable = GetComponentInChildren<IPilotable>(true);
+            Armable = GetComponentInChildren<IArmable>(true);
 
             if (ControllerConnected)
             {
@@ -283,13 +283,12 @@ namespace FPVDroneModClient.Components.Drone
             }
 
             PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            AltitudeInput = Mathf.Clamp(PitchInput, -1f, 1f); 
-            PitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            YawInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            RollInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            CameraPitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            CameraPitchInput = Mathf.Clamp(PitchInput, -1f, 1f);
-            CameraZoomInput = Mathf.Clamp(PitchInput, -1f, 1f);
+            AltitudeInput = Mathf.Clamp(AltitudeInput, -1f, 1f); 
+            YawInput = Mathf.Clamp(YawInput, -1f, 1f);
+            RollInput = Mathf.Clamp(RollInput, -1f, 1f);
+            CameraPitchInput = Mathf.Clamp(CameraPitchInput, -1f, 1f);
+            CameraPitchInput = Mathf.Clamp(CameraPitchInput, -1f, 1f);
+            CameraZoomInput = Mathf.Clamp(CameraZoomInput, -1f, 1f);
         }
         #endif
     }

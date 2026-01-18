@@ -23,9 +23,9 @@ namespace FPVDroneModClient.Patches
         {
             if (droneController is FPVDroneController controller)
             {
-                if (controller.PayloadController && controller.PayloadController.IsArmed)
+                if (controller.Armable?.IsArmed == true)
                 {
-                    controller.PayloadController.Detonate();
+                    controller.Detonatable.Detonate();
                 }
             }
 

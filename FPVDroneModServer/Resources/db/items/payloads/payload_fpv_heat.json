@@ -36,10 +36,6 @@
         "ModdableItemBlacklist": [],
         "fleaPriceRoubles": 102935,
         "handbookPriceRoubles": 15230,
-        "addtoModSlots": true,
-        "modSlot": [
-            "mod_payload"
-        ],
         "addtoTraders": true,
         "traders": {
             "MECHANIC": {

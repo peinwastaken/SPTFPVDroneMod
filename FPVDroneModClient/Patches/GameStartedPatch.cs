@@ -1,6 +1,7 @@
 #if !UNITY_EDITOR
 using EFT;
 using FPVDroneModClient.Components;
+using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
 using HarmonyLib;
@@ -22,7 +23,6 @@ namespace FPVDroneModClient.Patches
         {
             // ???
             AssetHelper.LoadAssets();
-            AssetHelper.LoadSounds();
 
             __instance.gameObject.AddComponent<DroneCullingManager>();
 
@@ -33,7 +33,7 @@ namespace FPVDroneModClient.Patches
             InstanceHelper.LoadTankAssets();
 
             TankDeathState deathState = Plugin.TankDeathState;
-            if (deathState != null && deathState.IsDead)
+            if (GeneralConfig.EnableTankPermaDeath.Value && deathState.IsDead && __instance.LocationId == deathState.DeathMap)
             {
                 InstanceHelper.CreateTankCorpse(deathState.DeathPosition, deathState.DeathAngle, false);
             }

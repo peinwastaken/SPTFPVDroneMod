@@ -44,7 +44,6 @@ namespace FPVDroneModClient
 
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();
-            AssetHelper.LoadSounds();
 
             new InteractionPatch().Enable();
             new CameraPositionPatch().Enable();

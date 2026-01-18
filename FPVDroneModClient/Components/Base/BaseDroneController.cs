@@ -12,7 +12,7 @@ namespace FPVDroneModClient.Components.Base
     public abstract class BaseDroneController : MonoBehaviour, IPilotable
     {
         public float Thrust;
-        
+
         public float ThrustForce = 20f;
         public float MaxVelocity = 100f;
         public float PitchSpeed = 100f;
@@ -35,24 +35,26 @@ namespace FPVDroneModClient.Components.Base
         public BallisticCollider BallisticCollider;
         public DroneHudController HudController;
         public Rigidbody RigidBody;
-        public BasePayloadController PayloadController;
-        
+        public IArmable Armable;
+        public IDetonatable Detonatable;
+
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
         public float SignalStrength = 1f;
         public bool Grounded = false;
+        private bool _eventsInitialized = false;
 
         #if !UNITY_EDITOR
         protected void Awake()
         {
             GetReferences();
 
-            DroneInput = gameObject.AddComponent<DroneInput>();
+            if (DroneInput == null)
+            {
+                DroneInput = gameObject.AddComponent<DroneInput>();
+            }
+            
             DroneInput.enabled = false;
-
-            BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
-            BallisticCollider.OnHitAction += OnHit;
-
             enabled = false;
 
             BotDroneListener.AddDrone(this);
@@ -61,7 +63,9 @@ namespace FPVDroneModClient.Components.Base
         protected virtual void Start()
         {
             GetReferences();
-            
+
+            BasePayloadController basePayloadController = GetComponentInChildren<BasePayloadController>(true);
+
             BatteryRemaining = MaxBattery;
             PropellerSpeed = MinPropellerSpeed;
 
@@ -70,7 +74,12 @@ namespace FPVDroneModClient.Components.Base
                 RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
             }
-            
+
+            if (basePayloadController)
+            {
+                basePayloadController.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+
             Canvas hudCanvas = HudController.GetComponent<Canvas>();
             hudCanvas.worldCamera = InstanceHelper.HudCamera;
             hudCanvas.planeDistance = 1f;
@@ -78,56 +87,72 @@ namespace FPVDroneModClient.Components.Base
 
         protected virtual void GetReferences()
         {
-            DebugLogger.LogInfo("something was missing, get references");
-
             RigidBody = GetComponentInChildren<Rigidbody>(true);
             DroneSoundController = GetComponentInChildren<DroneSoundController>(true);
             DroneInput = GetComponentInChildren<DroneInput>(true);
             BallisticCollider = GetComponentInChildren<BallisticCollider>(true);
             Propellers = GetComponentsInChildren<DronePropeller>(true);
             HudController = GetComponentInChildren<DroneHudController>(true);
-            PayloadController = GetComponentInChildren<BasePayloadController>(true);
+            Armable = GetComponentInChildren<IArmable>(true);
+            Detonatable = GetComponentInChildren<IDetonatable>(true);
+
+            if (!_eventsInitialized)
+            {
+                if (BallisticCollider)
+                {
+                    BallisticCollider.OnHitAction += OnHit;
+                }
+
+                if (Armable != null)
+                {
+                    Armable.OnToggleArmed += OnToggleArmed;
+                }
+
+                if (Detonatable != null)
+                {
+                    Detonatable.OnDetonate += DestroyDrone;
+                }
+            }
+
+            _eventsInitialized = true;
         }
 
         protected abstract void UpdateFromConfig();
 
         public virtual void OnPilotEnter()
         {
-            if (!RigidBody || !DroneSoundController || !DroneInput || !BallisticCollider)
-            {
-                GetReferences();
-            }
+            GetReferences();
             
             Canvas hudCanvas = HudController.GetComponent<Canvas>();
-            
+
             CameraBody.gameObject.SetActive(false);
             HudController.gameObject.SetActive(true);
             DroneInput.enabled = true;
             enabled = true;
-            
+
             DroneSoundController.AudioSource.Play();
             HudController.gameObject.SetActive(true);
             hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
-            
+
             UpdateFromConfig();
         }
 
         public virtual void OnPilotExit()
         {
-            if (!RigidBody || !DroneSoundController || !DroneInput || !BallisticCollider)
-            {
-                GetReferences();
-            }
-            
             CameraBody.gameObject.SetActive(true);
             HudController.gameObject.SetActive(false);
             DroneInput.enabled = false;
             enabled = false;
-            
+
             DroneSoundController.AudioSource.Stop();
         }
 
-        public void Destroy()
+        public virtual void OnToggleArmed(bool newValue)
+        {
+
+        }
+
+        public void DestroyDrone()
         {
             DroneHelper.ControlDrone(false);
 
@@ -140,7 +165,16 @@ namespace FPVDroneModClient.Components.Base
             Destroy(gameObject);
         }
 
-        public abstract void OnHit(DamageInfoStruct damageInfo);
+        public virtual void OnHit(DamageInfoStruct damageInfo)
+        {
+            if (Detonatable != null)
+            {
+                Detonatable.Detonate();
+                return;
+            }
+            
+            DestroyDrone();
+        }
 
         protected void RotatePropellers(float amount)
         {
@@ -155,13 +189,13 @@ namespace FPVDroneModClient.Components.Base
         public abstract void ApplyYaw(float amount);
 
         public abstract void ApplyRoll(float amount);
-        
+
         public abstract void ApplyThrust(float amount);
 
         protected virtual void FixedUpdate()
         {
             Grounded = IsGrounded();
-            
+
             if (HudController)
             {
                 HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
@@ -213,7 +247,7 @@ namespace FPVDroneModClient.Components.Base
         protected void ApplyStableThrust()
         {
             if (!RigidBody) return;
-            
+
             float gravityComp = -Physics.gravity.y;
             float verticalDamp = -RigidBody.velocity.y * 4f;
 
@@ -226,17 +260,17 @@ namespace FPVDroneModClient.Components.Base
             gameObject.transform.localPosition = Vector3.zero;
             gameObject.transform.localRotation = Quaternion.identity;
         }
-        
+
         private bool IsGrounded()
         {
             if (!RigidBody) return false;
-            
-            bool hit = VectorHelper.HitCheck(RigidBody.position, RigidBody.position + Vector3.down * 1000f, LayerMaskClass.HighPolyWithTerrainNoGrassMask,  out RaycastHit result);
+
+            bool hit = VectorHelper.HitCheck(RigidBody.position, RigidBody.position + Vector3.down * 1000f, LayerMaskClass.HighPolyWithTerrainNoGrassMask, out RaycastHit result);
 
             return hit && result.distance < 0.2f;
         }
         #endif
-        
+
         #if UNITY_EDITOR
         public void OnPilotEnter()
         {

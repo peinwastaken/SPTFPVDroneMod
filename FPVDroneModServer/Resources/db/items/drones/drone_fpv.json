@@ -45,7 +45,11 @@
                     "_props": {
                         "filters": [
                             {
-                                "Filter": [],
+                                "Filter": [
+                                    "696768aebacad93c03c06bb9",
+                                    "6967050ffbc7d14017c06bb7",
+                                    "69670b8085bfdbf31ec06bb8"
+                                ],
                                 "Shift": 0
                             }
                         ]

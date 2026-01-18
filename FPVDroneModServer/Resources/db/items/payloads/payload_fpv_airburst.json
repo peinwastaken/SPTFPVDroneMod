@@ -11,7 +11,7 @@
             },
             "Height": 1,
             "Width": 2,
-            "Weight": 0.473,
+            "Weight": 0.835,
             "ExtraSizeDown": 1,
             "ExtraSizeForceAdd": true,
             "ShortName": "Airburst",
@@ -36,10 +36,6 @@
         "ModdableItemBlacklist": [],
         "fleaPriceRoubles": 102935,
         "handbookPriceRoubles": 15230,
-        "addtoModSlots": true,
-        "modSlot": [
-            "mod_payload"
-        ],
         "addtoTraders": true,
         "traders": {
             "MECHANIC": {

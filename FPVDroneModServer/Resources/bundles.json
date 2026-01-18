@@ -64,7 +64,7 @@
             ]
         },
         {
-            "key": "assets/content/btr/btr_destroyed_recent.bundle",
+            "key": "assets/content/btr/btr_destroyed.bundle",
             "dependencyKeys": [
                 "shaders",
                 "cubemaps",

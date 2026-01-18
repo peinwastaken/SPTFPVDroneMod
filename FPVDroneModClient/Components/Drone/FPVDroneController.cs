@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace FPVDroneModClient.Components.Drone
 {
-    public class FPVDroneController : BaseDroneController, IArmable
+    public class FPVDroneController : BaseDroneController
     {
         public bool IsArmed { get; set; }
         
@@ -17,51 +17,16 @@ namespace FPVDroneModClient.Components.Drone
         {
             base.OnPilotEnter();
 
-            if (PayloadController)
-            {
-                PayloadController.gameObject.layer = LayerMask.NameToLayer("Default");
-            }
-
             HudController.CustomizedText.enabled = FPVDroneConfig.EnableCustomizedText.Value;
             HudController.CustomizedText.enableWordWrapping = FPVDroneConfig.CustomizedTextWrapping.Value;
             HudController.SetCustomizedText(FPVDroneConfig.CustomizedText.Value);
-        }
-        
-        public override void OnPilotExit()
-        {
-            base.OnPilotExit();
-        }
-
-        protected override void GetReferences()
-        {
-            base.GetReferences();
         }
 
         protected override void Start()
         {
             base.Start();
             
-            HudController.SetArmedTextVisible(PayloadController.IsArmed);
-        }
-
-        public override void OnHit(DamageInfoStruct damageInfo)
-        {
-            DebugLogger.LogInfo("drone was hit");
-            Detonate();
-        }
-
-        public void ToggleArmed()
-        {
-            PayloadController.ToggleArmed();
-            HudController.SetArmedTextVisible(PayloadController.IsArmed);
-        }
-
-        public void Detonate()
-        {
-            if (!RigidBody)
-            {
-                GetReferences();
-            }
+            HudController.SetArmedTextVisible(Armable.IsArmed);
         }
         
         public override void ApplyPitch(float amount)
@@ -142,6 +107,11 @@ namespace FPVDroneModClient.Components.Drone
             MaxBattery = FPVDroneConfig.DroneMaxBattery.Value;
             BatteryDecayRateIdle = FPVDroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = FPVDroneConfig.DroneBatteryDecayAccel.Value;
+        }
+
+        public override void OnToggleArmed(bool newState)
+        {
+            HudController.SetArmedTextVisible(newState);
         }
         #endif
         

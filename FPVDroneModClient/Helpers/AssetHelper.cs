@@ -27,33 +27,6 @@ namespace FPVDroneModClient.Helpers
         
         public static AssetBundle ShadersBundle;
         
-        public static async Task<AudioClip> LoadAudioClip(string path, string fileName)
-        {
-            string finalPath = Path.Combine(path, fileName);
-
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip($"file://{finalPath}", AudioType.WAV))
-            {
-                UnityWebRequestAsyncOperation request =  www.SendWebRequest();
-                while (!request.isDone) await Task.Yield();
-
-                if (www.isHttpError || www.isNetworkError)
-                {
-                    DebugLogger.LogError($"Error loading audio clip from {fileName}: {www.error}");
-                }
-                else
-                {
-                    AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-                    clip.name = fileName;
-                    
-                    DebugLogger.LogInfo($"Loaded audio clip: {clip.name}");
-
-                    return clip;
-                }
-            }
-
-            return null;
-        }
-        
         public static Texture LoadTexture(string filePath, TextureWrapMode wrapMode = TextureWrapMode.Clamp)
         {
             Texture2D tex = new Texture2D(2, 2, TextureFormat.ARGB32, false);
@@ -67,13 +40,6 @@ namespace FPVDroneModClient.Helpers
         {
             AssetBundle shaderBundle = AssetBundle.LoadFromFile(ShadersBundlePath);
             ShadersBundle = shaderBundle;
-        }
-
-        public static async void LoadSounds()
-        {
-            DroneAudioClip = await LoadAudioClip(SoundDirPath, "drone_sound_loop.wav");
-            
-            DebugLogger.LogInfo("Loaded sounds!");
         }
         
         public static void LoadAssets()

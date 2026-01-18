@@ -97,12 +97,12 @@ namespace FPVDroneModClient.Helpers
         {
             if (!BtrRecent)
             {
-                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
             }
 
             if (!BtrOld)
             {
-                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
             }
         }
 
@@ -113,6 +113,7 @@ namespace FPVDroneModClient.Helpers
             go.transform.position = pos;
             go.transform.eulerAngles = euler;
             go.SetActive(true);
+            go.transform.Rotate(go.transform.up, 180f);
         }
     }
 }

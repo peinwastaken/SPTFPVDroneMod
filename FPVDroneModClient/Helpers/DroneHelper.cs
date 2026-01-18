@@ -24,8 +24,10 @@ namespace FPVDroneModClient.Helpers
         public static bool IsControllingDrone;
         public static float LastFov = 0f;
         public static float LastNearClip = 0f;
+        
+        public static bool LastNvgEnabled;
         public static Texture LastNvgMask;
-        public static Texture LastNvgLens;
+        public static bool LastThermalEnabled;
 
         private static int _maskId = Shader.PropertyToID("_Mask");
 
@@ -63,6 +65,7 @@ namespace FPVDroneModClient.Helpers
 
             if (CurrentController)
             {
+                // TODO: this is aids, redo it someday... inb4 1 year later
                 LootItem lootItem = CurrentController.GetComponent<LootItem>();
                 DroneItem item = (DroneItem)lootItem.Item;
                 
@@ -72,9 +75,15 @@ namespace FPVDroneModClient.Helpers
                 if (newState)
                 {
                     CurrentController.OnPilotEnter();
+                    
+                    LastNvgEnabled = nightVision.On;
+                    LastNvgMask = nightVision.TextureMask.Mask;
+                    LastThermalEnabled = thermalVision.On;
 
-                    LastNvgLens = nightVision.Material_0.GetTexture(_maskId);
-                    LastNvgMask = nightVision.Mask;
+                    nightVision.On = false;
+                    nightVision.TextureMask.enabled = false;
+                    thermalVision.On = false;
+                    thermalVision.TextureMask.enabled = false;
                     
                     if (item.HasThermalModule())
                     {
@@ -86,25 +95,42 @@ namespace FPVDroneModClient.Helpers
                         thermalVision.IsNoisy = false;
                         thermalVision.IsGlitch = false;
                     }
-                    
-                    if (item.HasNightVisionModule())
+                    else if (item.HasNightVisionModule())
                     {
                         nightVision.On = true;
-                        nightVision.Mask = AssetHelper.DroneNightVisionMask;
+                        nightVision.TextureMask.Mask = AssetHelper.DroneNightVisionMask;
                         nightVision.Material_0.SetTexture(_maskId, AssetHelper.DroneNightVisionLens); // but for why
                         nightVision.Color = new Color(60, 235, 100) / 255f;
                         nightVision.NoiseIntensity = 0.25f;
                         nightVision.NoiseScale = 0.15f;
+                    }
+                    else
+                    {
+                        nightVision.On = false;
+                        nightVision.TextureMask.enabled = false;
+                        thermalVision.On = false;
+                        thermalVision.TextureMask.enabled = false;
                     }
                 }
                 else
                 {
                     CurrentController.OnPilotExit();
                     
-                    CameraClass.Instance.ThermalVision.On = false;
-                    CameraClass.Instance.NightVision.On = false;
-                    nightVision.Mask = LastNvgMask;
-                    nightVision.Material_0.SetTexture(_maskId, LastNvgLens);
+                    nightVision.On = LastNvgEnabled;
+                    nightVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
+                    nightVision.TextureMask.Mask = LastNvgMask;
+                    thermalVision.On = LastThermalEnabled;
+                    thermalVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
+
+                    if (LastNvgEnabled)
+                    {
+                        nightVision.ApplySettings();
+                    }
+
+                    if (LastThermalEnabled)
+                    {
+                        thermalVision.SetMask(NightVisionComponent.EMask.Thermal);
+                    }
                 }
             }
 
@@ -208,12 +234,13 @@ namespace FPVDroneModClient.Helpers
                 PlayerHelper.ShowNotification("No selected drones", ENotificationDurationType.Default, ENotificationIconType.Alert);
                 return;
             }
-            
+
+            List<BaseDroneController> processed = [];
             ActionsReturnClass actions = new ActionsReturnClass();
 
             foreach (BaseDroneController controller in SelectedControllers)
             {
-                if (controller == null || !controller.gameObject.activeInHierarchy)
+                if (controller == null || !controller.gameObject.activeInHierarchy || processed.Contains(controller))
                 {
                     continue;
                 }
@@ -223,12 +250,16 @@ namespace FPVDroneModClient.Helpers
                 if (lootItem)
                 {
                     actions.CreateAction(lootItem.Item.ShortName, () => OnDroneSelectedAction(controller));
+                    processed.Add(controller);
                 }
             }
-            
-            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
-            playerOwner.AvailableInteractionState.Value = actions;
-            playerOwner.AvailableInteractionState.Value.SelectAction(actions.Actions[0]);
+
+            if (actions.Actions.Count > 0)
+            {
+                EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+                playerOwner.AvailableInteractionState.Value = actions;
+                playerOwner.AvailableInteractionState.Value.SelectAction(actions.Actions[0]);
+            }
         }
 
         private static void OnDroneSelectedAction(BaseDroneController controller)

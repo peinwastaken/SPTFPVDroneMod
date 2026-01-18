@@ -54,19 +54,6 @@ namespace FPVDroneModClient.Components.Drone
             BatteryDecayRateIdle = ReconDroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = ReconDroneConfig.DroneBatteryDecayAccel.Value;
         }
-
-        public override void OnHit(DamageInfoStruct damageInfo)
-        {
-            DroneHelper.ControlDrone(false);
-
-            if (DroneHelper.CurrentController == this)
-            {
-                DroneHelper.CurrentController = null;
-            }
-            
-            BotDroneListener.RemoveDrone(this);
-            Destroy(gameObject);
-        }
         
         public override void ApplyPitch(float amount)
         {

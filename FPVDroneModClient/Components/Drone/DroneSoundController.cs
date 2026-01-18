@@ -25,7 +25,6 @@ namespace FPVDroneModClient.Components.Drone
 
         private void Start()
         {
-            DroneSound = AssetHelper.DroneAudioClip;
             DroneController = GetComponent<BaseDroneController>();
 
             AudioSource = gameObject.AddComponent<AudioSource>();
