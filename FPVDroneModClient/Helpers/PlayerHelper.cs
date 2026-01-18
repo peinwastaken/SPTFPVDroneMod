@@ -73,6 +73,12 @@ namespace FPVDroneModClient.Helpers
                 iconType
             );
         }
+
+        public static void ClearInteractions(this Player player)
+        {
+            EftGamePlayerOwner playerOwner = player.GetComponent<EftGamePlayerOwner>();
+            playerOwner?.ClearInteractionState();
+        } 
     }
 }
 #endif

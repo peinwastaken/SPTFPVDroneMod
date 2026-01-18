@@ -95,26 +95,29 @@ namespace FPVDroneModClient.Components.Base
             HudController = GetComponentInChildren<DroneHudController>(true);
             Armable = GetComponentInChildren<IArmable>(true);
             Detonatable = GetComponentInChildren<IDetonatable>(true);
+            
+            InitializeEvents();
+        }
 
-            if (!_eventsInitialized)
+        protected void InitializeEvents()
+        {
+            if (BallisticCollider)
             {
-                if (BallisticCollider)
-                {
-                    BallisticCollider.OnHitAction += OnHit;
-                }
-
-                if (Armable != null)
-                {
-                    Armable.OnToggleArmed += OnToggleArmed;
-                }
-
-                if (Detonatable != null)
-                {
-                    Detonatable.OnDetonate += DestroyDrone;
-                }
+                BallisticCollider.OnHitAction += OnHit;
+                BallisticCollider.OnHitAction += OnHit;
             }
 
-            _eventsInitialized = true;
+            if (Armable != null)
+            {
+                Armable.OnToggleArmed -= OnToggleArmed;
+                Armable.OnToggleArmed += OnToggleArmed;
+            }
+
+            if (Detonatable != null)
+            {
+                Detonatable.OnDetonate -= DestroyDrone;
+                Detonatable.OnDetonate += DestroyDrone;
+            }
         }
 
         protected abstract void UpdateFromConfig();
@@ -162,6 +165,7 @@ namespace FPVDroneModClient.Components.Base
             }
 
             BotDroneListener.RemoveDrone(this);
+            InstanceHelper.LocalPlayer.ClearInteractions();
             Destroy(gameObject);
         }
 
