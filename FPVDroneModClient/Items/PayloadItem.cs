@@ -88,6 +88,9 @@ namespace FPVDroneModClient.Items
                 
             Attributes = attributes;
             */
+            
+            List<ItemAttributeClass> attributes = [];
+            Attributes = attributes;
         }
 
         private string DeltaToPercent(float delta)

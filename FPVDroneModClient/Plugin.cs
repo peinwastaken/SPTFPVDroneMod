@@ -13,14 +13,11 @@ using FPVDroneModClient.Items;
 using FPVDroneModClient.Patches;
 using System.Collections.Generic;
 using FPVDroneModClient.Models;
-using SPT.Custom.Models;
-using SPT.Custom.Utils;
-using UnityEngine;
 using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
 {
-    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.4.0")]
+    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.5.0")]
     [BepInDependency("xyz.drakia.bigbrain")]
     public class Plugin : BaseUnityPlugin
     {
