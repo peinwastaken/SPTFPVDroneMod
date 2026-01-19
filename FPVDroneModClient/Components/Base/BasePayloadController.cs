@@ -14,6 +14,7 @@ namespace FPVDroneModClient.Components.Base
     public abstract class BasePayloadController : MonoBehaviour, IArmable, IDetonatable
     {
         public bool IsArmed { get; set; } = false;
+        public bool IsAntiTank;
         public string Description { get; }
         public Detonator Detonator;
         public event Action<bool> OnToggleArmed;

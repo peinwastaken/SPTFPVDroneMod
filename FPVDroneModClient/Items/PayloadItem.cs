@@ -28,7 +28,6 @@ namespace FPVDroneModClient.Items
 
     public class PayloadItem : Item, IExplosive
     {
-        public bool IsArmed { get; set; } = false;
         public float Damage { get; set; }
         public float MaxDistance { get; set; }
         public float FractureDelta { get; set; }
@@ -39,6 +38,8 @@ namespace FPVDroneModClient.Items
 
         public PayloadItem(string id, PayloadItemTemplate template) : base(id, template)
         {
+            //TODO: make these do something
+            /*
             Damage = template.Damage;
             MaxDistance = template.MaxDistance;
             FractureDelta = template.FractureDelta;
@@ -86,6 +87,7 @@ namespace FPVDroneModClient.Items
             ];
                 
             Attributes = attributes;
+            */
         }
 
         private string DeltaToPercent(float delta)

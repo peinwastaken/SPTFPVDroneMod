@@ -21,21 +21,24 @@ namespace FPVDroneModClient.Components.Payloads
             if (IsArmed && hitSomethingOrWater)
             {
                 DebugLogger.LogInfo(collider.gameObject.name);
-                
-                BTRView btr = collider.GetComponentInParent<BTRView>();
-                string mapId = Singleton<GameWorld>.Instance.LocationId;
-                DebugLogger.LogInfo("HIT!!!!! SOMETHING!!!!");
 
-                if (btr)
+                if (IsAntiTank)
                 {
-                    btr.gameObject.SetActive(false);
-                    btr.enabled = false;
-                    InstanceHelper.CreateTankCorpse(btr.transform.position, btr.transform.eulerAngles, true);
-                    RouteHelper.UpdateTankDeathState(true, mapId, btr.transform.position, btr.transform.eulerAngles);
-                }
-                else
-                {
-                    DebugLogger.LogInfo("not hit btr :(");
+                    BTRView btr = collider.GetComponentInParent<BTRView>();
+                    string mapId = Singleton<GameWorld>.Instance.LocationId;
+                    DebugLogger.LogInfo("HIT!!!!! SOMETHING!!!!");
+
+                    if (btr)
+                    {
+                        btr.gameObject.SetActive(false);
+                        btr.enabled = false;
+                        InstanceHelper.CreateTankCorpse(btr.transform.position, btr.transform.eulerAngles, true);
+                        RouteHelper.UpdateTankDeathState(true, mapId, btr.transform.position, btr.transform.eulerAngles);
+                    }
+                    else
+                    {
+                        DebugLogger.LogInfo("not hit btr :(");
+                    }
                 }
                 
                 Detonate();

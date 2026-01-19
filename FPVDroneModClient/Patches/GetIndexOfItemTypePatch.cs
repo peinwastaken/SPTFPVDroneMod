@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using HarmonyLib;
 using SPT.Reflection.Patching;
@@ -40,3 +41,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
+#endif
