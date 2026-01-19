@@ -54,6 +54,7 @@ namespace FPVDroneModClient
             new LocalPlayerDiedPatch().Enable();
             new ItemFactoryGetItemTypePatch().Enable();
             new SpawnBtrPatch().Enable();
+            new GetIndexOfItemTypePatch().Enable();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 BotGlobals.AllBrainNames,

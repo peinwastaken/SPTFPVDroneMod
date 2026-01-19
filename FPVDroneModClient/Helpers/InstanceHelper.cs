@@ -5,6 +5,7 @@ using EFT.CameraControl;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Config;
 using UnityEngine;
+using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient.Helpers
 {
@@ -95,14 +96,16 @@ namespace FPVDroneModClient.Helpers
 
         public static void LoadTankAssets()
         {
+            AssetLoader assetLoader = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader;
+            
             if (!BtrRecent)
             {
-                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/Prefabs/btr_destroyed_recent.prefab");
+                BtrRecent = assetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/Prefabs/btr_destroyed_recent.prefab");
             }
 
             if (!BtrOld)
             {
-                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_old", "Assets/Drone/BTR/Prefabs/btr_destroyed_old.prefab");
+                BtrOld = assetLoader.LoadPrefabFromBundle("btr_destroyed_old", "Assets/Drone/BTR/Prefabs/btr_destroyed_old.prefab");
             }
         }
 

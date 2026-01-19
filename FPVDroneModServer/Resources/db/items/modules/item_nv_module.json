@@ -26,8 +26,8 @@
         },
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 102935,
-        "handbookPriceRoubles": 15230,
+        "fleaPriceRoubles": 99503,
+        "handbookPriceRoubles": 35230,
         "addtoTraders": true,
         "traders": {
             "MECHANIC": {
@@ -40,7 +40,7 @@
                     },
                     "barters": [
                         {
-                            "count": 49503,
+                            "count": 99503,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]

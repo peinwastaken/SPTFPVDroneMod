@@ -64,7 +64,15 @@
             ]
         },
         {
-            "key": "assets/content/btr/btr_destroyed.bundle",
+            "key": "assets/content/btr/btr_destroyed_old.bundle",
+            "dependencyKeys": [
+                "shaders",
+                "cubemaps",
+                "assets/commonassets/physics/physicsmaterials.bundle"
+            ]
+        },
+        {
+            "key": "assets/content/btr/btr_destroyed_recent.bundle",
             "dependencyKeys": [
                 "shaders",
                 "cubemaps",

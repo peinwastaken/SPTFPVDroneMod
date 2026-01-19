@@ -34,12 +34,12 @@
         },
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 102935,
-        "handbookPriceRoubles": 15230,
+        "fleaPriceRoubles": 209503,
+        "handbookPriceRoubles": 82733,
         "addtoModSlots": true,
         "addtoTraders": true,
         "traders": {
-            "MECHANIC": {
+            "SKIER": {
                 "6967698a305e688a36c06bba": {
                     "barterSettings": {
                         "loyalLevel": 2,
@@ -49,7 +49,7 @@
                     },
                     "barters": [
                         {
-                            "count": 49503,
+                            "count": 209503,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]

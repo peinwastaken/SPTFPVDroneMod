@@ -13,6 +13,7 @@
             "Width": 3,
             "Weight": 0.67,
             "SightingRange": 0,
+            "CanSellOnRagfair": false,
             "ShortName": "Recon",
             "BackgroundColor": "orange",
             "Slots": [
@@ -47,21 +48,21 @@
         "clearClonedProps": true,
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 359532,
+        "fleaPriceRoubles": 532455,
         "handbookPriceRoubles": 55339,
         "addtoTraders": true,
         "traders": {
             "SKIER": {
                 "69651e534b99a7555d4e1b35": {
                     "barterSettings": {
-                        "loyalLevel": 2,
+                        "loyalLevel": 3,
                         "unlimitedCount": true,
                         "stackObjectsCount": 9999999,
                         "buyRestrictionMax": 1
                     },
                     "barters": [
                         {
-                            "count": 129532,
+                            "count": 532455,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]
