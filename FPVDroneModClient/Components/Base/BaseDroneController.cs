@@ -42,7 +42,6 @@ namespace FPVDroneModClient.Components.Base
         public float BatteryRemaining = 100f;
         public float SignalStrength = 1f;
         public bool Grounded = false;
-        private bool _eventsInitialized = false;
 
         #if !UNITY_EDITOR
         protected void Awake()

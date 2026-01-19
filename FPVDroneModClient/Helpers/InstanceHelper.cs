@@ -97,12 +97,12 @@ namespace FPVDroneModClient.Helpers
         {
             if (!BtrRecent)
             {
-                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+                BtrRecent = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_recent", "Assets/Drone/BTR/Prefabs/btr_destroyed_recent.prefab");
             }
 
             if (!BtrOld)
             {
-                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed", "Assets/Drone/BTR/BTR_Destroyed_Recent.prefab");
+                BtrOld = WTTClientCommonLib.WTTClientCommonLib.Instance.AssetLoader.LoadPrefabFromBundle("btr_destroyed_old", "Assets/Drone/BTR/Prefabs/btr_destroyed_old.prefab");
             }
         }
 
