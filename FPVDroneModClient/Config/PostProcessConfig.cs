@@ -26,9 +26,9 @@ namespace FPVDroneModClient.Config
             string formatted = Category.Format(order, category);
 
             // noise overlay settings
-            NoiseIntensity = cfg.Bind(formatted, "Noise Intensity", 0.093f, new ConfigDescription(
+            NoiseIntensity = cfg.Bind(formatted, "Noise Intensity", 1f, new ConfigDescription(
                 "controls the intensity of the noise overlay",
-                new AcceptableValueRange<float>(0f, 1f),
+                new AcceptableValueRange<float>(0f, 10f),
                 new ConfigurationManagerAttributes() { Order = 1000 }));
 
             NoiseResX = cfg.Bind(formatted, "Noise Resolution X", 102, new ConfigDescription(

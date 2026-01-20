@@ -3,6 +3,7 @@ using FPVDroneModClient.Interface;
 using System;
 using UnityEngine;
 #if !UNITY_EDITOR
+using EFT;
 using EFT.Ballistics;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
