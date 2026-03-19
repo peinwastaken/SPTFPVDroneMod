@@ -1,6 +1,7 @@
 #if !UNITY_EDITOR
 using EFT;
 using FPVDroneModClient.Components;
+using FPVDroneModClient.Components.Jamming;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;

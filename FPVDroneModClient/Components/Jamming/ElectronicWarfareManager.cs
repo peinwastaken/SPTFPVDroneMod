@@ -2,7 +2,7 @@ using FPVDroneModClient.Components.Base;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FPVDroneModClient.Components
+namespace FPVDroneModClient.Components.Jamming
 {
     public class ElectronicWarfareManager : MonoBehaviour
     {
