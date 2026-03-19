@@ -9,7 +9,6 @@ namespace FPVDroneModServer.Routes
 {
     [Injectable]
     public class TankStateRouter(
-        ISptLogger<TankStateRouter> logger,
         JsonUtil jsonUtil,
         TankStateRouterCallback callback) : StaticRouter(jsonUtil, [
             new RouteAction(
@@ -24,7 +23,7 @@ namespace FPVDroneModServer.Routes
     {}
 
     [Injectable]
-    public class TankStateRouterCallback(ISptLogger<TankStateRouterCallback> logger, JsonUtil jsonUtil, TankDeathService tankDeathService, HttpResponseUtil responseUtil)
+    public class TankStateRouterCallback(JsonUtil jsonUtil, TankDeathService tankDeathService)
     {
         public ValueTask<string> GetTankState()
         {
@@ -41,9 +40,9 @@ namespace FPVDroneModServer.Routes
 
     public class TankStateRequestData : IRequestData
     {
-        public bool isDead { get; set; }
-        public string deathMap { get; set; }
-        public Vector deathPosition { get; set; }
-        public Vector deathAngle { get; set; }
+        public required bool isDead { get; set; }
+        public required string deathMap { get; set; } 
+        public required Vector deathPosition { get; set; }
+        public required Vector deathAngle { get; set; }
     }
 }

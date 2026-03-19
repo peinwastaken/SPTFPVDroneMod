@@ -21,7 +21,7 @@ namespace FPVDroneModServer
         DatabaseService dbService,
         TankDeathService tankDeathService) : IOnLoad
     {
-        public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
         
         public async Task OnLoad()

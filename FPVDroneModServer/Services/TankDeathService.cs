@@ -12,9 +12,9 @@ namespace FPVDroneModServer.Services
         private TankDeathState _tankDeathState = new TankDeathState
         {
             IsDead = false,
-            DeathMap = null,
-            DeathPosition = null,
-            DeathAngle = null
+            DeathMap = "",
+            DeathPosition = new Vector() {X = 0, Y = 0, Z = 0},
+            DeathAngle = new Vector() {X = 0, Y = 0, Z = 0}
         };
         private string _configPath = "";
     
