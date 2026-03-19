@@ -6,6 +6,7 @@ namespace FPVDroneModClient.Enum
         NoHelmet,
         NoController,
         NoDrone,
-        NoDroneNearby
+        NoDroneNearby,
+        NoSignal,
     }
 }

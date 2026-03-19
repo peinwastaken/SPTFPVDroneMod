@@ -23,7 +23,9 @@
             "LightBleedDelta": 0.2,
             "StaminaBurnRate": 50,
             "InstantKillDistance": -1,
-            "Slots": []
+            "Slots": [],
+            "InsuranceDisabled": true,
+            "AlwaysAvailableForInsurance": false
         },
         "locales": {
             "en": {

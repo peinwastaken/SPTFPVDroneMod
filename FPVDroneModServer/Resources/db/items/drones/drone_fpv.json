@@ -55,7 +55,9 @@
                         ]
                     }
                 }
-            ]
+            ],
+            "InsuranceDisabled": true,
+            "AlwaysAvailableForInsurance": false
         },
         "locales": {
             "en": {

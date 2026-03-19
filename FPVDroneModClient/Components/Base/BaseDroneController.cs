@@ -1,11 +1,13 @@
 #if !UNITY_EDITOR
 using EFT;
+using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 #endif
 using EFT.Ballistics;
 using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Interface;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FPVDroneModClient.Components.Base
 {
@@ -34,14 +36,15 @@ namespace FPVDroneModClient.Components.Base
         public DroneSoundController DroneSoundController;
         public BallisticCollider BallisticCollider;
         public DroneHudController HudController;
+        public DroneSignalController SignalController;
         public Rigidbody RigidBody;
         public IArmable Armable;
         public IDetonatable Detonatable;
 
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
-        public float SignalStrength = 1f;
         public bool Grounded = false;
+        public bool IsBeingControlled = false;
 
         #if !UNITY_EDITOR
         protected void Awake()
@@ -51,6 +54,11 @@ namespace FPVDroneModClient.Components.Base
             if (DroneInput == null)
             {
                 DroneInput = gameObject.AddComponent<DroneInput>();
+            }
+
+            if (SignalController == null)
+            {
+                SignalController = gameObject.AddComponent<DroneSignalController>();
             }
             
             DroneInput.enabled = false;
@@ -94,6 +102,7 @@ namespace FPVDroneModClient.Components.Base
             HudController = GetComponentInChildren<DroneHudController>(true);
             Armable = GetComponentInChildren<IArmable>(true);
             Detonatable = GetComponentInChildren<IDetonatable>(true);
+            SignalController = GetComponentInChildren<DroneSignalController>(true);
             
             InitializeEvents();
         }
@@ -117,6 +126,11 @@ namespace FPVDroneModClient.Components.Base
                 Detonatable.OnDetonate -= DestroyDrone;
                 Detonatable.OnDetonate += DestroyDrone;
             }
+
+            if (SignalController)
+            {
+                SignalController.OnSignalLost += () => DroneHelper.ControlDrone(false);
+            }
         }
 
         protected abstract void UpdateFromConfig();
@@ -131,7 +145,8 @@ namespace FPVDroneModClient.Components.Base
             HudController.gameObject.SetActive(true);
             DroneInput.enabled = true;
             enabled = true;
-
+            IsBeingControlled = true;
+            
             DroneSoundController.AudioSource.Play();
             HudController.gameObject.SetActive(true);
             hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
@@ -145,6 +160,7 @@ namespace FPVDroneModClient.Components.Base
             HudController.gameObject.SetActive(false);
             DroneInput.enabled = false;
             enabled = false;
+            IsBeingControlled = false;
 
             DroneSoundController.AudioSource.Stop();
         }
@@ -199,16 +215,18 @@ namespace FPVDroneModClient.Components.Base
         {
             Grounded = IsGrounded();
 
-            if (HudController)
+            if (HudController && IsBeingControlled)
             {
                 HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
 
                 Player player = InstanceHelper.LocalPlayer;
                 float distanceFromPlayer = (player.Position - transform.position).magnitude;
-                float strength = Mathf.Clamp01(distanceFromPlayer / 1000f);
-                HudController.UpdateSignalStrength(1f - strength);
-                SignalStrength = strength; //TODO: give this functionality
-
+                float distanceStrength = 1f - Mathf.Pow(Mathf.Clamp01(distanceFromPlayer / 1250f), 8);
+                SignalController.DistanceStrength = distanceStrength;
+                
+                HudController.UpdateSignalStrength(SignalController.SignalStrength);
+                InstanceHelper.UpdateNoiseAmount(1f - Mathf.Pow(SignalController.SignalStrength, 3));
+                
                 RaycastHit hit;
                 HudController.UpdateAltitude(
                     Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ?
@@ -227,7 +245,7 @@ namespace FPVDroneModClient.Components.Base
                 DebugLogger.LogError("DRONEINPUT IS NULL");
             }
 
-            if (BatteryRemaining > 0f)
+            if (BatteryRemaining > 0f && SignalController.HasSignal)
             {
                 float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
                 PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);

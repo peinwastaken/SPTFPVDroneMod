@@ -118,6 +118,16 @@ namespace FPVDroneModClient.Helpers
             go.SetActive(true);
             go.transform.Rotate(go.transform.up, 180f);
         }
+
+        public static void UpdateNoiseAmount(float amount)
+        {
+            var pp = StaticEffect;
+
+            if (pp)
+            {
+                pp.noiseMat.SetFloat("_Intensity", Mathf.Clamp(amount, 0.1f, 1f));
+            }
+        }
     }
 }
 #endif

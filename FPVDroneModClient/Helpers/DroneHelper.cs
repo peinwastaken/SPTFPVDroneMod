@@ -180,6 +180,12 @@ namespace FPVDroneModClient.Helpers
                 failReason = EDronePilotFailReason.NoDrone;
                 return false;
             }
+            
+            if (CurrentController?.SignalController?.HasSignal == false)
+            {
+                failReason = EDronePilotFailReason.NoSignal;
+                return false;
+            }
 
             return true;
         }
@@ -191,6 +197,7 @@ namespace FPVDroneModClient.Helpers
                 EDronePilotFailReason.NoDrone => "No drone selected",
                 EDronePilotFailReason.NoHelmet => "No headset equipped",
                 EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby", // TODO: add this
+                EDronePilotFailReason.NoSignal => "Drone is unresponsive",
                 EDronePilotFailReason.NoController => null, // shouldn't happen
                 _ => null // shouldn't happen
             };
