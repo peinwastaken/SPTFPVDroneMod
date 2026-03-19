@@ -15,6 +15,7 @@
             "SightingRange": 0,
             "ShortName": "FPV",
             "BackgroundColor": "orange",
+            "CanPutIntoDuringTheRaid": true,
             "Slots": [
                 {
                     "_id": "6964da5c21c575ae8d4e1b28",
