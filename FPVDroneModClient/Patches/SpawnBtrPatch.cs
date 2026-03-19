@@ -1,6 +1,4 @@
 ﻿#if !UNITY_EDITOR
-using Comfort.Common;
-using EFT;
 using System.Reflection;
 using FPVDroneModClient.Config;
 using HarmonyLib;
@@ -18,7 +16,9 @@ public class SpawnBtrPatch : ModulePatch
     [PatchPrefix]
     private static bool PatchPrefix(BTRControllerClass __instance)
     {
-        if (Plugin.TankDeathState.IsDead && GeneralConfig.EnableTankPermaDeath.Value && Singleton<GameWorld>.Instance.LocationId == Plugin.TankDeathState.DeathMap)
+        // if tank is dead and perma death is enabled dont spawn the tank
+        if (Plugin.TankDeathState.IsDead &&
+            GeneralConfig.EnableTankPermaDeath.Value)
         {
             return false;
         }

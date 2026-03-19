@@ -33,12 +33,15 @@ namespace FPVDroneModClient.Patches
             InstanceHelper.CreatePostProcessCamera();
             InstanceHelper.LoadTankAssets();
 
+            // debug shit
+            /*
             __instance.gameObject.AddComponent<ElectronicWarfareManager>();
             
             GameObject go = new GameObject("ElectronicWarfare");
             go.AddComponent<ElectronicWarfareController>();
             go.transform.position = Vector3.zero;
             GameObject.DontDestroyOnLoad(go);
+            */
 
             TankDeathState deathState = Plugin.TankDeathState;
             if (GeneralConfig.EnableTankPermaDeath.Value && deathState.IsDead && __instance.LocationId == deathState.DeathMap)
