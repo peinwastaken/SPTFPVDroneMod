@@ -15,7 +15,9 @@
             "SightingRange": 0,
             "Slots": [],
             "InsuranceDisabled": false,
-            "AlwaysAvailableForInsurance": true
+            "AlwaysAvailableForInsurance": true,
+            "FaceShieldComponent": true,
+            "FaceShieldMask": "Narrow"
         },
         "locales": {
             "en": {

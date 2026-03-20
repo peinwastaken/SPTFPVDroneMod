@@ -4,26 +4,27 @@ using FPVDroneModClient.Config;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 
-namespace FPVDroneModClient.Patches;
-
-public class SpawnBtrPatch : ModulePatch
+namespace FPVDroneModClient.Patches
 {
-    protected override MethodBase GetTargetMethod()
+    public class SpawnBtrPatch : ModulePatch
     {
-        return AccessTools.Method(typeof(BTRControllerClass), nameof(BTRControllerClass.method_7));
-    }
-
-    [PatchPrefix]
-    private static bool PatchPrefix(BTRControllerClass __instance)
-    {
-        // if tank is dead and perma death is enabled dont spawn the tank
-        if (Plugin.TankDeathState.IsDead &&
-            GeneralConfig.EnableTankPermaDeath.Value)
+        protected override MethodBase GetTargetMethod()
         {
-            return false;
+            return AccessTools.Method(typeof(BTRControllerClass), nameof(BTRControllerClass.method_7));
         }
 
-        return true;
+        [PatchPrefix]
+        private static bool PatchPrefix(BTRControllerClass __instance)
+        {
+            // if tank is dead and perma death is enabled dont spawn the tank
+            if (Plugin.TankDeathState.IsDead &&
+                GeneralConfig.EnableTankPermaDeath.Value)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
+    #endif
 }
-#endif

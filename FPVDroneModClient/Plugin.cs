@@ -13,6 +13,7 @@ using FPVDroneModClient.Items;
 using FPVDroneModClient.Patches;
 using System.Collections.Generic;
 using FPVDroneModClient.Models;
+using SPT.Reflection.Patching;
 using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
@@ -30,6 +31,7 @@ namespace FPVDroneModClient
         {
             Logger = base.Logger;
             DebugLogger.Logger = Logger;
+            PatchManager patchManager = new PatchManager(this, true);
 
             GeneralConfig.Bind(0, Category.General, Config);
             FPVDroneConfig.Bind(1, Category.Drone, Config);
@@ -41,17 +43,8 @@ namespace FPVDroneModClient
 
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();
-
-            new InteractionPatch().Enable();
-            new CameraPositionPatch().Enable();
-            new SetCameraPatch().Enable();
-            new GameStartedPatch().Enable();
-            new WeaponInputPatch().Enable();
-            new LootItemPhysicsPatch().Enable();
-            new LocalPlayerDiedPatch().Enable();
-            new ItemFactoryGetItemTypePatch().Enable();
-            new SpawnBtrPatch().Enable();
-            new GetIndexOfItemTypePatch().Enable();
+            
+            patchManager.EnablePatches();
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 BotGlobals.AllBrainNames,
@@ -64,13 +57,13 @@ namespace FPVDroneModClient
                     "6964ea3a5e4c1218314e1b2f",
                     typeof(DroneItem),
                     typeof(CompoundItemTemplateClass),
-                    (string id, object tpl) => new DroneItem(id, (CompoundItemTemplateClass)tpl)
+                    (id, tpl) => new DroneItem(id, (CompoundItemTemplateClass)tpl)
                 ),
                 new TemplateIdToObjectType(
                     "69669ea64847b58fd5393f71",
                     typeof(PayloadItem),
                     typeof(PayloadItemTemplate),
-                    (string id, object tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl))
+                    (id, tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl))
             ];
 
             CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);

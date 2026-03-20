@@ -16,6 +16,7 @@ namespace FPVDroneModClient.Helpers
         public static AudioClip DroneAudioClip;
         public static Texture DroneNightVisionLens;
         public static Texture DroneNightVisionMask;
+        public static Texture FpvGogglesMask;
 
         public static string AssemblyDir => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static string AssetDirPath => Path.Combine(AssemblyDir, "assets");
@@ -27,9 +28,9 @@ namespace FPVDroneModClient.Helpers
         
         public static AssetBundle ShadersBundle;
         
-        public static Texture LoadTexture(string filePath, TextureWrapMode wrapMode = TextureWrapMode.Clamp)
+        public static Texture LoadTexture(string filePath, TextureWrapMode wrapMode = TextureWrapMode.Clamp, TextureFormat format = TextureFormat.ARGB32)
         {
-            Texture2D tex = new Texture2D(2, 2, TextureFormat.ARGB32, false);
+            Texture2D tex = new Texture2D(2, 2, format, false);
             tex.LoadImage(File.ReadAllBytes(filePath));
             tex.wrapMode = wrapMode;
             
@@ -51,6 +52,7 @@ namespace FPVDroneModClient.Helpers
             
             DroneNightVisionLens = LoadTexture(Path.Combine(TextureDirPath, "nvglens.png"));
             DroneNightVisionMask = LoadTexture(Path.Combine(TextureDirPath, "nvgmask.png"));
+            FpvGogglesMask = LoadTexture(Path.Combine(TextureDirPath, "gogglemask.png"), TextureWrapMode.Repeat);
             
             DebugLogger.LogInfo("Loaded assets!");
         }

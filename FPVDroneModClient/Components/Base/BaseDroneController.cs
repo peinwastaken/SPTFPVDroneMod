@@ -46,6 +46,8 @@ namespace FPVDroneModClient.Components.Base
         public bool Grounded = false;
         public bool IsBeingControlled = false;
 
+        private bool _isBeingDestroyed = false;
+
         #if !UNITY_EDITOR
         protected void Awake()
         {
@@ -172,6 +174,9 @@ namespace FPVDroneModClient.Components.Base
 
         public void DestroyDrone()
         {
+            if (_isBeingDestroyed) return;
+            _isBeingDestroyed = true;
+            
             DroneHelper.ControlDrone(false);
 
             if (DroneHelper.CurrentController == this)
@@ -186,9 +191,11 @@ namespace FPVDroneModClient.Components.Base
 
         public virtual void OnHit(DamageInfoStruct damageInfo)
         {
-            if (Detonatable != null)
+            IDetonatable detonatable = GetComponentInChildren<IDetonatable>(true);
+            
+            if (detonatable != null)
             {
-                Detonatable.Detonate();
+                detonatable.Detonate();
                 return;
             }
             

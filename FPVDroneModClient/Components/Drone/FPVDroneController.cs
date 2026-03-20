@@ -25,8 +25,11 @@ namespace FPVDroneModClient.Components.Drone
         protected override void Start()
         {
             base.Start();
-            
-            HudController.SetArmedTextVisible(Armable.IsArmed);
+
+            if (Armable != null)
+            {
+                HudController.SetArmedTextVisible(Armable.IsArmed);
+            }
         }
         
         public override void ApplyPitch(float amount)

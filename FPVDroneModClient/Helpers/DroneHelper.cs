@@ -7,7 +7,6 @@ using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
 using FPVDroneModClient.Components;
-using FPVDroneModClient.Config;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Items;
@@ -49,6 +48,19 @@ namespace FPVDroneModClient.Helpers
                 }
 
                 return;
+            }
+
+            if (DroneCullingManager.Instance)
+            {
+                if (IsControllingDrone && !newState)
+                {
+                    DroneCullingManager.Instance.EnableCulling();
+                }
+
+                if (!IsControllingDrone && newState)
+                {
+                    DroneCullingManager.Instance.DisableCulling();
+                }
             }
 
             IsControllingDrone = newState;
@@ -132,11 +144,6 @@ namespace FPVDroneModClient.Helpers
                         thermalVision.SetMask(NightVisionComponent.EMask.Thermal);
                     }
                 }
-            }
-
-            if (GeneralConfig.DisableCulling.Value && DroneCullingManager.Instance)
-            {
-                DroneCullingManager.Instance.SetCullingState(!newState);
             }
 
             Camera camera = CameraClass.Instance.Camera;
