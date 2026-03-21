@@ -43,7 +43,7 @@ namespace FPVDroneModClient.Helpers
                 if (failReasonString != null)
                 {
                     NotificationManagerClass.DisplayMessageNotification(
-                        failReasonString,
+                        failReasonString.Localized(),
                         ENotificationDurationType.Default,
                         ENotificationIconType.Alert
                     );
@@ -211,11 +211,11 @@ namespace FPVDroneModClient.Helpers
         {
             return failReason switch
             {
-                EDronePilotFailReason.NoDrone => "No drone selected",
-                EDronePilotFailReason.NoHelmet => "No headset equipped",
-                EDronePilotFailReason.NoDroneNearby => "No drone selected and no drone nearby", // TODO: add this
-                EDronePilotFailReason.NoSignal => "Drone is unresponsive",
-                EDronePilotFailReason.NoController => null, // shouldn't happen
+                EDronePilotFailReason.NoDrone => "NO DRONE",
+                EDronePilotFailReason.NoHelmet => "NO HEADSET",
+                EDronePilotFailReason.NoDroneNearby => "NO SELECTED OR NEARBY", // TODO: add this
+                EDronePilotFailReason.NoSignal => "NO SIGNAL",
+                EDronePilotFailReason.NoController => "NO CONTROLLER", // shouldn't happen
                 _ => null // shouldn't happen
             };
         }
