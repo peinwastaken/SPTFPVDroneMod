@@ -53,7 +53,7 @@ namespace FPVDroneModClient.Items
             List<ItemAttributeClass> attributes = [
                 new(EItemAttributeId.MaxAmmoDamage)
                 {
-                    Name = "Explosion Damage",
+                    Name = "EXPLOSION DAMAGE",
                     Base = () => Damage,
                     StringValue = Damage.ToString,
                     DisplayType = () => EItemAttributeDisplayType.Compact,
@@ -61,35 +61,35 @@ namespace FPVDroneModClient.Items
                 },
                 new(EItemAttributeId.ExplosionDistance)
                 {
-                    Name = "Explosion Radius",
+                    Name = "EXPLOSION RADIUS",
                     Base = () => MaxDistance,
                     StringValue = MaxDistance.ToString,
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EItemAttributeId.LightBleedingDelta)
                 {
-                    Name = "Inflicts Light Bleed",
+                    Name = "INFLICTS LIGHT BLEED",
                     Base = () => LightBleedDelta,
                     StringValue = () => DeltaToPercent(LightBleedDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EItemAttributeId.HeavyBleedingDelta)
                 {
-                    Name = "Inflicts Heavy Bleed",
+                    Name = "INFLICTS HEAVY BLEED",
                     Base = () => HeavyBleedDelta,
                     StringValue = () => DeltaToPercent(HeavyBleedDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EDamageEffectType.Fracture)
                 {
-                    Name = "Inflicts Fracture",
+                    Name = "INFLICTS FRACTURE",
                     Base = () => FractureDelta,
                     StringValue = () => DeltaToPercent(FractureDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EItemAttributeId.AmmoPenetrationPower)
                 {
-                    Name = "Is Anti-Tank",
+                    Name = "IS ANTI TANK",
                     StringValue = () => BoolToString(IsAntiTank),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 }
@@ -105,7 +105,7 @@ namespace FPVDroneModClient.Items
 
         private string BoolToString(bool value)
         {
-            return value ? "Yes" : "No";
+            return value ? "YES" : "NO";
         }
     }
 }

@@ -1,11 +1,8 @@
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Base;
-using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
 using HarmonyLib;
-using JetBrains.Annotations;
 using SPT.Reflection.Patching;
-using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
