@@ -23,6 +23,7 @@
             "LightBleedDelta": 0.2,
             "StaminaBurnRate": 50,
             "InstantKillDistance": -1,
+            "IsAntiTank": true,
             "Slots": [],
             "InsuranceDisabled": true,
             "AlwaysAvailableForInsurance": false

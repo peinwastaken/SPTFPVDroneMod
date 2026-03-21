@@ -14,7 +14,8 @@ namespace FPVDroneModClient.Items
         float heavyBleedDelta,
         float lightBleedDelta,
         float staminaBurnRate,
-        float instantKillDistance = -1f
+        float instantKillDistance = -1f,
+        bool isAntiTank = false
     ) : ItemTemplate
     {
         public readonly float Damage = damage;
@@ -24,11 +25,13 @@ namespace FPVDroneModClient.Items
         public readonly float LightBleedDelta = lightBleedDelta;
         public readonly float StaminaBurnRate = staminaBurnRate;
         public readonly float InstantKillDistance = instantKillDistance;
+        public readonly bool IsAntiTank = isAntiTank;
     }
 
     public class PayloadItem : Item, IExplosive
     {
         public float Damage { get; set; }
+        public bool IsAntiTank { get; set; }
         public float MaxDistance { get; set; }
         public float FractureDelta { get; set; }
         public float HeavyBleedDelta { get; set; }
@@ -38,8 +41,6 @@ namespace FPVDroneModClient.Items
 
         public PayloadItem(string id, PayloadItemTemplate template) : base(id, template)
         {
-            //TODO: make these do something
-            /*
             Damage = template.Damage;
             MaxDistance = template.MaxDistance;
             FractureDelta = template.FractureDelta;
@@ -47,55 +48,64 @@ namespace FPVDroneModClient.Items
             LightBleedDelta = template.LightBleedDelta;
             StaminaBurnRate = template.StaminaBurnRate;
             InstantKillDistance = template.InstantKillDistance;
+            IsAntiTank = template.IsAntiTank;
             
             List<ItemAttributeClass> attributes = [
-                new(EPayloadAttribute.Damage)
+                new(EItemAttributeId.MaxAmmoDamage)
                 {
                     Name = "Explosion Damage",
                     Base = () => Damage,
                     StringValue = Damage.ToString,
-                    DisplayType = () => EItemAttributeDisplayType.Compact
+                    DisplayType = () => EItemAttributeDisplayType.Compact,
+                    
                 },
-                new(EPayloadAttribute.Range)
+                new(EItemAttributeId.ExplosionDistance)
                 {
                     Name = "Explosion Radius",
                     Base = () => MaxDistance,
                     StringValue = MaxDistance.ToString,
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
-                new(EPayloadAttribute.LightBleedChance)
+                new(EItemAttributeId.LightBleedingDelta)
                 {
                     Name = "Inflicts Light Bleed",
                     Base = () => LightBleedDelta,
                     StringValue = () => DeltaToPercent(LightBleedDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
-                new(EPayloadAttribute.HeavyBleedChance)
+                new(EItemAttributeId.HeavyBleedingDelta)
                 {
                     Name = "Inflicts Heavy Bleed",
                     Base = () => HeavyBleedDelta,
                     StringValue = () => DeltaToPercent(HeavyBleedDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
-                new(EPayloadAttribute.FractureChance)
+                new(EDamageEffectType.Fracture)
                 {
                     Name = "Inflicts Fracture",
                     Base = () => FractureDelta,
                     StringValue = () => DeltaToPercent(FractureDelta),
                     DisplayType = () => EItemAttributeDisplayType.Compact
+                },
+                new(EItemAttributeId.AmmoPenetrationPower)
+                {
+                    Name = "Is Anti-Tank",
+                    StringValue = () => BoolToString(IsAntiTank),
+                    DisplayType = () => EItemAttributeDisplayType.Compact
                 }
             ];
                 
-            Attributes = attributes;
-            */
-            
-            List<ItemAttributeClass> attributes = [];
             Attributes = attributes;
         }
 
         private string DeltaToPercent(float delta)
         {
             return $"{delta * 100f}%";
+        }
+
+        private string BoolToString(bool value)
+        {
+            return value ? "Yes" : "No";
         }
     }
 }

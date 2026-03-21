@@ -16,6 +16,12 @@ namespace FPVDroneModClient.Components.Base
     {
         public bool IsArmed { get; set; } = false;
         public bool IsAntiTank;
+        public float Damage;
+        public float MaxDistance;
+        public float HeavyBleedDelta;
+        public float LightBleedDelta;
+        public float FractureDelta;
+        public float StaminaBurnRate;
         public string Description { get; }
         public Detonator Detonator;
         public event Action<bool> OnToggleArmed;
@@ -53,12 +59,12 @@ namespace FPVDroneModClient.Components.Base
             ExplosionData explosion = new ExplosionData
             {
                 Position = gameObject.transform.position,
-                Damage = ExplosionConfig.ExplosionDamage.Value,
-                MaxDistance = ExplosionConfig.ExplosionMaxDistance.Value,
-                HeavyBleedDelta = ExplosionConfig.ExplosionHeavyBleedDelta.Value,
-                LightBleedDelta = ExplosionConfig.ExplosionLightBleedDelta.Value,
-                FractureDelta = ExplosionConfig.ExplosionFractureDelta.Value,
-                StaminaBurnRate = ExplosionConfig.ExplosionStaminaBurnRate.Value,
+                Damage = Damage,
+                MaxDistance = MaxDistance,
+                HeavyBleedDelta = HeavyBleedDelta,
+                LightBleedDelta = LightBleedDelta,
+                FractureDelta = FractureDelta,
+                StaminaBurnRate = StaminaBurnRate,
                 PlayerOwner = null,
                 Weapon = null
             };
