@@ -63,7 +63,7 @@ namespace FPVDroneModClient.Items
                 {
                     Name = "EXPLOSION RADIUS",
                     Base = () => MaxDistance,
-                    StringValue = MaxDistance.ToString,
+                    StringValue = () => $"{(int)(MaxDistance / 10)} {"meters".Localized()}",
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 },
                 new(EItemAttributeId.LightBleedingDelta)
