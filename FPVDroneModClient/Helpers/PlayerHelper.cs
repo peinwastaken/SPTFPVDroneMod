@@ -65,15 +65,6 @@ namespace FPVDroneModClient.Helpers
             return InstanceHelper.LocalPlayer.GetComponent<Player.FirearmController>()?.Weapon;
         }
 
-        public static void ShowNotification(string message, ENotificationDurationType durationType = ENotificationDurationType.Default, ENotificationIconType iconType = ENotificationIconType.Default)
-        {
-            NotificationManagerClass.DisplayMessageNotification(
-                message,
-                durationType,
-                iconType
-            );
-        }
-
         public static void ClearInteractions(this Player player)
         {
             EftGamePlayerOwner playerOwner = player.GetComponent<EftGamePlayerOwner>();

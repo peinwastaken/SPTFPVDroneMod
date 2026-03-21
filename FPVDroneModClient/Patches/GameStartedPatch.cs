@@ -45,22 +45,7 @@ namespace FPVDroneModClient.Patches
                 InstanceHelper.CreateTankCorpse(deathState.DeathPosition, deathState.DeathAngle, false);
             }
 
-            InstanceHelper.LocalPlayer.OnGlassesChanged -= OnGlassesChanged; 
-            InstanceHelper.LocalPlayer.OnGlassesChanged += OnGlassesChanged;
-
             DebugLogger.LogWarning("gameworld started!!");
-        }
-
-        private static void OnGlassesChanged(VisorsItemClass visor, bool glassesFound)
-        {
-            if (visor.StringTemplateId == ItemIds.HeadsetTemplateId)
-            {
-                Material material_0 = (Material)AccessTools.Field(typeof(VisorEffect), "material_0").GetValue(CameraClass.Instance.VisorEffect);
-                PlayerCameraController c = InstanceHelper.LocalPlayer.GetComponent<PlayerCameraController>();
-                c.method_3(visor.FaceShield);
-                CameraClass.Instance.VisorEffect.ScratcesIntensity = 0f;
-                material_0.SetTexture("_Mask", AssetHelper.FpvGogglesMask);
-            }
         }
     }
 }

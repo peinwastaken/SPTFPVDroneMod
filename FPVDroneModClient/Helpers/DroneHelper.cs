@@ -12,6 +12,7 @@ using FPVDroneModClient.Globals;
 using FPVDroneModClient.Items;
 using System.Collections.Generic;
 using FPVDroneModClient.Components.Base;
+using FPVDroneModClient.Components.Gear;
 using UnityEngine;
 
 namespace FPVDroneModClient.Helpers
@@ -27,6 +28,7 @@ namespace FPVDroneModClient.Helpers
         public static bool LastNvgEnabled;
         public static Texture LastNvgMask;
         public static bool LastThermalEnabled;
+        public static Texture LastVisorMask;
 
         private static int _maskId = Shader.PropertyToID("_Mask");
 
@@ -41,7 +43,7 @@ namespace FPVDroneModClient.Helpers
                 if (failReasonString != null)
                 {
                     NotificationManagerClass.DisplayMessageNotification(
-                        GetFailReasonString(failReason),
+                        failReasonString,
                         ENotificationDurationType.Default,
                         ENotificationIconType.Alert
                     );
@@ -65,14 +67,16 @@ namespace FPVDroneModClient.Helpers
 
             IsControllingDrone = newState;
 
+            Player localPlayer = InstanceHelper.LocalPlayer;
+
             InstanceHelper.HudCamera.enabled = newState;
             InstanceHelper.PostProcessCamera.enabled = newState;
             InstanceHelper.StaticEffect.enabled = newState;
-            InstanceHelper.LocalPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
+            localPlayer.PointOfView = newState ? EPointOfView.ThirdPerson : EPointOfView.FirstPerson;
             Singleton<CommonUI>.Instance.EftBattleUIScreen.CanvasGroup.gameObject.SetActive(!newState);
             EFTPhysicsClass.SyncTransformsClass.UpdateMode = newState ? EFTPhysicsClass.SyncTransformsClass.UpdateModeType.FixedUpdate : EFTPhysicsClass.SyncTransformsClass.UpdateModeType.SmoothSimulate;
 
-            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+            EftGamePlayerOwner playerOwner = localPlayer.GetComponent<EftGamePlayerOwner>();
             playerOwner.enabled = !newState;
 
             if (CurrentController)
@@ -80,9 +84,12 @@ namespace FPVDroneModClient.Helpers
                 // TODO: this is aids, redo it someday... inb4 1 year later
                 LootItem lootItem = CurrentController.GetComponent<LootItem>();
                 DroneItem item = (DroneItem)lootItem.Item;
-                
+
+                VisorEffect visorEffect = CameraClass.Instance.VisorEffect;
                 NightVision nightVision = CameraClass.Instance.NightVision;
                 ThermalVision thermalVision = CameraClass.Instance.ThermalVision;
+                
+                Material visorMaterial = visorEffect.method_4();
                 
                 if (newState)
                 {
@@ -91,11 +98,13 @@ namespace FPVDroneModClient.Helpers
                     LastNvgEnabled = nightVision.On;
                     LastNvgMask = nightVision.TextureMask.Mask;
                     LastThermalEnabled = thermalVision.On;
+                    LastVisorMask = visorMaterial.GetTexture("_Mask");
 
                     nightVision.On = false;
                     nightVision.TextureMask.enabled = false;
                     thermalVision.On = false;
                     thermalVision.TextureMask.enabled = false;
+                    visorMaterial.SetTexture("_Mask", null);
                     
                     if (item.HasThermalModule())
                     {
@@ -133,6 +142,7 @@ namespace FPVDroneModClient.Helpers
                     nightVision.TextureMask.Mask = LastNvgMask;
                     thermalVision.On = LastThermalEnabled;
                     thermalVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
+                    visorMaterial.SetTexture("_Mask", LastVisorMask);
 
                     if (LastNvgEnabled)
                     {
@@ -245,7 +255,11 @@ namespace FPVDroneModClient.Helpers
         {
             if (SelectedControllers.Count <= 0)
             {
-                PlayerHelper.ShowNotification("No selected drones", ENotificationDurationType.Default, ENotificationIconType.Alert);
+                NotificationManagerClass.DisplayMessageNotification(
+                    "No selected drones",
+                    ENotificationDurationType.Default,
+                    ENotificationIconType.Alert
+                );
                 return;
             }
 

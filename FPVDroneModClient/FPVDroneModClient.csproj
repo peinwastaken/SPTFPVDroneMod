@@ -47,6 +47,9 @@
             <HintPath>..\..\..\BepInEx\plugins\DrakiaXYZ-BigBrain.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="ItemComponent.Types">
+          <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\ItemComponent.Types.dll</HintPath>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
           <HintPath>..\..\..\EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>

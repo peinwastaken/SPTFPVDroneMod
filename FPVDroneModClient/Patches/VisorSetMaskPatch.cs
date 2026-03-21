@@ -1,4 +1,3 @@
-using EFT;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
@@ -13,19 +12,20 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(Player), nameof(Player.OnItemAddedOrRemoved));
+            return AccessTools.Method(typeof(VisorEffect), nameof(VisorEffect.SetMask));
         }
 
-        /*
         [PatchPostfix]
-        private static void PatchPostfix(Player __instance, Item item, ItemAddress location, bool added)
+        private static void PatchPostfix(VisorEffect __instance)
         {
-            string itemId = item.StringTemplateId;
+            Slot eyeSlot = InstanceHelper.LocalPlayer.Equipment.GetSlot(EquipmentSlot.Eyewear);
+            ArmoredEquipmentItemClass eyeItem = (ArmoredEquipmentItemClass)eyeSlot.ContainedItem;
 
-            if (itemId == ItemIds.HeadsetTemplateId && location.)
+            if (eyeItem != null && eyeItem.StringTemplateId == ItemIds.HeadsetTemplateId)
             {
-                
+                Material visorMaterial = __instance.method_4();
+                visorMaterial.SetTexture("_Mask", AssetHelper.FpvGogglesMask);
             }
-        }*/
+        }
     }
 }
