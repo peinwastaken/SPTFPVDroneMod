@@ -19,7 +19,8 @@ namespace FPVDroneModServer
         WTTCustomSlotImageService imageService,
         WTTCustomLocaleService localeService,
         DatabaseService dbService,
-        TankDeathService tankDeathService) : IOnLoad
+        TankDeathService tankDeathService,
+        ContainerHelper containerHelper) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
@@ -50,6 +51,22 @@ namespace FPVDroneModServer
             imageService.CreateSlotImages(Assembly.GetExecutingAssembly(), "slots");
             await localeService.CreateCustomLocales(Assembly.GetExecutingAssembly(), "db/locales");
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
+            
+            // add DroneItem and PayloadItem to item case
+            containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "6964ea3a5e4c1218314e1b2f");
+            containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "69669ea64847b58fd5393f71");
+            
+            // add DroneItem and PayloadItem to weapon case
+            containerHelper.AddToFilter("59fb023c86f7746d0d4b423c", "6964ea3a5e4c1218314e1b2f");
+            containerHelper.AddToFilter("59fb023c86f7746d0d4b423c", "69669ea64847b58fd5393f71");
+            
+            // add DroneItem and PayloadItem to thicc case
+            containerHelper.AddToFilter("5c0a840b86f7742ffa4f2482", "6964ea3a5e4c1218314e1b2f");
+            containerHelper.AddToFilter("5c0a840b86f7742ffa4f2482", "69669ea64847b58fd5393f71");
+            
+            // add DroneItem and PayloadItem to thicc weapon case
+            containerHelper.AddToFilter("5b6d9ce188a4501afc1b2b25", "6964ea3a5e4c1218314e1b2f");
+            containerHelper.AddToFilter("5b6d9ce188a4501afc1b2b25", "69669ea64847b58fd5393f71");
             
             logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
             
