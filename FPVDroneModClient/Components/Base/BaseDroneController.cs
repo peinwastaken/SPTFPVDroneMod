@@ -40,13 +40,13 @@ namespace FPVDroneModClient.Components.Base
         public Rigidbody RigidBody;
         public IArmable Armable;
         public IDetonatable Detonatable;
+        public IPlayer Owner;
 
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
         public bool Grounded = false;
         public bool IsBeingControlled = false;
-
-        private bool _isBeingDestroyed = false;
+        public bool IsAboutToBeDestroyed = false;
 
         #if !UNITY_EDITOR
         protected void Awake()
@@ -72,7 +72,7 @@ namespace FPVDroneModClient.Components.Base
         protected virtual void Start()
         {
             GetReferences();
-
+            
             BasePayloadController basePayloadController = GetComponentInChildren<BasePayloadController>(true);
 
             BatteryRemaining = MaxBattery;
@@ -113,7 +113,7 @@ namespace FPVDroneModClient.Components.Base
         {
             if (BallisticCollider)
             {
-                BallisticCollider.OnHitAction += OnHit;
+                BallisticCollider.OnHitAction -= OnHit;
                 BallisticCollider.OnHitAction += OnHit;
             }
 
@@ -137,33 +137,41 @@ namespace FPVDroneModClient.Components.Base
 
         protected abstract void UpdateFromConfig();
 
-        public virtual void OnPilotEnter()
+        public virtual void OnPilotEnter(bool isDoneLocally = true)
         {
             GetReferences();
             
             Canvas hudCanvas = HudController.GetComponent<Canvas>();
 
-            CameraBody.gameObject.SetActive(false);
-            HudController.gameObject.SetActive(true);
-            DroneInput.enabled = true;
+            if (isDoneLocally)
+            {
+                CameraBody.gameObject.SetActive(false);
+                HudController.gameObject.SetActive(true);
+                DroneInput.enabled = true;
+                
+                HudController.gameObject.SetActive(true);
+                hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
+            }
+            
             enabled = true;
             IsBeingControlled = true;
-            
             DroneSoundController.AudioSource.Play();
-            HudController.gameObject.SetActive(true);
-            hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
+            DroneSoundController.AudioSource.spatialBlend = isDoneLocally ? 0 : 1;
 
             UpdateFromConfig();
         }
 
-        public virtual void OnPilotExit()
+        public virtual void OnPilotExit(bool isDoneLocally = true)
         {
-            CameraBody.gameObject.SetActive(true);
-            HudController.gameObject.SetActive(false);
-            DroneInput.enabled = false;
+            if (isDoneLocally)
+            {
+                CameraBody.gameObject.SetActive(true);
+                HudController.gameObject.SetActive(false);
+                DroneInput.enabled = false;
+            }
+            
             enabled = false;
             IsBeingControlled = false;
-
             DroneSoundController.AudioSource.Stop();
         }
 
@@ -174,18 +182,17 @@ namespace FPVDroneModClient.Components.Base
 
         public void DestroyDrone()
         {
-            if (_isBeingDestroyed) return;
-            _isBeingDestroyed = true;
-            
-            DroneHelper.ControlDrone(false);
+            if (IsAboutToBeDestroyed) return;
+            IsAboutToBeDestroyed = true;
 
             if (DroneHelper.CurrentController == this)
             {
                 DroneHelper.CurrentController = null;
+                DroneHelper.ControlDrone(false);
             }
 
             BotDroneListener.RemoveDrone(this);
-            InstanceHelper.LocalPlayer.ClearInteractions();
+            InstanceHelper.LocalPlayer?.ClearInteractions();
             Destroy(gameObject);
         }
 
@@ -222,7 +229,7 @@ namespace FPVDroneModClient.Components.Base
         {
             Grounded = IsGrounded();
 
-            if (HudController && IsBeingControlled)
+            if (HudController && Owner.IsYourPlayer && IsBeingControlled)
             {
                 HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
 

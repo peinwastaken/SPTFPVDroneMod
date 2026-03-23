@@ -2,8 +2,8 @@ namespace FPVDroneModClient.Interface
 {
     public interface IPilotable
     {
-        public void OnPilotEnter();
+        public void OnPilotEnter(bool isDoneLocally);
 
-        public void OnPilotExit();
+        public void OnPilotExit(bool isDoneLocally);
     }
 }

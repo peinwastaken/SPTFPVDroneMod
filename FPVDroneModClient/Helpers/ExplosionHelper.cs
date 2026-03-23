@@ -8,24 +8,33 @@ using UnityEngine;
 
 namespace FPVDroneModClient.Helpers
 {
+    // TODO: convert payloads to be ammunition instead and use vanilla explosion systems
     public static class ExplosionHelper
     {
-        public static void CreateExplosion(ExplosionData explosion)
+        private static Collider[] _colliders = new Collider[512];
+        
+        public static void CreateExplosion(ExplosionData explosion, bool emitParticles = true)
         {
             Dictionary<Player, PlayerExplosionData> affectedPlayers = [];
+
+            if (emitParticles)
+            {
+                Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
+            }
             
-            Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
-            
-            Collider[] overlapColliders = Physics.OverlapSphere(explosion.Position, explosion.MaxDistance);
+            Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders);
 
             // grab all colliders and players
-            foreach (Collider collider in overlapColliders)
+            for (int i = 0; i < _colliders.Length; i++)
             {
-                BodyPartCollider bodyPartCollider = collider.GetComponent<BodyPartCollider>();
-                if (bodyPartCollider == null) continue;
+                Collider collider = _colliders[i];
+                if (!collider) continue;
                 
-                Player player = bodyPartCollider.GetComponentInParent<Player>();
-                if (player == null) continue;
+                BodyPartCollider bodyPartCollider = collider.GetComponent<BodyPartCollider>();
+                if (!bodyPartCollider) continue;
+
+                Player player = (Player)bodyPartCollider.Player;
+                if (!player) continue;
 
                 if (!affectedPlayers.ContainsKey(player))
                 {
@@ -41,11 +50,11 @@ namespace FPVDroneModClient.Helpers
                         bodyPartCollider,
                         Vector3.Distance(bodyPartCollider.transform.position, explosion.Position)
                     );
-                    
+
                     affectedPlayers[player].ProcessedLimbs.Add(bodyPartCollider.BodyPartType);
                 }
             }
-            
+
             DebugLogger.LogInfo($"players in range: {affectedPlayers.Count}");
             
             // apply screen effects to affected players
@@ -63,15 +72,15 @@ namespace FPVDroneModClient.Helpers
                     player.ActiveHealthController.Kill(EDamageType.Explosion);
                 }
                 
-                player.ActiveHealthController.DoContusion(20f * playerDistanceMultiplier, playerDistanceMultiplier);
-                player.ActiveHealthController.DoDisorientation(5f * playerDistanceMultiplier);
-                player.ProceduralWeaponAnimation.ForceReact.AddForce(dirFromExplosion, playerDistanceMultiplier, 1f, 2f);
+                player.ActiveHealthController?.DoContusion(20f * playerDistanceMultiplier, playerDistanceMultiplier);
+                player.ActiveHealthController?.DoDisorientation(5f * playerDistanceMultiplier);
+                player.ProceduralWeaponAnimation?.ForceReact?.AddForce(dirFromExplosion, playerDistanceMultiplier, 1f, 2f);
 
                 if (Random.Range(0f, 1f) < explosion.FractureDelta * playerDistanceMultiplier)
                 {
                     EBodyPart closestBodyPart = affectedPlayers[player].GetClosestFracturableBodyPart();
 
-                    player.ActiveHealthController.DoFracture(closestBodyPart);
+                    player.ActiveHealthController?.DoFracture(closestBodyPart);
                 }
 
                 foreach (BodyPartCollider collider in info.BodyPartColliders.Keys)

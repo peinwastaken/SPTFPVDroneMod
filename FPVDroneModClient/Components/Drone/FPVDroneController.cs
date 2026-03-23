@@ -1,5 +1,4 @@
 using FPVDroneModClient.Components.Base;
-using FPVDroneModClient.Interface;
 #if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
@@ -13,9 +12,9 @@ namespace FPVDroneModClient.Components.Drone
         public bool IsArmed { get; set; }
         
         #if !UNITY_EDITOR
-        public override void OnPilotEnter()
+        public override void OnPilotEnter(bool isDoneLocally = true)
         {
-            base.OnPilotEnter();
+            base.OnPilotEnter(isDoneLocally);
 
             HudController.CustomizedText.enabled = FPVDroneConfig.EnableCustomizedText.Value;
             HudController.CustomizedText.enableWordWrapping = FPVDroneConfig.CustomizedTextWrapping.Value;

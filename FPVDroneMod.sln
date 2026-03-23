@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPVDroneModClient", "FPVDro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPVDroneModServer", "FPVDroneModServer\FPVDroneModServer.csproj", "{E9F5C8FF-A38B-4E17-8215-EAA89F5E260E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPVDroneModFika", "FPVDroneModFika\FPVDroneModFika.csproj", "{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}"
+EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AF212E1C-ED50-4BAC-8C94-757D3D2DB36D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -20,6 +22,12 @@ Global
 		{E9F5C8FF-A38B-4E17-8215-EAA89F5E260E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9F5C8FF-A38B-4E17-8215-EAA89F5E260E}.UNITY_EDITOR|Any CPU.ActiveCfg = UNITY_EDITOR|Any CPU
 		{E9F5C8FF-A38B-4E17-8215-EAA89F5E260E}.UNITY_EDITOR|Any CPU.Build.0 = UNITY_EDITOR|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.UNITY_EDITOR|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C3C4BA-5655-4875-BECE-CB9C49D0F1FE}.UNITY_EDITOR|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

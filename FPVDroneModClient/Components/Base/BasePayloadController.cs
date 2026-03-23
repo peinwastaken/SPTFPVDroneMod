@@ -54,7 +54,7 @@ namespace FPVDroneModClient.Components.Base
             OnToggleArmed?.Invoke(IsArmed);
         }
 
-        public virtual void Detonate()
+        public virtual ExplosionData Detonate()
         {
             ExplosionData explosion = new ExplosionData
             {
@@ -72,6 +72,8 @@ namespace FPVDroneModClient.Components.Base
             ExplosionHelper.CreateExplosion(explosion);
             
             OnDetonate?.Invoke();
+
+            return explosion;
         }
 
         public abstract void OnTriggerEnter(Collider collider);

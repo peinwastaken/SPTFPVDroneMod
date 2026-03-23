@@ -12,6 +12,7 @@ using FPVDroneModClient.Globals;
 using FPVDroneModClient.Items;
 using System.Collections.Generic;
 using FPVDroneModClient.Components.Base;
+using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Components.Gear;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ namespace FPVDroneModClient.Helpers
                 if (failReasonString != null)
                 {
                     NotificationManagerClass.DisplayMessageNotification(
-                        failReasonString.Localized(),
+                        failReasonString,
                         ENotificationDurationType.Default,
                         ENotificationIconType.Alert
                     );
@@ -211,23 +212,23 @@ namespace FPVDroneModClient.Helpers
         {
             return failReason switch
             {
-                EDronePilotFailReason.NoDrone => "NO DRONE",
-                EDronePilotFailReason.NoHelmet => "NO HEADSET",
-                EDronePilotFailReason.NoDroneNearby => "NO SELECTED OR NEARBY", // TODO: add this
-                EDronePilotFailReason.NoSignal => "NO SIGNAL",
-                EDronePilotFailReason.NoController => "NO CONTROLLER", // shouldn't happen
+                EDronePilotFailReason.NoDrone => "NO DRONE".Localized(),
+                EDronePilotFailReason.NoHelmet => "NO HEADSET".Localized(),
+                EDronePilotFailReason.NoDroneNearby => "NO SELECTED OR NEARBY".Localized(), // TODO: add this
+                EDronePilotFailReason.NoSignal => "NO SIGNAL".Localized(),
+                EDronePilotFailReason.NoController => "NO CONTROLLER".Localized(), // shouldn't happen
+                EDronePilotFailReason.NoBattery => "NO BATTERY".Localized(),
+                EDronePilotFailReason.NotOwner => "NOT OWNER".Localized(),
                 _ => null // shouldn't happen
             };
         }
 
-        public static void UseDrone(LootItem lootItem)
+        public static void UseDrone(BaseDroneController controller)
         {
-            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>(true);
-
             if (controller != null)
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "Successfully selected drone"
+                    "SELECTED DRONE".Localized()
                 );
 
                 CurrentController = controller;
@@ -235,19 +236,33 @@ namespace FPVDroneModClient.Helpers
             }
         }
 
-        public static void FlipDrone(LootItem lootItem)
+        public static void FlipDrone(BaseDroneController controller)
         {
-            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>(true);
-
             if (controller != null)
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "Flipped drone"
+                    "FLIPPED DRONE".Localized()
                 );
 
                 Vector3 current = controller.gameObject.transform.eulerAngles;
                 current.z = 0;
                 controller.gameObject.transform.eulerAngles = current;
+            }
+        }
+        
+        public static void PickUpDrone(BaseDroneController droneController)
+        {
+            if (droneController is FPVDroneController controller)
+            {
+                if (controller.Armable?.IsArmed == true)
+                {
+                    controller.Detonatable.Detonate();
+                }
+            }
+
+            if (droneController == DroneHelper.CurrentController)
+            {
+                DroneHelper.CurrentController = null;
             }
         }
 
@@ -292,14 +307,25 @@ namespace FPVDroneModClient.Helpers
 
         private static void OnDroneSelectedAction(BaseDroneController controller)
         {
-            CurrentController = controller;
+            if (controller.Owner == null) return;
             
-            NotificationManagerClass.DisplayMessageNotification(
-                "Successfully selected drone"
-            );
+            if (controller.Owner.IsYourPlayer)
+            {
+                CurrentController = controller;
             
-            EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
-            playerOwner.ClearInteractionState();
+                NotificationManagerClass.DisplayMessageNotification(
+                    "SELECTED DRONE".Localized()
+                );
+            
+                EftGamePlayerOwner playerOwner = InstanceHelper.LocalPlayer.GetComponent<EftGamePlayerOwner>();
+                playerOwner.ClearInteractionState();
+            }
+            else
+            {
+                NotificationManagerClass.DisplayMessageNotification(
+                    "NOT OWNER".Localized()
+                );
+            }
         }
     }
 }

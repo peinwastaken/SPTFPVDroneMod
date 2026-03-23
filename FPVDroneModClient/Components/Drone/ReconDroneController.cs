@@ -14,16 +14,16 @@ namespace FPVDroneModClient.Components.Drone
         public float CameraZoom = 0f;
         
         #if !UNITY_EDITOR
-        public override void OnPilotEnter()
+        public override void OnPilotEnter(bool isDoneLocally = true)
         {
-            base.OnPilotEnter();
+            base.OnPilotEnter(isDoneLocally);
             
             RigidBody.isKinematic = false;
         }
 
-        public override void OnPilotExit()
+        public override void OnPilotExit(bool isDoneLocally = true)
         {
-            base.OnPilotExit();
+            base.OnPilotExit(isDoneLocally);
 
             if (!Grounded && DroneHelper.CurrentController == this)
             {

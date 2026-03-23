@@ -19,22 +19,6 @@ namespace FPVDroneModClient.Patches
             return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.smethod_8));
         }
 
-        private static void OnPickupAction(LootItem lootItem, BaseDroneController droneController)
-        {
-            if (droneController is FPVDroneController controller)
-            {
-                if (controller.Armable?.IsArmed == true)
-                {
-                    controller.Detonatable.Detonate();
-                }
-            }
-
-            if (droneController == DroneHelper.CurrentController)
-            {
-                DroneHelper.CurrentController = null;
-            }
-        }
-
         [PatchPostfix]
         public static void Postfix(ref ActionsReturnClass __result, GamePlayerOwner owner, LootItem lootItem)
         {
@@ -45,12 +29,10 @@ namespace FPVDroneModClient.Patches
             if (controller)
             {
                 DebugLogger.LogInfo("Interacting with drone - create actions");
-
-                // Pick up
-                __result.Actions[0].Action += () => OnPickupAction(lootItem, controller);
-
-                __result.CreateAction("Use", () => DroneHelper.UseDrone(lootItem));
-                __result.CreateAction("Flip", () => DroneHelper.FlipDrone(lootItem));
+                
+                __result.Actions[0].Action += () => DroneHelper.PickUpDrone(controller);
+                __result.CreateAction("Use", () => DroneHelper.UseDrone(controller));
+                __result.CreateAction("Flip", () => DroneHelper.FlipDrone(controller));
             }
         }
     }

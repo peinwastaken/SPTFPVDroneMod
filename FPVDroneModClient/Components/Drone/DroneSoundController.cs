@@ -1,6 +1,8 @@
 using FPVDroneModClient.Components.Base;
 using UnityEngine;
 #if !UNITY_EDITOR
+using Audio.NPC;
+using Comfort.Common;
 using FPVDroneModClient.Helpers;
 #endif
 
@@ -32,8 +34,11 @@ namespace FPVDroneModClient.Components.Drone
             AudioSource.loop = true;
             AudioSource.volume = 0.2f;
             AudioSource.minDistance = 1f;
+            AudioSource.maxDistance = 150f;
+            AudioSource.rolloffMode = AudioRolloffMode.Logarithmic;
             AudioSource.spatialBlend = 0f;
             AudioSource.playOnAwake = false;
+            AudioSource.outputAudioMixerGroup = Singleton<BetterAudio>.Instance.WorldMixer;
             AudioSource.Stop();
         }
 
