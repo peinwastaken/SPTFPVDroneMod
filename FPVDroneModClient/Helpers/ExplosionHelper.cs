@@ -5,13 +5,14 @@ using FPVDroneModClient.Models;
 using System.Collections.Generic;
 using Systems.Effects;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FPVDroneModClient.Helpers
 {
     // TODO: convert payloads to be ammunition instead and use vanilla explosion systems
     public static class ExplosionHelper
     {
-        private static Collider[] _colliders = new Collider[512];
+        private static Collider[] _colliders = new Collider[64];
         
         public static void CreateExplosion(ExplosionData explosion, bool emitParticles = true)
         {
@@ -22,10 +23,12 @@ namespace FPVDroneModClient.Helpers
                 Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
             }
             
-            Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders);
-
+            int size = Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders, LayerMaskClass.HitColliderMask);
+            
+            DebugLogger.LogInfo($"collider hits: {size}");
+            
             // grab all colliders and players
-            for (int i = 0; i < _colliders.Length; i++)
+            for (int i = 0; i < size; i++)
             {
                 Collider collider = _colliders[i];
                 if (!collider) continue;
