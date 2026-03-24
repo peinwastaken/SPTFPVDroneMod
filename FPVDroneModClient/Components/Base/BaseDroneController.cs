@@ -50,7 +50,9 @@ namespace FPVDroneModClient.Components.Base
         public bool Grounded = false;
         public bool IsBeingControlled = false;
         public bool IsAboutToBeDestroyed = false;
-
+        public bool IsInInventory = true;
+        public bool WasJustDropped = false;
+        
         #if !UNITY_EDITOR
         protected void Awake()
         {
@@ -161,6 +163,8 @@ namespace FPVDroneModClient.Components.Base
             DroneSoundController.AudioSource.Play();
             DroneSoundController.AudioSource.spatialBlend = isDoneLocally ? 0 : 1;
             DroneSoundController.AudioSource.outputAudioMixerGroup = Singleton<BetterAudio>.Instance.WorldMixer;
+
+            WasJustDropped = false;
 
             UpdateFromConfig();
         }

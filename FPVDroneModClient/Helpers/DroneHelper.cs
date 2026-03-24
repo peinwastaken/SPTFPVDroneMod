@@ -260,10 +260,13 @@ namespace FPVDroneModClient.Helpers
                 }
             }
 
-            if (droneController == DroneHelper.CurrentController)
+            if (droneController == CurrentController)
             {
-                DroneHelper.CurrentController = null;
+                CurrentController = null;
             }
+
+            droneController.IsInInventory = true;
+            droneController.WasJustDropped = false;
         }
 
         public static void ShowSelectedDrones()

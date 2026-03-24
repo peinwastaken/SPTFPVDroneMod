@@ -96,8 +96,14 @@ namespace FPVDroneModClient.Components.Drone
             base.FixedUpdate();
 
             if (!RigidBody || BatteryRemaining <= 0f) return;
+            if (WasJustDropped && !IsBeingControlled || IsInInventory) // its dumb!!!
+            {
+                Thrust = 0f;
+                PropellerSpeed = 0f;
+                return;
+            }
             
-            if (!Grounded && Mathf.Approximately(DroneInput.AltitudeInput, 0f))
+            if (!Grounded && !IsInInventory && Mathf.Approximately(DroneInput.AltitudeInput, 0f))
             {
                 ApplyStableThrust();
                 
