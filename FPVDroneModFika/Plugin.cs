@@ -12,7 +12,7 @@ using SPT.Reflection.Patching;
 
 namespace FPVDroneModFika
 {
-    [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+    [BepInPlugin("com.pein.fpvdronemodfikasync", "FPVDroneModFikaSync", "0.1.0")]
     [BepInDependency("com.pein.fpvdronemod", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.fika.core", BepInDependency.DependencyFlags.HardDependency)]
     public class Plugin : BaseUnityPlugin
