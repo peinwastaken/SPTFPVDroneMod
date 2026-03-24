@@ -1,9 +1,11 @@
 #if !UNITY_EDITOR
+using Comfort.Common;
 using EFT;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 #endif
 using EFT.Ballistics;
+using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Interface;
 using UnityEngine;
@@ -11,7 +13,7 @@ using UnityEngine.Serialization;
 
 namespace FPVDroneModClient.Components.Base
 {
-    public abstract class BaseDroneController : MonoBehaviour, IPilotable
+    public abstract class BaseDroneController : MonoBehaviour, IPilotable, IOwnable
     {
         public float Thrust;
 
@@ -32,6 +34,7 @@ namespace FPVDroneModClient.Components.Base
 
         public DronePropeller[] Propellers;
 
+        public IPlayer Owner { get; set; }
         public DroneInput DroneInput;
         public DroneSoundController DroneSoundController;
         public BallisticCollider BallisticCollider;
@@ -40,7 +43,7 @@ namespace FPVDroneModClient.Components.Base
         public Rigidbody RigidBody;
         public IArmable Armable;
         public IDetonatable Detonatable;
-        public IPlayer Owner;
+        public Item Item;
 
         public float PropellerSpeed = 0f;
         public float BatteryRemaining = 100f;
@@ -72,8 +75,6 @@ namespace FPVDroneModClient.Components.Base
         protected virtual void Start()
         {
             GetReferences();
-            
-            BasePayloadController basePayloadController = GetComponentInChildren<BasePayloadController>(true);
 
             BatteryRemaining = MaxBattery;
             PropellerSpeed = MinPropellerSpeed;
@@ -84,9 +85,11 @@ namespace FPVDroneModClient.Components.Base
                 RigidBody.interpolation = RigidbodyInterpolation.Interpolate;
             }
 
-            if (basePayloadController)
+            if (Detonatable is BasePayloadController basePayloadController)
             {
                 basePayloadController.gameObject.layer = LayerMask.NameToLayer("Default");
+                basePayloadController.Owner = Owner;
+                basePayloadController.DroneController = this;
             }
 
             Canvas hudCanvas = HudController.GetComponent<Canvas>();
@@ -157,6 +160,7 @@ namespace FPVDroneModClient.Components.Base
             IsBeingControlled = true;
             DroneSoundController.AudioSource.Play();
             DroneSoundController.AudioSource.spatialBlend = isDoneLocally ? 0 : 1;
+            DroneSoundController.AudioSource.outputAudioMixerGroup = Singleton<BetterAudio>.Instance.WorldMixer;
 
             UpdateFromConfig();
         }

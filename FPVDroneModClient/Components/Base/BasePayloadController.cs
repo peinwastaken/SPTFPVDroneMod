@@ -3,6 +3,7 @@ using FPVDroneModClient.Interface;
 using System;
 using UnityEngine;
 #if !UNITY_EDITOR
+using Comfort.Common;
 using EFT;
 using EFT.Ballistics;
 using FPVDroneModClient.Config;
@@ -12,7 +13,7 @@ using FPVDroneModClient.Models;
 
 namespace FPVDroneModClient.Components.Base
 {
-    public abstract class BasePayloadController : MonoBehaviour, IArmable, IDetonatable
+    public abstract class BasePayloadController : MonoBehaviour, IArmable, IDetonatable, IOwnable
     {
         public bool IsArmed { get; set; } = false;
         public bool IsAntiTank;
@@ -26,6 +27,9 @@ namespace FPVDroneModClient.Components.Base
         public Detonator Detonator;
         public event Action<bool> OnToggleArmed;
         public event Action OnDetonate;
+        public IPlayer Owner { get; set; }
+        public BaseDroneController DroneController;
+        public Item Item;
 
         #if !UNITY_EDITOR
         private void Awake()
@@ -56,6 +60,8 @@ namespace FPVDroneModClient.Components.Base
 
         public virtual ExplosionData Detonate()
         {
+            IPlayerOwner owner = Singleton<GameWorld>.Instance.GetAlivePlayerBridgeByProfileID(Owner.ProfileId);
+            
             ExplosionData explosion = new ExplosionData
             {
                 Position = gameObject.transform.position,
@@ -65,8 +71,8 @@ namespace FPVDroneModClient.Components.Base
                 LightBleedDelta = LightBleedDelta,
                 FractureDelta = FractureDelta,
                 StaminaBurnRate = StaminaBurnRate,
-                PlayerOwner = null,
-                Weapon = null
+                PlayerOwner = owner,
+                Weapon = DroneController.Item
             };
 
             ExplosionHelper.CreateExplosion(explosion);

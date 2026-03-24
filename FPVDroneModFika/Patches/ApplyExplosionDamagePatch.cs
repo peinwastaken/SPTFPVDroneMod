@@ -1,72 +1,49 @@
-#if !UNITY_EDITOR
 using Comfort.Common;
 using EFT;
+using Fika.Core.Main.Players;
+using Fika.Core.Main.Utils;
+using Fika.Core.Networking;
+using Fika.Core.Networking.LiteNetLib;
+using Fika.Core.Networking.Packets.Player.Common;
+using Fika.Core.Networking.Packets.Player.Common.SubPackets;
+using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
+using HarmonyLib;
+using SPT.Reflection.Patching;
 using System.Collections.Generic;
-using Systems.Effects;
+using System.Reflection;
 using UnityEngine;
 
-namespace FPVDroneModClient.Helpers
+namespace FPVDroneModFika.Patches
 {
-    // TODO: convert payloads to be ammunition instead and use vanilla explosion systems
-    public static class ExplosionHelper
+    // thx fika Minefield_method_2_Patch.cs :^)
+    public class ApplyExplosionDamagePatch : ModulePatch
     {
-        private static Collider[] _colliders = new Collider[64];
-        
-        public static void CreateExplosion(ExplosionData explosion, bool emitParticles = true)
+        protected override MethodBase GetTargetMethod()
         {
-            Dictionary<Player, PlayerExplosionData> affectedPlayers = [];
-
-            if (emitParticles)
-            {
-                Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
-            }
-            
-            int size = Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders, LayerMaskClass.HitColliderMask);
-            
-            DebugLogger.LogInfo($"collider hits: {size}");
-            
-            // grab all colliders and players
-            for (int i = 0; i < size; i++)
-            {
-                Collider collider = _colliders[i];
-                if (!collider) continue;
-                
-                BodyPartCollider bodyPartCollider = collider.GetComponent<BodyPartCollider>();
-                if (!bodyPartCollider) continue;
-
-                Player player = (Player)bodyPartCollider.Player;
-                if (!player) continue;
-
-                if (!affectedPlayers.ContainsKey(player))
-                {
-                    affectedPlayers.Add(player, new PlayerExplosionData());
-                }
-
-                PlayerExplosionData data = affectedPlayers[player];
-
-                if (!data.ProcessedLimbs.Contains(bodyPartCollider.BodyPartType) &&
-                    !data.BodyPartColliders.ContainsKey(bodyPartCollider))
-                {
-                    affectedPlayers[player].BodyPartColliders.Add(
-                        bodyPartCollider,
-                        Vector3.Distance(bodyPartCollider.transform.position, explosion.Position)
-                    );
-
-                    affectedPlayers[player].ProcessedLimbs.Add(bodyPartCollider.BodyPartType);
-                }
-            }
-
-            DebugLogger.LogInfo($"players in range: {affectedPlayers.Count}");
-            
-            ApplyDamageToAffectedPlayers(affectedPlayers, explosion);
+            return AccessTools.Method(typeof(ExplosionHelper), "ApplyDamageToAffectedPlayers");
         }
 
-        private static void ApplyDamageToAffectedPlayers(Dictionary<Player, PlayerExplosionData> affectedPlayers, ExplosionData explosion)
+        [PatchPrefix]
+        private static bool PatchPrefix(Dictionary<Player, PlayerExplosionData> affectedPlayers, ExplosionData explosion)
+        {
+            // only apply damage if we are the server
+            if (FikaBackendUtils.IsServer)
+            {
+                ReplicateDamageToAffectedPlayers(affectedPlayers, explosion);
+                
+                return false;
+            }
+
+            return true;
+        }
+
+        private static void ReplicateDamageToAffectedPlayers(Dictionary<Player, PlayerExplosionData> affectedPlayers, ExplosionData explosion)
         {
             foreach (KeyValuePair<Player, PlayerExplosionData> kvp in affectedPlayers)
             {
                 Player player = kvp.Key;
+                FikaPlayer fikaPlayer = (FikaPlayer)Singleton<GameWorld>.Instance.GetAlivePlayerByProfileID(player.ProfileId);
                 PlayerExplosionData info = kvp.Value;
                 
                 float distanceFromExplosion = Vector3.Distance(player.Position, explosion.Position);
@@ -118,7 +95,9 @@ namespace FPVDroneModClient.Helpers
                         StaminaBurnRate = explosion.StaminaBurnRate
                     };
 
-                    player.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
+                    fikaPlayer.CommonPacket.Type = ECommonSubPacketType.Damage;
+                    fikaPlayer.CommonPacket.SubPacket = DamagePacket.FromValue(fikaPlayer.NetId, damageInfo, bodyPart, colliderType);
+                    Singleton<IFikaNetworkManager>.Instance.SendNetReusable(ref fikaPlayer.CommonPacket, DeliveryMethod.ReliableOrdered, true);
                     
                     DebugLogger.LogInfo($"applied damage to: {player.name} | damage: {damageInfo.Damage}");
                 }
@@ -126,4 +105,3 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif

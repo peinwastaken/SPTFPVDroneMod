@@ -1,4 +1,6 @@
-using Fika.Core.Main.Utils;
+using Comfort.Common;
+using EFT;
+using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
@@ -75,19 +77,24 @@ namespace FPVDroneModFika.Components
             Plugin.Logger.LogInfo($"received drone explosion packet at position {packet.Data.Position.ToString()}");
 
             DroneExplosionData data = packet.Data;
-                
-            ExplosionHelper.CreateExplosion(new ExplosionData
+
+            if (SyncComponents.TryGetValue(data.DroneNetId, out DroneSyncComponent sync) && sync != null)
             {
-                Position = data.Position,
-                MaxDistance = data.MaxDistance,
-                Damage = data.Damage,
-                FractureDelta = data.FractureDelta,
-                HeavyBleedDelta = data.HeavyBleedDelta,
-                LightBleedDelta = data.LightBleedDelta,
-                StaminaBurnRate = data.StaminaBurnRate,
-                PlayerOwner = null,
-                Weapon = null
-            });
+                IPlayerOwner playerOwner = Singleton<GameWorld>.Instance.GetAlivePlayerBridgeByProfileID(data.OwnerProfileId);
+                
+                ExplosionHelper.CreateExplosion(new ExplosionData
+                {
+                    Position = data.Position,
+                    MaxDistance = data.MaxDistance,
+                    Damage = data.Damage,
+                    FractureDelta = data.FractureDelta,
+                    HeavyBleedDelta = data.HeavyBleedDelta,
+                    LightBleedDelta = data.LightBleedDelta,
+                    StaminaBurnRate = data.StaminaBurnRate,
+                    PlayerOwner = playerOwner,
+                    Weapon = sync.DroneController.Item,
+                });
+            }
         }
 
         public void OnReceivedDestroyPacket(DroneDestroyPacket packet)

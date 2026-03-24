@@ -19,10 +19,10 @@ namespace FPVDroneModClient.Patches
         [PatchPostfix]
         private static async void PatchPostfix(Item item, Task<GameObject> __result)
         {
+            GameObject gameObject = await __result;
             if (item is PayloadItem payloadItem)
             {
-                Plugin.Logger.LogInfo($"Created {payloadItem.GetType()}! {item.StringTemplateId}");
-                GameObject gameObject = await __result;
+                Plugin.Logger.LogInfo($"Created {payloadItem}! {item.StringTemplateId}");
                 
                 BasePayloadController payloadController = gameObject.GetComponentInChildren<BasePayloadController>();
                 if (payloadController)
@@ -34,6 +34,17 @@ namespace FPVDroneModClient.Patches
                     payloadController.HeavyBleedDelta = payloadItem.HeavyBleedDelta;
                     payloadController.LightBleedDelta = payloadItem.LightBleedDelta;
                     payloadController.StaminaBurnRate = payloadItem.StaminaBurnRate;
+                    payloadController.Item = item;
+                }
+            }
+            else if (item is DroneItem droneItem)
+            {
+                Plugin.Logger.LogInfo($"Created {droneItem}! {item.StringTemplateId}");
+                
+                BaseDroneController droneController = gameObject.GetComponentInChildren<BaseDroneController>();
+                if (droneController)
+                {
+                    droneController.Item = item;
                 }
             }
         }

@@ -5,6 +5,8 @@ namespace FPVDroneModFika.Data
 {
     public struct DroneExplosionData
     {
+        public int DroneNetId;
+        public string OwnerProfileId;
         public Vector3 Position;
         public float Damage;
         public float MaxDistance;

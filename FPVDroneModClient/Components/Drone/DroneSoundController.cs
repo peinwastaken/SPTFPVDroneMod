@@ -38,7 +38,6 @@ namespace FPVDroneModClient.Components.Drone
             AudioSource.rolloffMode = AudioRolloffMode.Logarithmic;
             AudioSource.spatialBlend = 0f;
             AudioSource.playOnAwake = false;
-            AudioSource.outputAudioMixerGroup = Singleton<BetterAudio>.Instance.WorldMixer;
             AudioSource.Stop();
         }
 

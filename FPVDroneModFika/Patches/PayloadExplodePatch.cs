@@ -4,6 +4,7 @@ using Fika.Core.Networking.LiteNetLib;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
+using FPVDroneModFika.Components;
 using FPVDroneModFika.Data;
 using FPVDroneModFika.Packets;
 using HarmonyLib;
@@ -20,10 +21,14 @@ namespace FPVDroneModFika.Patches
         }
 
         [PatchPostfix]
-        private static void PatchPostfix(ExplosionData __result)
+        private static void PatchPostfix(BasePayloadController __instance, ExplosionData __result)
         {
+            DroneSyncComponent droneSync = __instance.DroneController.GetComponent<DroneSyncComponent>();
+            
             DroneExplosionData data = new DroneExplosionData
             {
+                DroneNetId = droneSync.NetId,
+                OwnerProfileId = __result.PlayerOwner.iPlayer.ProfileId,
                 Position = __result.Position,
                 Damage = __result.Damage,
                 MaxDistance = __result.MaxDistance,
