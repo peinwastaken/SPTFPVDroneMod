@@ -79,18 +79,18 @@ namespace FPVDroneModClient.Helpers
 
             EftGamePlayerOwner playerOwner = localPlayer.GetComponent<EftGamePlayerOwner>();
             playerOwner.enabled = !newState;
+            
+            VisorEffect visorEffect = CameraClass.Instance.VisorEffect;
+            NightVision nightVision = CameraClass.Instance.NightVision;
+            ThermalVision thermalVision = CameraClass.Instance.ThermalVision;
+                
+            Material visorMaterial = visorEffect.method_4();
 
             if (CurrentController)
             {
                 // TODO: this is aids, redo it someday... inb4 1 year later
                 LootItem lootItem = CurrentController.GetComponent<LootItem>();
                 DroneItem item = (DroneItem)lootItem.Item;
-
-                VisorEffect visorEffect = CameraClass.Instance.VisorEffect;
-                NightVision nightVision = CameraClass.Instance.NightVision;
-                ThermalVision thermalVision = CameraClass.Instance.ThermalVision;
-                
-                Material visorMaterial = visorEffect.method_4();
                 
                 if (newState)
                 {
@@ -143,7 +143,6 @@ namespace FPVDroneModClient.Helpers
                     nightVision.TextureMask.Mask = LastNvgMask;
                     thermalVision.On = LastThermalEnabled;
                     thermalVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
-                    visorMaterial.SetTexture("_Mask", LastVisorMask);
 
                     if (LastNvgEnabled)
                     {
@@ -171,6 +170,7 @@ namespace FPVDroneModClient.Helpers
             {
                 camera.fieldOfView = LastFov;
                 camera.nearClipPlane = LastNearClip;
+                visorMaterial.SetTexture("_Mask", LastVisorMask);
             }
         }
 
