@@ -90,8 +90,6 @@ namespace FPVDroneModClient.Components.Base
             if (Detonatable is BasePayloadController basePayloadController)
             {
                 basePayloadController.gameObject.layer = LayerMask.NameToLayer("Default");
-                basePayloadController.Owner = Owner;
-                basePayloadController.DroneController = this;
             }
 
             Canvas hudCanvas = HudController.GetComponent<Canvas>();
@@ -110,6 +108,12 @@ namespace FPVDroneModClient.Components.Base
             Armable = GetComponentInChildren<IArmable>(true);
             Detonatable = GetComponentInChildren<IDetonatable>(true);
             SignalController = GetComponentInChildren<DroneSignalController>(true);
+
+            if (Detonatable != null && Detonatable is BasePayloadController payloadController)
+            {
+                payloadController.Owner = Owner;
+                payloadController.DroneController = this;
+            }
             
             InitializeEvents();
         }
