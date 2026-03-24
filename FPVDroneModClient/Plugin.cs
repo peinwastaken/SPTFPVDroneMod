@@ -39,7 +39,6 @@ namespace FPVDroneModClient
             ReconDroneConfig.Bind(3, Category.ReconDrone, Config);
             ReconBindsConfig.Bind(4, Category.ReconBinds, Config);
             PostProcessConfig.Bind(5, Category.PP, Config);
-            ExplosionConfig.Bind(6, Category.Explosion, Config);
 
             AssetHelper.LoadBundles();
             AssetHelper.LoadAssets();
