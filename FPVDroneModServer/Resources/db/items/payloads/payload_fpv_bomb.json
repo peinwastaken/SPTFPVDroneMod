@@ -17,7 +17,7 @@
             "ShortName": "Frag.",
             "BackgroundColor": "black",
             "Damage": 200,
-            "MaxDistance": 5,
+            "MaxDistance": 6,
             "FractureDelta": 0.6,
             "HeavyBleedDelta": 0.35,
             "LightBleedDelta": 0.7,

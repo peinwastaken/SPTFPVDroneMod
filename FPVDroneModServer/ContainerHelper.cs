@@ -10,7 +10,7 @@ namespace FPVDroneModServer
     {
         public void AddToFilter(MongoId containerId, MongoId parentId)
         {
-            Dictionary<MongoId, TemplateItem?> items = dbService.GetItems();
+            Dictionary<MongoId, TemplateItem> items = dbService.GetItems();
 
             items.TryGetValue(containerId, out TemplateItem? container);
 

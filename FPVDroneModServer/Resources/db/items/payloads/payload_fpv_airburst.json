@@ -17,7 +17,7 @@
             "ShortName": "Airburst",
             "BackgroundColor": "black",
             "Damage": 170,
-            "MaxDistance": 7,
+            "MaxDistance": 8,
             "FractureDelta": 0.4,
             "HeavyBleedDelta": 0.2,
             "LightBleedDelta": 0.7,

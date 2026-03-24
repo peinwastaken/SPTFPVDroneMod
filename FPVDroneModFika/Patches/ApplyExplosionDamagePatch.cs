@@ -73,7 +73,7 @@ namespace FPVDroneModFika.Patches
 
                     bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
                     if (!isVisible) continue;
-
+                    
                     float colliderDistance = Vector3.Distance(collider.transform.position, explosion.Position);
                     float colliderDistanceMultiplier = 1f - Mathf.Clamp01(colliderDistance / explosion.MaxDistance);
                     Vector3 directionFromExplosion = Vector3.Normalize(collider.transform.position - explosion.Position);
@@ -95,9 +95,16 @@ namespace FPVDroneModFika.Patches
                         StaminaBurnRate = explosion.StaminaBurnRate
                     };
 
-                    fikaPlayer.CommonPacket.Type = ECommonSubPacketType.Damage;
-                    fikaPlayer.CommonPacket.SubPacket = DamagePacket.FromValue(fikaPlayer.NetId, damageInfo, bodyPart, colliderType);
-                    Singleton<IFikaNetworkManager>.Instance.SendNetReusable(ref fikaPlayer.CommonPacket, DeliveryMethod.ReliableOrdered, true);
+                    if (fikaPlayer is ObservedPlayer)
+                    {
+                        fikaPlayer.CommonPacket.Type = ECommonSubPacketType.Damage;
+                        fikaPlayer.CommonPacket.SubPacket = DamagePacket.FromValue(fikaPlayer.NetId, damageInfo, bodyPart, colliderType);
+                        Singleton<IFikaNetworkManager>.Instance.SendNetReusable(ref fikaPlayer.CommonPacket, DeliveryMethod.ReliableOrdered, true);
+                    }
+                    else
+                    {
+                        fikaPlayer.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
+                    }
                     
                     DebugLogger.LogInfo($"applied damage to: {player.name} | damage: {damageInfo.Damage}");
                 }

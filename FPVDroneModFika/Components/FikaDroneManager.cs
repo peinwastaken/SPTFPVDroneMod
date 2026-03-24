@@ -1,6 +1,7 @@
 using Comfort.Common;
 using EFT;
 using EFT.InventoryLogic;
+using EFT.Vehicle;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
@@ -114,6 +115,16 @@ namespace FPVDroneModFika.Components
         public void OnReceivedTankDestroyPacket(TankDestroyPacket packet)
         {
             Plugin.Logger.LogInfo($"received tank destroy packet");
+            
+            TankDestroyData data = packet.Data;
+            BTRView btrView = BTRControllerClass.Instance.BtrView;
+
+            if (btrView)
+            {
+                btrView.gameObject.SetActive(false);
+                btrView.enabled = false;
+                InstanceHelper.CreateTankCorpse(data.Position, data.EulerAngles, false);
+            }
         }
     }
 }

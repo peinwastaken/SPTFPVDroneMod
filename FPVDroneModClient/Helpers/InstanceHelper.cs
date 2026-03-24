@@ -109,7 +109,7 @@ namespace FPVDroneModClient.Helpers
             }
         }
 
-        public static void CreateTankCorpse(Vector3 pos, Vector3 euler, bool wasJustDestroyed)
+        public static void CreateTankCorpse(Vector3 pos, Vector3 euler, bool wasJustDestroyed, bool wasDestroyedLocally = true)
         {
             GameObject tank = wasJustDestroyed ? BtrRecent : BtrOld;
             GameObject go = GameObject.Instantiate(tank);
