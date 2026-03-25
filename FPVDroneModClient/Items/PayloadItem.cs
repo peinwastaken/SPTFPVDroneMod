@@ -105,7 +105,7 @@ namespace FPVDroneModClient.Items
 
         private string BoolToString(bool value)
         {
-            return value ? "YES" : "NO";
+            return value ? "Yes" : "No";
         }
     }
 }

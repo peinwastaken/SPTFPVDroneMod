@@ -137,22 +137,6 @@ namespace FPVDroneModClient.Helpers
                 else
                 {
                     CurrentController.OnPilotExit();
-                    
-                    nightVision.On = LastNvgEnabled;
-                    nightVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
-                    nightVision.TextureMask.Mask = LastNvgMask;
-                    thermalVision.On = LastThermalEnabled;
-                    thermalVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
-
-                    if (LastNvgEnabled)
-                    {
-                        nightVision.ApplySettings();
-                    }
-
-                    if (LastThermalEnabled)
-                    {
-                        thermalVision.SetMask(NightVisionComponent.EMask.Thermal);
-                    }
                 }
             }
 
@@ -171,6 +155,22 @@ namespace FPVDroneModClient.Helpers
                 camera.fieldOfView = LastFov;
                 camera.nearClipPlane = LastNearClip;
                 visorMaterial.SetTexture("_Mask", LastVisorMask);
+                
+                nightVision.On = LastNvgEnabled;
+                nightVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
+                nightVision.TextureMask.Mask = LastNvgMask;
+                thermalVision.On = LastThermalEnabled;
+                thermalVision.TextureMask.enabled = LastNvgEnabled || LastThermalEnabled;
+
+                if (LastNvgEnabled)
+                {
+                    nightVision.ApplySettings();
+                }
+
+                if (LastThermalEnabled)
+                {
+                    thermalVision.SetMask(NightVisionComponent.EMask.Thermal);
+                }
             }
         }
 
@@ -249,25 +249,6 @@ namespace FPVDroneModClient.Helpers
                 controller.gameObject.transform.eulerAngles = current;
             }
         }
-        
-        public static void PickUpDrone(BaseDroneController droneController)
-        {
-            if (droneController is FPVDroneController controller)
-            {
-                if (controller.Armable?.IsArmed == true)
-                {
-                    controller.Detonatable.Detonate();
-                }
-            }
-
-            if (droneController == CurrentController)
-            {
-                CurrentController = null;
-            }
-
-            droneController.IsInInventory = true;
-            droneController.WasJustDropped = false;
-        }
 
         public static void ShowSelectedDrones()
         {
@@ -326,7 +307,9 @@ namespace FPVDroneModClient.Helpers
             else
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "NOT OWNER".Localized()
+                    "NOT OWNER".Localized(),
+                    ENotificationDurationType.Default,
+                    ENotificationIconType.Alert
                 );
             }
         }

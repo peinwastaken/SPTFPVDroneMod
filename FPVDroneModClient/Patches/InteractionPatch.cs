@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT;
+using EFT.Communications;
 using EFT.Interactive;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Helpers;
@@ -30,7 +31,24 @@ namespace FPVDroneModClient.Patches
             {
                 DebugLogger.LogInfo("Interacting with drone - create actions");
                 
-                __result.Actions[0].Action += () => DroneHelper.PickUpDrone(controller);
+                // if the drone is being piloted dont allow picking it up
+                if (controller.IsBeingControlled)
+                {
+                    ActionsTypesClass actionsTypes = __result.Actions[0];
+                    
+                    if (actionsTypes != null)
+                    {
+                        actionsTypes.Action = () =>
+                        {
+                            NotificationManagerClass.DisplayMessageNotification(
+                                "IS BEING PILOTED".Localized(),
+                                ENotificationDurationType.Default,
+                                ENotificationIconType.Alert
+                            );
+                        };
+                    }
+                }
+                
                 __result.CreateAction("Use", () => DroneHelper.UseDrone(controller));
                 __result.CreateAction("Flip", () => DroneHelper.FlipDrone(controller));
             }

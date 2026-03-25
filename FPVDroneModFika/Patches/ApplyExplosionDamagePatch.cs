@@ -103,7 +103,7 @@ namespace FPVDroneModFika.Patches
                     }
                     else
                     {
-                        fikaPlayer.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
+                        player.ApplyDamageInfo(damageInfo, bodyPart, colliderType, 0f);
                     }
                     
                     DebugLogger.LogInfo($"applied damage to: {player.name} | damage: {damageInfo.Damage}");

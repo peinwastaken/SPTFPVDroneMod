@@ -36,6 +36,7 @@ namespace FPVDroneModClient.Patches
             {
                 DebugLogger.LogInfo($"player {player.Profile.Nickname} dropped drone, assigning owner");
                 droneController.Owner = player;
+                droneController.IsBeingControlled = false;
                 droneController.IsInInventory = false;
                 droneController.WasJustDropped = true;
             }

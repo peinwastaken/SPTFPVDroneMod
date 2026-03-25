@@ -1,3 +1,4 @@
+using EFT.Communications;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Helpers;
 using HarmonyLib;
@@ -19,7 +20,9 @@ namespace FPVDroneModFika.Patches
             if (!controller.Owner.IsYourPlayer)
             {
                 NotificationManagerClass.DisplayMessageNotification(
-                    "NOT OWNER".Localized()
+                    "NOT OWNER".Localized(),
+                    ENotificationDurationType.Default,
+                    ENotificationIconType.Alert
                 );
                 
                 return false;
