@@ -34,35 +34,11 @@ namespace FPVDroneModFika
         {
             IFikaNetworkManager networkManager = Singleton<IFikaNetworkManager>.Instance;
             
-            networkManager.RegisterPacket<DronePositionPacket>(OnPacketReceived);
-            networkManager.RegisterPacket<DroneControlPacket>(OnPacketReceived);
-            networkManager.RegisterPacket<DroneExplosionPacket>(OnPacketReceived);
-            networkManager.RegisterPacket<DroneDestroyPacket>(OnPacketReceived);
-            networkManager.RegisterPacket<TankDestroyPacket>(OnPacketReceived);
-        }
-
-        private static void OnPacketReceived(INetSerializable dronePacket)
-        {
-            FikaDroneManager droneManager = FikaDroneManager.Instance;
-            
-            switch (dronePacket)
-            {
-                case DronePositionPacket packet:
-                    droneManager.OnReceivedPositionPacket(packet);
-                    break;
-                case DroneControlPacket packet:
-                    droneManager.OnReceivedControlPacket(packet);
-                    break;
-                case DroneExplosionPacket packet:
-                    droneManager.OnReceivedExplosionPacket(packet);
-                    break;
-                case DroneDestroyPacket packet:
-                    droneManager.OnReceivedDestroyPacket(packet);
-                    break;
-                case TankDestroyPacket packet:
-                    droneManager.OnReceivedTankDestroyPacket(packet);
-                    break;
-            }
+            networkManager.RegisterPacket<DronePositionPacket>(packet => FikaDroneManager.Instance.OnReceivedPositionPacket(packet));
+            networkManager.RegisterPacket<DroneControlPacket>(packet => FikaDroneManager.Instance.OnReceivedControlPacket(packet));
+            networkManager.RegisterPacket<DroneExplosionPacket>(packet => FikaDroneManager.Instance.OnReceivedExplosionPacket(packet));
+            networkManager.RegisterPacket<DroneDestroyPacket>(packet => FikaDroneManager.Instance.OnReceivedDestroyPacket(packet));
+            networkManager.RegisterPacket<TankDestroyPacket>(packet => FikaDroneManager.Instance.OnReceivedTankDestroyPacket(packet));
         }
     }
 }

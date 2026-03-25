@@ -53,7 +53,7 @@ namespace FPVDroneModFika.Components
         {
             // Plugin.Logger.LogInfo($"received drone pos packet for droneNetId: {packet.Data.DroneNetId}");
             
-            SyncComponents.TryGetValue(packet.Data.DroneNetId, out DroneSyncComponent syncComponent);
+            SyncComponents.TryGetValue(packet.DroneNetId, out DroneSyncComponent syncComponent);
 
             if (syncComponent != null)
             {

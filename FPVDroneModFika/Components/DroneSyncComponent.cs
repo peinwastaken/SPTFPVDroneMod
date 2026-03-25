@@ -1,13 +1,11 @@
 using Comfort.Common;
 using Fika.Core.Main.Components;
 using Fika.Core.Main.Custom;
-using Fika.Core.Main.Utils;
 using Fika.Core.Networking;
 using Fika.Core.Networking.LiteNetLib;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModFika.Data;
 using FPVDroneModFika.Packets;
-using System;
 using UnityEngine;
 
 namespace FPVDroneModFika.Components
@@ -31,17 +29,13 @@ namespace FPVDroneModFika.Components
 
         public override void Tick()
         {
-            // if there are any fika position syncers nuke them
-            if (FikaBackendUtils.IsServer)
+            // nuke any fika item position syncers
+            ItemPositionSyncer syncer = GetComponent<ItemPositionSyncer>();
+            if (syncer)
             {
-                var syncer = GetComponent<ItemPositionSyncer>();
-
-                if (syncer != null)
-                {
-                    Destroy(syncer);
-                }
+                Destroy(syncer);
             }
-
+            
             // only we can send pos packets cuz we are the owner!
             if (DroneController.Owner.IsYourPlayer && DroneController.RigidBody && !DroneController.IsAboutToBeDestroyed)
             {
@@ -54,9 +48,14 @@ namespace FPVDroneModFika.Components
                 _positionData.Velocity = DroneController.RigidBody.velocity;
                 _positionData.AngularVelocity = DroneController.RigidBody.angularVelocity;
 
-                DronePositionPacket packet = new DronePositionPacket()
+                DronePositionPacket packet = new DronePositionPacket
                 {
-                    Data = _positionData
+                    DroneNetId = _positionData.DroneNetId,
+                    Thrust = _positionData.Thrust,
+                    Position = _positionData.Position,
+                    Rotation = _positionData.Rotation,
+                    Velocity = _positionData.Velocity,
+                    AngularVelocity = _positionData.AngularVelocity
                 };
 
                 manager.SendData(ref packet, DeliveryMethod.Unreliable, true);
@@ -67,15 +66,14 @@ namespace FPVDroneModFika.Components
         {
             if (DroneController.IsAboutToBeDestroyed) return;
             
-            DronePositionData data = packet.Data;
             Rigidbody rb = DroneController.RigidBody;
 
             // DebugLogger.LogInfo($"{data.Position.x} {data.Position.y} {data.Position.z} | {data.Thrust}");
-            rb.position = data.Position;
-            rb.rotation = data.Rotation;
-            rb.velocity = data.Velocity;
-            rb.angularVelocity = data.AngularVelocity;
-            DroneController.Thrust = data.Thrust;
+            rb.position = packet.Position;
+            rb.rotation = packet.Rotation;
+            rb.velocity = packet.Velocity;
+            rb.angularVelocity = packet.AngularVelocity;
+            DroneController.Thrust = packet.Thrust;
         }
 
         public void SyncDroneControl(DroneControlPacket packet)

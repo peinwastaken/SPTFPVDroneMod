@@ -4,32 +4,34 @@ using UnityEngine;
 
 namespace FPVDroneModFika.Packets
 {
-    public class DronePositionPacket : INetSerializable
+    public struct DronePositionPacket : INetSerializable
     {
-        public DronePositionData Data;
+        public int DroneNetId;
+        public float Thrust;
+        public Vector3 Position;
+        public Quaternion Rotation;
+        public Vector3 Velocity;
+        public Vector3 AngularVelocity;
         
         public void Serialize(NetDataWriter writer)
         {
-            writer.Put(Data.DroneNetId);
-            writer.Put(Data.Thrust);
-            writer.PutUnmanaged(Data.Position);
-            writer.PutUnmanaged(Data.Rotation);
-            writer.PutUnmanaged(Data.Velocity);
-            writer.PutUnmanaged(Data.AngularVelocity);
+            writer.Put(DroneNetId);
+            writer.Put(Thrust);
+            writer.PutUnmanaged(Position);
+            writer.PutUnmanaged(Rotation);
+            writer.PutUnmanaged(Velocity);
+            writer.PutUnmanaged(AngularVelocity);
             Plugin.Logger.LogWarning(writer.Length);
         }
 
         public void Deserialize(NetDataReader reader)
         {
-            Data = new DronePositionData
-            {
-                DroneNetId = reader.GetInt(),
-                Thrust = reader.GetFloat(),
-                Position = reader.GetUnmanaged<Vector3>(),
-                Rotation = reader.GetUnmanaged<Quaternion>(),
-                Velocity = reader.GetUnmanaged<Vector3>(),
-                AngularVelocity = reader.GetUnmanaged<Vector3>(),
-            };
+            DroneNetId = reader.GetInt();
+            Thrust = reader.GetFloat();
+            Position = reader.GetUnmanaged<Vector3>();
+            Rotation = reader.GetUnmanaged<Quaternion>();
+            Velocity = reader.GetUnmanaged<Vector3>();
+            AngularVelocity = reader.GetUnmanaged<Vector3>();
         }
     }
 }
