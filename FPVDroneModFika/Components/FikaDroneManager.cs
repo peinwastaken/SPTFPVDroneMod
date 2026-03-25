@@ -123,7 +123,7 @@ namespace FPVDroneModFika.Components
             {
                 btrView.gameObject.SetActive(false);
                 btrView.enabled = false;
-                InstanceHelper.CreateTankCorpse(data.Position, data.EulerAngles, false);
+                InstanceHelper.CreateTankCorpse(data.Position, data.EulerAngles, true, false);
             }
         }
     }

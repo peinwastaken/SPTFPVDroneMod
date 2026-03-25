@@ -21,7 +21,7 @@ namespace FPVDroneModFika.Patches
         [PatchPostfix]
         private static void PatchPostfix(Vector3 pos, Vector3 euler, bool wasJustDestroyed, bool wasDestroyedLocally)
         {
-            if (wasDestroyedLocally)
+            if (wasJustDestroyed && wasDestroyedLocally)
             {
                 TankDestroyData data = new TankDestroyData
                 {
