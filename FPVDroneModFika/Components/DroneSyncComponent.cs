@@ -37,16 +37,17 @@ namespace FPVDroneModFika.Components
             }
             
             // only we can send pos packets cuz we are the owner!
-            if (DroneController.Owner.IsYourPlayer && DroneController.RigidBody && !DroneController.IsAboutToBeDestroyed)
+            Rigidbody rb = DroneController.RigidBody;
+            if (DroneController.Owner.IsYourPlayer && rb && !DroneController.IsAboutToBeDestroyed)
             {
                 IFikaNetworkManager manager = Singleton<IFikaNetworkManager>.Instance;
 
                 _positionData.DroneNetId = NetId;
                 _positionData.Thrust = DroneController.Thrust;
-                _positionData.Position = DroneController.RigidBody.position;
-                _positionData.Rotation = DroneController.RigidBody.rotation;
-                _positionData.Velocity = DroneController.RigidBody.velocity;
-                _positionData.AngularVelocity = DroneController.RigidBody.angularVelocity;
+                _positionData.Position = rb.position;
+                _positionData.Rotation = rb.rotation;
+                _positionData.Velocity = rb.velocity;
+                _positionData.AngularVelocity = rb.angularVelocity;
 
                 DronePositionPacket packet = new DronePositionPacket
                 {

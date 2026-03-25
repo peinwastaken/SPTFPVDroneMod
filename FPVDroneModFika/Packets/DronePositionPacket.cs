@@ -1,3 +1,4 @@
+using Fika.Core.Networking;
 using Fika.Core.Networking.LiteNetLib.Utils;
 using FPVDroneModFika.Data;
 using UnityEngine;
@@ -16,18 +17,17 @@ namespace FPVDroneModFika.Packets
         public void Serialize(NetDataWriter writer)
         {
             writer.Put(DroneNetId);
-            writer.Put(Thrust);
+            writer.PutPackedFloat(Thrust, 0f, 1f);
             writer.PutUnmanaged(Position);
             writer.PutUnmanaged(Rotation);
             writer.PutUnmanaged(Velocity);
             writer.PutUnmanaged(AngularVelocity);
-            Plugin.Logger.LogWarning(writer.Length);
         }
 
         public void Deserialize(NetDataReader reader)
         {
             DroneNetId = reader.GetInt();
-            Thrust = reader.GetFloat();
+            Thrust = reader.GetPackedFloat(0f, 1f);
             Position = reader.GetUnmanaged<Vector3>();
             Rotation = reader.GetUnmanaged<Quaternion>();
             Velocity = reader.GetUnmanaged<Vector3>();
