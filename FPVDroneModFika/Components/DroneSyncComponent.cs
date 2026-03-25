@@ -51,8 +51,8 @@ namespace FPVDroneModFika.Components
                 _positionData.Thrust = DroneController.Thrust;
                 _positionData.Position = DroneController.RigidBody.position;
                 _positionData.Rotation = DroneController.RigidBody.rotation;
-                _positionData.Velocity = Vector3.zero;
-                _positionData.AngularVelocity = Vector3.zero;
+                _positionData.Velocity = DroneController.RigidBody.velocity;
+                _positionData.AngularVelocity = DroneController.RigidBody.angularVelocity;
 
                 DronePositionPacket packet = new DronePositionPacket()
                 {

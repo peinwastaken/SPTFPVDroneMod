@@ -10,6 +10,7 @@ using System;
 using System.Reflection;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Components.Drone;
+using FPVDroneModClient.Items;
 
 namespace FPVDroneModClient.Patches
 {
@@ -17,28 +18,40 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.smethod_8));
+            return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.GetAvailableActions), [
+                typeof(GamePlayerOwner),
+                typeof(GInterface177)
+            ]);
         }
 
-        [PatchPostfix]
-        public static void Postfix(ref ActionsReturnClass __result, GamePlayerOwner owner, LootItem lootItem)
+        [PatchPrefix]
+        public static bool PatchPrefix(ref ActionsReturnClass __result, GamePlayerOwner owner, GInterface177 interactive)
         {
-            BaseDroneController controller = lootItem.GetComponentInChildren<BaseDroneController>();
-
-            DebugLogger.LogInfo($"Interacting with item: {lootItem.TemplateId}");
-
-            if (controller)
+            if (interactive == null) return true;
+            
+            LootItem lootItem = interactive as LootItem;
+            if (lootItem != null && lootItem.Item is DroneItem)
             {
-                DebugLogger.LogInfo("Interacting with drone - create actions");
-                
-                // if the drone is being piloted dont allow picking it up
-                if (controller.IsBeingControlled)
+                ActionsReturnClass returnClass = GetActionsClass.smethod_8(owner, lootItem);
+                if (returnClass != null)
                 {
-                    ActionsTypesClass actionsTypes = __result.Actions[0];
-                    
-                    if (actionsTypes != null)
+                    ActionsTypesClass takeAction = null;
+                    foreach (ActionsTypesClass action in returnClass.Actions)
                     {
-                        actionsTypes.Action = () =>
+                        if (action.Name == "Take")
+                        {
+                            takeAction = action;
+                        }
+                    }
+
+                    if (takeAction == null) return true;
+                    
+                    BaseDroneController droneController = lootItem.GetComponentInChildren<BaseDroneController>();
+                    if (droneController == null) return true;
+
+                    if (droneController.IsBeingControlled)
+                    {
+                        takeAction.Action = () =>
                         {
                             NotificationManagerClass.DisplayMessageNotification(
                                 "IS BEING PILOTED".Localized(),
@@ -47,11 +60,17 @@ namespace FPVDroneModClient.Patches
                             );
                         };
                     }
+                    
+                    returnClass.CreateAction("Use", () => DroneHelper.UseDrone(droneController));
+                    returnClass.CreateAction("Flip", () => DroneHelper.FlipDrone(droneController));
+
+                    __result = returnClass;
+                    return false;
                 }
-                
-                __result.CreateAction("Use", () => DroneHelper.UseDrone(controller));
-                __result.CreateAction("Flip", () => DroneHelper.FlipDrone(controller));
             }
+
+            __result = null;
+            return false;
         }
     }
 }
