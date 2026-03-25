@@ -43,7 +43,7 @@ namespace FPVDroneModFika.Components
             }
 
             // only we can send pos packets cuz we are the owner!
-            if (DroneController.Owner.IsYourPlayer && !DroneController.IsAboutToBeDestroyed)
+            if (DroneController.Owner.IsYourPlayer && DroneController.RigidBody && !DroneController.IsAboutToBeDestroyed)
             {
                 IFikaNetworkManager manager = Singleton<IFikaNetworkManager>.Instance;
 

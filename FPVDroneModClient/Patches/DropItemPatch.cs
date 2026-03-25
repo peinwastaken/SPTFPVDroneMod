@@ -30,8 +30,9 @@ namespace FPVDroneModClient.Patches
         [PatchPostfix]
         private static void PatchPostfix(IPlayer player, LootItem __result)
         {
+            if (__result == null) return;
+            
             BaseDroneController droneController = __result.GetComponentInChildren<BaseDroneController>();
-
             if (droneController != null)
             {
                 DebugLogger.LogInfo($"player {player.Profile.Nickname} dropped drone, assigning owner");

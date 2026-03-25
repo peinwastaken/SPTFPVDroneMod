@@ -20,6 +20,8 @@ namespace FPVDroneModClient.Patches
         private static async void PatchPostfix(Item item, Task<GameObject> __result)
         {
             GameObject gameObject = await __result;
+            if (!gameObject) return;
+            
             if (item is PayloadItem payloadItem)
             {
                 Plugin.Logger.LogInfo($"Created {payloadItem}! {item.StringTemplateId}");

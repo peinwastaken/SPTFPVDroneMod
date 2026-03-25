@@ -22,7 +22,7 @@ namespace FPVDroneModFika.Patches
         [PatchPostfix]
         private static void PatchPostfix(BaseDroneController __instance)
         {
-            if (__instance.Owner.IsYourPlayer)
+            if (__instance != null && __instance.Owner != null && __instance.Owner.IsYourPlayer)
             {
                 DroneSyncComponent sync = __instance.GetComponent<DroneSyncComponent>();
 
