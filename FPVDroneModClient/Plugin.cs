@@ -1,19 +1,22 @@
 ﻿ #if !UNITY_EDITOR
 using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using DrakiaXYZ.BigBrain.Brains;
 using EFT.CameraControl;
+using EFT.Communications;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Bots.Layers;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
-using FPVDroneModClient.Patches;
 using System.Collections.Generic;
 using FPVDroneModClient.Models;
 using SPT.Reflection.Patching;
+using System.Collections;
+using UnityEngine;
 using WTTClientCommonLib.Services;
 
 namespace FPVDroneModClient
@@ -24,13 +27,17 @@ namespace FPVDroneModClient
     {
         internal static new ManualLogSource Logger;
 
+        public static Plugin Instance;
         public static TankDeathState TankDeathState;
         public static ConfigEntry<float> CameraNearClip;
         
         private void Awake()
         {
             Logger = base.Logger;
+            Instance = this;
+            
             DebugLogger.Logger = Logger;
+            
             PatchManager patchManager = new PatchManager(this, true);
 
             GeneralConfig.Bind(0, Category.General, Config);

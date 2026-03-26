@@ -15,6 +15,7 @@
     "NO BATTERY": "Drone is out of battery",
     "NOT OWNER": "Not drone owner",
     "IS BEING PILOTED": "Drone is being piloted",
+    "FPVMOD USING FIKA WARNING": "You are using FPV Drone Mod with Fika. Please also install the Fika Sync plugin from the addons section of the main mod. Thank you!",
     "68f5333abc75f09d96d97500 Name": "Radio Controller",
     "68f5333abc75f09d96d97500 ShortName": "Controller",
     "68f5333abc75f09d96d97500 Description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations.",
