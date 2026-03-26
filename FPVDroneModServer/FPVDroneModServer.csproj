@@ -19,28 +19,7 @@
         <None Include="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="FPVDroneModServer.csproj.user" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="spt-custom">
-        <HintPath>..\..\..\BepInEx\plugins\spt\spt-custom.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <Target Name="CopyToSPT" AfterTargets="AfterBuild" Condition="'$(SPTPath)' != ''">
-        <PropertyGroup>
-            <ModsDirectoryPath>$(SPTPath)\SPT\user\mods\$(MSBuildProjectName)</ModsDirectoryPath>
-        </PropertyGroup>
-
-        <Message Importance="high" Text="Copying mods to $(ModsDirectoryPath)" />
-        <ItemGroup>
-            <FilesToCopy Include="$(OutputPath)$(TargetName)$(TargetExt)" />
-            <FilesToCopy Include="$(OutputPath)$(TargetName).pdb" />
-            <FilesToCopy Include="Resources\**\*" />
-        </ItemGroup>
-        <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ModsDirectoryPath)\%(RecursiveDir)" ContinueOnError="false" />
-        <Message Importance="high" Text="Files copied" />
-    </Target>
+    <PropertyGroup>
+        <SPTModType>Server</SPTModType>
+    </PropertyGroup>
 </Project>

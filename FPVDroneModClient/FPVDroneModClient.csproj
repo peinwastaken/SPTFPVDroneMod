@@ -89,25 +89,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="FPVDroneModClient.csproj.user" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Folder Include="Resources\assets\textures\" />
     </ItemGroup>
 
-    <Target Name="CopyToSPT" AfterTargets="AfterBuild" Condition="'$(SPTPath)' != ''">
-        <PropertyGroup>
-            <ModsDirectoryPath>$(SPTPath)\BepInEx\plugins\$(MSBuildProjectName)</ModsDirectoryPath>
-        </PropertyGroup>
-
-        <Message Importance="high" Text="Copying mods to $(ModsDirectoryPath)" />
-        <ItemGroup>
-            <FilesToCopy Include="$(OutputPath)$(TargetName)$(TargetExt)" />
-            <FilesToCopy Include="$(OutputPath)$(TargetName).pdb" />
-            <FilesToCopy Include="Resources\**\*" />
-        </ItemGroup>
-        <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ModsDirectoryPath)\%(RecursiveDir)" ContinueOnError="false" />
-        <Message Importance="high" Text="Files copied" />
-    </Target>
+    <PropertyGroup>
+        <SPTModType>Client</SPTModType>
+    </PropertyGroup>
 </Project>

@@ -6,7 +6,6 @@ using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using FPVDroneModServer.Services;
-using SPT.Custom.Models;
 using WTTServerCommonLib.Services;
 using Path = System.IO.Path;
 
