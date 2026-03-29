@@ -45,7 +45,16 @@ namespace FPVDroneModServer
                 Type = "Node",
                 Properties = new TemplateItemProperties()
             };
-
+            
+            itemsDb["69c932c7a7d59932499b5cde"] = new TemplateItem()
+            {
+                Id = "69c932c7a7d59932499b5cde",
+                Name = "BatteryItem",
+                Parent = "54009119af1c881c07000029",
+                Type = "Node",
+                Properties = new TemplateItemProperties()
+            };
+            
             tankDeathService.LoadTankStateConfig(ConfigPath, "tankdeathstate.json");
             imageService.CreateSlotImages(Assembly.GetExecutingAssembly(), "slots");
             await localeService.CreateCustomLocales(Assembly.GetExecutingAssembly(), "db/locales");

@@ -26,5 +26,5 @@ namespace FPVDroneModClient.Patches
             return true;
         }
     }
-    #endif
 }
+#endif

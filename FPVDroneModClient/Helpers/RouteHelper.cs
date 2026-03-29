@@ -52,5 +52,5 @@ namespace FPVDroneModClient.Helpers
             }
         }
     }
-    #endif
 }
+#endif

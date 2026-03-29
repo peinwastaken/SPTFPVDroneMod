@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using EFT.InventoryLogic;
+using FPVDroneModClient.Components;
 using System;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
@@ -33,7 +34,7 @@ namespace FPVDroneModClient.Items
         {
             foreach (Slot slot in Slots)
             {
-                if (slot.ID == "mod_payload")
+                if (slot.ID == SlotIds.PayloadSlot)
                 {
                     return slot;
                 }

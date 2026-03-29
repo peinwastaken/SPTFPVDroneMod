@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using BepInEx.Bootstrap;
 using EFT;
 using EFT.Communications;
@@ -45,3 +46,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
+#endif

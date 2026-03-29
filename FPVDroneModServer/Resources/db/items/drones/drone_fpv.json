@@ -55,6 +55,24 @@
                             }
                         ]
                     }
+                },
+                {
+                    "_id": "69c92f6d17b3846bcd9b5cdd",
+                    "_mergeSlotWithChildren": false,
+                    "_name": "mod_battery",
+                    "_parent": "690e9265772bfce1d043966d",
+                    "_proto": "55d30c4c4bdc2db4468b457e",
+                    "_required": false,
+                    "_props": {
+                        "filters": [
+                            {
+                                "Filter": [
+                                   "69c940c51c2a1d6e0b9b5ce1" 
+                                ],
+                                "Shift": 0
+                            }
+                        ]
+                    }
                 }
             ],
             "InsuranceDisabled": true,

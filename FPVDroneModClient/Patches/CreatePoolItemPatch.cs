@@ -1,11 +1,16 @@
+#if !UNITY_EDITOR
 using EFT.InventoryLogic;
+using FPVDroneModClient.Components;
 using FPVDroneModClient.Components.Base;
+using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Interface;
 using FPVDroneModClient.Items;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
+using CompoundItemSlot = EFT.InventoryLogic.Slot.Class2456;
 
 namespace FPVDroneModClient.Patches
 {
@@ -24,7 +29,7 @@ namespace FPVDroneModClient.Patches
             
             if (item is PayloadItem payloadItem)
             {
-                Plugin.Logger.LogInfo($"Created {payloadItem}! {item.StringTemplateId}");
+                DebugLogger.LogInfo($"Created {payloadItem.Name}! {item.StringTemplateId}");
                 
                 BasePayloadController payloadController = gameObject.GetComponentInChildren<BasePayloadController>();
                 if (payloadController)
@@ -41,7 +46,7 @@ namespace FPVDroneModClient.Patches
             }
             else if (item is DroneItem droneItem)
             {
-                Plugin.Logger.LogInfo($"Created {droneItem}! {item.StringTemplateId}");
+                DebugLogger.LogInfo($"Created {droneItem.Name}! {item.StringTemplateId}");
                 
                 BaseDroneController droneController = gameObject.GetComponentInChildren<BaseDroneController>();
                 if (droneController)
@@ -49,6 +54,23 @@ namespace FPVDroneModClient.Patches
                     droneController.Item = item;
                 }
             }
+            else if (item is BatteryItem batteryItem)
+            {
+                DebugLogger.LogInfo($"Created {batteryItem.Name}! {item.StringTemplateId}");
+            }
+
+            if (item is SlotToggleableItem toggleableItem)
+            {
+                SlotVisibilityToggler toggler = gameObject.GetComponentInChildren<SlotVisibilityToggler>();
+                if (toggler)
+                {
+                    toggleableItem.SlotToggleController = toggler;
+                    
+                    bool equipped = item.Parent is CompoundItemSlot;
+                    toggleableItem.OnItemEquipped(equipped);
+                }
+            }
         }
     }
 }
+#endif

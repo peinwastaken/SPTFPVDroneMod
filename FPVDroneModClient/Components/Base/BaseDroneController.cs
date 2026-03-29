@@ -1,9 +1,10 @@
 #if !UNITY_EDITOR
 using Comfort.Common;
-using EFT;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Items;
 #endif
+using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Drone;
@@ -319,12 +320,13 @@ namespace FPVDroneModClient.Components.Base
         #endif
 
         #if UNITY_EDITOR
-        public void OnPilotEnter()
+
+        public void OnPilotEnter(bool isDoneLocally)
         {
             return;
         }
 
-        public void OnPilotExit()
+        public void OnPilotExit(bool isDoneLocally)
         {
             return;
         }

@@ -1,0 +1,70 @@
+{
+    "69c940c51c2a1d6e0b9b5ce1": {
+        "itemTplToClone": "5d0377ce86f774186372f689",
+        "parentId": "69c932c7a7d59932499b5cde",
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "overrideProperties": {
+            "ExaminedByDefault": false,
+            "Prefab": {
+                "path": "assets/content/items/batteries/battery_high.bundle",
+                "rcid": ""
+            },
+            "Height": 1,
+            "Width": 2,
+            "Weight": 0.650,
+            "ExtraSizeUp": 1,
+            "ExtraSizeForceAdd": true,
+            "ShortName": "Battery",
+            "BackgroundColor": "black",
+            "Slots": [],
+            "InsuranceDisabled": true,
+            "AlwaysAvailableForInsurance": false
+        },
+        "locales": {
+            "en": {
+                "name": "Drone Battery",
+                "shortName": "Battery",
+                "description": "Drroooonnee bbaaaatteerrrryy words words words words"
+            }
+        },
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "fleaPriceRoubles": 438912,
+        "handbookPriceRoubles": 125043,
+        "addtoTraders": true,
+        "traders": {
+            "SKIER": {
+                "69c940baf05b1ec34e9b5ce0": {
+                    "barterSettings": {
+                        "loyalLevel": 3,
+                        "unlimitedCount": true,
+                        "stackObjectsCount": 9999999,
+                        "buyRestrictionMax": 1
+                    },
+                    "barters": [
+                        {
+                            "count": 309503,
+                            "_tpl": "MONEY_ROUBLES"
+                        }
+                    ]
+                }
+            }
+        },
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [
+            {
+                "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
+                "Probability": 3000
+            },
+            {
+                "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
+                "Probability": 20
+            }
+        ],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
+}

@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using UnityEngine;
 
@@ -20,4 +19,3 @@ namespace FPVDroneModClient.Models
         public Item Weapon = null;
     }
 }
-#endif

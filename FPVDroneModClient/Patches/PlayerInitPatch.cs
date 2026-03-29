@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT;
 using EFT.CameraControl;
 using FPVDroneModClient.Components.Gear;
@@ -19,8 +20,9 @@ namespace FPVDroneModClient.Patches
         {
             if (__instance.IsYourPlayer)
             {
-                DroneEquipmentObserver observer = __instance.gameObject.AddComponent<DroneEquipmentObserver>();
+                __instance.gameObject.AddComponent<DroneEquipmentObserver>();
             }
         }
     }
 }
+#endif

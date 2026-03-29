@@ -69,7 +69,14 @@ namespace FPVDroneModClient
                     "69669ea64847b58fd5393f71",
                     typeof(PayloadItem),
                     typeof(PayloadItemTemplate),
-                    (id, tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl))
+                    (id, tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl)
+                ),
+                new TemplateIdToObjectType(
+                    "69c932c7a7d59932499b5cde",
+                    typeof(BatteryItem),
+                    typeof(ItemTemplate),
+                    (id, tpl) => new BatteryItem(id, (ItemTemplate)tpl)
+                )
             ];
 
             CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);
@@ -77,6 +84,7 @@ namespace FPVDroneModClient
             int itemIndex = GClass3381.IndexOf(typeof(Item));
             GClass3381.List_0.Insert(itemIndex, typeof(DroneItem));
             GClass3381.List_0.Insert(itemIndex, typeof(PayloadItem));
+            GClass3381.List_0.Insert(itemIndex, typeof(BatteryItem));
 
             TankDeathState = RouteHelper.FetchTankDeathState();
             

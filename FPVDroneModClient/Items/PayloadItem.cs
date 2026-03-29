@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using EFT.InventoryLogic;
+using FPVDroneModClient.Components;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Interface;
 
@@ -28,7 +29,7 @@ namespace FPVDroneModClient.Items
         public readonly bool IsAntiTank = isAntiTank;
     }
 
-    public class PayloadItem : Item, IExplosive
+    public class PayloadItem : SlotToggleableItem, IExplosive
     {
         public float Damage { get; set; }
         public bool IsAntiTank { get; set; }

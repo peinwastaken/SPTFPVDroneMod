@@ -7,6 +7,7 @@ using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
 using FPVDroneModFika.Data;
 using FPVDroneModFika.Packets;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,7 +52,7 @@ namespace FPVDroneModFika.Components
 
         public void OnReceivedPositionPacket(DronePositionPacket packet)
         {
-            // Plugin.Logger.LogInfo($"received drone pos packet for droneNetId: {packet.Data.DroneNetId}");
+            Plugin.Logger.LogInfo($"received drone pos packet for droneNetId: {packet.DroneNetId}");
             
             SyncComponents.TryGetValue(packet.DroneNetId, out DroneSyncComponent syncComponent);
 

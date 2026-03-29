@@ -1,5 +1,6 @@
 {
     "mod_payload": "PAYLOAD",
+    "mod_battery": "BATTERY",
     "EXPLOSION DAMAGE": "Explosion Damage",
     "INFLICTS LIGHT BLEED": "Inflicts Light Bleed",
     "INFLICTS HEAVY BLEED": "Inflicts Heavy Bleed",

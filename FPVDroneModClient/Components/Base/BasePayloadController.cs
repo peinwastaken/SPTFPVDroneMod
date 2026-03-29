@@ -1,14 +1,14 @@
 ﻿using EFT.InventoryLogic;
 using FPVDroneModClient.Interface;
+using FPVDroneModClient.Models;
 using System;
 using UnityEngine;
+using EFT;
 #if !UNITY_EDITOR
 using Comfort.Common;
-using EFT;
 using EFT.Ballistics;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-using FPVDroneModClient.Models;
 #endif
 
 namespace FPVDroneModClient.Components.Base
@@ -90,12 +90,12 @@ namespace FPVDroneModClient.Components.Base
         #if UNITY_EDITOR
         public virtual void ToggleArmed()
         {
-            
+            return;
         }
 
-        public virtual void Detonate()
+        public virtual ExplosionData Detonate()
         {
-            
+            return null;
         }
         
         public abstract void OnTriggerEnter(Collider collider);

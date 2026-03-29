@@ -13,6 +13,7 @@ namespace FPVDroneModFika.Packets
         public Quaternion Rotation;
         public Vector3 Velocity;
         public Vector3 AngularVelocity;
+        public float Timestamp;
         
         public void Serialize(NetDataWriter writer)
         {
@@ -22,6 +23,7 @@ namespace FPVDroneModFika.Packets
             writer.PutUnmanaged(Rotation);
             writer.PutUnmanaged(Velocity);
             writer.PutUnmanaged(AngularVelocity);
+            writer.Put(Timestamp);
         }
 
         public void Deserialize(NetDataReader reader)
@@ -32,6 +34,7 @@ namespace FPVDroneModFika.Packets
             Rotation = reader.GetUnmanaged<Quaternion>();
             Velocity = reader.GetUnmanaged<Vector3>();
             AngularVelocity = reader.GetUnmanaged<Vector3>();
+            Timestamp = reader.GetFloat();
         }
     }
 }
