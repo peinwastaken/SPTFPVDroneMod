@@ -10,7 +10,5 @@ namespace FPVDroneModFika.Data
         public Quaternion Rotation;
         public Vector3 Velocity;
         public Vector3 AngularVelocity;
-        public float Timestamp;
-        public float Time;
     }
 }
