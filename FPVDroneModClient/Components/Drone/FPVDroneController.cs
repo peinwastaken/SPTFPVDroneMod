@@ -82,7 +82,7 @@ namespace FPVDroneModClient.Components.Drone
                 DebugLogger.LogError("DRONEINPUT IS NULL");
             }
 
-            if (BatteryRemaining > 0f)
+            if (BatteryResource.Value > 0f)
             {
                 if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * RollSpeed * dt);
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);
@@ -105,8 +105,7 @@ namespace FPVDroneModClient.Components.Drone
             PropellerAccelerationSpeed = FPVDroneConfig.DronePropellerAccelerationSpeed.Value;
             MinPropellerSpeed = FPVDroneConfig.DroneMinPropellerSpeed.Value;
             MaxPropellerSpeed = FPVDroneConfig.DroneMaxPropellerSpeed.Value;
-
-            MaxBattery = FPVDroneConfig.DroneMaxBattery.Value;
+            
             BatteryDecayRateIdle = FPVDroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = FPVDroneConfig.DroneBatteryDecayAccel.Value;
         }

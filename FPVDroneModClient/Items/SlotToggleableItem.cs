@@ -7,7 +7,8 @@ namespace FPVDroneModClient.Items
     public abstract class SlotToggleableItem(string id, ItemTemplate template) : Item(id, template)
     {
         public SlotVisibilityToggler SlotToggleController { get; set; }
-
+        public Item Item;
+            
         public virtual void OnItemEquipped(bool equipped)
         {
             if (equipped)

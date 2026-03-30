@@ -49,6 +49,19 @@ namespace FPVDroneModClient.Items
 
             return (PayloadItem)payloadSlot?.ContainedItem;
         }
+
+        public Slot GetBatterySlot()
+        {
+            foreach (Slot slot in Slots)
+            {
+                if (slot.ID == SlotIds.BatterySlot)
+                {
+                    return slot;
+                }
+            }
+
+            return null;
+        }
     }
 }
 #endif

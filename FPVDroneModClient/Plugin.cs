@@ -74,8 +74,8 @@ namespace FPVDroneModClient
                 new TemplateIdToObjectType(
                     "69c932c7a7d59932499b5cde",
                     typeof(BatteryItem),
-                    typeof(ItemTemplate),
-                    (id, tpl) => new BatteryItem(id, (ItemTemplate)tpl)
+                    typeof(BatteryItemTemplate),
+                    (id, tpl) => new BatteryItem(id, (BatteryItemTemplate)tpl)
                 )
             ];
 

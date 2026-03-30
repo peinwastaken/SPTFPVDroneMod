@@ -3,6 +3,7 @@ using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
+using Mono.Cecil;
 #endif
 using EFT;
 using EFT.Ballistics;
@@ -26,7 +27,6 @@ namespace FPVDroneModClient.Components.Base
         public float PropellerAccelerationSpeed = 4f;
         public float MinPropellerSpeed = 0f;
         public float MaxPropellerSpeed = 10000f;
-        public float MaxBattery = 150f;
         public float BatteryDecayRateIdle = 0.001f;
         public float BatteryDecayRateAccel = 0.01f;
 
@@ -44,10 +44,11 @@ namespace FPVDroneModClient.Components.Base
         public Rigidbody RigidBody;
         public IArmable Armable;
         public IDetonatable Detonatable;
-        public Item Item;
+        public DroneItem Item;
+        public BatteryItem BatteryItem;
+        public ResourceComponent BatteryResource;
 
         public float PropellerSpeed = 0f;
-        public float BatteryRemaining = 100f;
         public bool Grounded = false;
         public bool IsBeingControlled = false;
         public bool IsAboutToBeDestroyed = false;
@@ -78,8 +79,7 @@ namespace FPVDroneModClient.Components.Base
         protected virtual void Start()
         {
             GetReferences();
-
-            BatteryRemaining = MaxBattery;
+            
             PropellerSpeed = MinPropellerSpeed;
 
             if (RigidBody)
@@ -114,6 +114,13 @@ namespace FPVDroneModClient.Components.Base
             {
                 payloadController.Owner = Owner;
                 payloadController.DroneController = this;
+            }
+
+            Slot batterySlot = Item.GetBatterySlot();
+            if (batterySlot.ContainedItem is BatteryItem item)
+            {
+                BatteryItem = item;
+                BatteryResource = item.ResourceComponent;
             }
             
             InitializeEvents();
@@ -244,7 +251,7 @@ namespace FPVDroneModClient.Components.Base
 
             if (HudController && Owner.IsYourPlayer && IsBeingControlled)
             {
-                HudController.UpdateBatteryLevel(BatteryRemaining / MaxBattery);
+                HudController.UpdateBatteryLevel(BatteryResource.RelativeValue);
 
                 Player player = InstanceHelper.LocalPlayer;
                 float distanceFromPlayer = (player.Position - transform.position).magnitude;
@@ -271,14 +278,14 @@ namespace FPVDroneModClient.Components.Base
             {
                 DebugLogger.LogError("DRONEINPUT IS NULL");
             }
-
-            if (BatteryRemaining > 0f && SignalController.HasSignal)
+            
+            if (BatteryResource.Value > 0f && SignalController.HasSignal)
             {
                 float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
                 PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);
 
-                BatteryRemaining -= (Thrust > 0 ? BatteryDecayRateAccel : BatteryDecayRateIdle) * dt;
-                BatteryRemaining = Mathf.Clamp(BatteryRemaining, 0, MaxBattery);
+                BatteryResource.Value -= (Thrust > 0 ? BatteryDecayRateAccel : BatteryDecayRateIdle) * dt;
+                BatteryResource.Value = Mathf.Clamp(BatteryResource.Value, 0, BatteryResource.MaxResource);
             }
             else
             {

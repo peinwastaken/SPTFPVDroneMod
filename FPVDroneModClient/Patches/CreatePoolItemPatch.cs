@@ -51,7 +51,7 @@ namespace FPVDroneModClient.Patches
                 BaseDroneController droneController = gameObject.GetComponentInChildren<BaseDroneController>();
                 if (droneController)
                 {
-                    droneController.Item = item;
+                    droneController.Item = droneItem;
                 }
             }
             else if (item is BatteryItem batteryItem)
@@ -65,6 +65,7 @@ namespace FPVDroneModClient.Patches
                 if (toggler)
                 {
                     toggleableItem.SlotToggleController = toggler;
+                    toggleableItem.Item = item;
                     
                     bool equipped = item.Parent is CompoundItemSlot;
                     toggleableItem.OnItemEquipped(equipped);

@@ -49,8 +49,7 @@ namespace FPVDroneModClient.Components.Drone
             PropellerAccelerationSpeed = ReconDroneConfig.DronePropellerAccelerationSpeed.Value;
             MinPropellerSpeed = ReconDroneConfig.DroneMinPropellerSpeed.Value;
             MaxPropellerSpeed = ReconDroneConfig.DroneMaxPropellerSpeed.Value;
-
-            MaxBattery = ReconDroneConfig.DroneMaxBattery.Value;
+            
             BatteryDecayRateIdle = ReconDroneConfig.DroneBatteryDecayIdle.Value;
             BatteryDecayRateAccel = ReconDroneConfig.DroneBatteryDecayAccel.Value;
         }
@@ -94,8 +93,8 @@ namespace FPVDroneModClient.Components.Drone
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (!RigidBody || BatteryRemaining <= 0f) return;
+            
+            if (!RigidBody || BatteryResource.Value <= 0f) return;
             if (WasJustDropped && !IsBeingControlled || IsInInventory) // its dumb!!!
             {
                 Thrust = 0f;
@@ -129,7 +128,7 @@ namespace FPVDroneModClient.Components.Drone
             
             float dt = Time.deltaTime;
 
-            if (BatteryRemaining > 0f)
+            if (BatteryResource.Value > 0f)
             {
                 if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * 20f * dt);
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * 20f * dt);
