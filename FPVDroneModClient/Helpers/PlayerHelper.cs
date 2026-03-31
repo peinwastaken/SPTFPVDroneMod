@@ -69,7 +69,25 @@ namespace FPVDroneModClient.Helpers
         {
             EftGamePlayerOwner playerOwner = player.GetComponent<EftGamePlayerOwner>();
             playerOwner?.ClearInteractionState();
-        } 
+        }
+
+        public static bool IsFriendlyToBot(this IPlayer player, BotOwner botOwner)
+        {
+            if (player == null) return false;
+
+            if (!botOwner.EnemiesController.IsEnemy(player))
+            {
+                return true;
+            }
+
+            BotsGroup group = botOwner.BotsGroup;
+            if (group.Allies.Contains(player) && !group.IsPlayerEnemy(player) && group.Neutrals.ContainsKey(player))
+            {
+                return true;
+            }
+            
+            return false;
+        }
     }
 }
 #endif

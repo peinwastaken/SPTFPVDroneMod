@@ -20,12 +20,8 @@ namespace FPVDroneModClient.Components
         public bool HasActionChanged;
 
         public Player Player;
+        public BotOwner BotOwner;
         public ClosestDroneData ClosestDroneData;
-
-        public void Awake()
-        {
-            Player = GetComponentInParent<Player>();
-        }
 
         public void Update()
         {
@@ -120,8 +116,9 @@ namespace FPVDroneModClient.Components
 
             bool isInRange = ClosestDroneData.Distance < BotGlobals.DroneHearRange;
             bool isVisible = IsClosestDroneVisible();
+            bool isFriendly = ClosestDroneData.Controller.Owner.IsFriendlyToBot(BotOwner);
 
-            return isInRange && isVisible;
+            return isInRange && isVisible && !isFriendly;
         }
 
         public void SetAction(EDroneCombatAction action)

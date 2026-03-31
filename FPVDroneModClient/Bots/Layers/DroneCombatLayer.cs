@@ -15,6 +15,8 @@ namespace FPVDroneModClient.Bots.Layers
         public DroneCombatLayer(BotOwner botOwner, int priority) : base(botOwner, priority)
         {
             _droneListener = botOwner.GetPlayer.gameObject.AddComponent<BotDroneListener>();
+            _droneListener.BotOwner = botOwner;
+            _droneListener.Player = botOwner.GetPlayer;
         }
 
         public override string GetName()
