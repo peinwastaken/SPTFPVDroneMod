@@ -25,19 +25,11 @@ namespace FPVDroneModClient.Patches
 
             if (controller)
             {
-                GameObject droneBody = controller.transform.Find("DroneBody")?.gameObject;
-
-                if (!droneBody)
-                {
-                    DebugLogger.LogWarning("DroneBody is null u idiot.");
-                    return true;
-                }
-
-                droneBody.layer = LayerMask.NameToLayer("Deadbody");
                 Rigidbody rb = __instance.RigidBody;
                 EFTPhysicsClass.GClass745.SupportRigidbody(rb);
                 controller.RigidBody = rb;
-
+                controller.FixColliderLayers();
+                
                 DebugLogger.LogInfo("found rb and did stuff w/ it");
                 return false;
             }

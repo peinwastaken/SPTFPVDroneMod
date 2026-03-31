@@ -41,6 +41,14 @@ namespace FPVDroneModClient.Patches
                 droneController.IsBeingControlled = false;
                 droneController.IsInInventory = false;
                 droneController.WasJustDropped = true;
+
+                if (droneController.Detonatable is BasePayloadController payload)
+                {
+                    payload.Owner = player;
+                }
+                
+                // force get references
+                droneController.GetReferences();
             }
         }
     }

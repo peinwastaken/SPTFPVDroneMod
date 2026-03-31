@@ -44,9 +44,10 @@ namespace FPVDroneModClient.Components.Base
         public Rigidbody RigidBody;
         public IArmable Armable;
         public IDetonatable Detonatable;
-        public DroneItem Item;
-        public BatteryItem BatteryItem;
+        public Item Item;
+        public Item Battery;
         public ResourceComponent BatteryResource;
+        public BatteryController BatteryController;
 
         public float PropellerSpeed = 0f;
         public bool Grounded = false;
@@ -98,7 +99,7 @@ namespace FPVDroneModClient.Components.Base
             hudCanvas.planeDistance = 1f;
         }
 
-        protected virtual void GetReferences()
+        public virtual void GetReferences()
         {
             RigidBody = GetComponentInChildren<Rigidbody>(true);
             DroneSoundController = GetComponentInChildren<DroneSoundController>(true);
@@ -109,21 +110,51 @@ namespace FPVDroneModClient.Components.Base
             Armable = GetComponentInChildren<IArmable>(true);
             Detonatable = GetComponentInChildren<IDetonatable>(true);
             SignalController = GetComponentInChildren<DroneSignalController>(true);
+            BatteryController = GetComponentInChildren<BatteryController>(true);
 
-            if (Detonatable != null && Detonatable is BasePayloadController payloadController)
+            if (Detonatable is BasePayloadController payloadController)
             {
                 payloadController.Owner = Owner;
                 payloadController.DroneController = this;
             }
 
-            Slot batterySlot = Item.GetBatterySlot();
-            if (batterySlot.ContainedItem is BatteryItem item)
+            if (BatteryController)
             {
-                BatteryItem = item;
-                BatteryResource = item.ResourceComponent;
+                BatteryController.DroneController = this;
+            }
+
+            if (Item != null)
+            {
+                DroneItem droneItem = (DroneItem)Item;
+                Slot batterySlot = droneItem.GetBatterySlot();
+                if (batterySlot.ContainedItem is BatteryItem item)
+                {
+                    Battery = item;
+                    BatteryResource = item.ResourceComponent;
+                }
             }
             
             InitializeEvents();
+        }
+
+        public void FixColliderLayers()
+        {
+            GameObject droneBody = transform.Find("DroneBody")?.gameObject;
+            
+            if (droneBody)
+            {
+                droneBody.layer = LayerMask.NameToLayer("Deadbody");
+            }
+            
+            if (BatteryController && BatteryController.BallisticCollider)
+            {
+                BatteryController.BallisticCollider.gameObject.layer = LayerMask.NameToLayer("Deadbody");
+            }
+
+            if (Detonatable is BasePayloadController payloadController && payloadController.BallisticCollider)
+            {
+                payloadController.BallisticCollider.gameObject.layer = LayerMask.NameToLayer("Deadbody");
+            }
         }
 
         protected void InitializeEvents()
@@ -220,9 +251,9 @@ namespace FPVDroneModClient.Components.Base
         {
             IDetonatable detonatable = GetComponentInChildren<IDetonatable>(true);
             
-            if (detonatable != null)
-            {
-                detonatable.Detonate();
+            if (detonatable is BasePayloadController payload)
+            { 
+                payload.OnHit(damageInfo);
                 return;
             }
             
@@ -327,7 +358,11 @@ namespace FPVDroneModClient.Components.Base
         #endif
 
         #if UNITY_EDITOR
-
+        public virtual void OnHit(DamageInfoStruct damageInfo)
+        {
+            return;
+        }
+        
         public void OnPilotEnter(bool isDoneLocally)
         {
             return;

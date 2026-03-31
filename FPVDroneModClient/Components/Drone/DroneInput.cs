@@ -13,8 +13,7 @@ namespace FPVDroneModClient.Components.Drone
     public class DroneInput : MonoBehaviour
     {
         public bool ControllerConnected;
-        public IPilotable Pilotable;
-        public IArmable Armable;
+        public BaseDroneController DroneController;
 
         public float LeftStickX;
         public float LeftStickY;
@@ -52,8 +51,7 @@ namespace FPVDroneModClient.Components.Drone
 
         private void Start()
         {
-            Pilotable = GetComponentInChildren<IPilotable>(true);
-            Armable = GetComponentInChildren<IArmable>(true);
+            DroneController = GetComponent<BaseDroneController>();
 
             if (ControllerConnected)
             {
@@ -162,11 +160,11 @@ namespace FPVDroneModClient.Components.Drone
 
         private void ApplyInput()
         {
-            if (Pilotable is FPVDroneController)
+            if (DroneController is FPVDroneController)
             {
                 ApplyFpvInput();
             }
-            else if (Pilotable is ReconDroneController)
+            else if (DroneController is ReconDroneController)
             {
                 ApplyReconInput();
             }
@@ -195,7 +193,7 @@ namespace FPVDroneModClient.Components.Drone
 
             if (Input.GetKeyDown(FPVBindsConfig.ToggleArmed.Value))
             {
-                Armable?.ToggleArmed();
+                DroneController.Armable?.ToggleArmed();
             }
             
             if (ControllerConnected)
@@ -207,7 +205,7 @@ namespace FPVDroneModClient.Components.Drone
 
                 if (ButtonY && !_prevY)
                 {
-                    Armable?.ToggleArmed();
+                    DroneController.Armable?.ToggleArmed();
                 }
 
                 if (ButtonB && !_prevB)
@@ -266,7 +264,7 @@ namespace FPVDroneModClient.Components.Drone
                 
                 if (ButtonY && !_prevY)
                 {
-                    Armable?.ToggleArmed();
+                    DroneController.Armable?.ToggleArmed();
                 }
 
                 if (ButtonB && !_prevB)

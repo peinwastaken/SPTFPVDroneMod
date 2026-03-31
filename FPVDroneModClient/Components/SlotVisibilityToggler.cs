@@ -11,7 +11,6 @@ namespace FPVDroneModClient.Components
         
         public Item Item;
 
-        #if !UNITY_EDITOR
         public void OnEquip()
         {
             EquippedTransform.gameObject.SetActive(true);
@@ -23,6 +22,5 @@ namespace FPVDroneModClient.Components
             EquippedTransform.gameObject.SetActive(false);
             UnequippedTransform.gameObject.SetActive(true);
         }
-        #endif
     }
 }

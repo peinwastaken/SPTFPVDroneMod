@@ -30,14 +30,15 @@ namespace FPVDroneModClient.Components.Base
         public IPlayer Owner { get; set; }
         public BaseDroneController DroneController;
         public Item Item;
+        public BallisticCollider BallisticCollider;
 
         #if !UNITY_EDITOR
         private void Awake()
         {
-            BallisticCollider collider = GetComponent<BallisticCollider>();
+            BallisticCollider = GetComponentInChildren<BallisticCollider>();
             Detonator = GetComponentInChildren<Detonator>();
 
-            collider.OnHitAction += OnHit;
+            BallisticCollider.OnHitAction += OnHit;
             
             if (Detonator)
             {
@@ -46,7 +47,7 @@ namespace FPVDroneModClient.Components.Base
             }
         }
 
-        private void OnHit(DamageInfoStruct damageInfo)
+        public void OnHit(DamageInfoStruct damageInfo)
         {
             Detonate();
         }
@@ -88,6 +89,11 @@ namespace FPVDroneModClient.Components.Base
         #endif
 
         #if UNITY_EDITOR
+        public void OnHit(DamageInfoStruct damageInfo)
+        {
+            Detonate();
+        }
+        
         public virtual void ToggleArmed()
         {
             return;
