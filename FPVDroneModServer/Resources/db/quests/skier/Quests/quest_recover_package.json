@@ -1,0 +1,166 @@
+{
+    "69cd208ba9ce137d72243552": {
+        "QuestName": "A Small Errand",
+        "_id": "69cd208ba9ce137d72243552",
+        "acceptanceAndFinishingSource": "eft",
+        "arenaLocations": [],
+        "canShowNotificationsInGame": true,
+        "conditions": {
+            "AvailableForFinish": [
+                {
+                    "conditionType": "FindItem",
+                    "countInRaid": false,
+                    "dogtagLevel": 0,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd20a248fddb8c14243554",
+                    "index": 0,
+                    "isNecessary": false,
+                    "isEncoded": false,
+                    "oneSessionOnly": false,
+                    "maxDurability": 100,
+                    "minDurability": 0,
+                    "onlyFoundInRaid": false,
+                    "parentId": "",
+                    "target": [
+                        "69cd304aea0a24133d24355c"
+                    ],
+                    "value": 1,
+                    "visibilityConditions": []
+                },
+                {
+                    "conditionType": "HandoverItem",
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd20b507ff5444fa243555",
+                    "index": 1,
+                    "isNecessary": false,
+                    "isEncoded": false,
+                    "oneSessionOnly": false,
+                    "maxDurability": 100,
+                    "minDurability": 0,
+                    "onlyFoundInRaid": false,
+                    "parentId": "",
+                    "target": [
+                        "69cd304aea0a24133d24355c"
+                    ],
+                    "value": 1,
+                    "visibilityConditions": [
+                        {
+                            "conditionType": "CompleteCondition",
+                            "id": "69cd3923959d6a5d7a243560",
+                            "target": "69cd20a248fddb8c14243554"
+                        }
+                    ]
+                },
+                {
+                    "completeInSeconds": 0,
+                    "conditionType": "CounterCreator",
+                    "counter": {
+                        "conditions": [
+                            {
+                                "bodyPart": [
+                                    "Head"
+                                ],
+                                "compareMethod": ">=",
+                                "conditionType": "Kills",
+                                "daytime": {
+                                    "from": 0,
+                                    "to": 0
+                                },
+                                "distance": {
+                                    "compareMethod": ">=",
+                                    "value": 0
+                                },
+                                "dynamicLocale": false,
+                                "enemyEquipmentExclusive": [],
+                                "enemyEquipmentInclusive": [],
+                                "enemyHealthEffects": [],
+                                "id": "69cd22dcd4a672e894243559",
+                                "resetOnSessionEnd": false,
+                                "savageRole": [],
+                                "target": "Savage",
+                                "value": 1,
+                                "weapon": [],
+                                "weaponCaliber": [],
+                                "weaponModsExclusive": [],
+                                "weaponModsInclusive": []
+                            }
+                        ],
+                        "id": "69cd21adee0157be5e243556"
+                    },
+                    "doNotResetIfCounterCompleted": false,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd20941966973140243553",
+                    "index": 2,
+                    "isNecessary": false,
+                    "isResetOnConditionFailed": false,
+                    "oneSessionOnly": false,
+                    "parentId": "",
+                    "type": "Elimination",
+                    "value": 6,
+                    "visibilityConditions": []
+                }
+            ],
+            "AvailableForStart": [
+                {
+                    "availableAfter": 0,
+                    "conditionType": "Quest",
+                    "dispersion": 0,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd21b2290a948a93243558",
+                    "index": 0,
+                    "parentId": "",
+                    "status": [
+                        4
+                    ],
+                    "target": "69cd0395d71356193f24354d",
+                    "visibilityConditions": []
+                }
+            ],
+            "Fail": []
+        },
+        "description": "69cd208ba9ce137d72243552 description",
+        "gameModes": [],
+        "image": "/files/quest/icon/69cd208ba9ce137d72243552.jpg",
+        "instantComplete": false,
+        "isKey": false,
+        "location": "56f40101d2720b2a4d8b45d6",
+        "name": "69cd208ba9ce137d72243552 name",
+        "progressSource": "eft",
+        "rankingModes": [],
+        "restartable": false,
+        "rewards": {
+            "Fail": [],
+            "Started": [],
+            "Success": [
+                {
+                    "availableInGameEditions": [],
+                    "id": "61abc53e1b7da753125cfe2c",
+                    "index": 0,
+                    "type": "Experience",
+                    "unknown": false,
+                    "value": 7600
+                },
+                {
+                    "availableInGameEditions": [],
+                    "id": "61ad524026794b532d3dbd27",
+                    "index": 0,
+                    "target": "58330581ace78e27b8b10cee",
+                    "type": "TraderStanding",
+                    "unknown": false,
+                    "value": 0.03
+                }
+            ]
+        },
+        "secretQuest": false,
+        "startedMessageText": "69cd208ba9ce137d72243552 startedMessageText",
+        "successMessageText": "69cd208ba9ce137d72243552 successMessageText",
+        "side": "Pmc",
+        "status": 0,
+        "traderId": "58330581ace78e27b8b10cee",
+        "type": "PickUp"
+    }
+}

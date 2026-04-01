@@ -1,0 +1,90 @@
+{
+    "69cd0395d71356193f24354d": {
+        "QuestName": "Unattended Property - Part 2",
+        "_id": "69cd0395d71356193f24354d",
+        "acceptanceAndFinishingSource": "eft",
+        "arenaLocations": [],
+        "canShowNotificationsInGame": true,
+        "conditions": {
+            "AvailableForFinish": [
+                {
+                    "conditionType": "HandoverItem",
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd03ed44968a568d24354e",
+                    "index": 2,
+                    "isNecessary": false,
+                    "isEncoded": false,
+                    "oneSessionOnly": false,
+                    "maxDurability": 100,
+                    "minDurability": 0,
+                    "onlyFoundInRaid": false,
+                    "parentId": "",
+                    "target": [
+                        "5696686a4bdc2da3298b456a"
+                    ],
+                    "value": 2500,
+                    "visibilityConditions": []
+                }
+            ],
+            "AvailableForStart": [
+                {
+                    "availableAfter": 0,
+                    "conditionType": "Quest",
+                    "dispersion": 0,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cd0b15d70bc26f4a243551",
+                    "index": 0,
+                    "parentId": "",
+                    "status": [
+                        4
+                    ],
+                    "target": "69cc2b207cbf66a974bbfe59",
+                    "visibilityConditions": []
+                }
+            ],
+            "Fail": []
+        },
+        "description": "69cd0395d71356193f24354d description",
+        "gameModes": [],
+        "image": "/files/quest/icon/69cd0395d71356193f24354d.jpg",
+        "instantComplete": false,
+        "isKey": false,
+        "location": "56f40101d2720b2a4d8b45d6",
+        "name": "69cd0395d71356193f24354d name",
+        "progressSource": "eft",
+        "rankingModes": [],
+        "restartable": false,
+        "rewards": {
+            "Fail": [],
+            "Started": [],
+            "Success": [
+                {
+                    "availableInGameEditions": [],
+                    "id": "69cd08a1778f178f4a24354f",
+                    "index": 0,
+                    "type": "Experience",
+                    "unknown": false,
+                    "value": 5200
+                },
+                {
+                    "availableInGameEditions": [],
+                    "id": "69cd08a2d837369b86243550",
+                    "index": 0,
+                    "target": "5a7c2eca46aef81a7ca2145d",
+                    "type": "TraderStanding",
+                    "unknown": false,
+                    "value": 0.02
+                }
+            ]
+        },
+        "secretQuest": false,
+        "startedMessageText": "69cd0395d71356193f24354d startedMessageText",
+        "successMessageText": "69cd0395d71356193f24354d successMessageText",
+        "side": "Pmc",
+        "status": 0,
+        "traderId": "5a7c2eca46aef81a7ca2145d",
+        "type": "Merchant"
+    }
+}

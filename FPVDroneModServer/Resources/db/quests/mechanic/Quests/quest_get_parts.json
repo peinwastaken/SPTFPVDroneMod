@@ -1,6 +1,6 @@
 {
     "69cc2b207cbf66a974bbfe59": {
-        "QuestName": "Unattended Property",
+        "QuestName": "Unattended Property - Part 1",
         "_id": "69cc2b207cbf66a974bbfe59",
         "acceptanceAndFinishingSource": "eft",
         "arenaLocations": [],
@@ -162,6 +162,6 @@
         "side": "Pmc",
         "status": 0,
         "traderId": "5a7c2eca46aef81a7ca2145d",
-        "type": "Elimination"
+        "type": "PickUp"
     }
 }

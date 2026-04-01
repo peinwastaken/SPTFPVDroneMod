@@ -1,0 +1,42 @@
+{
+    "69cd304aea0a24133d24355c": {
+        "itemTplToClone": "5910922b86f7747d96753483",
+        "parentId": "5448ecbe4bdc2d60728b4568",
+        "handbookParentId": "5b619f1a86f77450a702a6f3",
+        "overrideProperties": {
+            "ExaminedByDefault": false,
+            "Prefab": {
+                "path": "assets/content/items/quest/item_quest_container_carbon_case/item_quest_container_carbon_case.bundle",
+                "rcid": ""
+            },
+            "Height": 2,
+            "Width": 2,
+            "Weight": 6.53,
+            "ShortName": "Package",
+            "BackgroundColor": "yellow",
+            "QuestItem": true,
+            "Slots": []
+        },
+        "locales": {
+            "en": {
+                "name": "Skier's case",
+                "shortName": "Case",
+                "description": "An expensive-looking armored case. A bit scratched up but it's contents should be fine."
+            }
+        },
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "Probability": 250,
+        "fleaPriceRoubles": 0,
+        "handbookPriceRoubles": 0,
+        "addtoTraders": false,
+        "traders": {},
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
+}

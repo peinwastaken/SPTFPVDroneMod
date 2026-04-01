@@ -22,7 +22,9 @@ namespace FPVDroneModServer
         ContainerHelper containerHelper,
         WTTCustomQuestService questService,
         WTTCustomQuestZoneService zoneService,
-        WTTCustomLootspawnService lootService) : IOnLoad
+        WTTCustomLootspawnService lootService,
+        WTTCustomHideoutRecipeService recipeService,
+        WTTCustomAssortSchemeService assortService) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
@@ -65,6 +67,8 @@ namespace FPVDroneModServer
             await questService.CreateCustomQuests(Assembly.GetExecutingAssembly(), "db/quests");
             await zoneService.CreateCustomQuestZones(Assembly.GetExecutingAssembly(), "db/zones");
             await lootService.CreateCustomLootSpawns(Assembly.GetExecutingAssembly(), "db/loot");
+            //await recipeService.CreateHideoutRecipes(Assembly.GetExecutingAssembly(), "db/recipes");
+            //await assortService.CreateCustomAssortSchemes(Assembly.GetExecutingAssembly(), "db/assort");
             
             // add DroneItem and PayloadItem to item case
             containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "6964ea3a5e4c1218314e1b2f");

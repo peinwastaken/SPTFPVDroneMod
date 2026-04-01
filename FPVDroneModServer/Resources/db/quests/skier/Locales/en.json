@@ -2,5 +2,11 @@
     "69cbe2c1e4157bab57f2911c name": "Remote Business",
     "69cbe2c1e4157bab57f2911c description": "You've been making some noise lately, and people are starting to notice. This means you're capable, and more importantly, useful.\n\nI've got a situation that needs handling. I lost a shipment and a few people along with it. Locals hit the convoy and picked everything clean, which you can assume, is bad for business.\n\nIt'd be a waste to lose an operator such as yourself, so take a different approach. I recently got my hands on a batch of new \"birds\" from Sergey and I figured it's time they earn their keep. Go deal with it.",
     "69cbe3274aa75df0c5f29120": "Eliminate Scavs using an FPV drone",
-    "69cbe2c1e4157bab57f2911c successMessageText": "Looks like the toys were worth the money after all. Come get your reward."
+    "69cbe2c1e4157bab57f2911c successMessageText": "Looks like the toys were worth the money after all. Come get your reward.",
+    "69cd208ba9ce137d72243552 name": "A Small Errand",
+    "69cd208ba9ce137d72243552 description": "Sergey got in touch, handed me some cash and a shopping list. Motherboards, check. Batteries, check. Various other toys, check. Something is missing though. Ah-haa! A favor! Did you really think old Skier here would risk his neck for a couple of dollars?\n\nListen, the job is simple. A group of scavengers stole a valuable package from my guys and stashed it somewhere in the Customs area, word is they were camped out in the red warehouse. Recover the package and teach them a lesson, yeah?",
+    "69cd20a248fddb8c14243554": "Find the stolen package on Customs",
+    "69cd20b507ff5444fa243555": "Hand over the package",
+    "69cd20941966973140243553": "Eliminate Scavs with headshots on Customs",
+    "69cd208ba9ce137d72243552 successMessageText": "Hahaha! To hell with those guys! You don't mess with Skier! You found it? Great, put it over there. Go talk to Mechanic, the shipment is on it's way."
 }
