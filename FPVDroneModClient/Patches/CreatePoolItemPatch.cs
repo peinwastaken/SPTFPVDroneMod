@@ -67,7 +67,7 @@ namespace FPVDroneModClient.Patches
                     toggleableItem.SlotToggleController = toggler;
                     toggleableItem.Item = item;
                     
-                    bool equipped = item.Parent is CompoundItemSlot;
+                    bool equipped = item.CurrentAddress is CompoundItemSlot;
                     toggleableItem.OnItemEquipped(equipped);
                 }
             }
