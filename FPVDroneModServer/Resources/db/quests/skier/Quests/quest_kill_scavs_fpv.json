@@ -1,0 +1,150 @@
+{
+    "69cbe2c1e4157bab57f2911c": {
+        "QuestName": "Remote Business",
+        "_id": "69cbe2c1e4157bab57f2911c",
+        "acceptanceAndFinishingSource": "eft",
+        "arenaLocations": [],
+        "canShowNotificationsInGame": true,
+        "conditions": {
+            "AvailableForFinish": [
+                {
+                    "completeInSeconds": 0,
+                    "conditionType": "CounterCreator",
+                    "counter": {
+                        "conditions": [
+                            {
+                                "bodyPart": [],
+                                "compareMethod": ">=",
+                                "conditionType": "Kills",
+                                "daytime": {
+                                    "from": 0,
+                                    "to": 0
+                                },
+                                "distance": {
+                                    "compareMethod": ">=",
+                                    "value": 0
+                                },
+                                "dynamicLocale": false,
+                                "enemyEquipmentExclusive": [],
+                                "enemyEquipmentInclusive": [],
+                                "enemyHealthEffects": [],
+                                "id": "6193dad2807b311a785743d7",
+                                "resetOnSessionEnd": false,
+                                "savageRole": [],
+                                "target": "Savage",
+                                "value": 0,
+                                "weapon": [
+                                    "690e9265772bfce1d043966d"
+                                ],
+                                "weaponCaliber": [],
+                                "weaponModsExclusive": [],
+                                "weaponModsInclusive": []
+                            }
+                        ],
+                        "id": "69cbe324bd0a0043d5f2911f"
+                    },
+                    "doNotResetIfCounterCompleted": false,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "69cbe3274aa75df0c5f29120",
+                    "index": 0,
+                    "isNecessary": false,
+                    "isResetOnConditionFailed": false,
+                    "oneSessionOnly": false,
+                    "parentId": "",
+                    "type": "Elimination",
+                    "value": 4,
+                    "visibilityConditions": []
+                }
+            ],
+            "AvailableForStart": [
+                {
+                    "availableAfter": 0,
+                    "conditionType": "Quest",
+                    "dispersion": 0,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "61abc61856152b140448e91e",
+                    "index": 0,
+                    "parentId": "",
+                    "status": [
+                        4
+                    ],
+                    "target": "69cc2b207cbf66a974bbfe59",
+                    "visibilityConditions": []
+                },
+                {
+                    "compareMethod": ">=",
+                    "conditionType": "Level",
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "61ad520c118c386d912fd9b5",
+                    "index": 0,
+                    "parentId": "",
+                    "value": 15,
+                    "visibilityConditions": []
+                }
+            ],
+            "Fail": []
+        },
+        "description": "69cbe2c1e4157bab57f2911c description",
+        "gameModes": [],
+        "image": "/files/quest/icon/69cbe2c1e4157bab57f2911c.jpg",
+        "instantComplete": false,
+        "isKey": false,
+        "location": "any",
+        "name": "69cbe2c1e4157bab57f2911c name",
+        "progressSource": "eft",
+        "rankingModes": [],
+        "restartable": false,
+        "rewards": {
+            "Fail": [],
+            "Started": [],
+            "Success": [
+                {
+                    "availableInGameEditions": [],
+                    "id": "61abc53e1b7da753125cfe2c",
+                    "index": 0,
+                    "type": "Experience",
+                    "unknown": false,
+                    "value": 15300
+                },
+                {
+                    "availableInGameEditions": [],
+                    "id": "61ad524026794b532d3dbd27",
+                    "index": 0,
+                    "target": "58330581ace78e27b8b10cee",
+                    "type": "TraderStanding",
+                    "unknown": false,
+                    "value": 0.02
+                },
+                {
+                    "availableInGameEditions": [],
+                    "findInRaid": false,
+                    "id": "61abc52f28f39305480d15d9",
+                    "index": 0,
+                    "items": [
+                        {
+                            "_id": "6812400c0c5cf2cf75075556",
+                            "_tpl": "5449016a4bdc2d6f028b456f",
+                            "upd": {
+                                "StackObjectsCount": 45000
+                            }
+                        }
+                    ],
+                    "target": "6812400c0c5cf2cf75075556",
+                    "type": "Item",
+                    "unknown": false,
+                    "value": 45000
+                }
+            ]
+        },
+        "secretQuest": false,
+        "startedMessageText": "69cbe2c1e4157bab57f2911c startedMessageText",
+        "successMessageText": "69cbe2c1e4157bab57f2911c successMessageText",
+        "side": "Pmc",
+        "status": 0,
+        "traderId": "58330581ace78e27b8b10cee",
+        "type": "Elimination"
+    }
+}

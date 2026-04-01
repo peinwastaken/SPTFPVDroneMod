@@ -1,0 +1,102 @@
+{
+    "bigmap": [
+        {
+            "locationId": "(30.9449 4.4295 -54.9174)",
+            "probability": 1,
+            "template": {
+                "Id": "quest_item_fpv_parts",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": 30.9449,
+                    "y": 4.4295,
+                    "z": -54.9174
+                },
+                "Rotation": {
+                    "x": 270.890656,
+                    "y": 85.9875259,
+                    "z": 181.082275
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "drone_parts_pos_0",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 30.9449,
+                            "y": 4.4295,
+                            "z": -54.9174
+                        },
+                        "Rotation": {
+                            "x": 270.890656,
+                            "y": 85.9875259,
+                            "z": 181.082275
+                        }
+                    },
+                    {
+                        "Name": "drone_parts_pos_1",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 28.1231,
+                            "y": 4.415,
+                            "z": -54.4409
+                        },
+                        "Rotation": {
+                            "x": 270.8173,
+                            "y": 193.3959,
+                            "z": 181.0797
+                        }
+                    },
+                    {
+                        "Name": "drone_parts_pos_2",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 24.934,
+                            "y": 4.4298,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.8106,
+                            "y": 278.1232,
+                            "z": 181.0801
+                        }
+                    },
+                    {
+                        "Name": "drone_parts_pos_3",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 26.8504,
+                            "y": 6.3349,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.7843,
+                            "y": 263.0326,
+                            "z": 181.078
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": true,
+                "Root": "69cc434ae851d88743bbfe69",
+                "Items": [
+                    {
+                        "_id": "69cc434ae851d88743bbfe69",
+                        "_tpl": "69cc26a1a83b6ef33dbbfe58",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ],
+                "itemDistribution": [
+                    {
+                        "composedKey": {
+                            "key": "69cc26a1a83b6ef33dbbfe58"
+                        },
+                        "relativeProbability": 1
+                    }
+                ]
+            }
+        }
+    ]
+}

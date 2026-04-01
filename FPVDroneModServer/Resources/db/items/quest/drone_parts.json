@@ -1,0 +1,42 @@
+{
+    "69cc26a1a83b6ef33dbbfe58": {
+        "itemTplToClone": "5ac620eb86f7743a8e6e0da0",
+        "parentId": "5448ecbe4bdc2d60728b4568",
+        "handbookParentId": "5b619f1a86f77450a702a6f3",
+        "overrideProperties": {
+            "ExaminedByDefault": false,
+            "Prefab": {
+                "path": "assets/content/items/quest/item_quest_parcel/item_quest_parcel.bundle",
+                "rcid": ""
+            },
+            "Height": 2,
+            "Width": 2,
+            "Weight": 3.77,
+            "ShortName": "Package",
+            "BackgroundColor": "yellow",
+            "QuestItem": true,
+            "Slots": []
+        },
+        "locales": {
+            "en": {
+                "name": "Package of drone parts",
+                "shortName": "Package",
+                "description": "A package containing various drone components. It's quite battered, but the contents appear to be intact."
+            }
+        },
+        "ModdableItemWhitelist": [],
+        "ModdableItemBlacklist": [],
+        "Probability": 250,
+        "fleaPriceRoubles": 0,
+        "handbookPriceRoubles": 0,
+        "addtoTraders": false,
+        "traders": {},
+        "addtoBots": false,
+        "addtostaticlootcontainer": false,
+        "StaticLootContainers": [],
+        "masteries": false,
+        "masterySections": [],
+        "addweaponpreset": false,
+        "weaponpresets": []
+    }
+}

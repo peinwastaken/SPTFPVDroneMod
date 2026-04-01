@@ -19,7 +19,10 @@ namespace FPVDroneModServer
         WTTCustomLocaleService localeService,
         DatabaseService dbService,
         TankDeathService tankDeathService,
-        ContainerHelper containerHelper) : IOnLoad
+        ContainerHelper containerHelper,
+        WTTCustomQuestService questService,
+        WTTCustomQuestZoneService zoneService,
+        WTTCustomLootspawnService lootService) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
@@ -59,6 +62,9 @@ namespace FPVDroneModServer
             imageService.CreateSlotImages(Assembly.GetExecutingAssembly(), "slots");
             await localeService.CreateCustomLocales(Assembly.GetExecutingAssembly(), "db/locales");
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
+            await questService.CreateCustomQuests(Assembly.GetExecutingAssembly(), "db/quests");
+            await zoneService.CreateCustomQuestZones(Assembly.GetExecutingAssembly(), "db/zones");
+            await lootService.CreateCustomLootSpawns(Assembly.GetExecutingAssembly(), "db/loot");
             
             // add DroneItem and PayloadItem to item case
             containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "6964ea3a5e4c1218314e1b2f");

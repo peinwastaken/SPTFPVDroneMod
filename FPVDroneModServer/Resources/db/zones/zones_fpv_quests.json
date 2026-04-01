@@ -1,0 +1,27 @@
+[
+    {
+        "ZoneId": "fpv_scav_hideout",
+        "ZoneName": "fpv_scav_hideout",
+        "ZoneLocation": "bigmap",
+        "ZoneType": "visit",
+        "FlareType": "",
+        "Position": {
+            "X": "27.07011",
+            "Y": "5.999362",
+            "Z": "-56.56851",
+            "W": "0"
+        },
+        "Rotation": {
+            "X": "0",
+            "Y": "-0.09584575",
+            "Z": "0",
+            "W": "0.9953962"
+        },
+        "Scale": {
+            "X": "7.5",
+            "Y": "2.5",
+            "Z": "5",
+            "W": "0"
+        }
+    }
+]
