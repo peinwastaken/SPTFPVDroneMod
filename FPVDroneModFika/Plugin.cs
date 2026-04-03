@@ -6,6 +6,7 @@ using Fika.Core.Modding;
 using Fika.Core.Modding.Events;
 using Fika.Core.Networking;
 using Fika.Core.Networking.LiteNetLib.Utils;
+using FPVDroneModClient.Helpers;
 using FPVDroneModFika.Components;
 using FPVDroneModFika.Packets;
 using SPT.Reflection.Patching;
@@ -32,6 +33,8 @@ namespace FPVDroneModFika
 
         private static void RegisterPackets(FikaNetworkManagerCreatedEvent fikaNetworkManagerCreatedEvent)
         {
+            DebugLogger.LogInfo("registering drone mod fika sync packets");
+            
             IFikaNetworkManager networkManager = Singleton<IFikaNetworkManager>.Instance;
             
             networkManager.RegisterPacket<DronePositionPacket>(packet => FikaDroneManager.Instance.OnReceivedPositionPacket(packet));

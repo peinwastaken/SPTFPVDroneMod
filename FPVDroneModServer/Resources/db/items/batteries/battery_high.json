@@ -31,8 +31,8 @@
         },
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 351229,
-        "handbookPriceRoubles": 175221,
+        "fleaPriceRoubles": 118544,
+        "handbookPriceRoubles": 65221,
         "addtoTraders": true,
         "traders": {
             "SKIER": {
@@ -45,7 +45,7 @@
                     },
                     "barters": [
                         {
-                            "count": 291229,
+                            "count": 118544,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]

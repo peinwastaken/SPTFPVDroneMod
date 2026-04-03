@@ -69,7 +69,7 @@
         "clearClonedProps": true,
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 532455,
+        "fleaPriceRoubles": 432455,
         "handbookPriceRoubles": 55339,
         "addtoTraders": true,
         "traders": {
@@ -83,7 +83,7 @@
                     },
                     "barters": [
                         {
-                            "count": 532455,
+                            "count": 432455,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]
