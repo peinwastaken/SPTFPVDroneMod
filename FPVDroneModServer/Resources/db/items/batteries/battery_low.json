@@ -57,7 +57,7 @@
         "StaticLootContainers": [
             {
                 "ContainerName": "LOOTCONTAINER_AIRDROP_WEAPON_CRATE",
-                "Probability": 3000
+                "Probability": 5000
             },
             {
                 "ContainerName": "LOOTCONTAINER_WOODEN_CRATE",
