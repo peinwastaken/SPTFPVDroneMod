@@ -1,0 +1,364 @@
+{
+    "bigmap": [
+        {
+            "locationId": "(30.9449 4.4295 -54.9174)",
+            "probability": 0.25,
+            "template": {
+                "Id": "item_quest_fpv_parts",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": 30.9449,
+                    "y": 4.4295,
+                    "z": -54.9174
+                },
+                "Rotation": {
+                    "x": 270.890656,
+                    "y": 85.9875259,
+                    "z": 181.082275
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "groupPoint[0]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 30.9449,
+                            "y": 4.4295,
+                            "z": -54.9174
+                        },
+                        "Rotation": {
+                            "x": 270.890656,
+                            "y": 85.9875259,
+                            "z": 181.082275
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[1]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 28.1231,
+                            "y": 4.415,
+                            "z": -54.4409
+                        },
+                        "Rotation": {
+                            "x": 270.8173,
+                            "y": 193.3959,
+                            "z": 181.0797
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[2]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 24.934,
+                            "y": 4.4298,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.8106,
+                            "y": 278.1232,
+                            "z": 181.0801
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[3]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 26.8504,
+                            "y": 6.3349,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.7843,
+                            "y": 263.0326,
+                            "z": 181.078
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": false,
+                "Root": "69cc434ae851d88743bbfe69",
+                "Items": [
+                    {
+                        "_id": "69cc434ae851d88743bbfe69",
+                        "_tpl": "69cc26a1a83b6ef33dbbfe58",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "locationId": "(28.1231 4.415 -54.4409)",
+            "probability": 0.25,
+            "template": {
+                "Id": "item_quest_fpv_parts",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": 28.1231,
+                    "y": 4.415,
+                    "z": -54.4409
+                },
+                "Rotation": {
+                    "x": 270.8173,
+                    "y": 193.3959,
+                    "z": 181.0797
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "groupPoint[0]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 30.9449,
+                            "y": 4.4295,
+                            "z": -54.9174
+                        },
+                        "Rotation": {
+                            "x": 270.890656,
+                            "y": 85.9875259,
+                            "z": 181.082275
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[1]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 28.1231,
+                            "y": 4.415,
+                            "z": -54.4409
+                        },
+                        "Rotation": {
+                            "x": 270.8173,
+                            "y": 193.3959,
+                            "z": 181.0797
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[2]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 24.934,
+                            "y": 4.4298,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.8106,
+                            "y": 278.1232,
+                            "z": 181.0801
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[3]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 26.8504,
+                            "y": 6.3349,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.7843,
+                            "y": 263.0326,
+                            "z": 181.078
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": false,
+                "Root": "69ce7df79477e14b9fd62c5a",
+                "Items": [
+                    {
+                        "_id": "69ce7df79477e14b9fd62c5a",
+                        "_tpl": "69cc26a1a83b6ef33dbbfe58",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "locationId": "(24.934 4.4298 -58.6356)",
+            "probability": 0.25,
+            "template": {
+                "Id": "item_quest_fpv_parts",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": 24.934,
+                    "y": 4.4298,
+                    "z": -58.6356
+                },
+                "Rotation": {
+                    "x": 270.8106,
+                    "y": 278.1232,
+                    "z": 181.0801
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "groupPoint[0]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 30.9449,
+                            "y": 4.4295,
+                            "z": -54.9174
+                        },
+                        "Rotation": {
+                            "x": 270.890656,
+                            "y": 85.9875259,
+                            "z": 181.082275
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[1]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 28.1231,
+                            "y": 4.415,
+                            "z": -54.4409
+                        },
+                        "Rotation": {
+                            "x": 270.8173,
+                            "y": 193.3959,
+                            "z": 181.0797
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[2]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 24.934,
+                            "y": 4.4298,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.8106,
+                            "y": 278.1232,
+                            "z": 181.0801
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[3]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 26.8504,
+                            "y": 6.3349,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.7843,
+                            "y": 263.0326,
+                            "z": 181.078
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": false,
+                "Root": "69ce7dfec0dd2aa537d62c5b",
+                "Items": [
+                    {
+                        "_id": "69ce7dfec0dd2aa537d62c5b",
+                        "_tpl": "69cc26a1a83b6ef33dbbfe58",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "locationId": "(26.8504 6.3349 -58.6356)",
+            "probability": 0.25,
+            "template": {
+                "Id": "item_quest_fpv_parts",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": 26.8504,
+                    "y": 6.3349,
+                    "z": -58.6356
+                },
+                "Rotation": {
+                    "x": 270.7843,
+                    "y": 263.0326,
+                    "z": 181.078
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "groupPoint[0]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 30.9449,
+                            "y": 4.4295,
+                            "z": -54.9174
+                        },
+                        "Rotation": {
+                            "x": 270.890656,
+                            "y": 85.9875259,
+                            "z": 181.082275
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[1]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 28.1231,
+                            "y": 4.415,
+                            "z": -54.4409
+                        },
+                        "Rotation": {
+                            "x": 270.8173,
+                            "y": 193.3959,
+                            "z": 181.0797
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[2]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 24.934,
+                            "y": 4.4298,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.8106,
+                            "y": 278.1232,
+                            "z": 181.0801
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[3]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": 26.8504,
+                            "y": 6.3349,
+                            "z": -58.6356
+                        },
+                        "Rotation": {
+                            "x": 270.7843,
+                            "y": 263.0326,
+                            "z": 181.078
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": false,
+                "Root": "69ce7e035d891f2439d62c5c",
+                "Items": [
+                    {
+                        "_id": "69ce7e035d891f2439d62c5c",
+                        "_tpl": "69cc26a1a83b6ef33dbbfe58",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

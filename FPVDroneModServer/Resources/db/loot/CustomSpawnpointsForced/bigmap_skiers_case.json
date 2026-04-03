@@ -1,0 +1,80 @@
+{
+    "bigmap": [
+        {
+            "locationId": "(-203.9278 0.9953 -146.4115)",
+            "probability": 1,
+            "template": {
+                "Id": "quest_item_skiers_case",
+                "IsContainer": false,
+                "useGravity": false,
+                "randomRotation": false,
+                "Position": {
+                    "x": -203.9278,
+                    "y": 0.9953,
+                    "z": -146.4115
+                },
+                "Rotation": {
+                    "x": 9.5904,
+                    "y": 180.4926,
+                    "z": 0
+                },
+                "IsGroupPosition": true,
+                "GroupPositions": [
+                    {
+                        "Name": "groupPoint[0]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": -203.9278,
+                            "y": 0.9953,
+                            "z": -146.4115
+                        },
+                        "Rotation": {
+                            "x": 9.5904,
+                            "y": 180.4926,
+                            "z": 0
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[1]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": -208.7961,
+                            "y": 1.0334,
+                            "z": -144.5732
+                        },
+                        "Rotation": {
+                            "x": 9.5904,
+                            "y": 286.8373,
+                            "z": 0
+                        }
+                    },
+                    {
+                        "Name": "groupPoint[2]",
+                        "Weight": 1,
+                        "Position": {
+                            "x": -202.5579,
+                            "y": 1.0348,
+                            "z": -146.5816
+                        },
+                        "Rotation": {
+                            "x": 9.5904,
+                            "y": 113.8096,
+                            "z": 0
+                        }
+                    }
+                ],
+                "IsAlwaysSpawn": false,
+                "Root": "69cd338e421c5f7ac824355e",
+                "Items": [
+                    {
+                        "_id": "69cd338e421c5f7ac824355e",
+                        "_tpl": "69cd304aea0a24133d24355c",
+                        "upd": {
+                            "StackObjectsCount": 1
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
