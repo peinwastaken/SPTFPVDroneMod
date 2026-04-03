@@ -36,6 +36,24 @@
                             }
                         ]
                     }
+                },
+                {
+                    "_id": "69cfaf6f128fd1c321d62c5e",
+                    "_mergeSlotWithChildren": false,
+                    "_name": "mod_battery",
+                    "_parent": "690e9265772bfce1d043966d",
+                    "_proto": "55d30c4c4bdc2db4468b457e",
+                    "_required": false,
+                    "_props": {
+                        "filters": [
+                            {
+                                "Filter": [
+                                    "69cfa2c796631852cbd62c5d"
+                                ],
+                                "Shift": 0
+                            }
+                        ]
+                    }
                 }
             ],
             "InsuranceDisabled": true,
@@ -56,7 +74,7 @@
         "addtoTraders": true,
         "traders": {
             "SKIER": {
-                "69651e534b99a7555d4e1b35": {
+                "69cfb16ba007167122d62c5f": {
                     "barterSettings": {
                         "loyalLevel": 3,
                         "unlimitedCount": true,

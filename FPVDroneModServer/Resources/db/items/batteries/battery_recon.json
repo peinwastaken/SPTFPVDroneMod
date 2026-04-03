@@ -1,19 +1,19 @@
 {
-    "69c940c51c2a1d6e0b9b5ce1": {
-        "itemTplToClone": "5d0377ce86f774186372f689",
+    "69cfa2c796631852cbd62c5d": {
+        "itemTplToClone": "590a358486f77429692b2790",
         "parentId": "69c932c7a7d59932499b5cde",
         "handbookParentId": "5b47574386f77428ca22b2ed",
         "overrideProperties": {
             "ExaminedByDefault": false,
             "Prefab": {
-                "path": "assets/content/items/batteries/battery_high.bundle",
+                "path": "assets/content/items/barter/item_energy_accum/item_energy_accum.bundle",
                 "rcid": ""
             },
             "Height": 1,
             "Width": 2,
-            "Weight": 1.520,
-            "MaxResource": 100,
-            "Capacity": 10000,
+            "Weight": 0.870,
+            "MaxResource": 50,
+            "Capacity": 5000,
             "ExtraSizeUp": 1,
             "ExtraSizeForceAdd": true,
             "ShortName": "Battery",
@@ -24,28 +24,28 @@
         },
         "locales": {
             "en": {
-                "name": "High-density lithium battery",
+                "name": "Reconnaissance drone battery",
                 "shortName": "Battery",
-                "description": "A dense lithium-based battery pack optimized for maximum energy storage. Designed for extended operation in demanding conditions. Significantly heavier than standard battery units."
+                "description": "A lithium-polymer battery designed for use on civilian drones. Built to facilitate aerial photography and smooth, predictable flight."
             }
         },
         "ModdableItemWhitelist": [],
         "ModdableItemBlacklist": [],
-        "fleaPriceRoubles": 351229,
-        "handbookPriceRoubles": 175221,
+        "fleaPriceRoubles": 438912,
+        "handbookPriceRoubles": 82252,
         "addtoTraders": true,
         "traders": {
             "SKIER": {
-                "69c940baf05b1ec34e9b5ce0": {
+                "69cfb17f9cbb71c9bcd62c60": {
                     "barterSettings": {
-                        "loyalLevel": 3,
+                        "loyalLevel": 2,
                         "unlimitedCount": true,
                         "stackObjectsCount": 9999999,
                         "buyRestrictionMax": 1
                     },
                     "barters": [
                         {
-                            "count": 291229,
+                            "count": 68544,
                             "_tpl": "MONEY_ROUBLES"
                         }
                     ]

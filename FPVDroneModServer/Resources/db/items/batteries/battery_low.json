@@ -2,7 +2,7 @@
     "69ca5a1a614396c9669b5ce2": {
         "itemTplToClone": "5d0377ce86f774186372f689",
         "parentId": "69c932c7a7d59932499b5cde",
-        "handbookParentId": "5b47574386f77428ca22b345",
+        "handbookParentId": "5b47574386f77428ca22b2ed",
         "overrideProperties": {
             "ExaminedByDefault": false,
             "Prefab": {
@@ -13,7 +13,7 @@
             "Width": 2,
             "Weight": 0.870,
             "MaxResource": 50,
-            "Capacity": 8000,
+            "Capacity": 5000,
             "ExtraSizeUp": 1,
             "ExtraSizeForceAdd": true,
             "ShortName": "Battery",
