@@ -70,21 +70,25 @@ namespace FPVDroneModServer
             //await recipeService.CreateHideoutRecipes(Assembly.GetExecutingAssembly(), "db/recipes");
             //await assortService.CreateCustomAssortSchemes(Assembly.GetExecutingAssembly(), "db/assort");
             
-            // add DroneItem and PayloadItem to item case
+            // add items to item case
             containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "6964ea3a5e4c1218314e1b2f");
             containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "69669ea64847b58fd5393f71");
+            containerHelper.AddToFilter("59fb042886f7746c5005a7b2", "69c932c7a7d59932499b5cde");
             
-            // add DroneItem and PayloadItem to weapon case
+            // add items to weapon case
             containerHelper.AddToFilter("59fb023c86f7746d0d4b423c", "6964ea3a5e4c1218314e1b2f");
             containerHelper.AddToFilter("59fb023c86f7746d0d4b423c", "69669ea64847b58fd5393f71");
+            containerHelper.AddToFilter("59fb023c86f7746d0d4b423c", "69c932c7a7d59932499b5cde");
             
-            // add DroneItem and PayloadItem to thicc case
+            // add items to thicc case
             containerHelper.AddToFilter("5c0a840b86f7742ffa4f2482", "6964ea3a5e4c1218314e1b2f");
             containerHelper.AddToFilter("5c0a840b86f7742ffa4f2482", "69669ea64847b58fd5393f71");
+            containerHelper.AddToFilter("5c0a840b86f7742ffa4f2482", "69c932c7a7d59932499b5cde");
             
-            // add DroneItem and PayloadItem to thicc weapon case
+            // add items to thicc weapon case
             containerHelper.AddToFilter("5b6d9ce188a4501afc1b2b25", "6964ea3a5e4c1218314e1b2f");
             containerHelper.AddToFilter("5b6d9ce188a4501afc1b2b25", "69669ea64847b58fd5393f71");
+            containerHelper.AddToFilter("5b6d9ce188a4501afc1b2b25", "69c932c7a7d59932499b5cde");
             
             logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
             
