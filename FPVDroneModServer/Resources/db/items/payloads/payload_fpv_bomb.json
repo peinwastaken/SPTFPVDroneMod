@@ -39,25 +39,8 @@
         "fleaPriceRoubles": 209503,
         "handbookPriceRoubles": 82733,
         "addtoModSlots": true,
-        "addtoTraders": true,
-        "traders": {
-            "SKIER": {
-                "6967698a305e688a36c06bba": {
-                    "barterSettings": {
-                        "loyalLevel": 2,
-                        "unlimitedCount": true,
-                        "stackObjectsCount": 9999999,
-                        "buyRestrictionMax": 2
-                    },
-                    "barters": [
-                        {
-                            "count": 209503,
-                            "_tpl": "MONEY_ROUBLES"
-                        }
-                    ]
-                }
-            }
-        },
+        "addtoTraders": false,
+        "traders": {},
         "addtoBots": false,
         "addtostaticlootcontainer": false,
         "StaticLootContainers": [

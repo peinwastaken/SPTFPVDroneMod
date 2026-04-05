@@ -1,6 +1,110 @@
 {
     "MECHANIC": {
-        "barter_scheme": {},
-        "loyal_level_items": {}
+        "items": [
+            {
+                "_id": "69d22fa0fcecf0aa3af565d3",
+                "_tpl": "690e9265772bfce1d043966d",
+                "upd": {
+                    "unlimitedCount": true,
+                    "stackObjectsCount": 9999999,
+                    "buyRestrictionMax": 2
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            },
+            {
+                "_id": "69d235bac19739bf97f565d8",
+                "_tpl": "6967050ffbc7d14017c06bb7",
+                "upd": {
+                    "unlimitedCount": true,
+                    "stackObjectsCount": 9999999,
+                    "buyRestrictionMax": 2
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            },
+            {
+                "_id": "69d2344c09e76662ccf565d5",
+                "_tpl": "69ca5a1a614396c9669b5ce2",
+                "upd": {
+                    "unlimitedCount": true,
+                    "stackObjectsCount": 9999999,
+                    "buyRestrictionMax": 2
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            },
+            {
+                "_id": "69d2340fe11e9ea00ef565d4",
+                "_tpl": "68f5333abc75f09d96d97500",
+                "upd": {
+                    "unlimitedCount": true,
+                    "stackObjectsCount": 9999999,
+                    "buyRestrictionMax": 2
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            },
+            {
+                "_id": "69d234c94f0969f379f565d7",
+                "_tpl": "68f51bfb3e92385d1908db68",
+                "upd": {
+                    "unlimitedCount": true,
+                    "stackObjectsCount": 9999999,
+                    "buyRestrictionMax": 2
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            }
+        ],
+        "barter_scheme": {
+            "69d22fa0fcecf0aa3af565d3": [
+                [
+                    {
+                        "count": 343485,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ],
+            "69d235bac19739bf97f565d8": [
+                [
+                    {
+                        "count": 209503,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ],
+            "69d2340fe11e9ea00ef565d4": [
+                [
+                    {
+                        "count": 74531,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ],
+            "69d2344c09e76662ccf565d5": [
+                [
+                    {
+                        "count": 68544,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ],
+            "69d234c94f0969f379f565d7": [
+                [
+                    {
+                        "count": 50493,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ]
+        },
+        "loyal_level_items": {
+            "69d22fa0fcecf0aa3af565d3": 2,
+            "69d2340fe11e9ea00ef565d4": 2,
+            "69d2344c09e76662ccf565d5": 2,
+            "69d234c94f0969f379f565d7": 2,
+            "69d235bac19739bf97f565d8": 2
+        }
     }
 }

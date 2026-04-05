@@ -33,25 +33,8 @@
         "ModdableItemBlacklist": [],
         "fleaPriceRoubles": 68544,
         "handbookPriceRoubles": 22252,
-        "addtoTraders": true,
-        "traders": {
-            "SKIER": {
-                "69ca5a1d309624407d9b5ce3": {
-                    "barterSettings": {
-                        "loyalLevel": 2,
-                        "unlimitedCount": true,
-                        "stackObjectsCount": 9999999,
-                        "buyRestrictionMax": 1
-                    },
-                    "barters": [
-                        {
-                            "count": 68544,
-                            "_tpl": "MONEY_ROUBLES"
-                        }
-                    ]
-                }
-            }
-        },
+        "addtoTraders": false,
+        "traders": {},
         "addtoBots": false,
         "addtostaticlootcontainer": false,
         "StaticLootContainers": [

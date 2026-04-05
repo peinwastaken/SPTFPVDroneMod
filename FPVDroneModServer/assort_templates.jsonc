@@ -1,0 +1,30 @@
+// for easy access
+
+// drone, bad battery and frag payload
+/*
+{
+    "_id": "random mongoId goes here",
+    "_tpl": "690e9265772bfce1d043966d",
+    "upd": {
+        "StackObjectsCount": 1
+    }
+},
+{
+"_id": "random mongoId goes here",
+"_tpl": "69ca5a1a614396c9669b5ce2",
+"slotId": "mod_battery",
+"parentId": "same base item _id",
+},
+{
+"_id": "random mongoId goes here",
+"_tpl": "6967050ffbc7d14017c06bb7",
+"slotId": "mod_payload",
+"parentId": "same base item _id",
+},
+{
+"_id": "random mongoId goes here",
+"_tpl": "same base item _id",
+"upd": {
+"StackObjectsCount": 1
+}
+*/

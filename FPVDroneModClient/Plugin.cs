@@ -54,7 +54,7 @@ namespace FPVDroneModClient
 
             BrainManager.AddCustomLayer(typeof(DroneCombatLayer),
                 BotGlobals.AllBrainNames,
-                9999
+                9999 // wtf :waytoodank: TODO: rewrite ai stuff
             );
 
             List<TemplateIdToObjectType> mappings =

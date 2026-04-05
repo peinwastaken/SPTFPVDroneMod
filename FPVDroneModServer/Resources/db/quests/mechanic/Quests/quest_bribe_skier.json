@@ -29,7 +29,7 @@
             ],
             "AvailableForStart": [
                 {
-                    "availableAfter": 1800,
+                    "availableAfter": 0,
                     "conditionType": "Quest",
                     "dispersion": 0,
                     "dynamicLocale": false,

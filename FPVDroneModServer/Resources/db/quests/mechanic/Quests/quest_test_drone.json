@@ -165,13 +165,13 @@
                     "findInRaid": true,
                     "unknown": false,
                     "id": "69cd8f5377b2f2cad2243573",
-                    "target": "68f51bfb3e92385d1908db68",
+                    "target": "69d239324420943e08f565e1",
                     "type": "Item",
                     "value": 1,
                     "index": 1,
                     "items": [
                         {
-                            "_id": "68f51bfb3e92385d1908db68",
+                            "_id": "69d239324420943e08f565e1",
                             "_tpl": "68f51bfb3e92385d1908db68",
                             "upd": {
                                 "StackObjectsCount": 1
@@ -184,13 +184,13 @@
                     "findInRaid": true,
                     "unknown": false,
                     "id": "69cd8f6e13d90780d7243575",
-                    "target": "68f5333abc75f09d96d97500",
+                    "target": "69d2392c9039868265f565e0",
                     "type": "Item",
                     "value": 1,
                     "index": 2,
                     "items": [
                         {
-                            "_id": "68f5333abc75f09d96d97500",
+                            "_id": "69d2392c9039868265f565e0",
                             "_tpl": "68f5333abc75f09d96d97500",
                             "upd": {
                                 "StackObjectsCount": 1
