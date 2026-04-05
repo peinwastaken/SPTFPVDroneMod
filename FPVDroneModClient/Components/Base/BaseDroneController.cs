@@ -10,6 +10,7 @@ using EFT.Ballistics;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Interface;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -203,6 +204,7 @@ namespace FPVDroneModClient.Components.Base
             
             enabled = true;
             IsBeingControlled = true;
+            DroneSoundController.AudioSource.volume = GeneralConfig.DroneAudioVolume.Value;
             DroneSoundController.AudioSource.Play();
             DroneSoundController.AudioSource.spatialBlend = isDoneLocally ? 0 : 1;
             DroneSoundController.AudioSource.outputAudioMixerGroup = Singleton<BetterAudio>.Instance.WorldMixer;

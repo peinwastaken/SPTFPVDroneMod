@@ -10,6 +10,7 @@ namespace FPVDroneModClient.Config
         public static ConfigEntry<bool> EnableDebug;
         public static ConfigEntry<bool> DisableCulling;
         public static ConfigEntry<bool> EnableTankPermaDeath;
+        public static ConfigEntry<float> DroneAudioVolume;
 
         public static void Bind(int order, string category, ConfigFile cfg)
         {
@@ -26,6 +27,12 @@ namespace FPVDroneModClient.Config
                 new ConfigDescription(
                     "Enables the permanent death of the BTR and it's driver.", null,
                     new ConfigurationManagerAttributes { Order = 980 }
+                )
+            );
+            DroneAudioVolume = cfg.Bind(formatted, "Drone Audio Volume", 0.2f,
+                new ConfigDescription(
+                    "Changes the drone's motor sound volume. and stuff", new AcceptableValueRange<float>(0f, 3f),
+                    new ConfigurationManagerAttributes { Order = 970 }
                 )
             );
         }
