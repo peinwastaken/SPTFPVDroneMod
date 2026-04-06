@@ -59,21 +59,6 @@
             ],
             "AvailableForStart": [
                 {
-                    "availableAfter": 0,
-                    "conditionType": "Quest",
-                    "dispersion": 0,
-                    "dynamicLocale": false,
-                    "globalQuestCounterId": "",
-                    "id": "61abc61856152b140448e91e",
-                    "index": 0,
-                    "parentId": "",
-                    "status": [
-                        4
-                    ],
-                    "target": "69cc2b207cbf66a974bbfe59",
-                    "visibilityConditions": []
-                },
-                {
                     "compareMethod": ">=",
                     "conditionType": "Level",
                     "dynamicLocale": false,
@@ -81,7 +66,7 @@
                     "id": "61ad520c118c386d912fd9b5",
                     "index": 0,
                     "parentId": "",
-                    "value": 15,
+                    "value": 99,
                     "visibilityConditions": []
                 }
             ],
