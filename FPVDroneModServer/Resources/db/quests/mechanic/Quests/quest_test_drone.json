@@ -41,6 +41,14 @@
                                 "weaponCaliber": [],
                                 "weaponModsExclusive": [],
                                 "weaponModsInclusive": []
+                            },
+                            {
+                                "conditionType": "Location",
+                                "dynamicLocale": false,
+                                "id": "69d43899273d57957df17955",
+                                "target": [
+                                    "Woods"
+                                ]
                             }
                         ],
                         "id": "69cbe324bd0a0043d5f2911f"

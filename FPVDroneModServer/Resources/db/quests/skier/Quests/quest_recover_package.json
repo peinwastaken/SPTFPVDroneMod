@@ -85,6 +85,14 @@
                                 "weaponCaliber": [],
                                 "weaponModsExclusive": [],
                                 "weaponModsInclusive": []
+                            },
+                            {
+                                "conditionType": "Location",
+                                "dynamicLocale": false,
+                                "id": "69d439270b591c5dc9f17956",
+                                "target": [
+                                    "bigmap"
+                                ]
                             }
                         ],
                         "id": "69cd21adee0157be5e243556"
