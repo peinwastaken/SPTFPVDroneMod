@@ -68,13 +68,14 @@ namespace FPVDroneModFika.Components
             if (DroneController.IsAboutToBeDestroyed) return;
             
             Rigidbody rb = DroneController.RigidBody;
-
-            // DebugLogger.LogInfo($"{data.Position.x} {data.Position.y} {data.Position.z} | {data.Thrust}");
-            rb.position = packet.Position;
-            rb.rotation = packet.Rotation;
-            rb.velocity = packet.Velocity;
-            rb.angularVelocity = packet.AngularVelocity;
-            DroneController.Thrust = packet.Thrust;
+            if (rb)
+            {
+                rb.position = packet.Position;
+                rb.rotation = packet.Rotation;
+                rb.velocity = packet.Velocity;
+                rb.angularVelocity = packet.AngularVelocity;
+                DroneController.Thrust = packet.Thrust;
+            }
         }
 
         public void SyncDroneControl(DroneControlPacket packet)
