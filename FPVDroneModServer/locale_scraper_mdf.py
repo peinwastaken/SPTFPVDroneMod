@@ -89,9 +89,9 @@ class LocaleScraper:
         
         return None
 
-    def load_existing_locales(self) -> bool:
+    def load_existing_locales(self, outPath : str) -> bool:
         """Load and normalize existing en.json if it exists"""
-        locale_path = self.root_path / "db" / "CustomLocales" / "en.json"
+        locale_path = self.root_path / outPath / "en.json"
         if locale_path.exists():
             try:
                 with open(locale_path, 'r', encoding='utf-8') as f:
@@ -338,7 +338,7 @@ class LocaleScraper:
         self.get_paths_map()
 
         # Load existing locales (and normalize them)
-        if not self.load_existing_locales():
+        if not self.load_existing_locales(self.resources_paths["OutputPath"]):
             return False
         print()
 
