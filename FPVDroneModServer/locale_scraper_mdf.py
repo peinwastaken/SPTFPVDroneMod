@@ -62,13 +62,13 @@ class LocaleScraper:
         }
 
         self.resources_paths = {
-            "CustomItems": "CustomItems",
-            "CustomHeads": "CustomHeads",
-            "CustomVoices": "CustomVoices",
-            "CustomClothing": "CustomClothing",
-            "CustomAchievements": "CustomAchievements",
-            "CustomQuests": "CustomQuests",
-            "OutputPath": "CustomLocales"
+            "CustomItems": "db/CustomItems",
+            "CustomHeads": "db/CustomHeads",
+            "CustomVoices": "db/CustomVoices",
+            "CustomClothing": "db/CustomClothing",
+            "CustomAchievements": "db/CustomAchievements",
+            "CustomQuests": "db/CustomQuests",
+            "OutputPath": "db/CustomLocales"
         }
 
     def get_resources_folder(self) -> Optional[Path]:

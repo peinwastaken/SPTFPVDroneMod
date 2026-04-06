@@ -5,5 +5,5 @@
   "CustomClothing": "db/clothing",
   "CustomAchievements": "db/achievements",
   "CustomQuests": "db/quests",
-  "OutputPath": "../"
+  "OutputPath": "db/locales"
 }
