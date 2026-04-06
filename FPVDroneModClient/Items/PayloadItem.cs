@@ -29,7 +29,7 @@ namespace FPVDroneModClient.Items
         public readonly bool IsAntiTank = isAntiTank;
     }
 
-    public class PayloadItem : SlotToggleableItem, IExplosive
+    public class PayloadItem : SlotToggleableItem<PayloadItem>, IExplosive
     {
         public float Damage { get; set; }
         public bool IsAntiTank { get; set; }

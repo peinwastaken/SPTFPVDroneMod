@@ -11,7 +11,7 @@ namespace FPVDroneModClient.Items
         public int Capacity = capacity;
     }
     
-    public class BatteryItem : SlotToggleableItem
+    public class BatteryItem : SlotToggleableItem<BatteryItem>
     {
         [GAttribute26]
         [JsonProperty("Resource")]

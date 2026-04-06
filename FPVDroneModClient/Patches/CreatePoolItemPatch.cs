@@ -59,7 +59,7 @@ namespace FPVDroneModClient.Patches
                 DebugLogger.LogInfo($"Created {batteryItem.Name}! {item.StringTemplateId}");
             }
 
-            if (item is SlotToggleableItem toggleableItem)
+            if (item is BaseSlotToggleable toggleableItem)
             {
                 SlotVisibilityToggler toggler = gameObject.GetComponentInChildren<SlotVisibilityToggler>();
                 if (toggler)
