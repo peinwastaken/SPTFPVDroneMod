@@ -1,0 +1,9 @@
+{
+  "CustomItems": "db/items",
+  "CustomHeads": "db/heads",
+  "CustomVoices": "db/voices",
+  "CustomClothing": "db/clothing",
+  "CustomAchievements": "db/achievements",
+  "CustomQuests": "db/quests",
+  "OutputPath": "../"
+}
