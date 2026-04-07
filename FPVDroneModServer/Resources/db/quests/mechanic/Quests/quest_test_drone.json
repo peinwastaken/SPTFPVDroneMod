@@ -14,7 +14,7 @@
                         "conditions": [
                             {
                                 "bodyPart": [
-                                    "Chest"
+                                    "Head"
                                 ],
                                 "compareMethod": ">=",
                                 "conditionType": "Shots",
