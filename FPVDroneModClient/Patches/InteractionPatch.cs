@@ -61,8 +61,8 @@ namespace FPVDroneModClient.Patches
                         };
                     }
                     
-                    returnClass.CreateAction("Use", () => DroneHelper.UseDrone(droneController));
-                    returnClass.CreateAction("Flip", () => DroneHelper.FlipDrone(droneController));
+                    returnClass.CreateAction("USE DRONE".Localized(), () => DroneHelper.UseDrone(droneController));
+                    returnClass.CreateAction("FLIP DRONE".Localized(), () => DroneHelper.FlipDrone(droneController));
 
                     __result = returnClass;
                     return false;

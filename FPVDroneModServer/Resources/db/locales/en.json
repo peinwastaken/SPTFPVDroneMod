@@ -18,6 +18,8 @@
   "NO BATTERY": "Drone is out of battery",
   "NOT OWNER": "Not drone owner",
   "IS BEING PILOTED": "Drone is being piloted",
+  "FLIP DRONE": "Flip",
+  "USE DRONE": "Use",
   "FPVMOD USING FIKA WARNING": "You are using FPV Drone Mod with Fika. Please also install the Fika Sync plugin from the addons section of the main mod. Thank you!",
   "69c940c51c2a1d6e0b9b5ce1 Name": "High-density lithium battery",
   "69c940c51c2a1d6e0b9b5ce1 ShortName": "Battery",
