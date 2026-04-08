@@ -61,6 +61,7 @@ class LocaleScraper:
             "note": "Note",
         }
 
+        # paths relative to Resources/
         self.resources_paths = {
             "CustomItems": "db/CustomItems",
             "CustomHeads": "db/CustomHeads",
