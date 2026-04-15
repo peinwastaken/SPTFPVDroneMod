@@ -23,7 +23,6 @@ namespace FPVDroneModFika
         private void Awake()
         {
             Logger = base.Logger;
-            Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
             
             PatchManager patchManager = new PatchManager(this, true);
             patchManager.EnablePatches();
