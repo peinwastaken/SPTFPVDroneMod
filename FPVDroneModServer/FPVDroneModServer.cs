@@ -6,6 +6,8 @@ using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using FPVDroneModServer.Services;
+using SPTarkov.Server.Core.Services.Mod;
+using WTTServerCommonLib.Helpers;
 using WTTServerCommonLib.Services;
 using Path = System.IO.Path;
 
@@ -14,54 +16,29 @@ namespace FPVDroneModServer
     [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader + 2)]
     public class FPVDroneModServer(
         SptLogger<FPVDroneModServer> logger,
-        WTTCustomItemServiceExtended itemService,
-        WTTCustomSlotImageService imageService,
-        WTTCustomLocaleService localeService,
         DatabaseService dbService,
         TankDeathService tankDeathService,
         ContainerHelper containerHelper,
+        ItemBaseClassService itemBaseClassService,
         WTTCustomQuestService questService,
         WTTCustomQuestZoneService zoneService,
         WTTCustomLootspawnService lootService,
         WTTCustomHideoutRecipeService recipeService,
-        WTTCustomAssortSchemeService assortService) : IOnLoad
+        WTTCustomAssortSchemeService assortService,
+        WTTCustomItemServiceExtended itemService,
+        WTTCustomSlotImageService imageService,
+        WTTCustomLocaleService localeService,
+        ConfigHelper configHelper) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
+        public string ParentsPath => Path.Combine(AssemblyLocation, "parents");
         
         public async Task OnLoad()
         {
-            Dictionary<MongoId, TemplateItem> itemsDb = dbService.GetTables().Templates.Items;
-            
-            itemsDb["6964ea3a5e4c1218314e1b2f"] = new TemplateItem()
-            {
-                Id = "6964ea3a5e4c1218314e1b2f",
-                Name = "DroneItem",
-                Parent = "566162e44bdc2d3f298b4573",
-                Type = "Node",
-                Properties = new TemplateItemProperties()
-            };
-
-            itemsDb["69669ea64847b58fd5393f71"] = new TemplateItem()
-            {
-                Id = "69669ea64847b58fd5393f71",
-                Name = "PayloadItem",
-                Parent = "54009119af1c881c07000029",
-                Type = "Node",
-                Properties = new TemplateItemProperties()
-            };
-            
-            itemsDb["69c932c7a7d59932499b5cde"] = new TemplateItem()
-            {
-                Id = "69c932c7a7d59932499b5cde",
-                Name = "BatteryItem",
-                Parent = "54009119af1c881c07000029",
-                Type = "Node",
-                Properties = new TemplateItemProperties()
-            };
-            
             tankDeathService.LoadTankStateConfig(ConfigPath, "tankdeathstate.json");
             imageService.CreateSlotImages(Assembly.GetExecutingAssembly(), "slots");
+            await LoadCustomParents();
             await localeService.CreateCustomLocales(Assembly.GetExecutingAssembly(), "db/locales");
             await itemService.CreateCustomItems(Assembly.GetExecutingAssembly(), "db/items");
             await questService.CreateCustomQuests(Assembly.GetExecutingAssembly(), "db/quests");
@@ -95,5 +72,30 @@ namespace FPVDroneModServer
             
             await Task.CompletedTask;
         }
+
+        private async Task LoadCustomParents()
+        {
+            Dictionary<MongoId, TemplateItem> items = dbService.GetTables().Templates.Items;
+            string[] parentJsons = Directory.GetFiles(ParentsPath, "*.json*", SearchOption.AllDirectories);
+
+            foreach (string filePath in parentJsons)
+            {
+                var parentsDict = await configHelper.LoadJsonFileFlexible<Dictionary<string, TemplateItem>>(filePath);
+
+                foreach (var parents in parentsDict)
+                {
+                    foreach (var parent in parents)
+                    {
+                        MongoId id = parent.Key;
+                        TemplateItem tpl = parent.Value;
+                        
+                        items[id] = tpl;
+                        itemBaseClassService.AddItemToCache(id);
+                    }
+                }
+            }
+            
+            //sptItemService
+        } 
     }
 }
