@@ -21,7 +21,7 @@
             "en": {
                 "name": "Package of drone parts",
                 "shortName": "Package",
-                "description": "A package containing various drone components. It's quite battered, but the contents appear to be intact."
+                "description": "A package containing various drone components. Its quite battered, but the contents appear to be intact."
             }
         },
         "ModdableItemWhitelist": [],

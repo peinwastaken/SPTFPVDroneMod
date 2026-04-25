@@ -82,7 +82,7 @@
         },
         "locales": {
             "en": {
-                "name": "FPV Kamikaze Drone",
+                "name": "FPV kamikaze drone",
                 "shortName": "FPV",
                 "description": "Improvised first-person-view (FPV) attack drone, which is capable of carrying various payloads. Commonly assembled from scavenged military and civilian components."
             }

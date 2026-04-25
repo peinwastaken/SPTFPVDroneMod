@@ -25,7 +25,7 @@ namespace FPVDroneModClient.Config
             );
             EnableTankPermaDeath = cfg.Bind(formatted, "Enable BTR Permadeath", true,
                 new ConfigDescription(
-                    "Enables the permanent death of the BTR and it's driver.", null,
+                    "Enables the permanent death of the BTR and its driver.", null,
                     new ConfigurationManagerAttributes { Order = 980 }
                 )
             );

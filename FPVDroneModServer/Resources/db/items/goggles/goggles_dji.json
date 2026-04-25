@@ -90,7 +90,7 @@
         },
         "locales": {
             "en": {
-                "name": "FPV Goggles",
+                "name": "FPV goggles",
                 "shortName": "Goggles",
                 "description": "A first-person view headset designed for remote piloting of drones. Provides a direct video feed from the onboard camera, giving the operator situational awareness and precise control. Common among hobbyists and field operators alike."
             }

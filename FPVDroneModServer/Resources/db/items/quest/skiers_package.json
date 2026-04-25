@@ -21,7 +21,7 @@
             "en": {
                 "name": "Skier's case",
                 "shortName": "Case",
-                "description": "An expensive-looking armored case. A bit scratched up but it's contents should be fine."
+                "description": "An expensive-looking armored case. A bit scratched up but its contents should be fine."
             }
         },
         "ModdableItemWhitelist": [],

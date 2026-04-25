@@ -61,7 +61,7 @@
         },
         "locales": {
             "en": {
-                "name": "Reconnaissance Drone",
+                "name": "Reconnaissance drone",
                 "shortName": "Recon",
                 "description": "Commercial quadcopter designed for aerial imaging and video capture. Features stabilized flight control systems and a high-resolution camera for professional and recon use."
             }
