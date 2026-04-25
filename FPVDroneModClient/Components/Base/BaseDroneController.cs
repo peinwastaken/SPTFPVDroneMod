@@ -3,16 +3,13 @@ using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
-using Mono.Cecil;
 #endif
 using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Drone;
 using FPVDroneModClient.Interface;
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace FPVDroneModClient.Components.Base
 {
@@ -284,7 +281,10 @@ namespace FPVDroneModClient.Components.Base
 
             if (HudController && Owner.IsYourPlayer && IsBeingControlled)
             {
-                HudController.UpdateBatteryLevel(BatteryResource.RelativeValue);
+                if (BatteryResource != null)
+                {
+                    HudController.UpdateBatteryLevel(BatteryResource.RelativeValue);
+                }
 
                 Player player = InstanceHelper.LocalPlayer;
                 float distanceFromPlayer = (player.Position - transform.position).magnitude;
@@ -312,7 +312,7 @@ namespace FPVDroneModClient.Components.Base
                 DebugLogger.LogError("DRONEINPUT IS NULL");
             }
             
-            if (BatteryResource.Value > 0f && SignalController.HasSignal)
+            if (BatteryResource != null && BatteryResource.Value > 0f && SignalController.HasSignal)
             {
                 float speedTarget = Mathf.Lerp(MinPropellerSpeed, MaxPropellerSpeed, Thrust);
                 PropellerSpeed = Mathf.Lerp(PropellerSpeed, speedTarget, PropellerAccelerationSpeed * dt);
