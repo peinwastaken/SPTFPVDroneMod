@@ -10,13 +10,13 @@ namespace FPVDroneModServer
         public override string Name { get; init; } = "FPV Drone Mod";
         public override string Author { get; init; } = "pein";
         public override Version Version { get; init; } = new Version("0.8.0");
-        public override Range SptVersion { get; init; } = new Range("~4.0.0");
+        public override Range SptVersion { get; init; } = new Range("~4.0.13");
         public override string? Url { get; init; } = "https://github.com/peinwastaken/SPTFPVDroneMod";
         public override bool? IsBundleMod { get; init; } = true;
         public override string License { get; init; } = "MIT";
         public override Dictionary<string, Range>? ModDependencies { get; init; } = new ()
         {
-            { "com.wtt.commonlib", new Range("~2.0.0") }
+            { "com.wtt.commonlib", new Range("^2.0.20") }
         };
         
         // unused
