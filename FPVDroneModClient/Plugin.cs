@@ -57,30 +57,6 @@ namespace FPVDroneModClient
                 9999 // wtf :waytoodank: TODO: rewrite ai stuff
             );
 
-            List<TemplateIdToObjectType> mappings =
-            [
-                new TemplateIdToObjectType(
-                    "6964ea3a5e4c1218314e1b2f",
-                    typeof(DroneItem),
-                    typeof(CompoundItemTemplateClass),
-                    (id, tpl) => new DroneItem(id, (CompoundItemTemplateClass)tpl)
-                ),
-                new TemplateIdToObjectType(
-                    "69669ea64847b58fd5393f71",
-                    typeof(PayloadItem),
-                    typeof(PayloadItemTemplate),
-                    (id, tpl) => new PayloadItem(id, (PayloadItemTemplate)tpl)
-                ),
-                new TemplateIdToObjectType(
-                    "69c932c7a7d59932499b5cde",
-                    typeof(BatteryItem),
-                    typeof(BatteryItemTemplate),
-                    (id, tpl) => new BatteryItem(id, (BatteryItemTemplate)tpl)
-                )
-            ];
-
-            CustomTemplateIdToObjectService.AddNewTemplateIdToObjectMapping(mappings);
-
             int itemIndex = GClass3381.IndexOf(typeof(Item));
             GClass3381.List_0.Insert(itemIndex, typeof(DroneItem));
             GClass3381.List_0.Insert(itemIndex, typeof(PayloadItem));

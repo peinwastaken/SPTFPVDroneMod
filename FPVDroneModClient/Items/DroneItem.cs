@@ -5,9 +5,11 @@ using System;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
+using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
+    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(CompoundItemTemplateClass))]
     public class DroneItem : CompoundItem
     {
         public DroneItem(string id, CompoundItemTemplateClass template) : base(id, template)

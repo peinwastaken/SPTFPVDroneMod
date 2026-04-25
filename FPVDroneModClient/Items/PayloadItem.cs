@@ -5,6 +5,7 @@ using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Interface;
+using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
@@ -29,6 +30,7 @@ namespace FPVDroneModClient.Items
         public readonly bool IsAntiTank = isAntiTank;
     }
 
+    [CustomParent("69669ea64847b58fd5393f71", typeof(PayloadItem), typeof(PayloadItemTemplate))]
     public class PayloadItem : SlotToggleableItem<PayloadItem>, IExplosive
     {
         public float Damage { get; set; }

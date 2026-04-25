@@ -3,6 +3,7 @@ using EFT.InventoryLogic;
 using FPVDroneModClient.Helpers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
@@ -11,6 +12,7 @@ namespace FPVDroneModClient.Items
         public int Capacity = capacity;
     }
     
+    [CustomParent("69c932c7a7d59932499b5cde", typeof(BatteryItem), typeof(BatteryItemTemplate))]
     public class BatteryItem : SlotToggleableItem<BatteryItem>
     {
         [GAttribute26]
