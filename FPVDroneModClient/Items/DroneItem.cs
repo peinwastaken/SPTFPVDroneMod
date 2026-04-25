@@ -1,20 +1,22 @@
 #if !UNITY_EDITOR
 using EFT.InventoryLogic;
-using FPVDroneModClient.Components;
 using System;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
-using FPVDroneModClient.Models;
 using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
-    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(CompoundItemTemplateClass))]
-    public class DroneItem : CompoundItem
+    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(ModTemplate))]
+    public class DroneItem : Mod
     {
-        public DroneItem(string id, CompoundItemTemplateClass template) : base(id, template)
+        public DroneItem(string id, ModTemplate template) : base(id, template)
         {
             Slots = Array.ConvertAll(template.Slots, method_7);
+
+            var compatibleAttribute = Attributes.FindAttribute(EItemAttributeId.CompatibleWith);
+
+            Attributes.Remove(compatibleAttribute);
         }
 
         public bool HasThermalModule()

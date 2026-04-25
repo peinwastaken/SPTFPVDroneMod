@@ -2,7 +2,7 @@
     "6964ea3a5e4c1218314e1b2f": {
         "_id": "6964ea3a5e4c1218314e1b2f",
         "_name": "DroneItem",
-        "_parent": "566162e44bdc2d3f298b4573",
+        "_parent": "5448fe124bdc2da5018b4567",
         "_type": "Node",
         "_props": {},
         "addToItemContainers": true,

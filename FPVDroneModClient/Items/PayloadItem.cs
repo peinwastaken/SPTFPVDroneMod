@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Enum;
+using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Interface;
 using WTTClientCommonLib.Attributes;
 
@@ -53,14 +54,20 @@ namespace FPVDroneModClient.Items
             InstantKillDistance = template.InstantKillDistance;
             IsAntiTank = template.IsAntiTank;
             
-            List<ItemAttributeClass> attributes = [
+            List<ItemAttributeClass> attributes = Attributes.GetFilteredAttributes(
+                EItemAttributeId.Resource,
+                EItemAttributeId.Size,
+                EItemAttributeId.LimitedDiscard
+            );
+
+            attributes.AddRange([
                 new(EItemAttributeId.MaxAmmoDamage)
                 {
                     Name = "EXPLOSION DAMAGE",
                     Base = () => Damage,
                     StringValue = Damage.ToString,
                     DisplayType = () => EItemAttributeDisplayType.Compact,
-                    
+
                 },
                 new(EItemAttributeId.ExplosionDistance)
                 {
@@ -96,7 +103,7 @@ namespace FPVDroneModClient.Items
                     StringValue = () => BoolToString(IsAntiTank),
                     DisplayType = () => EItemAttributeDisplayType.Compact
                 }
-            ];
+            ]);
                 
             Attributes = attributes;
         }

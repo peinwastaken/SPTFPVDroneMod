@@ -14,8 +14,6 @@
             "Weight": 0.870,
             "MaxResource": 50,
             "Capacity": 5000,
-            "ExtraSizeUp": 1,
-            "ExtraSizeForceAdd": true,
             "ShortName": "Battery",
             "BackgroundColor": "black",
             "Slots": [],

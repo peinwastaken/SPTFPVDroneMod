@@ -9,13 +9,14 @@
                 "path": "assets/content/items/drones/drone_fpv.bundle",
                 "rcid": ""
             },
-            "Height": 2,
+            "Height": 1,
             "Width": 3,
             "Weight": 0.58,
             "SightingRange": 0,
             "ShortName": "FPV",
             "BackgroundColor": "orange",
             "CanPutIntoDuringTheRaid": true,
+            "MergesWithChildren": true,
             "Slots": [
                 {
                     "_id": "6964da5c21c575ae8d4e1b28",

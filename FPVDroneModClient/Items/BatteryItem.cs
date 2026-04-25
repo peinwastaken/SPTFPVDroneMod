@@ -26,8 +26,10 @@ namespace FPVDroneModClient.Items
             Capacity = template.Capacity;
             Components.Add(ResourceComponent = new ResourceComponent(this, template));
 
-            List<ItemAttributeClass> attributes = FilterAttributes(Attributes,
-                EItemAttributeId.Resource
+            List<ItemAttributeClass> attributes = Attributes.GetFilteredAttributes(
+                EItemAttributeId.Resource,
+                EItemAttributeId.Size,
+                EItemAttributeId.LimitedDiscard
             );
 
             attributes.AddRange([
@@ -41,24 +43,6 @@ namespace FPVDroneModClient.Items
             ]);
             
             Attributes = attributes;
-        }
-
-        private List<ItemAttributeClass> FilterAttributes(List<ItemAttributeClass> list, params EItemAttributeId[] attributes)
-        {
-            List<ItemAttributeClass> retainedAttributes = [];
-            List<EItemAttributeId> attributesList = attributes.ToList();
-            
-            foreach (var attribute in list)
-            {
-                System.Enum id = attribute.Id;
-                
-                if (id is EItemAttributeId attributeId && attributesList.Contains(attributeId))
-                {
-                    retainedAttributes.Add(attribute);
-                }
-            }
-
-            return retainedAttributes;
         }
     }
 }
