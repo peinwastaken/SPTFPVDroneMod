@@ -1,10 +1,12 @@
 using EFT.Ballistics;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Base;
-using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Interface;
-using FPVDroneModClient.Items;
 using UnityEngine;
+#if !UNITY_EDITOR
+using FPVDroneModClient.Items;
+using FPVDroneModClient.Helpers;
+#endif
 
 namespace FPVDroneModClient.Components
 {

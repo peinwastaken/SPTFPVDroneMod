@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Components.Base;
@@ -50,3 +51,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
+#endif

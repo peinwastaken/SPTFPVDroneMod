@@ -4,9 +4,9 @@ using FPVDroneModClient.Models;
 using System;
 using UnityEngine;
 using EFT;
+using EFT.Ballistics;
 #if !UNITY_EDITOR
 using Comfort.Common;
-using EFT.Ballistics;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 #endif

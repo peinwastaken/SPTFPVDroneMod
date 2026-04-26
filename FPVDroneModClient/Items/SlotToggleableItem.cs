@@ -1,3 +1,4 @@
+#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Interface;
@@ -8,3 +9,4 @@ namespace FPVDroneModClient.Items
     {
     }
 }
+#endif
