@@ -14,7 +14,7 @@
             "InstantKillDistance": -1,
             "IsAntiTank": true
         },
-        "addToItemContainers": true,
+        "addToContainerFilters": true,
         "containers": [
             "59fb042886f7746c5005a7b2",
             "59fb023c86f7746d0d4b423c",
