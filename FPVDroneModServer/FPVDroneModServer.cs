@@ -15,7 +15,6 @@ namespace FPVDroneModServer
         WTTCustomQuestService questService,
         WTTCustomQuestZoneService zoneService,
         WTTCustomLootspawnService lootService,
-        WTTCustomHideoutRecipeService recipeService,
         WTTCustomAssortSchemeService assortService,
         WTTCustomItemServiceExtended itemService,
         WTTCustomSlotImageService imageService,
