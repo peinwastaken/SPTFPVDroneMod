@@ -7,10 +7,10 @@ using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
-    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(ItemTemplate))]
-    public class DroneItem : Mod
+    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(CompoundItemTemplate))]
+    public class DroneItem : CompoundItem
     {
-        public DroneItem(string id, ModTemplate template) : base(id, template)
+        public DroneItem(string id, CompoundItemTemplate template) : base(id, template)
         {
             Slots = Array.ConvertAll(template.Slots, CG_Ctor);
 

@@ -12,8 +12,6 @@
             "Height": 1,
             "Width": 2,
             "Weight": 0.965,
-            "ExtraSizeDown": 1,
-            "ExtraSizeForceAdd": true,
             "ShortName": "Frag.",
             "BackgroundColor": "black",
             "Damage": 200,

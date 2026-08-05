@@ -29,7 +29,6 @@ namespace FPVDroneModClient.Items
 
             List<ItemAttribute> attributes = Attributes.GetFilteredAttributes(
                 EItemAttributeId.Resource,
-                EItemAttributeId.Size,
                 EItemAttributeId.LimitedDiscard
             );
 

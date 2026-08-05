@@ -12,8 +12,6 @@
             "Height": 1,
             "Width": 2,
             "Weight": 2.2,
-            "ExtraSizeDown": 1,
-            "ExtraSizeForceAdd": true,
             "ShortName": "HEAT",
             "BackgroundColor": "black",
             "Damage": 350,
