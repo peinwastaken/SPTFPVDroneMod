@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Version>0.8.1</Version>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -12,8 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="SPTarkov.Server.Core" Version="4.0.13" />
-      <PackageReference Include="WTT-ServerCommonLib" Version="2.0.20" />
+      <PackageReference Include="SPTarkov.Server.Core" Version="4.1.1" />
+      <PackageReference Include="WTT-ServerCommonLib" Version="3.0.3" />
     </ItemGroup>
 
     <ItemGroup>

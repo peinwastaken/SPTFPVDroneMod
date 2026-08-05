@@ -1,7 +1,7 @@
 ﻿using FPVDroneModServer.Models;
+using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
-using SPTarkov.Server.Core.Models.Utils;
+using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Utils;
 
 namespace FPVDroneModServer.Services
@@ -13,8 +13,8 @@ namespace FPVDroneModServer.Services
         {
             IsDead = false,
             DeathMap = "",
-            DeathPosition = new Vector() {X = 0, Y = 0, Z = 0},
-            DeathAngle = new Vector() {X = 0, Y = 0, Z = 0}
+            DeathPosition = new Vector {X = 0, Y = 0, Z = 0},
+            DeathAngle = new Vector {X = 0, Y = 0, Z = 0}
         };
         private string _configPath = "";
     

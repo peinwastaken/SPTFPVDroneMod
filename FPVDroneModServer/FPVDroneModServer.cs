@@ -1,15 +1,14 @@
 ﻿using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
-using SPTarkov.Server.Core.Utils.Logger;
 using System.Reflection;
 using FPVDroneModServer.Services;
-using WTTServerCommonLib.Helpers;
+using SPTarkov.Common.Logger;
 using WTTServerCommonLib.Services;
 using Path = System.IO.Path;
 
 namespace FPVDroneModServer
 {
-    [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.PostDBModLoader + 2)]
+    [Injectable(InjectionType = InjectionType.Singleton, TypePriority = OnLoadOrder.Preload + 1)]
     public class FPVDroneModServer(
         SptLogger<FPVDroneModServer> logger,
         TankDeathService tankDeathService,
@@ -25,9 +24,8 @@ namespace FPVDroneModServer
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
-        public string ParentsPath => Path.Combine(AssemblyLocation, "parents");
-        
-        public async Task OnLoad()
+
+        public async Task OnLoadAsync(CancellationToken cancellationToken)
         {
             var assembly = Assembly.GetExecutingAssembly();
             

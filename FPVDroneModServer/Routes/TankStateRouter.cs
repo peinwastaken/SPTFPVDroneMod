@@ -13,11 +13,11 @@ namespace FPVDroneModServer.Routes
         TankStateRouterCallback callback) : StaticRouter(jsonUtil, [
             new RouteAction(
                 "/fpv/tankstate",
-                async (url, info, sessionId, output) => await callback.GetTankState()
+                async (url, info, sessionId, output, cancellationToken) => await callback.GetTankState()
             ),
             new RouteAction<TankStateRequestData>(
                 "/fpv/tankstate/update",
-                async (url, info, sessionId, output) => await callback.UpdateTankState(info)
+                async (url, info, sessionId, output, cancellationToken) => await callback.UpdateTankState(info)
             )
         ])
     {}
