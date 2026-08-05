@@ -20,7 +20,7 @@
         },
         "locales": {
             "en": {
-                "name": "Radio Controller",
+                "name": "Radio controller",
                 "shortName": "Controller",
                 "description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations."
             }

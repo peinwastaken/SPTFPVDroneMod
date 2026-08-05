@@ -30,7 +30,7 @@
   "69cfa2c796631852cbd62c5d Name": "Reconnaissance drone battery",
   "69cfa2c796631852cbd62c5d ShortName": "Battery",
   "69cfa2c796631852cbd62c5d Description": "A lithium-polymer battery designed for use on civilian drones. Built to facilitate aerial photography and smooth, predictable flight.",
-  "68f5333abc75f09d96d97500 Name": "Radio Controller",
+  "68f5333abc75f09d96d97500 Name": "Radio controller",
   "68f5333abc75f09d96d97500 ShortName": "Controller",
   "68f5333abc75f09d96d97500 Description": "A remote control unit for operating drones. Essential for tactical reconnaissance or deploying small drones in high-risk operations.",
   "690e9265772bfce1d043966d Name": "FPV kamikaze drone",
