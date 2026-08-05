@@ -12,7 +12,7 @@ namespace FPVDroneModClient.Components.Gear
     {
         public Player Player;
         
-        public Player.GClass2059<FaceShieldComponent> EyeWearObserver;
+        public Player.SlotObserver<FaceShieldComponent> EyeWearObserver;
 
         private void Awake()
         {
@@ -24,7 +24,7 @@ namespace FPVDroneModClient.Components.Gear
             }
             
             Slot eyeSlot = Player.Equipment.GetSlot(EquipmentSlot.Eyewear);
-            EyeWearObserver = new Player.GClass2059<FaceShieldComponent>(eyeSlot, SubscribeToObserver);
+            EyeWearObserver = new Player.SlotObserver<FaceShieldComponent>(eyeSlot, SubscribeToObserver);
         }
 
         private Action SubscribeToObserver(FaceShieldComponent faceShield, Action handler)
@@ -37,10 +37,9 @@ namespace FPVDroneModClient.Components.Gear
         public void OnEyeWearChanged()
         {
             DebugLogger.LogInfo("updated eyewear");
-            
             FaceShieldComponent component = EyeWearObserver.Component;
             PlayerCameraController cameraController = InstanceHelper.LocalPlayer.gameObject.GetComponent<PlayerCameraController>();
-            cameraController.method_3(component);
+            cameraController.OnFaceShieldComponentChanged(component);
         }
 
         private void OnDestroy()

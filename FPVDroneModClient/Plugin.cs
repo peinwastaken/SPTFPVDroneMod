@@ -1,23 +1,18 @@
 ﻿ #if !UNITY_EDITOR
 using BepInEx;
-using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using DrakiaXYZ.BigBrain.Brains;
-using EFT.CameraControl;
-using EFT.Communications;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Bots.Layers;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Globals;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
-using System.Collections.Generic;
 using FPVDroneModClient.Models;
 using SPT.Reflection.Patching;
-using System.Collections;
-using UnityEngine;
-using WTTClientCommonLib.Services;
+using System;
+using WTTClientCommonLib.Helpers;
 
 namespace FPVDroneModClient
 {
@@ -57,10 +52,11 @@ namespace FPVDroneModClient
                 9999 // wtf :waytoodank: TODO: rewrite ai stuff
             );
 
-            int itemIndex = GClass3381.IndexOf(typeof(Item));
-            GClass3381.List_0.Insert(itemIndex, typeof(DroneItem));
-            GClass3381.List_0.Insert(itemIndex, typeof(PayloadItem));
-            GClass3381.List_0.Insert(itemIndex, typeof(BatteryItem));
+
+            Type itemType = typeof(Item);
+            SortHelper.InsertAfter(typeof(DroneItem), itemType);
+            SortHelper.InsertAfter(typeof(PayloadItem), itemType);
+            SortHelper.InsertAfter(typeof(BatteryItem), itemType);
 
             TankDeathState = RouteHelper.FetchTankDeathState();
             

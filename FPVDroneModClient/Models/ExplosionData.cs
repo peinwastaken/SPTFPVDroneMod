@@ -1,3 +1,4 @@
+using EFT;
 using EFT.InventoryLogic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace FPVDroneModClient.Models
         public float StaminaBurnRate = 0.7f;
         public float InstantKillDistance = -1f;
         public Vector3 EffectDirection = Vector3.up;
-        public IPlayerOwner PlayerOwner = null;
+        public IObserverToPlayerBridge PlayerOwner = null;
         public Item Weapon = null;
     }
 }

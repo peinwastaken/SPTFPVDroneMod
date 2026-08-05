@@ -246,7 +246,7 @@ namespace FPVDroneModClient.Components.Base
             Destroy(gameObject);
         }
 
-        public virtual void OnHit(DamageInfoStruct damageInfo)
+        public virtual void OnHit(DamageInfo damageInfo)
         {
             IDetonatable detonatable = GetComponentInChildren<IDetonatable>(true);
             
@@ -296,7 +296,7 @@ namespace FPVDroneModClient.Components.Base
                 
                 RaycastHit hit;
                 HudController.UpdateAltitude(
-                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayerMaskClass.HighPolyWithTerrainMask) ?
+                    Physics.Raycast(transform.position, Vector3.down, out hit, 999f, LayersMaskController.HighPolyWithTerrainMask) ?
                     hit.distance : 999f
                 );
 
@@ -353,14 +353,14 @@ namespace FPVDroneModClient.Components.Base
         {
             if (!RigidBody) return false;
 
-            bool hit = VectorHelper.HitCheck(RigidBody.position, RigidBody.position + Vector3.down * 1000f, LayerMaskClass.HighPolyWithTerrainNoGrassMask, out RaycastHit result);
+            bool hit = VectorHelper.HitCheck(RigidBody.position, RigidBody.position + Vector3.down * 1000f, LayersMaskController.HighPolyWithTerrainNoGrassMask, out RaycastHit result);
 
             return hit && result.distance < 0.2f;
         }
         #endif
 
         #if UNITY_EDITOR
-        public virtual void OnHit(DamageInfoStruct damageInfo)
+        public virtual void OnHit(DamageInfo damageInfo)
         {
             return;
         }

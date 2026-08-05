@@ -1,4 +1,5 @@
 ﻿#if !UNITY_EDITOR
+using EFT;
 using System;
 using System.Collections.Generic;
 using EFT.InventoryLogic;
@@ -54,7 +55,7 @@ namespace FPVDroneModClient.Items
             InstantKillDistance = template.InstantKillDistance;
             IsAntiTank = template.IsAntiTank;
             
-            List<ItemAttributeClass> attributes = Attributes.GetFilteredAttributes(
+            List<ItemAttribute> attributes = Attributes.GetFilteredAttributes(
                 EItemAttributeId.Resource,
                 EItemAttributeId.Size,
                 EItemAttributeId.LimitedDiscard

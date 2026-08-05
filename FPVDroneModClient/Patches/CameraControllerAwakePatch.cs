@@ -12,7 +12,7 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(PlayerCameraController), nameof(PlayerCameraController.method_0));
+            return AccessTools.Method(typeof(PlayerCameraController), nameof(PlayerCameraController.Construct));
         }
 
         [PatchPostfix]

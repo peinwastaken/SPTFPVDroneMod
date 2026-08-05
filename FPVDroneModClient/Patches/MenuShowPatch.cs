@@ -3,6 +3,7 @@ using BepInEx.Bootstrap;
 using EFT;
 using EFT.Communications;
 using EFT.UI;
+using EFT.UI.Matchmaker;
 using FPVDroneModClient.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
@@ -18,7 +19,7 @@ namespace FPVDroneModClient.Patches
         {
             return AccessTools.Method(typeof(MenuScreen), nameof(MenuScreen.Show), [
                 typeof(Profile),
-                typeof(MatchmakerPlayerControllerClass),
+                typeof(MatchmakerPlayersController),
                 typeof(ESessionMode)
             ]);
         }
@@ -35,7 +36,7 @@ namespace FPVDroneModClient.Patches
             
                 if (fikaInstalled && !syncInstalled)
                 {
-                    NotificationManagerClass.DisplayMessageNotification(
+                    NotificationManager.DisplayMessageNotification(
                         "FPVMOD USING FIKA WARNING".Localized(),
                         ENotificationDurationType.Long,
                         ENotificationIconType.Alert);

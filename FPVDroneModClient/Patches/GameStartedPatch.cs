@@ -35,7 +35,7 @@ namespace FPVDroneModClient.Patches
             InstanceHelper.CreatePostProcessCamera();
             InstanceHelper.LoadTankAssets();
             
-            Camera camera = CameraClass.Instance.Camera;
+            Camera camera = CameraManager.Instance.Camera;
             DroneHelper.LastFov = camera.fieldOfView;
             DroneHelper.LastNearClip = camera.nearClipPlane;
 

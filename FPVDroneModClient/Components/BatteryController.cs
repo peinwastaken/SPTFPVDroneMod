@@ -32,7 +32,7 @@ namespace FPVDroneModClient.Components
             BallisticCollider.OnHitAction += OnHit;
         }
 
-        public void OnHit(DamageInfoStruct damageInfoStruct)
+        public void OnHit(DamageInfo DamageInfo)
         {
             DebugLogger.LogInfo("battery hit");
             Destroy(gameObject);
@@ -45,12 +45,12 @@ namespace FPVDroneModClient.Components
                 if (detonatable is BasePayloadController payload)
                 {
                     DebugLogger.LogInfo("found payload");
-                    payload.OnHit(damageInfoStruct);
+                    payload.OnHit(DamageInfo);
                     return;
                 }
                 
                 DebugLogger.LogInfo("no payload");
-                DroneController.OnHit(damageInfoStruct);
+                DroneController.OnHit(DamageInfo);
             }
         }
         #endif

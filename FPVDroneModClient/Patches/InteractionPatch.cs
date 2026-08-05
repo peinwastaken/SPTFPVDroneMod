@@ -2,6 +2,7 @@
 using EFT;
 using EFT.Communications;
 using EFT.Interactive;
+using EFT.UI;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Helpers;
 using HarmonyLib;
@@ -18,25 +19,25 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GetActionsClass), nameof(GetActionsClass.GetAvailableActions), [
+            return AccessTools.Method(typeof(InteractionContextHelper), nameof(InteractionContextHelper.GetAvailableActions), [
                 typeof(GamePlayerOwner),
-                typeof(GInterface177)
+                typeof(IInteractive)
             ]);
         }
 
         [PatchPrefix]
-        public static bool PatchPrefix(ref ActionsReturnClass __result, GamePlayerOwner owner, GInterface177 interactive)
+        public static bool PatchPrefix(ref AvailableInteractionState __result, GamePlayerOwner owner, IInteractive interactive)
         {
             if (interactive == null) return true;
             
             LootItem lootItem = interactive as LootItem;
             if (lootItem != null && lootItem.Item is DroneItem)
             {
-                ActionsReturnClass returnClass = GetActionsClass.smethod_8(owner, lootItem);
+                AvailableInteractionState returnClass = InteractionContextHelper.GetAvailableActions(owner, lootItem);
                 if (returnClass != null)
                 {
-                    ActionsTypesClass takeAction = null;
-                    foreach (ActionsTypesClass action in returnClass.Actions)
+                    InteractionAction takeAction = null;
+                    foreach (InteractionAction action in returnClass.Actions)
                     {
                         if (action.Name == "Take")
                         {
@@ -53,7 +54,7 @@ namespace FPVDroneModClient.Patches
                     {
                         takeAction.Action = () =>
                         {
-                            NotificationManagerClass.DisplayMessageNotification(
+                            NotificationManager.DisplayMessageNotification(
                                 "IS BEING PILOTED".Localized(),
                                 ENotificationDurationType.Default,
                                 ENotificationIconType.Alert

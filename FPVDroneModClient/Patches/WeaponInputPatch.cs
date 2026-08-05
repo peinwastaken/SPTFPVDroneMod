@@ -1,4 +1,5 @@
 #if !UNITY_EDITOR
+using EFT;
 using EFT.InputSystem;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Globals;
@@ -6,7 +7,6 @@ using FPVDroneModClient.Helpers;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System.Reflection;
-using WeaponInputClass = Class1730;
 
 namespace FPVDroneModClient.Patches
 {
@@ -14,7 +14,7 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(WeaponInputClass), nameof(WeaponInputClass.TranslateCommand));
+            return AccessTools.Method(typeof(FirearmHandsInputTranslator), nameof(FirearmHandsInputTranslator.TranslateCommand));
         }
 
         [PatchPrefix]

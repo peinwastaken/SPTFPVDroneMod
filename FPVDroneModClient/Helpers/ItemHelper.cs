@@ -19,9 +19,9 @@ namespace FPVDroneModClient.Helpers
             return null;
         }
         
-        public static List<ItemAttributeClass> GetFilteredAttributes(this List<ItemAttributeClass> list, params EItemAttributeId[] attributes)
+        public static List<ItemAttribute> GetFilteredAttributes(this List<ItemAttribute> list, params EItemAttributeId[] attributes)
         {
-            List<ItemAttributeClass> retainedAttributes = [];
+            List<ItemAttribute> retainedAttributes = [];
             List<EItemAttributeId> attributesList = attributes.ToList();
             
             foreach (var attribute in list)
@@ -37,7 +37,7 @@ namespace FPVDroneModClient.Helpers
             return retainedAttributes;
         }
         
-        public static ItemAttributeClass FindAttribute(this List<ItemAttributeClass> list, EItemAttributeId attributeToFind)
+        public static ItemAttribute FindAttribute(this List<ItemAttribute> list, EItemAttributeId attributeToFind)
         {
             foreach (var attribute in list)
             {

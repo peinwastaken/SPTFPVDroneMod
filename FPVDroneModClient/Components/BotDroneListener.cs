@@ -133,7 +133,7 @@ namespace FPVDroneModClient.Components
 
             if (controller == null || controller.RigidBody == null) return false;
 
-            return ClosestDroneData?.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayerMaskClass.HighPolyCollider);
+            return ClosestDroneData?.Controller && VectorHelper.VisCheck(Player.MainParts[BodyPartType.head].Position, ClosestDroneData.Controller.RigidBody.position, LayersMaskController.HighPolyCollider);
         }
     }
 }

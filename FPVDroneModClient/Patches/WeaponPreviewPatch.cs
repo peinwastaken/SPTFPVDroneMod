@@ -14,7 +14,7 @@ namespace FPVDroneModClient.Patches
         
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(WeaponPreview), nameof(WeaponPreview.method_5));
+            return AccessTools.Method(typeof(WeaponPreview), nameof(WeaponPreview.PositionGameObject));
         }
 
         [PatchPostfix]

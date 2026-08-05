@@ -15,7 +15,7 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(LootItem), nameof(LootItem.method_3));
+            return AccessTools.Method(typeof(LootItem), nameof(LootItem.CreateLootWithRigidbody));
         }
 
         [PatchPrefix]
@@ -26,7 +26,7 @@ namespace FPVDroneModClient.Patches
             if (controller)
             {
                 Rigidbody rb = __instance.RigidBody;
-                EFTPhysicsClass.GClass745.SupportRigidbody(rb);
+                PhysicsExtensions.UpdateController.SupportRigidbody(rb);
                 controller.RigidBody = rb;
                 controller.FixColliderLayers();
                 

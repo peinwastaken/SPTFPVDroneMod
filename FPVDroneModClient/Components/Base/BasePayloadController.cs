@@ -47,7 +47,7 @@ namespace FPVDroneModClient.Components.Base
             }
         }
 
-        public void OnHit(DamageInfoStruct damageInfo)
+        public void OnHit(DamageInfo damageInfo)
         {
             Detonate();
         }
@@ -61,7 +61,7 @@ namespace FPVDroneModClient.Components.Base
 
         public virtual ExplosionData Detonate()
         {
-            IPlayerOwner owner = Singleton<GameWorld>.Instance.GetAlivePlayerBridgeByProfileID(Owner.ProfileId);
+            IObserverToPlayerBridge owner = Singleton<GameWorld>.Instance.GetAlivePlayerBridgeByProfileID(Owner.ProfileId);
             
             ExplosionData explosion = new ExplosionData
             {
@@ -89,7 +89,7 @@ namespace FPVDroneModClient.Components.Base
         #endif
 
         #if UNITY_EDITOR
-        public void OnHit(DamageInfoStruct damageInfo)
+        public void OnHit(DamageInfo damageInfo)
         {
             Detonate();
         }

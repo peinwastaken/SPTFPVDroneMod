@@ -20,11 +20,11 @@ namespace FPVDroneModClient.Patches
         private static void PatchPostfix(VisorEffect __instance)
         {
             Slot eyeSlot = InstanceHelper.LocalPlayer.Equipment.GetSlot(EquipmentSlot.Eyewear);
-            ArmoredEquipmentItemClass eyeItem = (ArmoredEquipmentItemClass)eyeSlot.ContainedItem;
+            ArmoredEquipment eyeItem = (ArmoredEquipment)eyeSlot.ContainedItem;
 
             if (eyeItem != null && eyeItem.StringTemplateId == ItemIds.HeadsetTemplateId)
             {
-                Material visorMaterial = __instance.method_4();
+                Material visorMaterial = __instance.GetMaterial();
                 visorMaterial.SetTexture("_Mask", AssetHelper.FpvGogglesMask);
             }
         }

@@ -7,12 +7,12 @@ using WTTClientCommonLib.Attributes;
 
 namespace FPVDroneModClient.Items
 {
-    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(ModTemplate))]
+    [CustomParent("6964ea3a5e4c1218314e1b2f", typeof(DroneItem), typeof(ItemTemplate))]
     public class DroneItem : Mod
     {
         public DroneItem(string id, ModTemplate template) : base(id, template)
         {
-            Slots = Array.ConvertAll(template.Slots, method_7);
+            Slots = Array.ConvertAll(template.Slots, CG_Ctor);
 
             var compatibleAttribute = Attributes.FindAttribute(EItemAttributeId.CompatibleWith);
 

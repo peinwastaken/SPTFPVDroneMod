@@ -1,6 +1,7 @@
 #if !UNITY_EDITOR
 using Comfort.Common;
 using EFT;
+using EFT.Ballistics;
 using FPVDroneModClient.Models;
 using System.Collections.Generic;
 using Systems.Effects;
@@ -22,7 +23,7 @@ namespace FPVDroneModClient.Helpers
                 Singleton<Effects>.Instance.EmitGrenade(explosion.EffectName, explosion.Position, explosion.EffectDirection, 1f);
             }
             
-            int size = Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders, LayerMaskClass.HitColliderMask);
+            int size = Physics.OverlapSphereNonAlloc(explosion.Position, explosion.MaxDistance, _colliders, LayersMaskController.HitColliderMask);
             
             DebugLogger.LogInfo($"collider hits: {size}");
             
@@ -94,7 +95,7 @@ namespace FPVDroneModClient.Helpers
                     EBodyPart bodyPart = collider.BodyPartType;
                     EBodyPartColliderType colliderType = collider.BodyPartColliderType;
 
-                    bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+                    bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayersMaskController.HighPolyWithTerrainNoGrassMask);
                     if (!isVisible) continue;
 
                     float colliderDistance = Vector3.Distance(collider.transform.position, explosion.Position);
@@ -102,7 +103,7 @@ namespace FPVDroneModClient.Helpers
                     Vector3 directionFromExplosion = Vector3.Normalize(collider.transform.position - explosion.Position);
                     float finalDamage = explosion.Damage * Mathf.Pow(colliderDistanceMultiplier, 3f);
                 
-                    DamageInfoStruct damageInfo = new DamageInfoStruct
+                    DamageInfo damageInfo = new DamageInfo
                     {
                         DamageType = EDamageType.Explosion,
                         Damage = finalDamage,

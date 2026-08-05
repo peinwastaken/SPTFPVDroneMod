@@ -1,11 +1,13 @@
 using Comfort.Common;
 using EFT;
+using EFT.Ballistics;
 using Fika.Core.Main.Players;
 using Fika.Core.Main.Utils;
 using Fika.Core.Networking;
 using Fika.Core.Networking.LiteNetLib;
 using Fika.Core.Networking.Packets.Player.Common;
 using Fika.Core.Networking.Packets.Player.Common.SubPackets;
+using FlyingWormConsole3.LiteNetLib;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Models;
 using HarmonyLib;
@@ -71,7 +73,7 @@ namespace FPVDroneModFika.Patches
                     EBodyPart bodyPart = collider.BodyPartType;
                     EBodyPartColliderType colliderType = collider.BodyPartColliderType;
 
-                    bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayerMaskClass.HighPolyWithTerrainNoGrassMask);
+                    bool isVisible = VectorHelper.VisCheck(explosion.Position, collider.transform.position, LayersMaskController.HighPolyWithTerrainNoGrassMask);
                     if (!isVisible) continue;
                     
                     float colliderDistance = Vector3.Distance(collider.transform.position, explosion.Position);
@@ -79,7 +81,7 @@ namespace FPVDroneModFika.Patches
                     Vector3 directionFromExplosion = Vector3.Normalize(collider.transform.position - explosion.Position);
                     float finalDamage = explosion.Damage * Mathf.Pow(colliderDistanceMultiplier, 3f);
                 
-                    DamageInfoStruct damageInfo = new DamageInfoStruct
+                    DamageInfo damageInfo = new DamageInfo
                     {
                         DamageType = EDamageType.Explosion,
                         Damage = finalDamage,

@@ -1,13 +1,14 @@
 #if !UNITY_EDITOR
+using EFT.UI;
 using System;
 
 namespace FPVDroneModClient.Helpers
 {
     public static class ActionsHelper
     {
-        public static void CreateAction(this ActionsReturnClass actionsReturn, string name, Action action)
+        public static void CreateAction(this AvailableInteractionState actionsReturn, string name, Action action)
         {
-            ActionsTypesClass newAction = new ActionsTypesClass
+            InteractionAction newAction = new InteractionAction
             {
                 Name = name,
                 Disabled = false,

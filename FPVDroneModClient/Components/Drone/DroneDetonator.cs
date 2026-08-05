@@ -15,8 +15,8 @@ namespace FPVDroneModClient.Components.Drone
         {
             #if !UNITY_EDITOR
             int layerMask = 1 << other.gameObject.layer;
-            bool hitSomethingOrWater = (layerMask & LayerMaskClass.TripwireCheckLayerMask) != 0
-                                       || (layerMask & LayerMaskClass.WaterLayer) != 0;
+            bool hitSomethingOrWater = (layerMask & LayersMaskController.TripwireCheckLayerMask) != 0
+                                       || (layerMask & LayersMaskController.WaterLayer) != 0;
 
             if (Armed && hitSomethingOrWater)
             {

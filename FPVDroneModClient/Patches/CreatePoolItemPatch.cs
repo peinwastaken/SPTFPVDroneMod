@@ -1,4 +1,5 @@
 #if !UNITY_EDITOR
+using EFT;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Components.Base;
@@ -10,7 +11,6 @@ using SPT.Reflection.Patching;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
-using CompoundItemSlot = EFT.InventoryLogic.Slot.Class2456;
 
 namespace FPVDroneModClient.Patches
 {
@@ -18,7 +18,7 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(PoolManagerClass), nameof(PoolManagerClass.CreateItemAsync));
+            return AccessTools.Method(typeof(ObjectsFactory), nameof(ObjectsFactory.CreateItemAsync));
         }
 
         [PatchPostfix]
@@ -67,7 +67,7 @@ namespace FPVDroneModClient.Patches
                     toggleableItem.SlotToggleController = toggler;
                     toggleableItem.Item = item;
                     
-                    bool equipped = item.CurrentAddress is CompoundItemSlot;
+                    bool equipped = item.CurrentAddress is Slot.ProtectedSlotItemAddress;
                     toggleableItem.OnItemEquipped(equipped);
                 }
             }

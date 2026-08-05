@@ -39,7 +39,7 @@ namespace FPVDroneModClient.Components.Jamming
             }
             
             // get drones in range
-            int droneCount = Physics.OverlapSphereNonAlloc(transform.position, MaxRange, _colliders, LayerMaskClass.DeadbodyLayer);
+            int droneCount = Physics.OverlapSphereNonAlloc(transform.position, MaxRange, _colliders, LayersMaskController.DeadbodyLayer);
             
             for (int i = 0; i < droneCount; i++)
             {
