@@ -8,6 +8,7 @@
         <RootNamespace>FPVDroneModServer</RootNamespace>
         <Configurations>Debug;Release;UNITY_EDITOR</Configurations>
         <Platforms>AnyCPU</Platforms>
+        <SPTModType>Server</SPTModType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,8 +23,4 @@
     <ItemGroup>
       <Folder Include="Resources\db\quests\skier\Images\" />
     </ItemGroup>
-
-    <PropertyGroup>
-        <SPTModType>Server</SPTModType>
-    </PropertyGroup>
 </Project>
