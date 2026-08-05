@@ -51,8 +51,7 @@ namespace FPVDroneModClient
                 BotGlobals.AllBrainNames,
                 9999 // wtf :waytoodank: TODO: rewrite ai stuff
             );
-
-
+            
             Type itemType = typeof(Item);
             SortHelper.InsertAfter(typeof(DroneItem), itemType);
             SortHelper.InsertAfter(typeof(PayloadItem), itemType);
