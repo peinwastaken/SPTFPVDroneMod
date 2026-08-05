@@ -16,7 +16,7 @@ namespace FPVDroneModClient.Patches
         protected override MethodBase GetTargetMethod()
         {
             Type generic = typeof(IconCreatorBase<,>).MakeGenericType(typeof(Item), typeof(IResourceIcon));
-            return AccessTools.Method(generic, "method_4");
+            return AccessTools.Method(generic, nameof(IconCreatorBase<,>.CaptureSpriteOfModel));
         }
 
         [PatchPrefix]
