@@ -15,7 +15,7 @@ namespace FPVDroneModServer
         public string License { get; init; } = "MIT";
         public Dictionary<string, Range>? ModDependencies { get; init; } = new ()
         {
-            { "com.wtt.commonlib", new Range("^2.0.20") }
+            { "com.wtt.commonlib", new Range("^3.0.3") }
         };
         
         // unused
