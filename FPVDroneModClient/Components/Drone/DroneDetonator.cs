@@ -19,7 +19,7 @@ namespace FPVDroneModClient.Components.Drone
 
             if (Armed && hitSomethingOrWater)
             {
-                
+                _detonatable.Detonate();
             }
         }
 

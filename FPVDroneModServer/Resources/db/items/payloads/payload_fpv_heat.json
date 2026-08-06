@@ -1,6 +1,6 @@
 {
     "69670b8085bfdbf31ec06bb8": {
-        "itemTplToClone": "5d0377ce86f774186372f689",
+        "itemTplToClone": "5d70e500a4b9364de70d38ce",
         "parentId": "69669ea64847b58fd5393f71",
         "handbookParentId": "5b47574386f77428ca22b345",
         "overrideProperties": {
@@ -14,17 +14,19 @@
             "Weight": 2.2,
             "ShortName": "HEAT",
             "BackgroundColor": "black",
-            "Damage": 350,
-            "MaxDistance": 4,
-            "FractureDelta": 1,
-            "HeavyBleedDelta": 0.7,
-            "LightBleedDelta": 0.3,
-            "StaminaBurnRate": 0.67,
-            "InstantKillDistance": -1,
+            "Damage": 300,
+            "MaxExplosionDistance": 10,
+            "MinExplosionDistance": 2,
+            "MinFragmentsCount": 3,
+            "MaxFragmentsCount": 6,
+            "Fragments": 6,
             "IsAntiTank": true,
             "Slots": [],
             "InsuranceDisabled": true,
-            "AlwaysAvailableForInsurance": false
+            "AlwaysAvailableForInsurance": false,
+            "casingSounds": "rifle556",
+            "Caliber": "CaliberPayload",
+            "ExplosionType": "Grenade_new"
         },
         "locales": {
             "en": {

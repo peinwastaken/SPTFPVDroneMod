@@ -33,13 +33,7 @@ namespace FPVDroneModClient.Patches
                 BasePayloadController payloadController = gameObject.GetComponentInChildren<BasePayloadController>();
                 if (payloadController)
                 {
-                    payloadController.Damage = payloadItem.Damage;
                     payloadController.IsAntiTank = payloadItem.IsAntiTank;
-                    payloadController.FractureDelta = payloadItem.FractureDelta;
-                    payloadController.MaxDistance = payloadItem.MaxDistance;
-                    payloadController.HeavyBleedDelta = payloadItem.HeavyBleedDelta;
-                    payloadController.LightBleedDelta = payloadItem.LightBleedDelta;
-                    payloadController.StaminaBurnRate = payloadItem.StaminaBurnRate;
                     payloadController.Item = item;
                 }
             }
@@ -58,7 +52,7 @@ namespace FPVDroneModClient.Patches
                 DebugLogger.LogInfo($"Created {batteryItem.Name}! {item.StringTemplateId}");
             }
 
-            if (item is BaseSlotToggleable toggleableItem)
+            if (item is ISlotToggleable toggleableItem)
             {
                 SlotVisibilityToggler toggler = gameObject.GetComponentInChildren<SlotVisibilityToggler>();
                 if (toggler)

@@ -2,7 +2,7 @@
     "69669ea64847b58fd5393f71": {
         "_id": "69669ea64847b58fd5393f71",
         "_name": "PayloadItem",
-        "_parent": "54009119af1c881c07000029",
+        "_parent": "5485a8684bdc2da71d8b4567",
         "_type": "Node",
         "_props": {
             "Damage": 350,
@@ -12,7 +12,8 @@
             "LightBleedDelta": 0.3,
             "StaminaBurnRate": 0.67,
             "InstantKillDistance": -1,
-            "IsAntiTank": true
+            "IsAntiTank": true,
+            "Caliber": "CaliberPayload"
         },
         "addToContainerFilters": true,
         "containers": [

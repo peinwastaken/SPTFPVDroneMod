@@ -1,6 +1,6 @@
 {
     "6967050ffbc7d14017c06bb7": {
-        "itemTplToClone": "5d0377ce86f774186372f689",
+        "itemTplToClone": "5d70e500a4b9364de70d38ce",
         "parentId": "69669ea64847b58fd5393f71",
         "handbookParentId": "5b47574386f77428ca22b345",
         "overrideProperties": {
@@ -15,15 +15,14 @@
             "ShortName": "Frag.",
             "BackgroundColor": "black",
             "Damage": 200,
-            "MaxDistance": 6,
-            "FractureDelta": 0.6,
-            "HeavyBleedDelta": 0.35,
-            "LightBleedDelta": 0.7,
-            "StaminaBurnRate": 0.3,
-            "InstantKillDistance": -1,
+            "MaxExplosionDistance": 15,
+            "MinExplosionDistance": 3,
             "Slots": [],
             "InsuranceDisabled": true,
-            "AlwaysAvailableForInsurance": false
+            "AlwaysAvailableForInsurance": false,
+            "casingSounds": "rifle556",
+            "Caliber": "CaliberPayload",
+            "ExplosionType": "Grenade_new"
         },
         "locales": {
             "en": {

@@ -1,6 +1,8 @@
 using EFT;
 using EFT.InventoryLogic;
+using FPVDroneModClient.Components;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Interface;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using WTTClientCommonLib.Attributes;
@@ -13,7 +15,7 @@ namespace FPVDroneModClient.Items
     }
     
     [CustomParent("69c932c7a7d59932499b5cde", typeof(BatteryItem), typeof(BatteryItemTemplate))]
-    public class BatteryItem : SlotToggleableItem<BatteryItem>
+    public class BatteryItem : Item, ISlotToggleable
     {
         [Component]
         [JsonProperty("Resource")]
@@ -43,6 +45,9 @@ namespace FPVDroneModClient.Items
             
             Attributes = attributes;
         }
+
+        public SlotVisibilityToggler SlotToggleController { get; set; }
+        public Item Item { get; set; }
     }
 }
 
