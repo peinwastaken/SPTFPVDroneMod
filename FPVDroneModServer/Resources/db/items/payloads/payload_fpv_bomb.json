@@ -14,15 +14,21 @@
             "Weight": 0.965,
             "ShortName": "Frag.",
             "BackgroundColor": "black",
-            "Damage": 200,
-            "MaxExplosionDistance": 15,
-            "MinExplosionDistance": 3,
+            "Damage": 100,
+            "MaxExplosionDistance": 7,
+            "MinExplosionDistance": 2,
+            "MinFragmentsCount": 3,
+            "MaxFragmentsCount": 6,
+            "ExplosionStrength": 100,
             "Slots": [],
             "InsuranceDisabled": true,
             "AlwaysAvailableForInsurance": false,
             "casingSounds": "rifle556",
             "Caliber": "CaliberPayload",
-            "ExplosionType": "Grenade_new"
+            "ExplosionType": "Grenade_new",
+            "AmmoLifeTimeSec": 40,
+            "AmmoTooltipClass": "HighExplosive",
+            "HasGrenaderComponent": true
         },
         "locales": {
             "en": {

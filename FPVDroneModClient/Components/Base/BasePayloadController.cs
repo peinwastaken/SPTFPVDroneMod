@@ -9,6 +9,7 @@ using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
+using Systems.Effects;
 
 namespace FPVDroneModClient.Components.Base
 {
@@ -24,6 +25,7 @@ namespace FPVDroneModClient.Components.Base
         public BaseDroneController DroneController;
         public Item Item;
         public BallisticCollider BallisticCollider;
+        public bool IsBeingDetonated = false;
 
         private void Awake()
         {
@@ -53,23 +55,31 @@ namespace FPVDroneModClient.Components.Base
 
         public virtual void Detonate()
         {
-            if (Item is PayloadItem payloadItem)
+            var explosiveComponent = Item.GetItemComponent<ExplosiveAmmoComponent>();
+            if (explosiveComponent != null && Item is PayloadItem payloadItem)
             {
-                DebugLogger.LogInfo("hihiihihi");
-                
                 var ballistics = Singleton<GameWorld>.Instance.SharedBallisticsCalculator as BallisticsCalculator;
                 if (ballistics == null) return;
-
-                var shot = ballistics.CreateShot(
-                    payloadItem,
-                    transform.position,
-                    transform.forward,
-                    -1,
-                    Owner.ProfileId,
-                    DroneController.Item
+                
+                var template = (PayloadItemTemplate)payloadItem.Template;
+                var pos = transform.position;
+                var shift = Vector3.up * 0.08f;
+                
+                Singleton<Effects>.Instance.EmitGrenade(
+                    template.ExplosionType,
+                    pos,
+                    Vector3.up
                 );
-                ballistics.Shoot(shot);
-                shot.HandleCollision(Time.deltaTime, shot._currentPosition, shot._currentVelocity);
+                
+                Grenade.Explosion(
+                    null,
+                    explosiveComponent,
+                    transform.position,
+                    Owner.ProfileId,
+                    ballistics,
+                    DroneController.Item,
+                    shift
+                );
             }
             
             OnDetonate?.Invoke();
@@ -78,7 +88,6 @@ namespace FPVDroneModClient.Components.Base
         public abstract void OnTriggerEnter(Collider collider);
         
         public abstract void OnTriggerExit(Collider collider);
-
     }
 }
 

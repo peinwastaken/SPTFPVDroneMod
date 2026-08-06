@@ -245,8 +245,9 @@ namespace FPVDroneModClient.Components.Base
 
         public virtual void OnHit(DamageInfo damageInfo)
         {
-            IDetonatable detonatable = GetComponentInChildren<IDetonatable>(true);
+            if (IsAboutToBeDestroyed) return;
             
+            IDetonatable detonatable = GetComponentInChildren<IDetonatable>(true);
             if (detonatable is BasePayloadController payload)
             { 
                 payload.OnHit(damageInfo);

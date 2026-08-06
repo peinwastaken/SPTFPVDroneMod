@@ -79,7 +79,7 @@ namespace FPVDroneModClient.Components.Drone
                 DebugLogger.LogError("DRONEINPUT IS NULL");
             }
 
-            if (BatteryResource.Value > 0f)
+            if (BatteryResource?.Value > 0f)
             {
                 if (DroneInput.RollInput != 0f) ApplyRoll(DroneInput.RollInput * RollSpeed * dt);
                 if (DroneInput.PitchInput != 0f) ApplyPitch(DroneInput.PitchInput * PitchSpeed * dt);

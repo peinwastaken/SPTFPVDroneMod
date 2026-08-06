@@ -15,18 +15,21 @@
             "ShortName": "HEAT",
             "BackgroundColor": "black",
             "Damage": 300,
-            "MaxExplosionDistance": 10,
+            "MaxExplosionDistance": 5,
             "MinExplosionDistance": 2,
             "MinFragmentsCount": 3,
             "MaxFragmentsCount": 6,
-            "Fragments": 6,
+            "ExplosionStrength": 100,
             "IsAntiTank": true,
             "Slots": [],
             "InsuranceDisabled": true,
             "AlwaysAvailableForInsurance": false,
             "casingSounds": "rifle556",
             "Caliber": "CaliberPayload",
-            "ExplosionType": "Grenade_new"
+            "ExplosionType": "Grenade_new",
+            "AmmoLifeTimeSec": 40,
+            "AmmoTooltipClass": "HighExplosive",
+            "HasGrenaderComponent": true
         },
         "locales": {
             "en": {
