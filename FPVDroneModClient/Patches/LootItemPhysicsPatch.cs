@@ -15,7 +15,7 @@ namespace FPVDroneModClient.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(LootItem), nameof(LootItem.OnRigidbodyStarted));
+            return AccessTools.Method(typeof(LootItem), nameof(LootItem.StartPhysics));
         }
 
         [PatchPrefix]
