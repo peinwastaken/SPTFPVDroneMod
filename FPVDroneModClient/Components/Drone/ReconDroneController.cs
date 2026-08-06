@@ -1,9 +1,6 @@
-
 using FPVDroneModClient.Components.Base;
-#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components.Drone
@@ -13,7 +10,6 @@ namespace FPVDroneModClient.Components.Drone
         public float CameraPitch = 0f;
         public float CameraZoom = 0f;
         
-        #if !UNITY_EDITOR
         public override void OnPilotEnter(bool isDoneLocally = true)
         {
             base.OnPilotEnter(isDoneLocally);
@@ -141,6 +137,6 @@ namespace FPVDroneModClient.Components.Drone
                 CameraZoom = Mathf.Clamp(CameraZoom, 0f, 1f);
             }
         }
-        #endif
     }
 }
+

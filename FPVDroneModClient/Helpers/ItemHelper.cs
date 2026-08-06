@@ -1,4 +1,3 @@
-﻿#if !UNITY_EDITOR
 using EFT.InventoryLogic;
 using System.Collections.Generic;
 
@@ -53,4 +52,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

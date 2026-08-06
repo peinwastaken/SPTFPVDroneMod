@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT.UI;
 using System;
 
@@ -19,4 +18,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

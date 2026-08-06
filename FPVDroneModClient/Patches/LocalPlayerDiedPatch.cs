@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT;
 using FPVDroneModClient.Helpers;
 using HarmonyLib;
@@ -24,4 +23,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
-#endif
+

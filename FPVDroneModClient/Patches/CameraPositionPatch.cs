@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT.CameraControl;
 using FPVDroneModClient.Components;
 using FPVDroneModClient.Config;
@@ -44,4 +43,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
-#endif
+

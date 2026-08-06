@@ -3,10 +3,8 @@ using EFT.InventoryLogic;
 using FPVDroneModClient.Components.Base;
 using FPVDroneModClient.Interface;
 using UnityEngine;
-#if !UNITY_EDITOR
 using FPVDroneModClient.Items;
 using FPVDroneModClient.Helpers;
-#endif
 
 namespace FPVDroneModClient.Components
 {
@@ -19,7 +17,6 @@ namespace FPVDroneModClient.Components
         public BallisticCollider BallisticCollider;
         public BaseDroneController DroneController;
 
-        #if !UNITY_EDITOR
         public void Awake()
         {
             BallisticCollider = GetComponentInChildren<BallisticCollider>();
@@ -53,6 +50,6 @@ namespace FPVDroneModClient.Components
                 DroneController.OnHit(DamageInfo);
             }
         }
-        #endif
     }
 }
+

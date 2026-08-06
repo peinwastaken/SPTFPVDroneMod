@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using Comfort.Common;
 using EFT;
 using EFT.Ballistics;
@@ -127,4 +126,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

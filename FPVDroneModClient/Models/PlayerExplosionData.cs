@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using System.Collections.Generic;
 
 namespace FPVDroneModClient.Models
@@ -48,4 +47,4 @@ namespace FPVDroneModClient.Models
         }
     }
 }
-#endif
+

@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using System.Collections.Generic;
 
 namespace FPVDroneModClient.Globals
@@ -67,4 +66,4 @@ namespace FPVDroneModClient.Globals
         };
     }
 }
-#endif
+

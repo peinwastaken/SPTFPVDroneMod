@@ -1,4 +1,3 @@
-﻿#if !UNITY_EDITOR
 using System;
 using FPVDroneModClient.Models;
 using Newtonsoft.Json;
@@ -53,4 +52,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

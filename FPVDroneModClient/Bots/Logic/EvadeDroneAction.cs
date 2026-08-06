@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using DrakiaXYZ.BigBrain.Brains;
 using EFT;
 using FPVDroneModClient.Components;
@@ -96,4 +95,4 @@ namespace FPVDroneModClient.Bots.Logic
         }
     }
 }
-#endif
+

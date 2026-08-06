@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using System.Collections.Generic;
 
 namespace FPVDroneModClient.Helpers
@@ -18,4 +17,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

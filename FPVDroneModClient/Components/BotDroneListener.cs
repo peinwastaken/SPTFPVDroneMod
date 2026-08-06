@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT;
 using FPVDroneModClient.Enum;
 using FPVDroneModClient.Globals;
@@ -137,4 +136,4 @@ namespace FPVDroneModClient.Components
         }
     }
 }
-#endif
+

@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT.Ballistics;
 using EFT.Interactive;
 using FPVDroneModClient.Components;
@@ -38,4 +37,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
-#endif
+

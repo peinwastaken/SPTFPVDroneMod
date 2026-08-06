@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT.UI.WeaponModding;
 using FPVDroneModClient.Components;
 using HarmonyLib;
@@ -51,4 +50,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
-#endif
+

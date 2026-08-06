@@ -1,8 +1,6 @@
 using FPVDroneModClient.Components.Base;
-#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
 using UnityEngine;
 
 namespace FPVDroneModClient.Components.Drone
@@ -11,7 +9,6 @@ namespace FPVDroneModClient.Components.Drone
     {
         public bool IsArmed { get; set; }
         
-        #if !UNITY_EDITOR
         public override void OnPilotEnter(bool isDoneLocally = true)
         {
             base.OnPilotEnter(isDoneLocally);
@@ -114,18 +111,7 @@ namespace FPVDroneModClient.Components.Drone
         {
             HudController.SetArmedTextVisible(newState);
         }
-        #endif
         
-        #if UNITY_EDITOR
-        public void Detonate()
-        {
-            return;
-        }
-
-        public void ToggleArmed()
-        {
-            return;
-        }
-        #endif
     }
 }
+

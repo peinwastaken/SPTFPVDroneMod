@@ -1,9 +1,7 @@
-#if !UNITY_EDITOR
 using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Items;
-#endif
 using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
@@ -54,7 +52,6 @@ namespace FPVDroneModClient.Components.Base
         public bool IsInInventory = true;
         public bool WasJustDropped = false;
         
-        #if !UNITY_EDITOR
         protected void Awake()
         {
             GetReferences();
@@ -357,23 +354,7 @@ namespace FPVDroneModClient.Components.Base
 
             return hit && result.distance < 0.2f;
         }
-        #endif
 
-        #if UNITY_EDITOR
-        public virtual void OnHit(DamageInfo damageInfo)
-        {
-            return;
-        }
-        
-        public void OnPilotEnter(bool isDoneLocally)
-        {
-            return;
-        }
-
-        public void OnPilotExit(bool isDoneLocally)
-        {
-            return;
-        }
-        #endif
     }
 }
+

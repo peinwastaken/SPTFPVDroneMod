@@ -1,4 +1,3 @@
-﻿#if !UNITY_EDITOR
 using EFT.Vehicle;
 using System.Reflection;
 using FPVDroneModClient.Config;
@@ -28,4 +27,4 @@ namespace FPVDroneModClient.Patches
         }
     }
 }
-#endif
+

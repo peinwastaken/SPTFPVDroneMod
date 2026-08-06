@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -58,4 +57,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

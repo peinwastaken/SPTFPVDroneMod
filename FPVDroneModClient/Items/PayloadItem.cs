@@ -1,4 +1,3 @@
-﻿#if !UNITY_EDITOR
 using EFT;
 using System;
 using System.Collections.Generic;
@@ -119,4 +118,4 @@ namespace FPVDroneModClient.Items
         }
     }
 }
-#endif
+

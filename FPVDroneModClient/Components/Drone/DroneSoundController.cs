@@ -1,10 +1,8 @@
 using FPVDroneModClient.Components.Base;
 using UnityEngine;
-#if !UNITY_EDITOR
 using Audio.NPC;
 using Comfort.Common;
 using FPVDroneModClient.Helpers;
-#endif
 
 namespace FPVDroneModClient.Components.Drone
 {
@@ -19,7 +17,6 @@ namespace FPVDroneModClient.Components.Drone
         public AudioSource AudioSource;
         public BaseDroneController DroneController;
 
-        #if !UNITY_EDITOR
         public void SetBlend(float pos)
         {
             DroneController = GetComponent<BaseDroneController>();
@@ -51,6 +48,6 @@ namespace FPVDroneModClient.Components.Drone
                 AudioSource.pitch = pitch;
             }
         }
-        #endif
     }
 }
+

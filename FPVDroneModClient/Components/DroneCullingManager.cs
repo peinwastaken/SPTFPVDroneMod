@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
 using Koenigz.PerfectCulling;
@@ -119,4 +118,4 @@ namespace FPVDroneModClient.Components
         }
     }
 }
-#endif
+

@@ -1,4 +1,3 @@
-﻿#if !UNITY_EDITOR
 namespace FPVDroneModClient.Helpers
 {
     /// <summary>
@@ -151,4 +150,4 @@ namespace FPVDroneModClient.Helpers
         public System.Func<string, object> StrToObj;
     }
 }
-#endif
+

@@ -1,8 +1,6 @@
-#if !UNITY_EDITOR
 using DXNET.XInput;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Config;
-#endif
 using FPVDroneModClient.Interface;
 using FPVDroneModClient.Components.Base;
 using UnityEngine;
@@ -45,7 +43,6 @@ namespace FPVDroneModClient.Components.Drone
         private bool _prevRb;
         private bool _prevLb;
 
-        #if !UNITY_EDITOR
         public Controller Controller;
         public Gamepad GamepadState;
 
@@ -288,6 +285,5 @@ namespace FPVDroneModClient.Components.Drone
             CameraPitchInput = Mathf.Clamp(CameraPitchInput, -1f, 1f);
             CameraZoomInput = Mathf.Clamp(CameraZoomInput, -1f, 1f);
         }
-        #endif
     }
 }

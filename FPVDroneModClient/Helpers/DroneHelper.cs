@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using BSG.CameraEffects;
 using Comfort.Common;
 using EFT;
@@ -316,4 +315,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

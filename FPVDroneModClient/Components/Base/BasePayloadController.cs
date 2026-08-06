@@ -1,15 +1,13 @@
-﻿using EFT.InventoryLogic;
+using EFT.InventoryLogic;
 using FPVDroneModClient.Interface;
 using FPVDroneModClient.Models;
 using System;
 using UnityEngine;
 using EFT;
 using EFT.Ballistics;
-#if !UNITY_EDITOR
 using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
-#endif
 
 namespace FPVDroneModClient.Components.Base
 {
@@ -32,7 +30,6 @@ namespace FPVDroneModClient.Components.Base
         public Item Item;
         public BallisticCollider BallisticCollider;
 
-        #if !UNITY_EDITOR
         private void Awake()
         {
             BallisticCollider = GetComponentInChildren<BallisticCollider>();
@@ -86,27 +83,7 @@ namespace FPVDroneModClient.Components.Base
         public abstract void OnTriggerEnter(Collider collider);
         
         public abstract void OnTriggerExit(Collider collider);
-        #endif
 
-        #if UNITY_EDITOR
-        public void OnHit(DamageInfo damageInfo)
-        {
-            Detonate();
-        }
-        
-        public virtual void ToggleArmed()
-        {
-            return;
-        }
-
-        public virtual ExplosionData Detonate()
-        {
-            return null;
-        }
-        
-        public abstract void OnTriggerEnter(Collider collider);
-        
-        public abstract void OnTriggerExit(Collider collider);
-        #endif
     }
 }
+

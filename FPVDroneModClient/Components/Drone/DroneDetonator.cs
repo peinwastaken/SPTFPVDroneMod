@@ -13,7 +13,6 @@ namespace FPVDroneModClient.Components.Drone
 
         public void OnTriggerEnter(Collider other)
         {
-            #if !UNITY_EDITOR
             int layerMask = 1 << other.gameObject.layer;
             bool hitSomethingOrWater = (layerMask & LayersMaskController.TripwireCheckLayerMask) != 0
                                        || (layerMask & LayersMaskController.WaterLayer) != 0;
@@ -22,7 +21,6 @@ namespace FPVDroneModClient.Components.Drone
             {
                 
             }
-            #endif
         }
 
         public void OnTriggerExit(Collider collider)
@@ -30,7 +28,6 @@ namespace FPVDroneModClient.Components.Drone
 
         }
 
-        #if !UNITY_EDITOR
         private void Start()
         {
             _detonatable = GetComponentInParent<IDetonatable>();
@@ -52,6 +49,6 @@ namespace FPVDroneModClient.Components.Drone
         {
             Armed = armed;
         }
-        #endif
     }
 }
+

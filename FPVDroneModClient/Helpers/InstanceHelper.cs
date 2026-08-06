@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using Comfort.Common;
 using EFT;
 using EFT.CameraControl;
@@ -130,4 +129,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

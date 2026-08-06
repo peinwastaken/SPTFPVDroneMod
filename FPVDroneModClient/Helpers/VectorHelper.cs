@@ -1,6 +1,5 @@
 using UnityEngine;
 
-#if !UNITY_EDITOR
 namespace FPVDroneModClient.Helpers
 {
     public static class VectorHelper
@@ -30,4 +29,4 @@ namespace FPVDroneModClient.Helpers
         }
     }
 }
-#endif
+

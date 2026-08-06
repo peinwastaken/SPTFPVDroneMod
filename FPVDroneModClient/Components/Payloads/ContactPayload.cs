@@ -1,18 +1,15 @@
-﻿using EFT;
+using EFT;
 using FPVDroneModClient.Components.Base;
 using UnityEngine;
-#if !UNITY_EDITOR
 using Comfort.Common;
 using EFT.Vehicle;
 using FPVDroneModClient.Helpers;
 using UnityEngine.UIElements;
-#endif
 
 namespace FPVDroneModClient.Components.Payloads
 {
     public class ContactPayload : BasePayloadController
     {
-        #if !UNITY_EDITOR
         public override void OnTriggerEnter(Collider collider)
         {
             int layerMask = 1 << collider.gameObject.layer;
@@ -49,18 +46,6 @@ namespace FPVDroneModClient.Components.Payloads
         {
             
         }
-        #endif
-        
-        #if UNITY_EDITOR
-        public override void OnTriggerEnter(Collider collider)
-        {
-            
-        }
-
-        public override void OnTriggerExit(Collider collider)
-        {
-            
-        }
-        #endif
     }
 }
+

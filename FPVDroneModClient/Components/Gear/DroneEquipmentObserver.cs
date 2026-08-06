@@ -1,4 +1,3 @@
-#if !UNITY_EDITOR
 using EFT;
 using EFT.CameraControl;
 using EFT.InventoryLogic;
@@ -48,4 +47,4 @@ namespace FPVDroneModClient.Components.Gear
         }
     }
 }
-#endif
+
