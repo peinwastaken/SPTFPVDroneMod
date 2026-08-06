@@ -8,6 +8,7 @@ using EFT.Ballistics;
 using Comfort.Common;
 using FPVDroneModClient.Config;
 using FPVDroneModClient.Helpers;
+using FPVDroneModClient.Items;
 
 namespace FPVDroneModClient.Components.Base
 {
@@ -15,12 +16,6 @@ namespace FPVDroneModClient.Components.Base
     {
         public bool IsArmed { get; set; } = false;
         public bool IsAntiTank;
-        public float Damage;
-        public float MaxDistance;
-        public float HeavyBleedDelta;
-        public float LightBleedDelta;
-        public float FractureDelta;
-        public float StaminaBurnRate;
         public string Description { get; }
         public Detonator Detonator;
         public event Action<bool> OnToggleArmed;
@@ -56,28 +51,28 @@ namespace FPVDroneModClient.Components.Base
             OnToggleArmed?.Invoke(IsArmed);
         }
 
-        public virtual ExplosionData Detonate()
+        public virtual void Detonate()
         {
-            IObserverToPlayerBridge owner = Singleton<GameWorld>.Instance.GetAlivePlayerBridgeByProfileID(Owner.ProfileId);
-            
-            ExplosionData explosion = new ExplosionData
+            if (Item is PayloadItem payloadItem)
             {
-                Position = gameObject.transform.position,
-                Damage = Damage,
-                MaxDistance = MaxDistance,
-                HeavyBleedDelta = HeavyBleedDelta,
-                LightBleedDelta = LightBleedDelta,
-                FractureDelta = FractureDelta,
-                StaminaBurnRate = StaminaBurnRate,
-                PlayerOwner = owner,
-                Weapon = DroneController.Item
-            };
+                DebugLogger.LogInfo("hihiihihi");
+                
+                var ballistics = Singleton<GameWorld>.Instance.SharedBallisticsCalculator as BallisticsCalculator;
+                if (ballistics == null) return;
 
-            ExplosionHelper.CreateExplosion(explosion);
+                var shot = ballistics.CreateShot(
+                    payloadItem,
+                    transform.position,
+                    transform.forward,
+                    -1,
+                    Owner.ProfileId,
+                    DroneController.Item
+                );
+                ballistics.Shoot(shot);
+                shot.HandleCollision(Time.deltaTime, shot._currentPosition, shot._currentVelocity);
+            }
             
             OnDetonate?.Invoke();
-
-            return explosion;
         }
 
         public abstract void OnTriggerEnter(Collider collider);

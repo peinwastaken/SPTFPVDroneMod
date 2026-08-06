@@ -8,6 +8,6 @@ namespace FPVDroneModClient.Interface
     public interface IDetonatable
     {
         public event Action OnDetonate;
-        public ExplosionData Detonate();
+        public void Detonate();
     }
 }
