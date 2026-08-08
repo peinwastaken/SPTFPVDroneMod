@@ -1,9 +1,5 @@
-using EFT;
-using System;
-using System.Collections.Generic;
 using EFT.InventoryLogic;
 using FPVDroneModClient.Components;
-using FPVDroneModClient.Enum;
 using FPVDroneModClient.Helpers;
 using FPVDroneModClient.Interface;
 using WTTClientCommonLib.Attributes;
@@ -26,19 +22,42 @@ namespace FPVDroneModClient.Items
 
         public PayloadItem(string id, PayloadItemTemplate template) : base(id, template)
         {
-            Attributes = template.GetCachedReadonlyQualities();
+            var cachedQualities = template
+                .GetCachedReadonlyQualities()
+                .GetFilteredAttributes(EItemAttributeId.MaxAmmoDamage);
+            var attributes = Attributes.GetFilteredAttributes(
+                EItemAttributeId.LimitedDiscard
+            );
+            
+            attributes.AddRange([
+                new(EItemAttributeId.ExplosionDistance)
+                {
+                    Name = "EXPLOSION DISTANCE",
+                    Base = () => template.MaxExplosionDistance,
+                    StringValue = () => MinMaxMeters((int)template.MinExplosionDistance, (int)template.MaxExplosionDistance),
+                    DisplayType = () => EItemAttributeDisplayType.Compact
+                },
+                new(EItemAttributeId.AmmoPenetrationPower)
+                {
+                    Name = "IS ANTI TANK",
+                    StringValue = () => BoolToString(IsAntiTank),
+                    DisplayType = () => EItemAttributeDisplayType.Compact
+                }
+            ]);
+            
             SonicType = SonicBulletSoundPlayer.SonicType.SonicShotgun;
             IsAntiTank = template.IsAntiTank;
+            Attributes = [..cachedQualities, ..attributes];
         }
-
-        private string DeltaToPercent(float delta)
-        {
-            return $"{delta * 100f}%";
-        }
-
+        
         private string BoolToString(bool value)
         {
             return value ? "Yes" : "No";
+        }
+
+        private string MinMaxMeters(int min, int max)
+        {
+            return $"{min} - {max} meters";
         }
     }
 }

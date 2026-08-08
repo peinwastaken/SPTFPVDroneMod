@@ -14,7 +14,7 @@
             "Weight": 0.835,
             "ShortName": "Airburst",
             "BackgroundColor": "black",
-            "Damage": 130,
+            "Damage": 100,
             "MaxExplosionDistance": 9,
             "MinExplosionDistance": 3,
             "MinFragmentsCount": 3,
@@ -28,7 +28,8 @@
             "ExplosionType": "Grenade_new",
             "AmmoLifeTimeSec": 40,
             "AmmoTooltipClass": "HighExplosive",
-            "HasGrenaderComponent": true
+            "HasGrenaderComponent": true,
+            "ItemSound": "generic"
         },
         "locales": {
             "en": {

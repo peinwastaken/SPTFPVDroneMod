@@ -14,7 +14,7 @@
             "Weight": 0.965,
             "ShortName": "Frag.",
             "BackgroundColor": "black",
-            "Damage": 100,
+            "Damage": 150,
             "MaxExplosionDistance": 7,
             "MinExplosionDistance": 2,
             "MinFragmentsCount": 3,
@@ -28,7 +28,8 @@
             "ExplosionType": "Grenade_new",
             "AmmoLifeTimeSec": 40,
             "AmmoTooltipClass": "HighExplosive",
-            "HasGrenaderComponent": true
+            "HasGrenaderComponent": true,
+            "ItemSound": "generic"
         },
         "locales": {
             "en": {

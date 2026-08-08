@@ -29,7 +29,8 @@
             "ExplosionType": "Grenade_new",
             "AmmoLifeTimeSec": 40,
             "AmmoTooltipClass": "HighExplosive",
-            "HasGrenaderComponent": true
+            "HasGrenaderComponent": true,
+            "ItemSound": "generic"
         },
         "locales": {
             "en": {
