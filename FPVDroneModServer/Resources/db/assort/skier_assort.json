@@ -1,0 +1,30 @@
+{
+    "SKIER": {
+        "items": [
+            {
+                "_id": "6a7875e95a8d4c54e227ff3b",
+                "_tpl": "69670b8085bfdbf31ec06bb8",
+                "upd": {
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 1
+                },
+                "parentId": "hideout",
+                "slotId": "hideout"
+            }
+        ],
+        "barter_scheme": {
+            "6a7875e95a8d4c54e227ff3b": [
+                [
+                    {
+                        "count": 1556340,
+                        "_tpl": "5449016a4bdc2d6f028b456f"
+                    }
+                ]
+            ]
+        },
+        "loyal_level_items": {
+            "6a7875e95a8d4c54e227ff3b": 4
+        }
+    }
+}

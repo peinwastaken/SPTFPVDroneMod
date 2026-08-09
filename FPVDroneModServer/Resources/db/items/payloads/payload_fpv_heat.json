@@ -30,7 +30,8 @@
             "AmmoLifeTimeSec": 40,
             "AmmoTooltipClass": "HighExplosive",
             "HasGrenaderComponent": true,
-            "ItemSound": "generic"
+            "ItemSound": "generic",
+            "CanSellOnRagfair": false
         },
         "locales": {
             "en": {

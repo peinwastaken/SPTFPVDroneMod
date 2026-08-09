@@ -1,0 +1,157 @@
+{
+    "6a786f26183ffc605427ff33": {
+        "QuestName": "No More Detours",
+        "_id": "6a786f26183ffc605427ff33",
+        "acceptanceAndFinishingSource": "eft",
+        "arenaLocations": [],
+        "canShowNotificationsInGame": true,
+        "conditions": {
+            "AvailableForFinish": [
+                {
+                    "completeInSeconds": 0,
+                    "conditionType": "CounterCreator",
+                    "counter": {
+                        "conditions": [
+                            {
+                                "bodyPart": [],
+                                "compareMethod": ">=",
+                                "conditionType": "Kills",
+                                "daytime": {
+                                    "from": 0,
+                                    "to": 0
+                                },
+                                "distance": {},
+                                "dynamicLocale": false,
+                                "enemyEquipmentExclusive": [],
+                                "enemyEquipmentInclusive": [],
+                                "enemyHealthEffects": [],
+                                "id": "6a7879bccc8411a16227ff40",
+                                "resetOnSessionEnd": false,
+                                "savageRole": [
+                                    "shooterBTR"
+                                ],
+                                "target": "Savage",
+                                "value": 1,
+                                "weapon": [],
+                                "weaponCaliber": [],
+                                "weaponModsExclusive": [],
+                                "weaponModsInclusive": []
+                            }
+                        ],
+                        "id": "6a786f4e1b9a38d60427ff34"
+                    },
+                    "doNotResetIfCounterCompleted": false,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "6a786f8128b0c336a927ff36",
+                    "index": 0,
+                    "isNecessary": false,
+                    "isResetOnConditionFailed": false,
+                    "oneSessionOnly": false,
+                    "parentId": "",
+                    "type": "Elimination",
+                    "value": 1,
+                    "visibilityConditions": []
+                }
+            ],
+            "AvailableForStart": [
+                {
+                    "availableAfter": 0,
+                    "conditionType": "Quest",
+                    "dispersion": 0,
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "6a7872069e1e5d7a4727ff37",
+                    "index": 0,
+                    "parentId": "",
+                    "status": [
+                        4
+                    ],
+                    "target": "67460662d0fbbc74ca0f7229",
+                    "visibilityConditions": []
+                },
+                {
+                    "compareMethod": ">=",
+                    "conditionType": "TraderLoyalty",
+                    "dynamicLocale": false,
+                    "globalQuestCounterId": "",
+                    "id": "6a7876ba395de50e1927ff3d",
+                    "index": 0,
+                    "parentId": "",
+                    "target": "58330581ace78e27b8b10cee",
+                    "value": 4,
+                    "visibilityConditions": []
+                }
+            ],
+            "Fail": []
+        },
+        "description": "6a786f26183ffc605427ff33 description",
+        "gameModes": [],
+        "image": "/files/quest/icon/6a786f26183ffc605427ff33.jpg",
+        "instantComplete": false,
+        "isKey": false,
+        "location": "any",
+        "name": "6a786f26183ffc605427ff33 name",
+        "progressSource": "eft",
+        "rankingModes": [],
+        "restartable": false,
+        "rewards": {
+            "Fail": [],
+            "Started": [
+                {
+                    "availableInGameEditions": [],
+                    "id": "6a7879d74bc913a35027ff42",
+                    "index": 2,
+                    "items": [
+                        {
+                            "_id": "6a7879d4a343e684d527ff41",
+                            "_tpl": "69670b8085bfdbf31ec06bb8",
+                            "upd": {
+                                "StackObjectsCount": 1
+                            }
+                        }
+                    ],
+                    "loyaltyLevel": 4,
+                    "target": "6a7879d4a343e684d527ff41",
+                    "traderId": "58330581ace78e27b8b10cee",
+                    "type": "AssortmentUnlock",
+                    "unknown": false
+                }
+            ],
+            "Success": [
+                {
+                    "availableInGameEditions": [],
+                    "gameMode": [
+                        "regular",
+                        "pve"
+                    ],
+                    "id": "6a7872d1e949e0379427ff39",
+                    "isHidden": false,
+                    "type": "Experience",
+                    "unknown": false,
+                    "value": 12500
+                },
+                {
+                    "availableInGameEditions": [],
+                    "gameMode": [
+                        "regular",
+                        "pve"
+                    ],
+                    "id": "6a7872d1b3b3e7848727ff38",
+                    "isHidden": false,
+                    "target": "58330581ace78e27b8b10cee",
+                    "type": "TraderStanding",
+                    "unknown": false,
+                    "value": 0.05
+                }
+            ]
+        },
+        "secretQuest": false,
+        "side": "Pmc",
+        "startedMessageText": "6a786f26183ffc605427ff33 startedMessageText",
+        "status": 0,
+        "successMessageText": "6a786f26183ffc605427ff33 successMessageText",
+        "traderId": "58330581ace78e27b8b10cee",
+        "type": "Completion"
+    }
+}
