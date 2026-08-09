@@ -9,7 +9,7 @@ namespace FPVDroneModServer
         public string ModGuid { get; init; } = "com.pein.fpvdronemod";
         public string Name { get; init; } = "FPV Drone Mod";
         public string Author { get; init; } = "pein";
-        public Version Version { get; init; } = new Version("0.8.1");
+        public Version Version { get; init; } = new Version("0.9.0");
         public Range SptVersion { get; init; } = new Range("~4.1.0");
         public string? Url { get; init; } = "https://github.com/peinwastaken/SPTFPVDroneMod";
         public string License { get; init; } = "MIT";

@@ -48,6 +48,8 @@ namespace FPVDroneModClient.Components.Payloads
                         
                         driver.GetPlayer.ApplyDamageInfo(damageInfo, EBodyPart.Head, EBodyPartColliderType.HeadCommon, 0f);
                         driver.GetPlayer.OnBeenKilledByAggressor(player, damageInfo, EBodyPart.Head, EDamageType.Explosion);
+                        driver.Dispose();
+                        Destroy(driver.gameObject);
                     }
                     else
                     {

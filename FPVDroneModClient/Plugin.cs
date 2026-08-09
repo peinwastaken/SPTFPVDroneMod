@@ -15,7 +15,7 @@ using WTTClientCommonLib.Helpers;
 
 namespace FPVDroneModClient
 {
-    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.8.1")]
+    [BepInPlugin("com.pein.fpvdronemod", "SPTFPVDroneMod", "0.9.0")]
     [BepInDependency("xyz.drakia.bigbrain")]
     public class Plugin : BaseUnityPlugin
     {

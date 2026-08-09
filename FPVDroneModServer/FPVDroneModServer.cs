@@ -3,6 +3,8 @@ using SPTarkov.Server.Core.DI;
 using System.Reflection;
 using FPVDroneModServer.Services;
 using SPTarkov.Common.Logger;
+using SPTarkov.Server.Core.Models.Common;
+using SPTarkov.Server.Core.Models.Spt.Config;
 using WTTServerCommonLib.Services;
 using Path = System.IO.Path;
 
@@ -19,7 +21,8 @@ namespace FPVDroneModServer
         WTTCustomItemServiceExtended itemService,
         WTTCustomSlotImageService imageService,
         WTTCustomLocaleService localeService,
-        WTTCustomItemParentService parentService) : IOnLoad
+        WTTCustomItemParentService parentService,
+        TraderConfig traderConfig) : IOnLoad
     {
         public string AssemblyLocation => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         public string ConfigPath => Path.Combine(AssemblyLocation, "config");
@@ -39,8 +42,10 @@ namespace FPVDroneModServer
             await assortService.CreateCustomAssortSchemes(assembly, "db/assort");
             //await recipeService.CreateHideoutRecipes(Assembly.GetExecutingAssembly(), "db/recipes");
             
-            logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
+            // set stack size of payloads for fence to prevent error
+            traderConfig.Fence.ItemStackSizeOverrideMinMax["69669ea64847b58fd5393f71"] = new MinMax<int>(1, 1);
             
+            logger.Success("Successfully loaded FPV Drone Mod! Don't blow yourself up.");
             await Task.CompletedTask;
         }
     }

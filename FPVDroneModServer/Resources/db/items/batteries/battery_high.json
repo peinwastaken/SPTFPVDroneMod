@@ -39,7 +39,7 @@
                         "loyalLevel": 3,
                         "unlimitedCount": true,
                         "stackObjectsCount": 9999999,
-                        "buyRestrictionMax": 1
+                        "buyRestrictionMax": 3
                     },
                     "barters": [
                         {
