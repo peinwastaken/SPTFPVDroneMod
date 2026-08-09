@@ -5,9 +5,9 @@
                 "_id": "69d22fa0fcecf0aa3af565d3",
                 "_tpl": "690e9265772bfce1d043966d",
                 "upd": {
-                    "unlimitedCount": true,
-                    "stackObjectsCount": 9999999,
-                    "buyRestrictionMax": 2
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 3
                 },
                 "parentId": "hideout",
                 "slotId": "hideout"
@@ -16,9 +16,9 @@
                 "_id": "69d235bac19739bf97f565d8",
                 "_tpl": "6967050ffbc7d14017c06bb7",
                 "upd": {
-                    "unlimitedCount": true,
-                    "stackObjectsCount": 9999999,
-                    "buyRestrictionMax": 2
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 3
                 },
                 "parentId": "hideout",
                 "slotId": "hideout"
@@ -27,9 +27,9 @@
                 "_id": "69d2344c09e76662ccf565d5",
                 "_tpl": "69ca5a1a614396c9669b5ce2",
                 "upd": {
-                    "unlimitedCount": true,
-                    "stackObjectsCount": 9999999,
-                    "buyRestrictionMax": 2
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 3
                 },
                 "parentId": "hideout",
                 "slotId": "hideout"
@@ -38,9 +38,9 @@
                 "_id": "69d2340fe11e9ea00ef565d4",
                 "_tpl": "68f5333abc75f09d96d97500",
                 "upd": {
-                    "unlimitedCount": true,
-                    "stackObjectsCount": 9999999,
-                    "buyRestrictionMax": 2
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 2
                 },
                 "parentId": "hideout",
                 "slotId": "hideout"
@@ -49,9 +49,9 @@
                 "_id": "69d234c94f0969f379f565d7",
                 "_tpl": "68f51bfb3e92385d1908db68",
                 "upd": {
-                    "unlimitedCount": true,
-                    "stackObjectsCount": 9999999,
-                    "buyRestrictionMax": 2
+                    "UnlimitedCount": true,
+                    "StackObjectsCount": 9999999,
+                    "BuyRestrictionMax": 2
                 },
                 "parentId": "hideout",
                 "slotId": "hideout"
