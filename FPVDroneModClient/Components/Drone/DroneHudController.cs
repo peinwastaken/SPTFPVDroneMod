@@ -20,7 +20,7 @@ namespace FPVDroneModClient.Components.Drone
         public TextMeshProUGUI SpeedText;
         public TextMeshProUGUI AltitudeText;
 
-        private void Start()
+        private void Awake()
         {
             _signalStateController = SignalImage.GetComponent<UIElementStateController>();
             _batteryStateController = BatteryImage.GetComponent<UIElementStateController>();
