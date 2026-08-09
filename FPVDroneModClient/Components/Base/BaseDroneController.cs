@@ -194,6 +194,9 @@ namespace FPVDroneModClient.Components.Base
                 
                 HudController.gameObject.SetActive(true);
                 hudCanvas.gameObject.layer = LayerMask.NameToLayer("UI");
+                
+                HudController.UpdateSignalStrength(SignalController.SignalStrength);
+                InstanceHelper.UpdateNoiseAmount(1f - Mathf.Pow(SignalController.SignalStrength, 3));
             }
             
             enabled = true;
